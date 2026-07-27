@@ -1,0 +1,35 @@
+# секреты — никогда в репозиторий
+.env
+*.env
+!.env.example
+
+# состояние пользователей и БД
+api/state.db
+api/state.db-wal
+api/state.db-shm
+api/backups/
+progress/
+sessions/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# node (только для локальных проверок; зависимостей у Mini App нет)
+node_modules/
+
+# редакторы и ОС
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# временные файлы
+*.log
+*.tmp
+scratchpad/

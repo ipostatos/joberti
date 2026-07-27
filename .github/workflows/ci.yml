@@ -1,0 +1,190 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# CI работает ТОЛЬКО с этим репозиторием. Ни один шаг не обращается к другим
+# проектам на машине разработчика.
+
+jobs:
+  python:
+    name: Python — контент, API, бот
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r api/requirements.txt
+
+      - name: Compile all modules
+        run: python -m compileall -q bot.py bot_i18n.py api tools tests
+
+      - name: Content validation
+        run: python tools/validate_content.py
+
+      - name: Content tests
+        run: python tests/test_content.py
+
+      - name: Duplicate detection
+        run: python tools/deduplicate_questions.py --strict
+
+      - name: Sync merge tests + JS/Python parity
+        run: python tests/test_sync.py
+
+      - name: API tests
+        run: python tests/test_api.py
+
+      - name: Bot tests
+        run: python tests/test_bot.py
+
+      - name: Security tests
+        run: python tests/test_security.py
+
+      - name: Load test (10 parallel users)
+        run: python tests/test_load.py
+
+      - name: Generated data is up to date with data/
+        run: |
+          python tools/build_webapp_data.py --check
+
+  javascript:
+    name: JavaScript — Mini App
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Проверки Mini App читают сгенерированные данные, поэтому убеждаемся,
+      # что они собраны из актуального источника.
+      - name: Build generated data
+        run: python tools/build_webapp_data.py
+
+      - name: Syntax check
+        run: |
+          for f in webapp/*.js; do node --check "$f"; done
+
+      - name: SRS core
+        run: node webapp/_srs_check.mjs
+
+      - name: Progress and streak
+        run: node webapp/_progress_check.mjs
+
+      - name: Readiness (weights, caps, reproducibility)
+        run: node webapp/_readiness_check.mjs
+
+      - name: Sync merge rules
+        run: node webapp/_sync_check.mjs
+
+      - name: Search
+        run: node webapp/_search_check.mjs
+
+      - name: Service worker asset completeness
+        run: node webapp/_sw_check.mjs
+
+      - name: Navigation and link integrity
+        run: node webapp/_nav_check.mjs
+
+  hygiene:
+    name: Гигиена репозитория
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Scan for leaked Telegram bot tokens
+        run: |
+          # Формат токена: <8-10 цифр>:<35 символов base64url>.
+          if grep -REn '\b[0-9]{8,10}:[A-Za-z0-9_-]{35}\b' \
+               --include='*.py' --include='*.js' --include='*.mjs' \
+               --include='*.json' --include='*.md' --include='*.html' \
+               --include='*.txt' --include='*.yml' --include='*.sh' . ; then
+            echo "::error::Похоже на токен Telegram в репозитории"
+            exit 1
+          fi
+          echo "OK: токенов не найдено"
+
+      - name: Ensure .env is not committed
+        run: |
+          if git ls-files --error-unmatch .env 2>/dev/null; then
+            echo "::error::.env закоммичен — он должен быть только в .gitignore"
+            exit 1
+          fi
+          echo "OK: .env не в репозитории"
+
+      - name: Ensure no database or user data committed
+        run: |
+          BAD=$(git ls-files | grep -E '\.(db|db-wal|db-shm)$|^progress/|^sessions/' || true)
+          if [ -n "$BAD" ]; then
+            echo "::error::В репозитории пользовательские данные или БД:"
+            echo "$BAD"
+            exit 1
+          fi
+          echo "OK: пользовательских данных нет"
+
+      - name: No large binary files
+        run: |
+          # Крупные бинарники в git раздувают историю необратимо.
+          BIG=$(git ls-files | while read -r f; do
+            size=$(stat -c%s "$f" 2>/dev/null || echo 0)
+            if [ "$size" -gt 1048576 ]; then echo "$f ($((size/1024)) KB)"; fi
+          done)
+          if [ -n "$BIG" ]; then
+            echo "::warning::Файлы больше 1 МБ:"
+            echo "$BIG"
+          fi
+          BIN=$(git ls-files | grep -E '\.(png|jpg|jpeg|gif|pdf|zip|mp3|mp4|docx|xlsx)$' || true)
+          if [ -n "$BIN" ]; then
+            echo "::error::Бинарные файлы в репозитории:"
+            echo "$BIN"
+            exit 1
+          fi
+          echo "OK: крупных бинарных файлов нет"
+
+      - name: No leftovers from the reference project
+        run: |
+          # Морская предметная область и старые ключи хранилища не должны
+          # встречаться нигде: их наличие означает недочищенный копипаст.
+          if grep -rEni 'żeglarz|zeglarz|sternik|colreg|\bissa\b|швартов|оверштаг' \
+               --include='*.py' --include='*.js' --include='*.mjs' \
+               --include='*.json' --include='*.html' --include='*.css' \
+               --exclude-dir=.git . ; then
+            echo "::error::Найден контент референсного проекта"
+            exit 1
+          fi
+          if grep -rEn 'issa_|marine_|pl_progress_' \
+               --include='*.py' --include='*.js' --include='*.html' \
+               --include='*.json' --exclude-dir=.git . ; then
+            echo "::error::Найдены старые ключи хранилища"
+            exit 1
+          fi
+          echo "OK: следов референсного проекта нет"
+
+      - name: Required documentation is present
+        run: |
+          for f in README.md ARCHITECTURE.md CONTENT_GUIDE.md PRIVACY.md \
+                   CHANGELOG.md LICENSE REFERENCE_ANALYSIS.md \
+                   deploy/DEPLOY.md deploy/DEPLOY_API.md .env.example; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Нет обязательного файла $f"
+              exit 1
+            fi
+          done
+          echo "OK: документация на месте"

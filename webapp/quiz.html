@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Практика · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .qhead{ display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3) }
+  .qhead .prog{ flex:1 }
+  .qhead .cnt{ font-size:var(--fs-sm); color:var(--hint); white-space:nowrap }
+  .qtext{ font-size:var(--fs-h2); font-weight:700; line-height:1.4; margin-bottom:var(--sp-4) }
+  .qtopic{ font-size:var(--fs-xs); color:var(--hint); text-transform:uppercase;
+    letter-spacing:.04em; margin-bottom:6px }
+  .srcline{ font-size:var(--fs-xs); color:var(--hint); margin-top:6px; line-height:1.5 }
+  .srcline a{ color:var(--link) }
+  .linkrow{ display:flex; gap:var(--sp-2); flex-wrap:wrap; margin-top:var(--sp-3) }
+  .res-num{ font-size:40px; font-weight:800; line-height:1 }
+</style>
+</head>
+<body>
+
+<!-- ── МЕНЮ РЕЖИМОВ ── -->
+<section id="menu">
+  <div class="hero">
+    <span class="ic-tile amber" data-icon="clipboard-list"></span>
+    <div class="body">
+      <h1>Практика</h1>
+      <div class="muted small" id="menuSub"></div>
+    </div>
+  </div>
+
+  <div class="card" id="dueCard"></div>
+
+  <div class="section-title">Режимы</div>
+  <button class="row-card" data-mode="quick">
+    <span class="ic-tile blue" data-icon="play"></span>
+    <span class="body"><span class="t">Быстрый тест</span><span class="d">10 вопросов вперемешку</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+  <button class="row-card" data-mode="training">
+    <span class="ic-tile green" data-icon="graduation-cap"></span>
+    <span class="body"><span class="t">Тренировка</span><span class="d">25 вопросов с разбором</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+  <button class="row-card" data-mode="exam">
+    <span class="ic-tile red" data-icon="shield-check"></span>
+    <span class="body"><span class="t">Финальный экзамен</span><span class="d">50 вопросов, разбор в конце</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+  <button class="row-card" data-mode="review">
+    <span class="ic-tile violet" data-icon="refresh-cw"></span>
+    <span class="body"><span class="t">Повторить сегодня</span><span class="d" id="reviewDesc">—</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+  <button class="row-card" data-mode="mistakes">
+    <span class="ic-tile amber" data-icon="alert-triangle"></span>
+    <span class="body"><span class="t">Работа над ошибками</span><span class="d" id="mistakesDesc">—</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+  <button class="row-card" data-mode="weak">
+    <span class="ic-tile cyan" data-icon="trending-up"></span>
+    <span class="body"><span class="t">Только слабые темы</span><span class="d" id="weakDesc">—</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+
+  <div class="section-title">По темам</div>
+  <div id="topicList"></div>
+</section>
+
+<!-- ── ВОПРОС ── -->
+<section id="play" class="hidden">
+  <div class="qhead">
+    <div class="prog"><div class="meter"><i id="progBar" style="width:0%"></i></div></div>
+    <div class="cnt" id="counter">0/0</div>
+  </div>
+  <div class="qtopic" id="qTopic"></div>
+  <div class="qtext" id="qText"></div>
+  <div id="options"></div>
+  <div id="afterAnswer" class="hidden">
+    <div class="explain">
+      <div class="h">Разбор</div>
+      <div id="explanation" class="small"></div>
+      <div class="srcline" id="sources"></div>
+      <div class="linkrow" id="links"></div>
+    </div>
+    <button class="btn" id="nextBtn">Дальше</button>
+  </div>
+</section>
+
+<!-- ── РЕЗУЛЬТАТ ── -->
+<section id="result" class="hidden">
+  <div class="hero">
+    <span class="ic-tile" id="resIcon" data-icon="check-circle"></span>
+    <div class="body">
+      <h1 id="resTitle">Готово</h1>
+      <div class="muted small" id="resSub"></div>
+    </div>
+  </div>
+  <div class="card" style="text-align:center">
+    <div class="res-num" id="resPct">0%</div>
+    <div class="muted small" id="resCount" style="margin-top:6px"></div>
+    <div class="meter" id="resMeter" style="margin-top:var(--sp-3)"><i style="width:0%"></i></div>
+  </div>
+  <div class="card" id="resTopics"></div>
+  <div id="resWrong"></div>
+  <div class="btn-row">
+    <button class="btn" id="againBtn">Ещё раз</button>
+    <button class="btn ghost" id="toMenuBtn">К режимам</button>
+  </div>
+  <a class="btn ghost" href="index.html" style="margin-top:var(--sp-2)">На главную</a>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var MODE_SIZES = { quick: 10, training: 25, exam: 50, review: 20, mistakes: 20, weak: 20, topic: 15 };
+  var all = App.questions();
+  var session = null;
+
+  var elMenu = document.getElementById("menu");
+  var elPlay = document.getElementById("play");
+  var elResult = document.getElementById("result");
+
+  // ── меню ──
+  function renderMenu() {
+    document.getElementById("menuSub").textContent =
+      all.length + " вопросов · варианты перемешиваются · разбор после ответа";
+
+    var due = App.reviewDue();
+    var mistakes = App.mistakeIds();
+    document.getElementById("reviewDesc").textContent =
+      due ? due + " " + App.plural(due, "вопрос", "вопроса", "вопросов") + " ждут повтора"
+          : "На сегодня всё повторено";
+    document.getElementById("mistakesDesc").textContent =
+      mistakes.length ? mistakes.length + " " +
+        App.plural(mistakes.length, "вопрос", "вопроса", "вопросов") + " с ошибкой"
+        : "Ошибок нет";
+
+    var r = App.readiness();
+    var weak = weakTopics(r);
+    document.getElementById("weakDesc").textContent =
+      weak.length ? weak.map(function (t) { return t.title; }).slice(0, 2).join(", ") +
+        (weak.length > 2 ? " и ещё " + (weak.length - 2) : "")
+        : "Слабых тем нет";
+
+    var dueCard = document.getElementById("dueCard");
+    if (r.available) {
+      dueCard.innerHTML = '<div class="kv"><span class="k">Готовность по знаниям</span>' +
+        '<span class="v">' + Math.round(r.blocks[0].score * 100) + "%</span></div>" +
+        '<div class="kv"><span class="k">Изучено вопросов</span><span class="v">' +
+        r.blocks[0].detail.answered + " из " + r.blocks[0].detail.total + "</span></div>" +
+        '<div class="kv"><span class="k">К повтору сегодня</span><span class="v">' + due + "</span></div>";
+    } else {
+      dueCard.classList.add("hidden");
+    }
+
+    var byTopic = {};
+    all.forEach(function (q) { byTopic[q.topic] = (byTopic[q.topic] || 0) + 1; });
+    var map = SRS.stateMap();
+    document.getElementById("topicList").innerHTML = App.topics()
+      .filter(function (t) { return byTopic[t.id]; })
+      .map(function (t) {
+        var ids = App.questionsOfTopic(t.id).map(function (q) { return App.qid(q.id); });
+        var pct = Math.round(SRS.mastery(ids, map) * 100);
+        return '<button class="row-card" data-topic="' + App.esc(t.id) + '">' +
+          '<span class="body"><span class="t">' + App.esc(t.title) + "</span>" +
+          '<span class="d">' + byTopic[t.id] + " вопросов · освоено " + pct + "%</span>" +
+          '<span class="meter" style="margin-top:6px"><i style="width:' + pct + '%"></i></span>' +
+          "</span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+      }).join("");
+    Icons.hydrate();
+  }
+
+  function weakTopics(r) {
+    if (!r.available) return [];
+    return (r.topics || []).filter(function (t) {
+      return t.questions > 0 && t.mastery != null && t.mastery < 0.6;
+    });
+  }
+
+  // ── подбор вопросов ──
+  function pick(mode, topicId) {
+    var size = MODE_SIZES[mode] || 10;
+    var pool;
+
+    if (mode === "topic") {
+      pool = App.questionsOfTopic(topicId);
+    } else if (mode === "review") {
+      var dueIds = SRS.pickDue(all.map(function (q) { return App.qid(q.id); }), 0);
+      var order = {};
+      dueIds.forEach(function (id, i) { order[id] = i; });
+      pool = all.filter(function (q) { return order[App.qid(q.id)] !== undefined; })
+        .sort(function (a, b) { return order[App.qid(a.id)] - order[App.qid(b.id)]; });
+      return pool.slice(0, size);
+    } else if (mode === "mistakes") {
+      var ids = App.mistakeIds();
+      pool = all.filter(function (q) { return ids.indexOf(q.id) !== -1; });
+    } else if (mode === "weak") {
+      var weak = weakTopics(App.readiness()).map(function (t) { return t.id; });
+      pool = all.filter(function (q) { return weak.indexOf(q.topic) !== -1; });
+      if (!pool.length) pool = all.slice();
+    } else {
+      pool = all.slice();
+    }
+
+    // Перемешиваем по времени старта: каждая сессия своя, но внутри сессии
+    // порядок стабилен.
+    return App.shuffle(pool, Date.now() % 100000).slice(0, size);
+  }
+
+  function start(mode, topicId) {
+    var list = pick(mode, topicId);
+    if (!list.length) {
+      toast("Для этого режима пока нет вопросов");
+      return;
+    }
+    session = {
+      mode: mode,
+      topicId: topicId || null,
+      list: list,
+      i: 0,
+      answers: [],
+      startedAt: Date.now(),
+      // Экзамен показывает разбор только в конце — так проверка ближе к реальной.
+      instantFeedback: mode !== "exam",
+    };
+    if (window.setBusy) setBusy(true);
+    elMenu.classList.add("hidden");
+    elResult.classList.add("hidden");
+    elPlay.classList.remove("hidden");
+    renderQuestion();
+  }
+
+  // ── вопрос ──
+  function renderQuestion() {
+    var q = session.list[session.i];
+    document.getElementById("counter").textContent = (session.i + 1) + "/" + session.list.length;
+    document.getElementById("progBar").style.width =
+      Math.round(session.i / session.list.length * 100) + "%";
+    document.getElementById("qTopic").textContent = App.topicTitle(q.topic);
+    document.getElementById("qText").textContent = q.question;
+    document.getElementById("afterAnswer").classList.add("hidden");
+
+    // Перемешиваем варианты детерминированно по id вопроса: при возврате к
+    // тому же вопросу порядок не прыгает, но заучить позицию нельзя.
+    var idxs = App.shuffle([0, 1, 2, 3].slice(0, q.options.length), App.hashCode(q.id));
+    session.currentOrder = idxs;
+
+    document.getElementById("options").innerHTML = idxs.map(function (orig, pos) {
+      return '<button class="opt" data-pos="' + pos + '" data-orig="' + orig + '">' +
+        App.esc(q.options[orig]) + "</button>";
+    }).join("");
+  }
+
+  document.getElementById("options").addEventListener("click", function (e) {
+    var b = e.target.closest(".opt");
+    if (!b || b.disabled) return;
+    answer(parseInt(b.getAttribute("data-orig"), 10));
+  });
+
+  function answer(origIndex) {
+    var q = session.list[session.i];
+    var correct = origIndex === q.answer;
+    session.answers.push({ id: q.id, topic: q.topic, correct: correct, chosen: origIndex });
+
+    var opts = document.querySelectorAll("#options .opt");
+    Array.prototype.forEach.call(opts, function (el) {
+      var orig = parseInt(el.getAttribute("data-orig"), 10);
+      el.disabled = true;
+      if (session.instantFeedback) {
+        if (orig === q.answer) el.classList.add("correct");
+        else if (orig === origIndex) el.classList.add("wrong");
+        else el.classList.add("dim");
+        // Разбор каждого варианта: почему он верен или неверен.
+        if (q.why && q.why[orig]) {
+          var w = document.createElement("span");
+          w.className = "why";
+          w.textContent = q.why[orig];
+          el.appendChild(w);
+        }
+      }
+    });
+
+    if (window.haptic) haptic(correct ? "success" : "error");
+
+    if (session.instantFeedback) {
+      showExplanation(q);
+      document.getElementById("afterAnswer").classList.remove("hidden");
+    } else {
+      setTimeout(next, 120);
+    }
+  }
+
+  function showExplanation(q) {
+    document.getElementById("explanation").textContent = q.explanation;
+
+    var srcs = (q.source_refs || []).map(function (id) {
+      var s = App.sourceById(id);
+      if (!s) return "";
+      return '<a href="' + App.esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+        App.esc(s.title) + "</a> · " + App.esc(s.publisher);
+    }).filter(Boolean);
+    document.getElementById("sources").innerHTML =
+      srcs.length ? "Источник: " + srcs.join("<br>") : "";
+
+    var links = [];
+    (q.related_lesson_ids || []).forEach(function (lid) {
+      var l = App.byId(CONTENT.lessons, lid);
+      if (l) links.push('<a class="chip" href="lesson.html?id=' + encodeURIComponent(lid) +
+        '">Где изучить: ' + App.esc(l.title) + "</a>");
+    });
+    (q.related_term_ids || []).forEach(function (tid) {
+      var t = App.byId(CONTENT.glossary, tid);
+      if (t) links.push('<a class="chip" href="glossary.html?id=' + encodeURIComponent(tid) +
+        '">' + App.esc(t.term) + "</a>");
+    });
+    document.getElementById("links").innerHTML = links.join("");
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", next);
+
+  function next() {
+    session.i++;
+    if (session.i >= session.list.length) finish();
+    else renderQuestion();
+  }
+
+  // ── результат ──
+  function finish() {
+    if (window.setBusy) setBusy(false);
+
+    var correct = session.answers.filter(function (a) { return a.correct; }).length;
+    var total = session.answers.length;
+    var pct = total ? Math.round(correct / total * 100) : 0;
+    var secs = Math.round((Date.now() - session.startedAt) / 1000);
+
+    // Записываем результат: SRS, дневной счётчик, лучший результат по теме.
+    App.recordQuizAnswers(session.answers);
+
+    var byTopic = {};
+    session.answers.forEach(function (a) {
+      var t = byTopic[a.topic] = byTopic[a.topic] || { n: 0, ok: 0 };
+      t.n++; if (a.correct) t.ok++;
+    });
+    Object.keys(byTopic).forEach(function (t) {
+      // Лучший результат по теме обновляем только когда тема представлена
+      // осмысленным числом вопросов: 2 из 2 не должны закрывать шаг плана.
+      if (byTopic[t].n >= 5) {
+        App.recordQuizResult(t, Math.round(byTopic[t].ok / byTopic[t].n * 100));
+      }
+    });
+    if (session.mode === "topic" && session.topicId) {
+      App.recordQuizResult(session.topicId, pct);
+    }
+
+    var weak = Object.keys(byTopic).filter(function (t) {
+      return byTopic[t].ok / byTopic[t].n < 0.6;
+    });
+
+    Progress.addAttempt({
+      kind: "quiz",
+      mode: session.mode + (session.topicId ? ":" + session.topicId : ""),
+      total: total, correct: correct, pct: pct, secs: secs, weakTopics: weak,
+    });
+    if (window.Sync) { Sync.push(); Sync.pushHistory(); }
+
+    if (total >= 25 && correct === total) Progress.setFlag("flawless", true);
+
+    elPlay.classList.add("hidden");
+    elResult.classList.remove("hidden");
+
+    var good = pct >= 80, ok = pct >= 60;
+    document.getElementById("resIcon").className =
+      "ic-tile " + (good ? "green" : ok ? "amber" : "red");
+    document.getElementById("resIcon").setAttribute("data-icon",
+      good ? "check-circle" : ok ? "info" : "alert-triangle");
+    document.getElementById("resIcon").removeAttribute("data-icon-done");
+    document.getElementById("resTitle").textContent =
+      good ? "Отличный результат" : ok ? "Неплохо" : "Есть над чем поработать";
+    document.getElementById("resSub").textContent =
+      modeTitle(session.mode, session.topicId) + " · " + Math.floor(secs / 60) + " мин " + (secs % 60) + " с";
+    document.getElementById("resPct").textContent = pct + "%";
+    document.getElementById("resCount").textContent =
+      correct + " из " + total + " верно";
+    var meter = document.getElementById("resMeter");
+    meter.className = "meter " + (good ? "ok" : ok ? "warn" : "bad");
+    meter.firstElementChild.style.width = pct + "%";
+
+    document.getElementById("resTopics").innerHTML =
+      '<div class="h3">По темам</div>' +
+      Object.keys(byTopic).sort(function (a, b) {
+        return byTopic[a].ok / byTopic[a].n - byTopic[b].ok / byTopic[b].n;
+      }).map(function (t) {
+        var d = byTopic[t], p = Math.round(d.ok / d.n * 100);
+        return '<div class="kv"><span class="k">' + App.esc(App.topicTitle(t)) + "</span>" +
+          '<span class="v">' + d.ok + "/" + d.n + " · " + p + "%</span></div>";
+      }).join("");
+
+    var wrong = session.answers.filter(function (a) { return !a.correct; });
+    document.getElementById("resWrong").innerHTML = wrong.length
+      ? '<div class="section-title">Разбор ошибок</div>' + wrong.map(function (a) {
+          var q = App.byId(all, a.id);
+          if (!q) return "";
+          return '<div class="card"><div class="small" style="font-weight:700; margin-bottom:6px">' +
+            App.esc(q.question) + "</div>" +
+            '<div class="small" style="color:var(--bad)">Ваш ответ: ' +
+            App.esc(q.options[a.chosen]) + "</div>" +
+            '<div class="small" style="color:var(--ok)">Верно: ' +
+            App.esc(q.options[q.answer]) + "</div>" +
+            '<div class="small muted" style="margin-top:6px">' + App.esc(q.explanation) + "</div>" +
+            ((q.related_lesson_ids || []).length
+              ? '<div class="linkrow"><a class="chip" href="lesson.html?id=' +
+                encodeURIComponent(q.related_lesson_ids[0]) + '">Где изучить</a></div>' : "") +
+            "</div>";
+        }).join("")
+      : "";
+
+    Icons.hydrate();
+    window.scrollTo(0, 0);
+  }
+
+  function modeTitle(mode, topicId) {
+    if (mode === "topic") return "Тема: " + App.topicTitle(topicId);
+    return { quick: "Быстрый тест", training: "Тренировка", exam: "Финальный экзамен",
+      review: "Повторение", mistakes: "Работа над ошибками", weak: "Слабые темы" }[mode] || mode;
+  }
+
+  // ── события меню ──
+  elMenu.addEventListener("click", function (e) {
+    var m = e.target.closest("[data-mode]");
+    if (m) { start(m.getAttribute("data-mode")); return; }
+    var t = e.target.closest("[data-topic]");
+    if (t) start("topic", t.getAttribute("data-topic"));
+  });
+
+  document.getElementById("againBtn").addEventListener("click", function () {
+    start(session.mode, session.topicId);
+  });
+  document.getElementById("toMenuBtn").addEventListener("click", backToMenu);
+
+  function backToMenu() {
+    session = null;
+    if (window.setBusy) setBusy(false);
+    elPlay.classList.add("hidden");
+    elResult.classList.add("hidden");
+    elMenu.classList.remove("hidden");
+    renderMenu();
+    window.scrollTo(0, 0);
+  }
+
+  // «Назад» во время теста возвращает в меню режимов, а не закрывает Mini App.
+  window.__navBack = function () {
+    if (session) { backToMenu(); return true; }
+    return false;
+  };
+
+  // ── запуск по параметрам URL ──
+  renderMenu();
+  var mode = App.param("mode");
+  var topic = App.param("topic");
+  if (topic) start("topic", topic);
+  else if (mode) start(mode);
+})();
+</script>
+</body>
+</html>

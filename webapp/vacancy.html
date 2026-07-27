@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Вакансия · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .req{ background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2) }
+  .req .top{ display:flex; align-items:flex-start; gap:var(--sp-3) }
+  .req .body{ flex:1; min-width:0 }
+  .req .t{ font-weight:700; font-size:var(--fs-body); line-height:1.35 }
+  .req .imp{ font-size:var(--fs-xs); color:var(--hint); margin-top:3px }
+  .req .line{ font-size:var(--fs-sm); margin-top:var(--sp-2); line-height:1.5 }
+  .req .line b{ color:var(--hint); font-weight:600 }
+  .status-row{ display:flex; gap:5px; flex-wrap:wrap; margin-top:var(--sp-3) }
+  .status-row button{ font:inherit; font-size:var(--fs-xs); font-weight:700;
+    padding:5px 10px; border-radius:var(--r-pill); border:1px solid var(--border);
+    background:var(--muted-fill); color:var(--hint); cursor:pointer }
+  .status-row button.on{ border-color:transparent }
+  .status-row button.on[data-s="confirmed"]{ color:var(--ok); background:color-mix(in srgb,var(--ok) 18%,transparent) }
+  .status-row button.on[data-s="partial"]{ color:var(--warn); background:color-mix(in srgb,var(--warn) 18%,transparent) }
+  .status-row button.on[data-s="learning"]{ color:var(--info); background:color-mix(in srgb,var(--info) 18%,transparent) }
+  .status-row button.on[data-s="not_started"], .status-row button.on[data-s="not_applicable"]{
+    color:var(--text); background:var(--muted-fill) }
+  .tag{ font-size:var(--fs-sm) }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var v = App.vacancy();
+  var root = document.getElementById("root");
+
+  if (!v) {
+    root.innerHTML = '<div class="state">Для выбранного трека вакансия не описана</div>' +
+      '<a class="btn ghost" href="index.html">На главную</a>';
+    Icons.hydrate();
+    return;
+  }
+
+  var STATUS_LABEL = {
+    confirmed: "подтверждено",
+    partial: "частично",
+    learning: "учу",
+    not_started: "не начато",
+    not_applicable: "не применимо",
+  };
+  var IMPORTANCE_LABEL = {
+    required: "обязательное",
+    desirable: "желательное",
+    nice_to_have: "будет плюсом",
+  };
+  var ORDER = { required: 0, desirable: 1, nice_to_have: 2 };
+
+  var filter = "all";
+
+  function render() {
+    var reqs = (v.requirements || []).slice().sort(function (a, b) {
+      return ORDER[a.importance] - ORDER[b.importance];
+    });
+
+    var stats = { confirmed: 0, partial: 0, learning: 0, not_started: 0, not_applicable: 0 };
+    reqs.forEach(function (r) { stats[App.requirementState(r).status]++; });
+
+    var required = reqs.filter(function (r) { return r.importance === "required"; });
+    var closedReq = required.filter(function (r) {
+      var s = App.requirementState(r).status;
+      return s === "confirmed" || s === "partial";
+    }).length;
+
+    var parts = [];
+
+    parts.push('<div class="hero">' +
+      '<span class="ic-tile red" data-icon="target"></span>' +
+      '<div class="body"><h1>' + App.esc(v.title) + "</h1>" +
+      '<div class="muted small">' + App.esc(v.company) + " · " + App.esc(v.level) +
+      " · " + App.esc(v.work_format) + "</div></div></div>");
+
+    parts.push('<div class="card"><p class="small" style="line-height:1.65">' +
+      App.esc(v.summary) + "</p></div>");
+
+    parts.push('<div class="card">' +
+      '<div class="h3">Разрыв по обязательным требованиям</div>' +
+      '<div class="meter ' + (closedReq === required.length ? "ok" : "warn") + '">' +
+      '<i style="width:' + Math.round(closedReq / Math.max(1, required.length) * 100) + '%"></i></div>' +
+      '<div class="small muted" style="margin-top:6px">' + closedReq + " из " +
+      required.length + " закрыто</div>" +
+      '<div class="stats" style="margin-top:var(--sp-3)">' +
+      '<div><div class="k">Подтверждено</div><div class="v" style="color:var(--ok)">' +
+      stats.confirmed + "</div></div>" +
+      '<div><div class="k">Частично</div><div class="v" style="color:var(--warn)">' +
+      stats.partial + "</div></div>" +
+      '<div><div class="k">Не начато</div><div class="v">' + stats.not_started + "</div></div>" +
+      "</div></div>");
+
+    parts.push('<div class="card"><div class="h3">Основные задачи</div>' +
+      '<ul class="points">' + (v.main_tasks || []).map(function (t) {
+        return '<li><span class="b"></span><span>' + App.esc(t) + "</span></li>";
+      }).join("") + "</ul></div>");
+
+    parts.push('<div class="card"><div class="h3">Инструменты</div>' +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+      (v.tools || []).map(function (t) {
+        return '<span class="chip">' + App.esc(t) + "</span>";
+      }).join("") + "</div></div>");
+
+    parts.push('<div class="card"><div class="h3">Темы интервью</div>' +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+      (v.interview_topics || []).map(function (t) {
+        return '<a class="chip" href="quiz.html?topic=' + encodeURIComponent(t) + '">' +
+          App.esc(App.topicTitle(t)) + "</a>";
+      }).join("") + "</div></div>");
+
+    parts.push('<div class="section-title">Требования и мой статус</div>');
+    parts.push('<p class="small muted" style="margin-bottom:var(--sp-3)">' +
+      "Статус и доказательство из портфолио заполняете вы. Приложение не " +
+      "проставляет их само и не придумывает за вас достижения.</p>");
+
+    parts.push('<div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">' +
+      ['<button class="chip' + (filter === "all" ? " on" : "") + '" data-f="all">Все</button>',
+       '<button class="chip' + (filter === "required" ? " on" : "") + '" data-f="required">Обязательные</button>',
+       '<button class="chip' + (filter === "open" ? " on" : "") + '" data-f="open">Не закрытые</button>',
+      ].join("") + "</div>");
+
+    var shown = reqs.filter(function (r) {
+      var s = App.requirementState(r).status;
+      if (filter === "required") return r.importance === "required";
+      if (filter === "open") return s !== "confirmed" && s !== "not_applicable";
+      return true;
+    });
+
+    parts.push('<div id="reqList">' + shown.map(function (r) {
+      var st = App.requirementState(r);
+      return '<div class="req" data-req="' + App.esc(r.id) + '">' +
+        '<div class="top">' +
+        '<span class="st st-' + App.esc(st.status) + '">' +
+        App.esc(STATUS_LABEL[st.status]) + "</span>" +
+        '<div class="body"><div class="t">' + App.esc(r.requirement) + "</div>" +
+        '<div class="imp">' + App.esc(IMPORTANCE_LABEL[r.importance]) +
+        ((r.topic_ids || []).length ? " · " + r.topic_ids.map(App.topicTitle).join(", ") : "") +
+        "</div></div></div>" +
+
+        (st.evidence
+          ? '<div class="line"><b>Доказательство:</b> ' + App.esc(st.evidence) + "</div>"
+          : '<div class="line muted"><b>Что засчитается:</b> ' + App.esc(r.evidence_hint || "—") + "</div>") +
+
+        (st.gap ? '<div class="line"><b>Пробел:</b> ' + App.esc(st.gap) + "</div>" : "") +
+        '<div class="line"><b>Следующий шаг:</b> ' + App.esc(r.next_action || "—") + "</div>" +
+
+        '<div class="status-row">' +
+        ["confirmed", "partial", "learning", "not_started", "not_applicable"].map(function (s) {
+          return '<button class="' + (st.status === s ? "on" : "") + '" data-s="' + s +
+            '" data-for="' + App.esc(r.id) + '">' + App.esc(STATUS_LABEL[s]) + "</button>";
+        }).join("") + "</div>" +
+
+        '<div class="btn-row" style="margin-top:var(--sp-2)">' +
+        '<button class="btn sm ghost" data-edit="' + App.esc(r.id) + '">' +
+        (st.evidence || st.gap ? "Изменить заметки" : "Добавить доказательство") + "</button></div>" +
+        "</div>";
+    }).join("") + "</div>");
+
+    root.innerHTML = parts.join("");
+    Icons.hydrate();
+    bind();
+  }
+
+  function bind() {
+    var f = document.getElementById("filters");
+    if (f) {
+      f.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-f]");
+        if (!b) return;
+        filter = b.getAttribute("data-f");
+        render();
+      });
+    }
+
+    var list = document.getElementById("reqList");
+    list.addEventListener("click", function (e) {
+      var sb = e.target.closest("[data-s]");
+      if (sb) {
+        var id = sb.getAttribute("data-for");
+        var status = sb.getAttribute("data-s");
+        var cur = App.requirementState({ id: id });
+        // Статус «подтверждено» без доказательства — это выдуманное достижение.
+        // Просим сначала описать, чем именно оно подтверждается.
+        if ((status === "confirmed" || status === "partial") && !(cur.evidence || "").trim()) {
+          App.saveRequirement(id, { status: status });
+          render();
+          openEditor(id, true);
+          toast("Опишите, чем это подтверждается");
+          return;
+        }
+        App.saveRequirement(id, { status: status });
+        if (window.haptic) haptic("select");
+        render();
+        return;
+      }
+      var eb = e.target.closest("[data-edit]");
+      if (eb) openEditor(eb.getAttribute("data-edit"), false);
+    });
+  }
+
+  function openEditor(id, focusEvidence) {
+    var card = document.querySelector('.req[data-req="' + CSS.escape(id) + '"]');
+    if (!card || card.querySelector(".editor")) return;
+    var st = App.requirementState({ id: id });
+
+    var box = document.createElement("div");
+    box.className = "editor";
+    box.style.marginTop = "var(--sp-3)";
+    box.innerHTML =
+      '<label class="field"><span class="lb">Доказательство из вашего опыта</span>' +
+      '<textarea data-k="evidence" placeholder="Что именно вы делали и где это можно показать"></textarea></label>' +
+      '<label class="field"><span class="lb">Чего не хватает</span>' +
+      '<textarea data-k="gap" placeholder="Что нужно доделать, чтобы закрыть требование"></textarea></label>' +
+      '<div class="btn-row"><button class="btn sm ghost" data-cancel="1">Отмена</button>' +
+      '<button class="btn sm" data-save="1">Сохранить</button></div>';
+    card.appendChild(box);
+
+    var ev = box.querySelector('[data-k="evidence"]');
+    var gp = box.querySelector('[data-k="gap"]');
+    ev.value = st.evidence || "";
+    gp.value = st.gap || "";
+    (focusEvidence ? ev : ev).focus();
+
+    box.addEventListener("click", function (e) {
+      if (e.target.getAttribute("data-cancel")) { box.remove(); return; }
+      if (e.target.getAttribute("data-save")) {
+        App.saveRequirement(id, { evidence: ev.value, gap: gp.value });
+        toast("Сохранено");
+        render();
+      }
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

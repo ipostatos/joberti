@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Поиск · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="search.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .hit .kind{ font-size:var(--fs-xs); color:var(--hint) }
+  .group-title{ font-size:var(--fs-xs); font-weight:700; color:var(--hint);
+    text-transform:uppercase; letter-spacing:.05em; margin:var(--sp-4) 0 var(--sp-2) }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="ic-tile slate" data-icon="search"></span>
+  <div class="body">
+    <h1>Поиск</h1>
+    <div class="muted small" id="sub"></div>
+  </div>
+</div>
+
+<div class="search-box">
+  <span class="emi plain" data-icon="search"></span>
+  <input type="text" id="q" placeholder="Термин, урок, вопрос или кейс" autocomplete="off" autofocus>
+  <button id="clear" class="hidden"><span class="emi plain" data-icon="x"></span></button>
+</div>
+
+<div class="chip-row" id="typeFilters" style="margin-bottom:var(--sp-3)">
+  <button class="chip on" data-t="">Везде</button>
+  <button class="chip" data-t="lesson">Уроки</button>
+  <button class="chip" data-t="term">Термины</button>
+  <button class="chip" data-t="library">Материалы</button>
+  <button class="chip" data-t="question">Вопросы</button>
+  <button class="chip" data-t="mock">Mock</button>
+  <button class="chip" data-t="case">Кейсы</button>
+  <button class="chip" data-t="step">План</button>
+</div>
+
+<div id="results"></div>
+
+<a class="btn ghost" href="index.html" style="margin-top:var(--sp-4)">На главную</a>
+
+<script>
+(function () {
+  "use strict";
+
+  var index = Search.buildIndex(CONTENT, App.trackId());
+  var typeFilter = null;
+  var input = document.getElementById("q");
+  var clear = document.getElementById("clear");
+  var results = document.getElementById("results");
+
+  document.getElementById("sub").textContent =
+    "Ищет по " + index.length + " записям: русское название, английский термин, синонимы";
+
+  function emptyState() {
+    // Пустой экран поиска — плохое место: подсказываем частые входы.
+    var suggestions = ["canonical", "robots", "301", "интент", "GSC", "LCP", "hreflang"];
+    results.innerHTML = '<div class="card"><div class="h3">Попробуйте</div>' +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+      suggestions.map(function (s) {
+        return '<button class="chip" data-sug="' + App.esc(s) + '">' + App.esc(s) + "</button>";
+      }).join("") + "</div></div>";
+  }
+
+  function render() {
+    var q = input.value.trim();
+    clear.classList.toggle("hidden", !q);
+    if (q.length < 2) { emptyState(); return; }
+
+    var hits = Search.query(index, q, {
+      types: typeFilter ? [typeFilter] : null,
+      limit: 60,
+    });
+
+    if (!hits.length) {
+      results.innerHTML = '<div class="state">Ничего не найдено по запросу «' +
+        App.esc(q) + "»</div>";
+      return;
+    }
+
+    // Группируем по типу: так проще найти нужное среди 60 совпадений.
+    var byType = {};
+    hits.forEach(function (h) { (byType[h.entry.type] = byType[h.entry.type] || []).push(h); });
+
+    var order = ["term", "lesson", "case", "mock", "question", "library", "step"];
+    results.innerHTML = order.filter(function (t) { return byType[t]; }).map(function (t) {
+      var meta = Search.TYPE_META[t];
+      return '<div class="group-title">' + App.esc(meta.title) +
+        " · " + byType[t].length + "</div>" +
+        byType[t].map(function (h) {
+          var e = h.entry;
+          return '<a class="row-card hit" href="' + Search.hrefFor(e) + '">' +
+            '<span class="ic-tile slate" data-icon="' + meta.icon + '"></span>' +
+            '<span class="body"><span class="t">' + App.esc(e.title) + "</span>" +
+            (e.subtitle ? '<span class="d">' + App.esc(e.subtitle) + "</span>" : "") +
+            (e.topicId ? '<span class="kind">' + App.esc(App.topicTitle(e.topicId)) + "</span>" : "") +
+            "</span>" +
+            '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+        }).join("");
+    }).join("");
+    Icons.hydrate();
+  }
+
+  input.addEventListener("input", render);
+  clear.addEventListener("click", function () {
+    input.value = ""; render(); input.focus();
+  });
+
+  document.getElementById("typeFilters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-t]");
+    if (!b) return;
+    typeFilter = b.getAttribute("data-t") || null;
+    Array.prototype.forEach.call(this.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    render();
+  });
+
+  results.addEventListener("click", function (e) {
+    var s = e.target.closest("[data-sug]");
+    if (s) { input.value = s.getAttribute("data-sug"); render(); }
+  });
+
+  var initial = App.param("q");
+  if (initial) input.value = initial;
+  render();
+  Icons.hydrate();
+})();
+</script>
+</body>
+</html>

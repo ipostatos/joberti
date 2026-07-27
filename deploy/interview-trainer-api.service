@@ -1,0 +1,37 @@
+[Unit]
+Description=Interview Trainer Sync API (FastAPI/uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=interview
+Group=interview
+WorkingDirectory=/opt/interview-trainer/api
+# .env общий с ботом: токен один и тот же, им проверяется подпись initData.
+EnvironmentFile=/opt/interview-trainer/.env
+# Слушаем только localhost — наружу отдаёт reverse-proxy на пути /api/*.
+ExecStart=/opt/interview-trainer/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 4200
+
+Restart=on-failure
+RestartSec=3
+
+# ── песочница ──
+# Пишем только в каталог api: там state.db, файлы WAL и бэкапы.
+ProtectSystem=strict
+ReadWritePaths=/opt/interview-trainer/api
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target

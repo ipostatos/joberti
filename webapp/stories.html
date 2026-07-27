@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Мои истории · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .filled{ color:var(--ok) }
+</style>
+</head>
+<body>
+
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile violet" data-icon="file-text"></span>
+    <div class="body">
+      <h1>Мои истории</h1>
+      <div class="muted small" id="sub"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="h3">Схема STAR</div>
+    <p class="small muted" style="line-height:1.6">
+      Situation — контекст. Task — что требовалось от вас. Action — что сделали
+      именно вы. Result — что получилось. Reflection — что сделали бы иначе.
+      Приложение не заполняет истории за вас: это ваш опыт, и выдумывать его нельзя.
+    </p>
+  </div>
+
+  <div id="items"></div>
+</section>
+
+<section id="editor" class="hidden"></section>
+
+<script>
+(function () {
+  "use strict";
+
+  var templates = CONTENT.stories;
+  var fields = (CONTENT.storyFramework.fields || []);
+  var openId = null;
+
+  var elList = document.getElementById("list");
+  var elEditor = document.getElementById("editor");
+
+  function stateOf(id) { return (Progress.profile().stories || {})[id] || {}; }
+
+  function isFilled(s) {
+    return !!((s.situation || "").trim() && (s.action || "").trim() && (s.result || "").trim());
+  }
+
+  function renderList() {
+    var filled = App.storyFilledCount();
+    document.getElementById("sub").textContent =
+      filled + " из " + templates.length + " историй готово";
+
+    document.getElementById("items").innerHTML = templates.map(function (t) {
+      var s = stateOf(t.id);
+      var ok = isFilled(s);
+      var partial = !ok && Object.keys(s).some(function (k) {
+        return k !== "updatedAt" && (s[k] || "").trim();
+      });
+      return '<button class="row-card" data-story="' + App.esc(t.id) + '">' +
+        '<span class="ic-tile ' + (ok ? "green" : partial ? "amber" : "slate") +
+        '" data-icon="' + (ok ? "check-circle" : "file-text") + '"></span>' +
+        '<span class="body"><span class="t">' + App.esc(t.title) + "</span>" +
+        '<span class="d">' + App.esc(t.prompt) + "</span>" +
+        '<span class="d" style="margin-top:3px">' +
+        (ok ? '<span class="filled">готова</span>' : partial ? "черновик" : "не заполнена") +
+        "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+    }).join("");
+    Icons.hydrate();
+  }
+
+  function open(id) {
+    var t = App.byId(templates, id);
+    if (!t) return;
+    openId = id;
+    var s = stateOf(id);
+
+    var parts = [];
+    parts.push('<div class="hero">' +
+      '<span class="ic-tile violet" data-icon="file-text"></span>' +
+      '<div class="body"><h1>' + App.esc(t.title) + "</h1>" +
+      '<div class="muted small">' + App.esc(t.prompt) + "</div></div></div>");
+
+    if ((t.for_questions || []).length) {
+      parts.push('<div class="card"><div class="h3">Где пригодится</div>' +
+        (t.for_questions || []).map(function (qid) {
+          var q = App.byId(CONTENT.mockQuestions, qid);
+          return q ? '<a class="row-card" href="mock.html?id=' + encodeURIComponent(qid) + '">' +
+            '<span class="body"><span class="t">' + App.esc(q.question) + "</span>" +
+            '<span class="d">Открыть в mock interview</span></span>' +
+            '<span class="chev emi plain" data-icon="chevron-right"></span></a>' : "";
+        }).join("") + "</div>");
+    }
+
+    parts.push('<div class="card"><div class="h3">Проверьте себя</div>' +
+      '<ul class="points">' + (t.checklist || []).map(function (c) {
+        return '<li><span class="b"></span><span>' + App.esc(c) + "</span></li>";
+      }).join("") + "</ul></div>");
+
+    parts.push('<div class="card">' + fields.map(function (f) {
+      return '<label class="field"><span class="lb">' + App.esc(f.title) +
+        " — " + App.esc(f.hint) + "</span>" +
+        '<textarea data-k="' + App.esc(f.key) + '"></textarea></label>';
+    }).join("") + "</div>");
+
+    parts.push('<div class="btn-row">' +
+      '<button class="btn ghost" id="cancelBtn">Назад</button>' +
+      '<button class="btn" id="saveBtn">Сохранить</button></div>');
+
+    elEditor.innerHTML = parts.join("");
+    fields.forEach(function (f) {
+      elEditor.querySelector('[data-k="' + f.key + '"]').value = s[f.key] || "";
+    });
+
+    elList.classList.add("hidden");
+    elEditor.classList.remove("hidden");
+    Icons.hydrate(elEditor);
+    window.scrollTo(0, 0);
+
+    document.getElementById("saveBtn").addEventListener("click", function () {
+      var patch = {};
+      fields.forEach(function (f) {
+        patch[f.key] = elEditor.querySelector('[data-k="' + f.key + '"]').value;
+      });
+      App.saveStory(openId, patch);
+      App.recomputeRoadmap();
+      if (window.haptic) haptic("success");
+      toast("История сохранена");
+      close();
+    });
+    document.getElementById("cancelBtn").addEventListener("click", close);
+  }
+
+  function close() {
+    openId = null;
+    elEditor.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("items").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-story]");
+    if (b) open(b.getAttribute("data-story"));
+  });
+
+  window.__navBack = function () {
+    if (openId) { close(); return true; }
+    return false;
+  };
+
+  renderList();
+  Icons.hydrate();
+  var id = App.param("id");
+  if (id) open(id);
+})();
+</script>
+</body>
+</html>

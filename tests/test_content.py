@@ -1,0 +1,320 @@
+#!/usr/bin/env python3
+"""
+Тесты учебного контента.
+
+Основную работу делает tools/validate_content.py — здесь он запускается как
+тест, плюс проверяются вещи, которые важны именно для приёмки MVP:
+обязательные количества, покрытие критических тем и отсутствие следов
+референсного проекта.
+
+Запуск:  python tests/test_content.py
+"""
+from __future__ import annotations
+
+import json
+import sys
+import unittest
+from pathlib import Path
+
+BASE = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE / "tools"))
+
+from content_lib import load_all, normalize_text  # noqa: E402
+import validate_content  # noqa: E402
+
+
+class TestValidator(unittest.TestCase):
+    """Полная валидация должна проходить без ошибок."""
+
+    def test_validator_passes(self):
+        rep = validate_content.run()
+        if rep.errors:
+            self.fail("валидатор нашёл ошибки:\n" + "\n".join(rep.errors[:20]))
+        self.assertGreater(rep.checks, 500, "проверок подозрительно мало")
+
+
+class TestCounts(unittest.TestCase):
+    """Минимальные количества из требований к MVP."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+
+    def test_minimum_counts(self):
+        counts = self.c.counts()
+        expected = {
+            "questions": 120,
+            "glossary_terms": 100,
+            "library_resources": 35,
+            "mock_questions": 40,
+            "cases": 12,
+            "roadmap_steps": 24,
+        }
+        for key, minimum in expected.items():
+            with self.subTest(collection=key):
+                self.assertGreaterEqual(
+                    counts[key], minimum,
+                    f"{key}: {counts[key]}, требуется минимум {minimum}",
+                )
+
+    def test_question_distribution(self):
+        """Распределение вопросов по темам из требований."""
+        expected = {
+            "search-basics": 12, "search-intent": 10, "on-page": 18,
+            "technical-seo": 24, "html-http": 12, "keyword-research": 12,
+            "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
+        }
+        actual = {}
+        for q in self.c.questions:
+            actual[q["topic"]] = actual.get(q["topic"], 0) + 1
+        for topic, n in expected.items():
+            with self.subTest(topic=topic):
+                self.assertEqual(actual.get(topic, 0), n,
+                                 f"тема {topic}: {actual.get(topic, 0)} вопросов, ожидалось {n}")
+        self.assertEqual(sum(expected.values()), len(self.c.questions),
+                         "сумма распределения должна совпадать с размером банка")
+
+    def test_active_track_is_complete(self):
+        """У активного трека есть всё необходимое для расчёта готовности."""
+        active = self.c.active_tracks()
+        self.assertEqual(len(active), 1, "в MVP должен быть ровно один наполненный трек")
+        t = active[0]
+        self.assertEqual(t["id"], "redcore-junior-seo")
+        self.assertTrue(t["critical_topic_ids"])
+        self.assertTrue(t["self_assessment_areas"])
+        self.assertTrue(any(v["id"] == t["vacancy_id"] for v in self.c.vacancies))
+
+    def test_draft_tracks_are_empty(self):
+        """Незаполненный трек не должен притворяться готовым."""
+        for t in self.c.tracks:
+            if t["status"] == "active":
+                continue
+            with self.subTest(track=t["id"]):
+                self.assertFalse(t.get("critical_topic_ids"),
+                                 "неактивный трек не должен объявлять критические темы")
+                self.assertIsNone(t.get("vacancy_id"),
+                                  "неактивный трек не должен ссылаться на вакансию")
+                self.assertEqual(
+                    [q for q in self.c.questions if q["track_id"] == t["id"]], [],
+                    "у неактивного трека не должно быть вопросов",
+                )
+
+
+class TestQuestionQuality(unittest.TestCase):
+    """Качество банка: угадываемость, дубли, ссылки."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+
+    def test_four_options_and_valid_answer(self):
+        for q in self.c.questions:
+            with self.subTest(q=q["id"]):
+                self.assertEqual(len(q["options"]), 4)
+                self.assertIsInstance(q["answer"], int)
+                self.assertTrue(0 <= q["answer"] < 4)
+                self.assertEqual(len(q["why"]), 4, "разбор нужен для каждого варианта")
+                self.assertTrue(q["explanation"].strip())
+
+    def test_answer_index_distribution(self):
+        """Правильный ответ не должен систематически стоять на одном месте."""
+        dist = {0: 0, 1: 0, 2: 0, 3: 0}
+        for q in self.c.questions:
+            dist[q["answer"]] += 1
+        total = len(self.c.questions)
+        for idx, n in dist.items():
+            share = n / total
+            with self.subTest(index=idx):
+                self.assertGreater(share, 0.15, f"индекс {idx} встречается лишь в {share:.0%}")
+                self.assertLess(share, 0.35, f"индекс {idx} встречается в {share:.0%}")
+
+    def test_correct_answer_not_giveaway_by_length(self):
+        """Правильный вариант не должен быть заметно длиннее остальных."""
+        giveaway = 0
+        for q in self.c.questions:
+            lens = [len(o) for o in q["options"]]
+            second = sorted(lens, reverse=True)[1]
+            gap = lens[q["answer"]] - second
+            if lens[q["answer"]] == max(lens) and gap >= 8 and gap / max(1, second) >= 0.15:
+                giveaway += 1
+        share = giveaway / len(self.c.questions)
+        self.assertLess(share, 0.25,
+                        f"правильный ответ заметно длиннее в {share:.0%} вопросов — "
+                        f"банк угадывается без знания предмета")
+
+    def test_no_duplicate_questions(self):
+        seen = {}
+        for q in self.c.questions:
+            key = normalize_text(q["question"])
+            with self.subTest(q=q["id"]):
+                self.assertNotIn(key, seen, f"дубль вопроса {seen.get(key)}")
+            seen[key] = q["id"]
+
+    def test_no_conflicting_answers(self):
+        """Одинаковый набор вариантов с разными правильными ответами —
+        прямое противоречие внутри банка."""
+        by_options = {}
+        for q in self.c.questions:
+            key = frozenset(normalize_text(o) for o in q["options"])
+            by_options.setdefault(key, []).append(q)
+        for group in by_options.values():
+            if len(group) < 2:
+                continue
+            correct = {normalize_text(g["options"][g["answer"]]) for g in group}
+            self.assertEqual(len(correct), 1,
+                             "конфликт: " + ", ".join(g["id"] for g in group))
+
+    def test_options_are_distinct(self):
+        for q in self.c.questions:
+            with self.subTest(q=q["id"]):
+                norm = [normalize_text(o) for o in q["options"]]
+                self.assertEqual(len(set(norm)), 4, "варианты ответа повторяются")
+
+
+class TestReferences(unittest.TestCase):
+    """Целостность перекрёстных ссылок."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+
+    def test_all_source_refs_resolve(self):
+        src_ids = set(self.c.sources_by_id)
+        collections = [
+            ("questions", self.c.questions),
+            ("lessons", self.c.lessons),
+            ("glossary", self.c.glossary),
+            ("mock", self.c.mock_questions),
+        ]
+        for name, items in collections:
+            for item in items:
+                for ref in item.get("source_refs") or []:
+                    with self.subTest(collection=name, item=item["id"], ref=ref):
+                        self.assertIn(ref, src_ids)
+
+    def test_library_matches_sources(self):
+        """URL в библиотеке обязан совпадать с источником: иначе аудит ссылок
+        проверяет не то, что видит пользователь."""
+        for r in self.c.library:
+            with self.subTest(res=r["id"]):
+                src = self.c.sources_by_id.get(r["source_ref"])
+                self.assertIsNotNone(src)
+                self.assertEqual(src["url"], r["url"])
+
+    def test_roadmap_practice_items_resolve(self):
+        topic_ids = set(self.c.topics_by_id)
+        case_ids = set(self.c.cases_by_id)
+        mock_ids = set(self.c.mock_by_id)
+        for s in self.c.roadmap:
+            for item in s.get("practice_items") or []:
+                kind, _, ref = item.partition(":")
+                with self.subTest(step=s["id"], item=item):
+                    if kind == "quiz":
+                        self.assertIn(ref, topic_ids)
+                        self.assertTrue(any(q["topic"] == ref for q in self.c.questions),
+                                        f"в теме {ref} нет вопросов")
+                    elif kind == "case":
+                        self.assertIn(ref, case_ids)
+                    elif kind == "mock":
+                        self.assertIn(ref, mock_ids)
+                    else:
+                        self.fail(f"неизвестный тип practice_item: {kind}")
+
+    def test_roadmap_prerequisites_are_earlier(self):
+        order = {s["id"]: s["order"] for s in self.c.roadmap}
+        for s in self.c.roadmap:
+            for dep in s.get("prerequisites") or []:
+                with self.subTest(step=s["id"], dep=dep):
+                    self.assertIn(dep, order)
+                    self.assertLess(order[dep], s["order"],
+                                    "предпосылка должна идти раньше шага")
+
+    def test_required_topics_have_lessons(self):
+        for t in self.c.active_tracks():
+            covered = {l["topic_id"] for l in self.c.lessons if l["track_id"] == t["id"]}
+            for topic in self.c.topics_of(t["id"]):
+                if topic.get("required"):
+                    with self.subTest(topic=topic["id"]):
+                        self.assertIn(topic["id"], covered)
+
+    def test_critical_topics_have_enough_questions(self):
+        for t in self.c.active_tracks():
+            counts = {}
+            for q in self.c.questions:
+                if q["track_id"] == t["id"]:
+                    counts[q["topic"]] = counts.get(q["topic"], 0) + 1
+            for tid in t["critical_topic_ids"]:
+                with self.subTest(topic=tid):
+                    self.assertGreaterEqual(
+                        counts.get(tid, 0), 8,
+                        "у критической темы должно быть не меньше 8 вопросов",
+                    )
+
+
+class TestNoUserDataInvented(unittest.TestCase):
+    """Приложение не должно придумывать достижения пользователя."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+
+    def test_requirements_have_no_prefilled_evidence(self):
+        for v in self.c.vacancies:
+            for r in v["requirements"]:
+                with self.subTest(req=r["id"]):
+                    self.assertEqual(r.get("evidence", ""), "",
+                                     "доказательство из портфолио заполняет пользователь")
+                    self.assertEqual(r.get("status"), "not_started",
+                                     "статус требования не может быть проставлен заранее")
+
+    def test_story_templates_are_empty(self):
+        for s in self.c.stories:
+            for field in ("situation", "task", "action", "result", "reflection"):
+                with self.subTest(story=s["id"], field=field):
+                    self.assertEqual(s.get(field, ""), "",
+                                     "истории пользователя не выдумываются")
+
+
+class TestNoReferenceLeftovers(unittest.TestCase):
+    """Ни морской предметной области, ни ключей хранилища референсного проекта."""
+
+    def test_no_maritime_content(self):
+        c = load_all()
+        for key, raw in c.raw.items():
+            blob = json.dumps(raw, ensure_ascii=False).lower()
+            for marker in validate_content.MARITIME_MARKERS:
+                with self.subTest(file=key, marker=marker):
+                    self.assertNotIn(marker, blob)
+
+    def test_no_old_namespaces_anywhere(self):
+        """Старые ключи хранилища не должны встречаться ни в данных, ни в коде."""
+        bad = ["issa_", "marine_", "pl_progress_"]
+        targets = list((BASE / "data").glob("*.json"))
+        targets += list((BASE / "webapp").glob("*.js"))
+        targets += list((BASE / "webapp").glob("*.html"))
+        targets += list((BASE / "api").glob("*.py"))
+        targets += [BASE / "bot.py", BASE / "bot_i18n.py"]
+        for path in targets:
+            if not path.exists():
+                continue
+            text = path.read_text(encoding="utf-8").lower()
+            for ns in bad:
+                with self.subTest(file=path.name, ns=ns):
+                    self.assertNotIn(ns, text)
+
+    def test_new_namespace_is_used(self):
+        """Новые ключи должны быть именно те, что объявлены в требованиях."""
+        expected = [
+            "interview_progress_v1", "interview_srs_v1", "interview_history_v1",
+            "interview_profile_v1", "interview_exam_date_v1", "interview_sync_v1",
+        ]
+        text = ""
+        for name in ("progress.js", "srs.js", "sync.js"):
+            text += (BASE / "webapp" / name).read_text(encoding="utf-8")
+        for key in expected:
+            with self.subTest(key=key):
+                self.assertIn(key, text)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

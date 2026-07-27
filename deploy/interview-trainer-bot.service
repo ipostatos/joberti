@@ -1,0 +1,46 @@
+[Unit]
+Description=Interview Trainer Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Каталог, куда развёрнут проект. Поправьте под свой путь и пользователя.
+WorkingDirectory=/opt/interview-trainer
+ExecStart=/opt/interview-trainer/.venv/bin/python /opt/interview-trainer/bot.py
+
+# .env прокидывается в ОКРУЖЕНИЕ процесса. Это обязательно: bot.py читает
+# BOT_TOKEN и из файла, но WEBAPP_BASE берёт в том числе из окружения, и без
+# этой строки бот молча уходит в упрощённый чат-режим без кнопки Mini App.
+EnvironmentFile=/opt/interview-trainer/.env
+
+Restart=always
+RestartSec=5
+User=interview
+Group=interview
+
+# ── песочница ──
+# Вся файловая система только для чтения; писать разрешено только туда, куда
+# бот действительно пишет.
+ProtectSystem=strict
+# Ведущий «-»: не падать с 226/NAMESPACE, если каталога ещё нет. progress/ в
+# .gitignore, git его не приносит, а bot.py создаёт при старте — но namespace
+# строится ДО запуска Python.
+ReadWritePaths=-/opt/interview-trainer/progress
+ProtectHome=true
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+# Только исходящие соединения к Telegram API.
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target

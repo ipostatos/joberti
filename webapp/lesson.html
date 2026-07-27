@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Урок · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .lead{ font-size:var(--fs-body); line-height:1.65 }
+  .qa{ background:var(--muted-fill); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:var(--sp-3) var(--sp-4) }
+  .qa .q{ font-weight:700; margin-bottom:var(--sp-2) }
+  .src{ font-size:var(--fs-sm); line-height:1.6 }
+  .src a{ color:var(--link) }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var id = App.param("id");
+  var l = App.byId(CONTENT.lessons, id);
+  var root = document.getElementById("root");
+
+  if (!l) {
+    root.innerHTML = '<div class="state">Урок не найден</div>' +
+      '<a class="btn ghost" href="learn.html">К списку уроков</a>';
+    Icons.hydrate();
+    return;
+  }
+
+  function li(items, cls) {
+    return '<ul class="points ' + (cls || "") + '">' + (items || []).map(function (x) {
+      return '<li><span class="b"></span><span>' + App.esc(x) + "</span></li>";
+    }).join("") + "</ul>";
+  }
+
+  var topic = App.topicById(l.topic_id);
+  var read = App.isLessonRead(l.id);
+
+  var html = '<div class="hero">' +
+    '<span class="ic-tile ' + (read ? "green" : "blue") + '" data-icon="book-open"></span>' +
+    '<div class="body"><h1>' + App.esc(l.title) + "</h1>" +
+    '<div class="muted small">' + App.esc(topic ? topic.title : l.topic_id) +
+    " · " + l.estimated_minutes + " мин" + (read ? " · прочитано" : "") + "</div></div></div>";
+
+  html += '<div class="card"><p class="lead">' + App.esc(l.summary) + "</p></div>";
+
+  html += '<div class="card"><div class="h3">Зачем это на работе</div>' +
+    '<p class="small" style="line-height:1.65">' + App.esc(l.why_it_matters) + "</p></div>";
+
+  html += '<div class="card"><div class="h3">Ключевые мысли</div>' + li(l.key_points, "ok") + "</div>";
+
+  html += '<div class="card"><div class="h3">Частые ошибки</div>' + li(l.common_mistakes, "bad") + "</div>";
+
+  html += '<div class="card"><div class="h3">Пример</div>' +
+    '<p class="small" style="line-height:1.65">' + App.esc(l.example) + "</p></div>";
+
+  html += '<div class="card"><div class="h3">Могут спросить на собеседовании</div>' +
+    '<div class="qa"><div class="q">' + App.esc(l.interview_question) + "</div>" +
+    '<div class="small" style="line-height:1.6">' + App.esc(l.short_answer) + "</div></div></div>";
+
+  html += '<div class="card"><div class="h3">Практическое задание</div>' +
+    '<p class="small" style="line-height:1.65">' + App.esc(l.practice_task) + "</p></div>";
+
+  // Связанные термины
+  var terms = (l.related_term_ids || []).map(function (tid) {
+    return App.byId(CONTENT.glossary, tid);
+  }).filter(Boolean);
+  if (terms.length) {
+    html += '<div class="card"><div class="h3">Термины урока</div>' +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+      terms.map(function (t) {
+        return '<a class="chip" href="glossary.html?id=' + encodeURIComponent(t.id) + '">' +
+          App.esc(t.term) + "</a>";
+      }).join("") + "</div></div>";
+  }
+
+  // Источники
+  var srcs = (l.source_refs || []).map(App.sourceById).filter(Boolean);
+  if (srcs.length) {
+    html += '<div class="card"><div class="h3">Источники</div><div class="src">' +
+      srcs.map(function (s) {
+        return '<div style="margin-bottom:6px">' +
+          '<a href="' + App.esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+          App.esc(s.title) + "</a><br>" +
+          '<span class="muted xs">' + App.esc(s.publisher) +
+          (s.verified_at ? " · проверено " + App.esc(s.verified_at) : "") + "</span></div>";
+      }).join("") + "</div></div>";
+  }
+
+  // Действия
+  html += '<div class="btn-row">' +
+    '<button class="btn" id="readBtn">' + (read ? "Прочитано" : "Отметить прочитанным") + "</button>";
+  var qs = App.questionsOfTopic(l.topic_id);
+  if (qs.length) {
+    html += '<a class="btn ghost" href="quiz.html?topic=' + encodeURIComponent(l.topic_id) +
+      '">Тест по теме</a>';
+  }
+  html += "</div>";
+
+  // Соседние уроки темы
+  var siblings = App.lessons().filter(function (x) { return x.topic_id === l.topic_id; });
+  if (siblings.length > 1) {
+    html += '<div class="section-title">Ещё по теме</div>' +
+      siblings.filter(function (x) { return x.id !== l.id; }).map(function (x) {
+        return '<a class="row-card" href="lesson.html?id=' + encodeURIComponent(x.id) + '">' +
+          '<span class="body"><span class="t">' + App.esc(x.title) + "</span>" +
+          '<span class="d">' + x.estimated_minutes + " мин</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+      }).join("");
+  }
+
+  html += '<a class="btn ghost" href="learn.html" style="margin-top:var(--sp-3)">К списку уроков</a>';
+
+  root.innerHTML = html;
+  Icons.hydrate();
+
+  document.getElementById("readBtn").addEventListener("click", function () {
+    App.markLessonRead(l.id);
+    if (window.Sync) Sync.schedulePush();
+    if (window.haptic) haptic("success");
+    this.textContent = "Прочитано";
+    this.disabled = true;
+    toast("Урок отмечен как прочитанный");
+  });
+  if (read) document.getElementById("readBtn").disabled = true;
+})();
+</script>
+</body>
+</html>

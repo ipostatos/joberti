@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Учить · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .topic-block{ margin-bottom:var(--sp-5) }
+  .topic-head{ display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-2) }
+  .topic-head .body{ flex:1; min-width:0 }
+  .topic-head .t{ font-weight:700; font-size:var(--fs-body) }
+  .topic-head .d{ font-size:var(--fs-xs); color:var(--hint) }
+  .topic-head .pct{ font-size:var(--fs-sm); font-weight:700; color:var(--hint) }
+  .crit{ font-size:var(--fs-xs); color:var(--warn) }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="ic-tile green" data-icon="book-open"></span>
+  <div class="body">
+    <h1>Учить</h1>
+    <div class="muted small" id="sub"></div>
+  </div>
+</div>
+
+<div class="search-box">
+  <span class="emi plain" data-icon="search"></span>
+  <input type="text" id="q" placeholder="Найти урок или тему" autocomplete="off">
+  <button id="clear" class="hidden"><span class="emi plain" data-icon="x"></span></button>
+</div>
+
+<div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">
+  <button class="chip on" data-f="all">Все темы</button>
+  <button class="chip" data-f="unread">Не прочитано</button>
+  <button class="chip" data-f="weak">Слабые темы</button>
+  <button class="chip" data-f="critical">Критические</button>
+</div>
+
+<div id="content"></div>
+
+<a class="btn ghost" href="index.html" style="margin-top:var(--sp-4)">На главную</a>
+
+<div class="foot" id="foot"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var lessons = App.lessons();
+  var topics = App.topics();
+  var filter = "all";
+  var query = "";
+
+  var r = App.readiness();
+  var masteryById = {};
+  (r.topics || []).forEach(function (t) { masteryById[t.id] = t; });
+
+  document.getElementById("sub").textContent =
+    lessons.length + " уроков по " + topics.length + " темам";
+
+  function matches(l) {
+    if (!query) return true;
+    var s = (l.title + " " + l.summary + " " + (l.key_points || []).join(" ")).toLowerCase();
+    return s.indexOf(query) !== -1;
+  }
+
+  function render() {
+    var read = 0;
+    var html = topics.map(function (t) {
+      var list = lessons.filter(function (l) { return l.topic_id === t.id; }).filter(matches);
+      if (!list.length) return "";
+
+      var m = masteryById[t.id];
+      var pct = m && m.pct != null ? m.pct : null;
+
+      if (filter === "critical" && !t.critical) return "";
+      if (filter === "weak" && !(pct != null && pct < 60)) return "";
+
+      var rows = list.filter(function (l) {
+        return filter !== "unread" || !App.isLessonRead(l.id);
+      });
+      if (!rows.length) return "";
+
+      var body = rows.map(function (l) {
+        var isRead = App.isLessonRead(l.id);
+        if (isRead) read++;
+        return '<a class="row-card" href="lesson.html?id=' + encodeURIComponent(l.id) + '">' +
+          '<span class="ic-tile ' + (isRead ? "green" : "slate") + '" data-icon="' +
+          (isRead ? "check-circle" : "book-open") + '"></span>' +
+          '<span class="body"><span class="t">' + App.esc(l.title) + "</span>" +
+          '<span class="d">' + App.esc(l.summary.slice(0, 110)) +
+          (l.summary.length > 110 ? "…" : "") + "</span>" +
+          '<span class="d" style="margin-top:3px">' + l.estimated_minutes + " мин</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+      }).join("");
+
+      return '<div class="topic-block"><div class="topic-head">' +
+        '<div class="body"><div class="t">' + App.esc(t.title) +
+        (t.critical ? ' <span class="crit">критическая</span>' : "") + "</div>" +
+        '<div class="d">' + App.esc(t.short) + "</div></div>" +
+        (pct != null ? '<div class="pct">' + pct + "%</div>" : "") +
+        "</div>" + body + "</div>";
+    }).join("");
+
+    document.getElementById("content").innerHTML = html ||
+      '<div class="state">Ничего не найдено</div>';
+    document.getElementById("foot").textContent =
+      "Прочитано уроков: " + lessons.filter(function (l) { return App.isLessonRead(l.id); }).length +
+      " из " + lessons.length;
+    Icons.hydrate();
+  }
+
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    Array.prototype.forEach.call(this.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    render();
+  });
+
+  var input = document.getElementById("q");
+  var clear = document.getElementById("clear");
+  input.addEventListener("input", function () {
+    query = input.value.trim().toLowerCase();
+    clear.classList.toggle("hidden", !query);
+    render();
+  });
+  clear.addEventListener("click", function () {
+    input.value = ""; query = ""; clear.classList.add("hidden"); render();
+  });
+
+  render();
+  Icons.hydrate();
+})();
+</script>
+</body>
+</html>

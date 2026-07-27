@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>История · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .rec{ display:flex; align-items:center; gap:var(--sp-3); width:100%; text-align:left;
+    font:inherit; color:var(--text); background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2);
+    cursor:pointer }
+  .rec .body{ flex:1; min-width:0 }
+  .rec .t{ font-weight:700; font-size:var(--fs-sm) }
+  .rec .d{ font-size:var(--fs-xs); color:var(--hint); margin-top:2px }
+  .rec .p{ font-weight:800; font-size:var(--fs-body); flex:0 0 auto }
+  .spark{ display:flex; align-items:flex-end; gap:3px; height:56px; margin-top:var(--sp-2) }
+  .spark i{ flex:1; background:var(--accent); border-radius:2px 2px 0 0; min-height:2px;
+    opacity:.85 }
+  .day{ font-size:var(--fs-xs); font-weight:700; color:var(--hint);
+    margin:var(--sp-4) 0 var(--sp-2); text-transform:uppercase; letter-spacing:.05em }
+</style>
+</head>
+<body>
+
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile amber" data-icon="history"></span>
+    <div class="body">
+      <h1>История</h1>
+      <div class="muted small" id="sub"></div>
+    </div>
+  </div>
+
+  <div class="card" id="trend"></div>
+
+  <div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">
+    <button class="chip on" data-f="all">Всё</button>
+    <button class="chip" data-f="quiz">Тесты</button>
+    <button class="chip" data-f="mock">Mock</button>
+    <button class="chip" data-f="case">Кейсы</button>
+    <button class="chip" data-f="readiness">Готовность</button>
+  </div>
+
+  <div id="items"></div>
+</section>
+
+<section id="detail" class="hidden"></section>
+
+<script>
+(function () {
+  "use strict";
+
+  var filter = "all";
+  var openId = null;
+  var elList = document.getElementById("list");
+  var elDetail = document.getElementById("detail");
+
+  var KIND = {
+    quiz: { title: "Тест", icon: "clipboard-list", tone: "amber" },
+    mock: { title: "Mock interview", icon: "message-square", tone: "violet" },
+    "case": { title: "Кейс", icon: "briefcase", tone: "cyan" },
+    readiness: { title: "Готовность", icon: "gauge", tone: "blue" },
+  };
+
+  function fmtDate(ts) {
+    var d = new Date(ts);
+    return d.toLocaleDateString("ru-RU", { day: "numeric", month: "long" }) +
+      ", " + d.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+  }
+  function dayLabel(ts) {
+    var d = new Date(ts);
+    var today = new Date();
+    var isToday = d.toDateString() === today.toDateString();
+    var y = new Date(today.getTime() - 86400000);
+    var isY = d.toDateString() === y.toDateString();
+    if (isToday) return "Сегодня";
+    if (isY) return "Вчера";
+    return d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  function modeTitle(rec) {
+    if (rec.kind === "readiness") return "Снимок готовности";
+    if (rec.kind === "case") {
+      var c = App.byId(CONTENT.cases, rec.mode);
+      return c ? c.title : rec.mode;
+    }
+    if (rec.kind === "mock") {
+      if (rec.mode === "full") return "Полная сессия";
+      var parts = String(rec.mode).split(":");
+      return parts[0] === "cat" ? "Категория: " + parts[1] : "Сессия";
+    }
+    var m = String(rec.mode).split(":");
+    var names = { quick: "Быстрый тест", training: "Тренировка", exam: "Финальный экзамен",
+      review: "Повторение", mistakes: "Работа над ошибками", weak: "Слабые темы",
+      topic: "По теме" };
+    return (names[m[0]] || m[0]) + (m[1] ? ": " + App.topicTitle(m[1]) : "");
+  }
+
+  function render() {
+    var all = Progress.history();
+    document.getElementById("sub").textContent =
+      all.length + " " + App.plural(all.length, "запись", "записи", "записей") +
+      " · хранятся последние " + Progress.MAX_ATTEMPTS;
+
+    // ── тренд готовности ──
+    var snaps = all.filter(function (a) { return a.kind === "readiness"; })
+      .slice().reverse();
+    var trend = document.getElementById("trend");
+    if (snaps.length >= 2) {
+      var max = Math.max.apply(null, snaps.map(function (s) { return s.pct; })) || 100;
+      var first = snaps[0].pct, last = snaps[snaps.length - 1].pct;
+      var diff = last - first;
+      trend.innerHTML = '<div class="h3">Готовность во времени</div>' +
+        '<div class="spark">' + snaps.slice(-30).map(function (s) {
+          return '<i style="height:' + Math.max(2, Math.round(s.pct / max * 100)) + '%" ' +
+            'title="' + App.esc(s.mode) + ": " + s.pct + '%"></i>';
+        }).join("") + "</div>" +
+        '<div class="small muted" style="margin-top:var(--sp-2)">' +
+        "От " + first + "% до " + last + "% за " + snaps.length + " " +
+        App.plural(snaps.length, "замер", "замера", "замеров") +
+        (diff >= 0 ? " · рост на " + diff : " · снижение на " + Math.abs(diff)) +
+        " пунктов</div>";
+    } else {
+      trend.innerHTML = '<div class="h3">Готовность во времени</div>' +
+        '<p class="small muted">График появится, когда накопится хотя бы два ' +
+        "ежедневных замера. Замер делается автоматически при заходе на главную.</p>";
+    }
+
+    // ── список ──
+    var list = filter === "all" ? all : all.filter(function (a) { return a.kind === filter; });
+    if (!list.length) {
+      document.getElementById("items").innerHTML = '<div class="state">Записей пока нет</div>';
+      return;
+    }
+
+    var html = "", lastDay = null;
+    list.forEach(function (rec) {
+      var d = dayLabel(rec.ts);
+      if (d !== lastDay) { html += '<div class="day">' + App.esc(d) + "</div>"; lastDay = d; }
+      var k = KIND[rec.kind] || KIND.quiz;
+      var tone = rec.kind === "readiness" ? "blue"
+        : rec.pct >= 80 ? "green" : rec.pct >= 60 ? "amber" : "red";
+      var sub = rec.kind === "readiness"
+        ? "автоматический замер"
+        : (rec.kind === "case"
+            ? "самооценка " + Math.round(rec.pct / 25) + " из 4"
+            : rec.correct + " из " + rec.total +
+              (rec.secs ? " · " + Math.floor(rec.secs / 60) + " мин" : ""));
+      html += '<button class="rec" data-rec="' + App.esc(rec.id) + '">' +
+        '<span class="ic-tile ' + tone + '" data-icon="' + k.icon + '"></span>' +
+        '<span class="body"><span class="t">' + App.esc(modeTitle(rec)) + "</span>" +
+        '<span class="d">' + App.esc(k.title) + " · " + App.esc(sub) + "</span>" +
+        '<span class="d">' + App.esc(fmtDate(rec.ts)) + "</span></span>" +
+        '<span class="p">' + rec.pct + "%</span></button>";
+    });
+    document.getElementById("items").innerHTML = html;
+    Icons.hydrate();
+  }
+
+  function open(id) {
+    var rec = Progress.history().filter(function (a) { return a.id === id; })[0];
+    if (!rec) return;
+    openId = id;
+    var k = KIND[rec.kind] || KIND.quiz;
+
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile ' + k.tone +
+      '" data-icon="' + k.icon + '"></span>' +
+      '<div class="body"><h1>' + App.esc(modeTitle(rec)) + "</h1>" +
+      '<div class="muted small">' + App.esc(k.title) + " · " + App.esc(fmtDate(rec.ts)) +
+      "</div></div></div>");
+
+    parts.push('<div class="card">' +
+      '<div class="kv"><span class="k">Результат</span><span class="v">' + rec.pct + "%</span></div>" +
+      (rec.total ? '<div class="kv"><span class="k">Верных ответов</span><span class="v">' +
+        rec.correct + " из " + rec.total + "</span></div>" : "") +
+      (rec.secs ? '<div class="kv"><span class="k">Время</span><span class="v">' +
+        Math.floor(rec.secs / 60) + " мин " + (rec.secs % 60) + " с</span></div>" : "") +
+      "</div>");
+
+    if ((rec.weakTopics || []).length) {
+      parts.push('<div class="card"><div class="h3">Слабые места</div>' +
+        '<div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+        rec.weakTopics.map(function (t) {
+          var topic = App.topicById(t);
+          return topic
+            ? '<a class="chip" href="quiz.html?topic=' + encodeURIComponent(t) + '">' +
+              App.esc(topic.title) + "</a>"
+            : '<span class="chip">' + App.esc(t) + "</span>";
+        }).join("") + "</div></div>");
+    }
+
+    if (rec.kind === "mock" && (rec.details || []).length) {
+      parts.push('<div class="card"><div class="h3">Ответы по вопросам</div>' +
+        rec.details.map(function (d) {
+          var q = App.byId(CONTENT.mockQuestions, d.id);
+          return '<a class="kv" style="text-decoration:none; color:inherit" ' +
+            'href="mock.html?id=' + encodeURIComponent(d.id) + '">' +
+            '<span class="k" style="flex:1; min-width:0; overflow:hidden; ' +
+            'text-overflow:ellipsis; white-space:nowrap">' +
+            App.esc(q ? q.question : d.id) + "</span>" +
+            '<span class="v" style="color:' +
+            (d.rating >= 3 ? "var(--ok)" : d.rating >= 2 ? "var(--warn)" : "var(--bad)") +
+            '">' + d.rating + "/4</span></a>";
+        }).join("") + "</div>");
+    }
+
+    if (rec.kind === "case") {
+      var c = App.byId(CONTENT.cases, rec.mode);
+      if (c) {
+        parts.push('<a class="row-card" href="cases.html?id=' + encodeURIComponent(c.id) + '">' +
+          '<span class="body"><span class="t">Открыть кейс</span>' +
+          '<span class="d">' + App.esc(c.title) + "</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></a>');
+      }
+    }
+
+    parts.push('<button class="btn ghost" id="backBtn">К истории</button>');
+
+    elDetail.innerHTML = parts.join("");
+    elList.classList.add("hidden");
+    elDetail.classList.remove("hidden");
+    Icons.hydrate(elDetail);
+    window.scrollTo(0, 0);
+    document.getElementById("backBtn").addEventListener("click", close);
+  }
+
+  function close() {
+    openId = null;
+    elDetail.classList.add("hidden");
+    elList.classList.remove("hidden");
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("items").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-rec]");
+    if (b) open(b.getAttribute("data-rec"));
+  });
+
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    Array.prototype.forEach.call(this.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    render();
+  });
+
+  window.__navBack = function () {
+    if (openId) { close(); return true; }
+    return false;
+  };
+
+  render();
+  Icons.hydrate();
+  if (window.Sync && Sync.enabled) Sync.pullHistory().then(function (ok) { if (ok) render(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "schema": "achievements/v1",
+  "note": "Достижения нейтральные и профессиональные. Они отражают факт выполненной работы и НЕ участвуют в расчёте готовности.",
+  "achievements": [
+    { "id": "ach-first-step", "title": "Первый шаг", "description": "Первое выполненное действие: ответ, карточка, вопрос или кейс", "icon": "flag", "tier": "base", "rule": { "type": "actions_total", "value": 1 } },
+    { "id": "ach-first-quiz", "title": "Первый тест", "description": "Завершён первый тест", "icon": "clipboard-list", "tier": "base", "rule": { "type": "quiz_sessions", "value": 1 } },
+    { "id": "ach-week-streak", "title": "7 дней подготовки", "description": "Семь дней активности подряд", "icon": "calendar-check", "tier": "base", "rule": { "type": "streak", "value": 7 } },
+    { "id": "ach-month-streak", "title": "30 дней подготовки", "description": "Тридцать дней активности подряд", "icon": "calendar-check", "tier": "high", "rule": { "type": "streak", "value": 30 } },
+    { "id": "ach-glossary-50", "title": "50 терминов", "description": "Пятьдесят терминов подтверждены проверкой", "icon": "book-open", "tier": "base", "rule": { "type": "glossary_mastered", "value": 50 } },
+    { "id": "ach-glossary-100", "title": "100 терминов", "description": "Сто терминов подтверждены проверкой", "icon": "book-open", "tier": "high", "rule": { "type": "glossary_mastered", "value": 100 } },
+    { "id": "ach-first-mock", "title": "Первый mock", "description": "Отвечен первый открытый вопрос интервью", "icon": "message-square", "tier": "base", "rule": { "type": "mock_answered", "value": 1 } },
+    { "id": "ach-full-mock", "title": "Полная сессия", "description": "Пройдено полное mock interview от начала до конца", "icon": "list-checks", "tier": "high", "rule": { "type": "full_mock_sessions", "value": 1 } },
+    { "id": "ach-three-mocks", "title": "Три сессии", "description": "Пройдено три полных mock interview", "icon": "list-checks", "tier": "high", "rule": { "type": "full_mock_sessions", "value": 3 } },
+    { "id": "ach-first-case", "title": "Первый кейс", "description": "Завершён первый практический кейс", "icon": "briefcase", "tier": "base", "rule": { "type": "cases_completed", "value": 1 } },
+    { "id": "ach-all-critical-cases", "title": "Критические кейсы", "description": "Пройдены все кейсы, отмеченные как критические", "icon": "briefcase", "tier": "high", "rule": { "type": "critical_cases_completed_all", "value": 1 } },
+    { "id": "ach-technical-base", "title": "Техническая база", "description": "Тема «Технический SEO» освоена не ниже 70%", "icon": "settings", "tier": "mid", "rule": { "type": "topic_mastery", "topic_id": "technical-seo", "value": 70 } },
+    { "id": "ach-search-base", "title": "Основы поиска", "description": "Тема «Как работает поиск» освоена не ниже 70%", "icon": "search", "tier": "mid", "rule": { "type": "topic_mastery", "topic_id": "search-basics", "value": 70 } },
+    { "id": "ach-flawless-quiz", "title": "Без ошибок", "description": "Тест из 25 и более вопросов пройден без единой ошибки", "icon": "check-circle", "tier": "mid", "rule": { "type": "flawless_quiz_min_size", "value": 25 } },
+    { "id": "ach-fixed-weak-topic", "title": "Исправил слабую тему", "description": "Тема, бывшая ниже 40%, доведена до 70% и выше", "icon": "trending-up", "tier": "mid", "rule": { "type": "weak_topic_recovered", "value": 1 } },
+    { "id": "ach-mistakes-cleared", "title": "Работа над ошибками", "description": "Все накопленные ошибки закрыты повторным верным ответом", "icon": "refresh-cw", "tier": "mid", "rule": { "type": "mistakes_cleared", "value": 1 } },
+    { "id": "ach-roadmap-half", "title": "Половина плана", "description": "Выполнена половина обязательных шагов плана подготовки", "icon": "map", "tier": "mid", "rule": { "type": "roadmap_required_percent", "value": 50 } },
+    { "id": "ach-roadmap-done", "title": "План закрыт", "description": "Выполнены все обязательные шаги плана подготовки", "icon": "map", "tier": "high", "rule": { "type": "roadmap_required_percent", "value": 100 } },
+    { "id": "ach-library-must-read", "title": "Обязательное чтение", "description": "Прочитаны все материалы библиотеки с пометкой «до собеседования»", "icon": "library", "tier": "mid", "rule": { "type": "library_must_read_all", "value": 1 } },
+    { "id": "ach-story-bank", "title": "Истории готовы", "description": "Заполнены пять историй в story bank", "icon": "file-text", "tier": "mid", "rule": { "type": "stories_filled", "value": 5 } },
+    { "id": "ach-gap-analysis", "title": "Разрыв закрыт", "description": "Все обязательные требования вакансии переведены в статус confirmed или partial", "icon": "target", "tier": "high", "rule": { "type": "required_requirements_addressed", "value": 1 } },
+    { "id": "ach-readiness-50", "title": "Готовность 50%", "description": "Достигнут уровень готовности 50%", "icon": "gauge", "tier": "mid", "rule": { "type": "readiness", "value": 50 } },
+    { "id": "ach-readiness-70", "title": "Готовность 70%", "description": "Достигнут уровень готовности 70%", "icon": "gauge", "tier": "high", "rule": { "type": "readiness", "value": 70 } },
+    { "id": "ach-readiness-85", "title": "Готовность 85%", "description": "Достигнут уровень готовности 85%", "icon": "gauge", "tier": "high", "rule": { "type": "readiness", "value": 85 } }
+  ]
+}

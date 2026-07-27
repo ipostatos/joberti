@@ -1,0 +1,66 @@
+# Пример конфигурации Caddy для Interview Trainer.
+#
+# Схема: Mini App раздаётся как статика, /api/* уходит на локальный uvicorn.
+# За счёт этого приложение и API живут на одном origin, и CORS не нужен вовсе —
+# это надёжнее, чем список разрешённых источников.
+#
+# Замените example.org на свой домен и положите файл в /etc/caddy/Caddyfile.
+
+example.org {
+	encode zstd gzip
+
+	# ── API синхронизации ──
+	handle /api/* {
+		reverse_proxy 127.0.0.1:4200 {
+			# Отдаём реальный адрес клиента: пригодится при разборе инцидентов.
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
+	# ── Mini App: статика ──
+	handle {
+		root * /opt/interview-trainer/webapp
+		try_files {path} /index.html
+		file_server
+	}
+
+	header {
+		# Заголовки безопасности. Основная часть CSP продублирована в каждом
+		# HTML мета-тегом, но frame-ancestors работает ТОЛЬКО заголовком —
+		# в <meta> браузер его игнорирует. Поэтому этот заголовок обязателен:
+		# без него ничто не ограничивает встраивание приложения в чужой фрейм.
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors https://web.telegram.org https://telegram.org"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		# X-Frame-Options НЕ ставим: Mini App обязан открываться во фрейме
+		# Telegram. Ограничение задаётся через frame-ancestors в CSP.
+		-Server
+	}
+
+	# ── кэширование ──
+	# Код и данные не кэшируем надолго: иначе после выката пользователь ещё
+	# сутки сидит на старой версии, и service worker тут не спасает.
+	@code {
+		path *.html *.js *.css *.webmanifest
+	}
+	header @code Cache-Control "no-cache, must-revalidate"
+
+	@static {
+		path *.svg *.png *.jpg *.woff2
+	}
+	header @static Cache-Control "public, max-age=604800"
+
+	# Service worker обязан проверяться при каждой загрузке, иначе старая его
+	# версия продолжит раздавать устаревший кэш.
+	@sw path /service-worker.js
+	header @sw Cache-Control "no-cache, no-store, must-revalidate"
+
+	log {
+		output file /var/log/caddy/interview-trainer.log {
+			roll_size 20mb
+			roll_keep 5
+		}
+	}
+}

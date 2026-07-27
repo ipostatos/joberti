@@ -1,0 +1,15 @@
+{
+  "name": "Interview Trainer",
+  "short_name": "Interview",
+  "description": "Персональный тренажёр подготовки к собеседованиям: план, теория, тесты, mock interview и кейсы.",
+  "lang": "ru",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17212b",
+  "theme_color": "#17212b",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

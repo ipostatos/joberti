@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>О приложении · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .card p{ font-size:var(--fs-sm); line-height:1.65 }
+  .w{ display:flex; justify-content:space-between; padding:7px 0;
+    border-bottom:1px solid var(--border); font-size:var(--fs-sm) }
+  .w:last-child{ border-bottom:none }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="ic-tile blue" data-icon="info"></span>
+  <div class="body">
+    <h1>О приложении</h1>
+    <div class="muted small">Interview Trainer</div>
+  </div>
+</div>
+
+<div class="card">
+  <p>Персональный тренажёр подготовки к собеседованию: маршрут обучения, теория,
+    словарь, библиотека проверенных материалов, тесты с интервальным повторением,
+    mock interview, практические кейсы и честная оценка готовности.</p>
+</div>
+
+<div class="card">
+  <div class="h3">Как считается готовность</div>
+  <div id="weights"></div>
+  <p class="muted" style="margin-top:var(--sp-3)">Самооценка из настройки в расчёт
+    не входит: она помогает построить план, но не может поднять процент. Процент
+    растёт только от реальных результатов.</p>
+</div>
+
+<div class="card">
+  <div class="h3">Ограничители</div>
+  <p class="muted">Высокий процент нельзя набрать в обход слабых мест. Пока условие
+    не выполнено, готовность не поднимется выше указанного потолка.</p>
+  <div id="caps"></div>
+</div>
+
+<div class="card">
+  <div class="h3">Что приложение НЕ делает</div>
+  <ul class="points bad">
+    <li><span class="b"></span><span>Не оценивает свободный текст вашего ответа:
+      без настоящей модели такая оценка была бы имитацией.</span></li>
+    <li><span class="b"></span><span>Не придумывает за вас достижения и опыт.
+      Доказательства из портфолио и истории STAR заполняете вы.</span></li>
+    <li><span class="b"></span><span>Не обещает позиции, сроки и результат
+      собеседования.</span></li>
+    <li><span class="b"></span><span>Не показывает процент готовности по
+      незаполненному треку.</span></li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="h3">Данные и приватность</div>
+  <p>Весь прогресс хранится на вашем устройстве в localStorage. Если открыть
+    приложение из Telegram, прогресс дополнительно синхронизируется между вашими
+    устройствами: сервер получает только идентификатор пользователя Telegram,
+    подтверждённый подписью, и сам прогресс.</p>
+  <p>Сервер не получает ваши заметки к материалам, тексты историй STAR и
+    доказательства из портфолио в открытом виде отдельно от прогресса — они
+    входят в состав профиля и передаются только при включённой синхронизации.</p>
+  <p>Ничего не передаётся третьим сторонам, рекламы и трекеров нет. Прогресс
+    можно посмотреть и удалить в любой момент в разделе «Профиль».</p>
+</div>
+
+<div class="card">
+  <div class="h3">Содержимое</div>
+  <div id="counts"></div>
+  <p class="muted" style="margin-top:var(--sp-3)">Каждый факт привязан к источнику.
+    Ссылки на документацию проверяются автоматически, дата последней проверки
+    видна в библиотеке.</p>
+</div>
+
+<div class="card">
+  <div class="h3">Иконки</div>
+  <p class="muted">Контуры иконок — <a href="https://lucide.dev" target="_blank"
+    rel="noopener noreferrer">Lucide</a>, лицензия ISC. Пути встроены в приложение,
+    внешние CDN не используются.</p>
+</div>
+
+<a class="btn ghost" href="index.html">На главную</a>
+
+<div class="foot" id="ver"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var W = Readiness.WEIGHTS;
+  var titles = {
+    knowledge: "Знания и повторение (SRS)",
+    mock: "Mock interview",
+    cases: "Практические кейсы",
+    glossary: "Словарь",
+    plan: "План и регулярность",
+  };
+  document.getElementById("weights").innerHTML = Object.keys(W).map(function (k) {
+    return '<div class="w"><span>' + App.esc(titles[k]) + "</span>" +
+      "<b>" + W[k] + "%</b></div>";
+  }).join("");
+
+  var C = Readiness.CAPS;
+  var capText = {
+    noFullMock: "нет ни одной полной сессии mock interview",
+    fewCases: "пройдено меньше " + Readiness.MIN_CASES + " практических кейсов",
+    weakCriticalTopic: "критическая тема ниже " +
+      Math.round(Readiness.WEAK_CRITICAL * 100) + "%",
+    lowTopicCoverage: "охвачено меньше " +
+      Math.round(Readiness.MIN_TOPIC_COVERAGE * 100) + "% обязательных тем",
+  };
+  document.getElementById("caps").innerHTML = Object.keys(C).map(function (k) {
+    return '<div class="w"><span>' + App.esc(capText[k]) + "</span>" +
+      "<b>до " + C[k] + "%</b></div>";
+  }).join("");
+
+  var n = CONTENT.counts;
+  var labels = {
+    tracks: "Треков", active_tracks: "Наполненных треков", topics: "Тем",
+    lessons: "Уроков", glossary_terms: "Терминов словаря",
+    library_resources: "Материалов библиотеки", questions: "Вопросов теста",
+    mock_questions: "Вопросов mock interview", cases: "Практических кейсов",
+    roadmap_steps: "Шагов плана", sources: "Источников",
+  };
+  document.getElementById("counts").innerHTML = Object.keys(labels)
+    .filter(function (k) { return n[k] !== undefined; })
+    .map(function (k) {
+      return '<div class="w"><span>' + App.esc(labels[k]) + "</span><b>" + n[k] + "</b></div>";
+    }).join("");
+
+  var s = Sync.status();
+  document.getElementById("ver").textContent =
+    "Данные версии " + CONTENT.schema + " · синхронизация " +
+    (s.enabled ? "включена" : "выключена");
+
+  Icons.hydrate();
+})();
+</script>
+</body>
+</html>

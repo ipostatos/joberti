@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Кейсы · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .scenario{ font-size:var(--fs-body); line-height:1.6 }
+  .artifacts{ list-style:none; padding:0; margin:var(--sp-3) 0 0 }
+  .artifacts li{ font-size:var(--fs-sm); padding:7px var(--sp-3); background:var(--muted-fill);
+    border:1px solid var(--border); border-radius:var(--r-sm); margin-bottom:6px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace }
+  .stepnum{ display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; background:var(--muted-fill);
+    color:var(--hint); font-size:var(--fs-xs); font-weight:700; flex:0 0 auto }
+  .qlist{ counter-reset:q }
+  .qlist li{ display:flex; gap:var(--sp-2); align-items:flex-start; padding:8px 0;
+    font-size:var(--fs-sm); line-height:1.55 }
+  .badge-crit{ font-size:var(--fs-xs); color:var(--warn) }
+</style>
+</head>
+<body>
+
+<!-- ── СПИСОК ── -->
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile cyan" data-icon="briefcase"></span>
+    <div class="body">
+      <h1>Практические кейсы</h1>
+      <div class="muted small" id="listSub"></div>
+    </div>
+  </div>
+  <div class="card" id="listStat"></div>
+  <div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">
+    <button class="chip on" data-f="all">Все</button>
+    <button class="chip" data-f="critical">Критические</button>
+    <button class="chip" data-f="todo">Не пройдены</button>
+    <button class="chip" data-f="done">Пройдены</button>
+  </div>
+  <div id="cards"></div>
+</section>
+
+<!-- ── КЕЙС ── -->
+<section id="detail" class="hidden"></section>
+
+<script>
+(function () {
+  "use strict";
+
+  var cases = App.cases();
+  var openId = null;
+  var stage = 0;             // 0 — условие, 1 — свой разбор, 2 — эталон и оценка
+  var filter = "all";
+
+  var elList = document.getElementById("list");
+  var elDetail = document.getElementById("detail");
+
+  function stateOf(id) {
+    return (Progress.profile().cases || {})[id] || null;
+  }
+
+  // ── список ──
+  function renderList() {
+    var done = cases.filter(function (c) { return stateOf(c.id); }).length;
+    var crit = cases.filter(function (c) { return c.critical; });
+    var critDone = crit.filter(function (c) { return stateOf(c.id); }).length;
+
+    document.getElementById("listSub").textContent =
+      cases.length + " кейсов · " + crit.length + " критических";
+
+    var r = App.readiness();
+    document.getElementById("listStat").innerHTML =
+      '<div class="kv"><span class="k">Пройдено</span><span class="v">' +
+      done + " из " + cases.length + "</span></div>" +
+      '<div class="kv"><span class="k">Критических пройдено</span><span class="v">' +
+      critDone + " из " + crit.length + "</span></div>" +
+      (r.available ? '<div class="kv"><span class="k">Блок в готовности</span><span class="v">' +
+        Math.round(r.blocks[2].score * 100) + "%</span></div>" : "") +
+      (done < Readiness.MIN_CASES
+        ? '<div class="small" style="color:var(--warn); margin-top:var(--sp-2)">' +
+          "Пока пройдено меньше трёх кейсов, готовность не поднимется выше " +
+          Readiness.CAPS.fewCases + "%.</div>"
+        : "");
+
+    var rows = cases.filter(function (c) {
+      var st = stateOf(c.id);
+      if (filter === "critical") return c.critical;
+      if (filter === "todo") return !st;
+      if (filter === "done") return !!st;
+      return true;
+    });
+
+    document.getElementById("cards").innerHTML = rows.length ? rows.map(function (c) {
+      var st = stateOf(c.id);
+      var tone = st ? (st.rating >= 3 ? "green" : "amber") : "slate";
+      return '<button class="row-card" data-case="' + App.esc(c.id) + '">' +
+        '<span class="ic-tile ' + tone + '" data-icon="' +
+        (st ? "check-circle" : "briefcase") + '"></span>' +
+        '<span class="body"><span class="t">' + App.esc(c.title) +
+        (c.critical ? ' <span class="badge-crit">критический</span>' : "") + "</span>" +
+        '<span class="d">' + (c.topic_ids || []).map(App.topicTitle).join(", ") +
+        " · сложность " + c.difficulty + "</span>" +
+        '<span class="d" style="margin-top:3px">' +
+        (st ? "самооценка " + st.rating + " из 4, заходов " + (st.count || 1) : "не пройден") +
+        "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+    }).join("") : '<div class="state">Здесь пусто</div>';
+    Icons.hydrate();
+  }
+
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    Array.prototype.forEach.call(this.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    renderList();
+  });
+
+  document.getElementById("cards").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-case]");
+    if (b) open(b.getAttribute("data-case"));
+  });
+
+  // ── кейс ──
+  function li(items, cls) {
+    return (items || []).map(function (x) {
+      return '<li><span class="b"></span><span>' + App.esc(x) + "</span></li>";
+    }).join("");
+  }
+
+  function open(id) {
+    openId = id;
+    stage = 0;
+    elList.classList.add("hidden");
+    elDetail.classList.remove("hidden");
+    if (window.setBusy) setBusy(true);
+    renderDetail();
+  }
+
+  function close() {
+    openId = null;
+    if (window.setBusy) setBusy(false);
+    elDetail.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  function renderDetail() {
+    var c = App.byId(cases, openId);
+    if (!c) { close(); return; }
+    var st = stateOf(c.id);
+
+    var html = '<div class="hero">' +
+      '<span class="ic-tile cyan" data-icon="briefcase"></span>' +
+      '<div class="body"><h1>' + App.esc(c.title) + "</h1>" +
+      '<div class="muted small">' + (c.topic_ids || []).map(App.topicTitle).join(", ") +
+      " · сложность " + c.difficulty + (c.critical ? " · критический" : "") + "</div></div></div>";
+
+    // Шаг 1 — условие и вопросы. Эталон закрыт, чтобы человек сначала подумал сам.
+    html += '<div class="card"><div class="h3">Ситуация</div>' +
+      '<p class="scenario">' + App.esc(c.scenario) + "</p>";
+    if ((c.artifacts || []).length) {
+      html += '<div class="h3" style="margin-top:var(--sp-3)">Что известно</div>' +
+        '<ul class="artifacts">' + c.artifacts.map(function (a) {
+          return "<li>" + App.esc(a) + "</li>";
+        }).join("") + "</ul>";
+    }
+    html += "</div>";
+
+    html += '<div class="card"><div class="h3">Вопросы</div><ol class="qlist" style="padding-left:0; list-style:none">' +
+      (c.questions || []).map(function (q, i) {
+        return '<li><span class="stepnum">' + (i + 1) + "</span><span>" + App.esc(q) + "</span></li>";
+      }).join("") + "</ol></div>";
+
+    if (stage === 0) {
+      html += '<div class="card"><div class="h3">Разберите кейс сами</div>' +
+        '<p class="small muted">Проговорите вслух или запишите порядок действий. ' +
+        "Смотреть эталон до собственной попытки бессмысленно: на собеседовании подсказки не будет.</p>" +
+        '<label class="field"><span class="lb">Ваш порядок действий (хранится на устройстве)</span>' +
+        '<textarea id="noteBox" placeholder="1. Проверю…&#10;2. Затем…"></textarea></label>' +
+        '<button class="btn" id="toStage2">Показать эталонный разбор</button></div>';
+      html += '<button class="btn ghost" id="backBtn" style="margin-top:var(--sp-2)">К списку кейсов</button>';
+    } else {
+      html += '<div class="card"><div class="h3">Эталонный порядок действий</div>' +
+        '<ol class="qlist" style="padding-left:0; list-style:none">' +
+        (c.expected_process || []).map(function (s, i) {
+          return '<li><span class="stepnum">' + (i + 1) + "</span><span>" + App.esc(s) + "</span></li>";
+        }).join("") + "</ol></div>";
+
+      html += '<div class="card"><div class="h3">Обязательно упомянуть</div>' +
+        '<ul class="points ok">' + li(c.must_mention) + "</ul></div>";
+
+      html += '<div class="card"><div class="h3">Частые ошибки</div>' +
+        '<ul class="points bad">' + li(c.common_mistakes) + "</ul></div>";
+
+      html += '<div class="card"><div class="h3">Разбор</div>' +
+        '<p class="small" style="line-height:1.65">' + App.esc(c.solution) + "</p></div>";
+
+      html += '<div class="card"><div class="h3">Оцените себя</div>' +
+        '<p class="small muted">Сравните свой разбор с эталонным. Оценка влияет на ' +
+        "готовность только вместе с повторным прохождением.</p>" +
+        '<div class="rubric" id="rubric">' + ["0", "1", "2", "3", "4"].map(function (lv) {
+          var on = st && String(st.rating) === lv ? " class=\"on\"" : "";
+          return "<button" + on + ' data-rate="' + lv + '"><span class="lv">' + lv + "</span>" +
+            '<span class="small">' + App.esc((c.rubric || {})[lv] || "") + "</span></button>";
+        }).join("") + "</div></div>";
+
+      html += '<button class="btn ghost" id="backBtn">К списку кейсов</button>';
+    }
+
+    elDetail.innerHTML = html;
+    Icons.hydrate(elDetail);
+
+    var toStage2 = document.getElementById("toStage2");
+    if (toStage2) {
+      toStage2.addEventListener("click", function () {
+        stage = 1;
+        renderDetail();
+        window.scrollTo(0, 0);
+      });
+    }
+    var rubric = document.getElementById("rubric");
+    if (rubric) {
+      rubric.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-rate]");
+        if (!b) return;
+        var rating = parseInt(b.getAttribute("data-rate"), 10);
+        App.recordCase(openId, rating);
+        Progress.addAttempt({
+          kind: "case", mode: openId, total: 1,
+          correct: rating >= 3 ? 1 : 0, pct: Math.round(rating / 4 * 100),
+        });
+        if (window.Sync) { Sync.push(); Sync.pushHistory(); }
+        if (window.haptic) haptic(rating >= 3 ? "success" : "warning");
+        toast("Кейс засчитан: " + rating + " из 4");
+        close();
+      });
+    }
+    document.getElementById("backBtn").addEventListener("click", close);
+  }
+
+  window.__navBack = function () {
+    if (openId) {
+      if (stage === 1) { stage = 0; renderDetail(); return true; }
+      close();
+      return true;
+    }
+    return false;
+  };
+
+  renderList();
+  Icons.hydrate();
+  var id = App.param("id");
+  if (id) open(id);
+})();
+</script>
+</body>
+</html>

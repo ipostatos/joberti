@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Словарь · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="search.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .term-row{ display:flex; align-items:center; gap:var(--sp-3); width:100%;
+    text-align:left; font:inherit; color:var(--text); background:var(--card);
+    border:1px solid var(--border); border-radius:var(--r-md);
+    padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2); cursor:pointer }
+  .term-row .body{ flex:1; min-width:0 }
+  .term-row .t{ font-weight:700; font-size:var(--fs-body) }
+  .term-row .d{ color:var(--hint); font-size:var(--fs-sm); margin-top:2px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  .term-row .box{ font-size:var(--fs-xs); color:var(--hint); flex:0 0 auto }
+  .cat-title{ font-size:var(--fs-xs); font-weight:700; color:var(--hint);
+    text-transform:uppercase; letter-spacing:.05em; margin:var(--sp-4) 0 var(--sp-2) }
+  .fav{ color:var(--warn) }
+</style>
+</head>
+<body>
+
+<!-- ── СПИСОК ── -->
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile slate" data-icon="file-text"></span>
+    <div class="body">
+      <h1>Словарь</h1>
+      <div class="muted small" id="sub"></div>
+    </div>
+  </div>
+
+  <div class="search-box">
+    <span class="emi plain" data-icon="search"></span>
+    <input type="text" id="q" placeholder="Термин по-русски или по-английски" autocomplete="off">
+    <button id="clear" class="hidden"><span class="emi plain" data-icon="x"></span></button>
+  </div>
+
+  <div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">
+    <button class="chip on" data-f="all">Все</button>
+    <button class="chip" data-f="new">Не изучены</button>
+    <button class="chip" data-f="due">К повтору</button>
+    <button class="chip" data-f="fav">Избранное</button>
+    <button class="chip" data-f="known">Освоено</button>
+  </div>
+
+  <div class="chip-row" id="cats" style="margin-bottom:var(--sp-3)"></div>
+
+  <button class="btn" id="studyBtn" style="margin-bottom:var(--sp-4)">Учить карточками</button>
+
+  <div id="terms"></div>
+</section>
+
+<!-- ── КАРТОЧКА ТЕРМИНА ── -->
+<section id="detail" class="hidden"></section>
+
+<!-- ── РЕЖИМ КАРТОЧЕК ── -->
+<section id="study" class="hidden">
+  <div style="display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3)">
+    <div style="flex:1"><div class="meter"><i id="studyBar" style="width:0%"></i></div></div>
+    <div class="small muted" id="studyCounter">0/0</div>
+  </div>
+  <div class="card">
+    <div class="muted xs" id="studyCat"></div>
+    <div style="font-size:var(--fs-h1); font-weight:800; margin:6px 0 var(--sp-3)" id="studyTerm"></div>
+
+    <div id="studyFront">
+      <p class="small muted">Вспомните определение, потом проверьте себя.</p>
+      <button class="btn" id="flipBtn">Показать определение</button>
+    </div>
+
+    <div id="studyBack" class="hidden">
+      <p class="small" id="studyDef" style="line-height:1.65"></p>
+      <div class="explain">
+        <div class="h">Как сказать на собеседовании</div>
+        <div class="small" id="studyInterview"></div>
+      </div>
+      <p class="small muted" id="studyConfusion"></p>
+      <div class="h3" style="margin-top:var(--sp-3)">Проверка</div>
+      <p class="small" id="studyQuestion"></p>
+      <details style="margin:var(--sp-2) 0">
+        <summary class="small muted" style="cursor:pointer">Показать ответ</summary>
+        <p class="small" id="studyAnswer" style="margin-top:var(--sp-2)"></p>
+      </details>
+      <div class="btn-row" style="margin-top:var(--sp-3)">
+        <button class="btn ghost" id="studyFail">Не знал</button>
+        <button class="btn" id="studyOk">Знал</button>
+      </div>
+    </div>
+  </div>
+  <button class="btn ghost" id="studyExit">Выйти из карточек</button>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var terms = App.terms();
+  var filter = "all";
+  var cat = null;
+  var query = "";
+  var openId = null;
+  var study = null;
+
+  var elList = document.getElementById("list");
+  var elDetail = document.getElementById("detail");
+  var elStudy = document.getElementById("study");
+
+  var index = Search.buildIndex({ glossary: terms }, App.trackId());
+
+  function stateOf(t) {
+    var s = SRS.state(App.tid(t.id));
+    var prof = (Progress.profile().glossary || {})[t.id] || {};
+    return {
+      box: s ? s.box : null,
+      due: s ? s.due <= Date.now() : true,
+      seen: !!s,
+      known: !!(s && s.box >= SRS.LEARNED_BOX),
+      favorite: !!prof.favorite,
+    };
+  }
+
+  function renderHead() {
+    var known = 0, started = 0;
+    terms.forEach(function (t) {
+      var s = stateOf(t);
+      if (s.known) known++;
+      if (s.seen) started++;
+    });
+    document.getElementById("sub").textContent =
+      terms.length + " терминов · изучено " + started + " · освоено " + known;
+
+    document.getElementById("cats").innerHTML =
+      '<button class="chip' + (cat ? "" : " on") + '" data-cat="">Все категории</button>' +
+      CONTENT.glossaryCategories.map(function (c) {
+        var n = terms.filter(function (t) { return t.category === c; }).length;
+        if (!n) return "";
+        return '<button class="chip' + (cat === c ? " on" : "") + '" data-cat="' +
+          App.esc(c) + '">' + App.esc(c) + " · " + n + "</button>";
+      }).join("");
+  }
+
+  function filtered() {
+    var list = terms;
+    if (query) {
+      var order = {};
+      Search.query(index, query, { limit: 300 }).forEach(function (h) {
+        order[h.entry.id] = h.score;
+      });
+      list = list.filter(function (t) { return order[t.id] !== undefined; })
+        .sort(function (a, b) { return order[b.id] - order[a.id]; });
+    }
+    if (cat) list = list.filter(function (t) { return t.category === cat; });
+    if (filter === "new") list = list.filter(function (t) { return !stateOf(t).seen; });
+    else if (filter === "due") list = list.filter(function (t) {
+      var s = stateOf(t); return s.seen && s.due;
+    });
+    else if (filter === "fav") list = list.filter(function (t) { return stateOf(t).favorite; });
+    else if (filter === "known") list = list.filter(function (t) { return stateOf(t).known; });
+    return list;
+  }
+
+  function row(t) {
+    var s = stateOf(t);
+    var mark = s.known ? "освоен" : s.seen ? "коробка " + s.box : "новый";
+    return '<button class="term-row" data-term="' + App.esc(t.id) + '">' +
+      '<span class="body"><span class="t">' + App.esc(t.term) +
+      (s.favorite ? ' <span class="emi plain fav" data-icon="star"></span>' : "") + "</span>" +
+      '<span class="d">' + App.esc(t.definition_simple) + "</span></span>" +
+      '<span class="box">' + mark + "</span></button>";
+  }
+
+  function renderList() {
+    renderHead();
+    var list = filtered();
+    if (!list.length) {
+      document.getElementById("terms").innerHTML = '<div class="state">Ничего не найдено</div>';
+      return;
+    }
+    var html;
+    if (query) {
+      // При поиске порядок задаёт релевантность, группировка только мешала бы.
+      html = list.map(row).join("");
+    } else {
+      var byCat = {};
+      list.forEach(function (t) { (byCat[t.category] = byCat[t.category] || []).push(t); });
+      html = CONTENT.glossaryCategories.filter(function (c) { return byCat[c]; })
+        .map(function (c) {
+          return '<div class="cat-title">' + App.esc(c) + "</div>" + byCat[c].map(row).join("");
+        }).join("");
+    }
+    document.getElementById("terms").innerHTML = html;
+    Icons.hydrate();
+  }
+
+  // ── карточка термина ──
+  function open(id) {
+    var t = App.byId(terms, id);
+    if (!t) return;
+    openId = id;
+    var s = stateOf(t);
+    var parts = [];
+
+    parts.push('<div class="hero">' +
+      '<span class="ic-tile ' + (s.known ? "green" : "slate") + '" data-icon="file-text"></span>' +
+      '<div class="body"><h1>' + App.esc(t.term) + "</h1>" +
+      '<div class="muted small">' + App.esc(t.category) +
+      " · сложность " + t.difficulty +
+      (s.seen ? " · коробка " + s.box : " · не изучен") + "</div></div></div>");
+
+    if ((t.aliases || []).length) {
+      parts.push('<div class="chip-row" style="flex-wrap:wrap; overflow:visible; margin-bottom:var(--sp-3)">' +
+        t.aliases.map(function (a) {
+          return '<span class="chip">' + App.esc(a) + "</span>";
+        }).join("") + "</div>");
+    }
+
+    parts.push('<div class="card"><div class="h3">Простыми словами</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(t.definition_simple) + "</p></div>");
+    parts.push('<div class="card"><div class="h3">Как сказать на собеседовании</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(t.definition_interview) + "</p></div>");
+    parts.push('<div class="card"><div class="h3">Пример</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(t.example) + "</p></div>");
+    parts.push('<div class="card"><div class="h3">С чем путают</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(t.common_confusion) + "</p></div>");
+
+    parts.push('<div class="card"><div class="h3">Проверка</div>' +
+      '<p class="small" style="font-weight:600">' + App.esc(t.question) + "</p>" +
+      '<details style="margin-top:var(--sp-2)">' +
+      '<summary class="small muted" style="cursor:pointer">Показать ответ</summary>' +
+      '<p class="small" style="margin-top:var(--sp-2); line-height:1.6">' +
+      App.esc(t.answer) + "</p></details>" +
+      '<p class="xs muted" style="margin-top:var(--sp-3)">' +
+      "Термин засчитывается в готовность только после проверки, а не после открытия карточки." +
+      "</p>" +
+      '<div class="btn-row" style="margin-top:var(--sp-2)">' +
+      '<button class="btn ghost" id="dFail">Не знал</button>' +
+      '<button class="btn" id="dOk">Знал</button></div></div>');
+
+    var srcs = (t.source_refs || []).map(App.sourceById).filter(Boolean);
+    if (srcs.length) {
+      parts.push('<div class="card"><div class="h3">Источники</div>' + srcs.map(function (s2) {
+        return '<div class="small" style="margin-bottom:5px"><a href="' + App.esc(s2.url) +
+          '" target="_blank" rel="noopener noreferrer">' + App.esc(s2.title) + "</a> · " +
+          '<span class="muted">' + App.esc(s2.publisher) + "</span></div>";
+      }).join("") + "</div>");
+    }
+
+    var rel = CONTENT.lessons.filter(function (l) {
+      return (l.related_term_ids || []).indexOf(t.id) !== -1;
+    });
+    if (rel.length) {
+      parts.push('<div class="section-title">Где изучить</div>' + rel.map(function (l) {
+        return '<a class="row-card" href="lesson.html?id=' + encodeURIComponent(l.id) + '">' +
+          '<span class="body"><span class="t">' + App.esc(l.title) + "</span>" +
+          '<span class="d">' + l.estimated_minutes + " мин</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+      }).join(""));
+    }
+
+    parts.push('<div class="btn-row" style="margin-top:var(--sp-3)">' +
+      '<button class="btn ghost" id="dFav">' +
+      (s.favorite ? "Убрать из избранного" : "В избранное") + "</button>" +
+      '<button class="btn ghost" id="dBack">К словарю</button></div>');
+
+    elDetail.innerHTML = parts.join("");
+    elList.classList.add("hidden");
+    elDetail.classList.remove("hidden");
+    Icons.hydrate(elDetail);
+    window.scrollTo(0, 0);
+
+    document.getElementById("dOk").addEventListener("click", function () { check(t.id, true); });
+    document.getElementById("dFail").addEventListener("click", function () { check(t.id, false); });
+    document.getElementById("dFav").addEventListener("click", function () {
+      var on = App.toggleTermFavorite(t.id);
+      this.textContent = on ? "Убрать из избранного" : "В избранное";
+      if (window.haptic) haptic("select");
+    });
+    document.getElementById("dBack").addEventListener("click", close);
+  }
+
+  function check(id, ok) {
+    App.recordTermCheck(id, ok);
+    if (window.haptic) haptic(ok ? "success" : "warning");
+    toast(ok ? "Засчитано" : "Вернём на повтор скоро");
+    close();
+  }
+
+  function close() {
+    openId = null;
+    elDetail.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  // ── карточки ──
+  function startStudy() {
+    var pool = filtered();
+    if (!pool.length) pool = terms;
+    var ids = SRS.pickDue(pool.map(function (t) { return App.tid(t.id); }), 20);
+    var list = ids.map(function (id) { return App.byId(terms, id.slice(2)); }).filter(Boolean);
+    if (!list.length) { toast("Нечего повторять"); return; }
+
+    study = { list: list, i: 0, ok: 0 };
+    if (window.setBusy) setBusy(true);
+    elList.classList.add("hidden");
+    elDetail.classList.add("hidden");
+    elStudy.classList.remove("hidden");
+    renderStudy();
+  }
+
+  function renderStudy() {
+    var t = study.list[study.i];
+    document.getElementById("studyCounter").textContent = (study.i + 1) + "/" + study.list.length;
+    document.getElementById("studyBar").style.width =
+      Math.round(study.i / study.list.length * 100) + "%";
+    document.getElementById("studyCat").textContent = t.category;
+    document.getElementById("studyTerm").textContent = t.term;
+    document.getElementById("studyDef").textContent = t.definition_simple;
+    document.getElementById("studyInterview").textContent = t.definition_interview;
+    document.getElementById("studyConfusion").textContent = "С чем путают: " + t.common_confusion;
+    document.getElementById("studyQuestion").textContent = t.question;
+    document.getElementById("studyAnswer").textContent = t.answer;
+    document.getElementById("studyFront").classList.remove("hidden");
+    document.getElementById("studyBack").classList.add("hidden");
+    window.scrollTo(0, 0);
+  }
+
+  function studyAnswer(ok) {
+    var t = study.list[study.i];
+    App.recordTermCheck(t.id, ok);
+    if (ok) study.ok++;
+    if (window.haptic) haptic(ok ? "success" : "warning");
+    study.i++;
+    if (study.i >= study.list.length) {
+      var n = study.list.length, good = study.ok;
+      exitStudy();
+      toast("Карточки: " + good + " из " + n + " верно");
+    } else {
+      renderStudy();
+    }
+  }
+
+  function exitStudy() {
+    study = null;
+    if (window.setBusy) setBusy(false);
+    elStudy.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("flipBtn").addEventListener("click", function () {
+    document.getElementById("studyFront").classList.add("hidden");
+    document.getElementById("studyBack").classList.remove("hidden");
+  });
+  document.getElementById("studyOk").addEventListener("click", function () { studyAnswer(true); });
+  document.getElementById("studyFail").addEventListener("click", function () { studyAnswer(false); });
+  document.getElementById("studyExit").addEventListener("click", exitStudy);
+  document.getElementById("studyBtn").addEventListener("click", startStudy);
+
+  // ── фильтры и поиск ──
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    Array.prototype.forEach.call(this.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    renderList();
+  });
+
+  document.getElementById("cats").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cat]");
+    if (!b) return;
+    cat = b.getAttribute("data-cat") || null;
+    renderList();
+  });
+
+  document.getElementById("terms").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-term]");
+    if (b) open(b.getAttribute("data-term"));
+  });
+
+  var input = document.getElementById("q");
+  var clear = document.getElementById("clear");
+  input.addEventListener("input", function () {
+    query = input.value.trim();
+    clear.classList.toggle("hidden", !query);
+    renderList();
+  });
+  clear.addEventListener("click", function () {
+    input.value = ""; query = ""; clear.classList.add("hidden"); renderList();
+  });
+
+  window.__navBack = function () {
+    if (study) { exitStudy(); return true; }
+    if (openId) { close(); return true; }
+    return false;
+  };
+
+  renderList();
+  Icons.hydrate();
+  var id = App.param("id");
+  if (id) open(id);
+})();
+</script>
+</body>
+</html>

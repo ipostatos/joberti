@@ -1,0 +1,68 @@
+{
+  "schema": "tracks/v1",
+  "tracks": [
+    {
+      "id": "redcore-junior-seo",
+      "title": "Junior SEO Specialist",
+      "company": "RedCore",
+      "status": "active",
+      "language": "ru",
+      "summary": "Подготовка к собеседованию на позицию Junior SEO Specialist: как работает поиск, технический SEO, семантика, аналитика, инструменты и разбор своих кейсов.",
+      "vacancy_id": "redcore-junior-seo",
+      "critical_topic_ids": [
+        "search-basics",
+        "search-intent",
+        "on-page",
+        "technical-seo",
+        "indexing-gsc",
+        "keyword-research"
+      ],
+      "self_assessment_areas": [
+        { "id": "sa-seo-experience", "title": "Опыт SEO", "hint": "Работали ли вы с продвижением сайтов на практике" },
+        { "id": "sa-html-css", "title": "HTML и CSS", "hint": "Читаете ли вы разметку страницы и понимаете структуру документа" },
+        { "id": "sa-technical-seo", "title": "Технический SEO", "hint": "robots.txt, sitemap, canonical, коды ответа, индексация" },
+        { "id": "sa-gsc", "title": "Google Search Console", "hint": "Отчёты, проверка URL, индексация, показы и клики" },
+        { "id": "sa-ga4", "title": "GA4", "hint": "Отчёты по трафику, каналы, события, конверсии" },
+        { "id": "sa-keyword-research", "title": "Сбор семантики", "hint": "Подбор запросов, частотность, интент, кластеризация" },
+        { "id": "sa-screaming-frog", "title": "Screaming Frog", "hint": "Краул сайта, поиск ошибок, выгрузки" },
+        { "id": "sa-ahrefs-semrush", "title": "Ahrefs / Semrush", "hint": "Анализ конкурентов, ссылки, видимость, ключевые слова" },
+        { "id": "sa-sheets", "title": "Google Sheets", "hint": "Формулы, сводные, обработка выгрузок" },
+        { "id": "sa-english", "title": "Английский язык", "hint": "Чтение документации и короткий устный ответ" },
+        { "id": "sa-storytelling", "title": "Рассказ о своих проектах", "hint": "Можете ли внятно объяснить, что делали и какой был результат" }
+      ]
+    },
+    {
+      "id": "qa-payments",
+      "title": "QA Engineer — платежи",
+      "company": null,
+      "status": "coming_soon",
+      "language": "ru",
+      "summary": "Тестирование платёжных сценариев: интеграции, идемпотентность, возвраты, безопасность данных карт.",
+      "vacancy_id": null,
+      "critical_topic_ids": [],
+      "self_assessment_areas": []
+    },
+    {
+      "id": "technical-engineer",
+      "title": "Technical Engineer",
+      "company": null,
+      "status": "coming_soon",
+      "language": "ru",
+      "summary": "Поддержка и диагностика технических продуктов: логи, сеть, воспроизведение проблем, эскалация.",
+      "vacancy_id": null,
+      "critical_topic_ids": [],
+      "self_assessment_areas": []
+    },
+    {
+      "id": "devops-platform",
+      "title": "DevOps / Platform Engineer",
+      "company": null,
+      "status": "coming_soon",
+      "language": "ru",
+      "summary": "CI/CD, контейнеры, наблюдаемость, инфраструктура как код, надёжность сервисов.",
+      "vacancy_id": null,
+      "critical_topic_ids": [],
+      "self_assessment_areas": []
+    }
+  ]
+}

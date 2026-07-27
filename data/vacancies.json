@@ -1,0 +1,65 @@
+{
+  "schema": "vacancies/v1",
+  "note": "Поля evidence пустые намеренно: доказательства из портфолио заполняет сам пользователь. Приложение не придумывает за него достижения.",
+  "vacancies": [
+    {
+      "id": "redcore-junior-seo",
+      "track_id": "redcore-junior-seo",
+      "title": "Junior SEO Specialist",
+      "company": "RedCore",
+      "level": "Junior",
+      "work_format": "Уточнить у рекрутера (офис / гибрид / удалённо)",
+      "summary": "Позиция для начинающего SEO-специалиста: работа с сайтами компании, техническая гигиена, семантика, контентные задачи и отчётность.",
+      "main_tasks": [
+        "Технический аудит страниц и разделов сайта",
+        "Сбор и кластеризация семантического ядра",
+        "Подготовка технических заданий на тексты",
+        "Оптимизация метаданных и структуры страниц",
+        "Работа с Google Search Console и GA4",
+        "Мониторинг индексации и позиций",
+        "Анализ конкурентов в выдаче",
+        "Подготовка регулярной отчётности"
+      ],
+      "tools": [
+        "Google Search Console",
+        "Google Analytics 4",
+        "Screaming Frog SEO Spider",
+        "Ahrefs или Semrush",
+        "Google Sheets",
+        "Google Keyword Planner",
+        "PageSpeed Insights"
+      ],
+      "interview_topics": [
+        "search-basics",
+        "search-intent",
+        "on-page",
+        "technical-seo",
+        "indexing-gsc",
+        "keyword-research",
+        "analytics-ga4",
+        "seo-tools",
+        "behavioral"
+      ],
+      "requirements": [
+        { "id": "req-search-fundamentals", "requirement": "Понимание, как работает поисковая система", "importance": "required", "topic_ids": ["search-basics"], "status": "not_started", "evidence": "", "evidence_hint": "Можете вслух объяснить разницу между обходом, индексацией и ранжированием на примере конкретной страницы", "gap": "", "next_action": "Пройти урок «Crawling, indexing и ranking» и тест по теме" },
+        { "id": "req-search-intent", "requirement": "Умение определять поисковый интент запроса", "importance": "required", "topic_ids": ["search-intent"], "status": "not_started", "evidence": "", "evidence_hint": "Разбор 10 запросов с обоснованием типа страницы под каждый", "gap": "", "next_action": "Собрать мини-разбор выдачи по 10 запросам" },
+        { "id": "req-onpage", "requirement": "Базовая on-page оптимизация: title, description, заголовки", "importance": "required", "topic_ids": ["on-page"], "status": "not_started", "evidence": "", "evidence_hint": "Страницы, где вы меняли метаданные, и что было до/после", "gap": "", "next_action": "Подготовить пример правки метаданных с обоснованием" },
+        { "id": "req-html", "requirement": "Чтение HTML: структура документа, заголовки, ссылки, атрибуты", "importance": "required", "topic_ids": ["html-http"], "status": "not_started", "evidence": "", "evidence_hint": "Умеете открыть исходный код страницы и найти нужные теги без подсказки", "gap": "", "next_action": "Пройти урок по HTML-структуре и тест html-http" },
+        { "id": "req-http-codes", "requirement": "Понимание кодов ответа сервера и редиректов", "importance": "required", "topic_ids": ["html-http", "technical-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Случай, когда вы находили 404 или цепочку редиректов и что предложили", "gap": "", "next_action": "Разобрать кейс с цепочками редиректов" },
+        { "id": "req-technical-seo", "requirement": "Технический SEO: robots.txt, sitemap.xml, canonical", "importance": "required", "topic_ids": ["technical-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Файлы, которые вы правили или проверяли, и зачем", "gap": "", "next_action": "Пройти блок технического SEO целиком" },
+        { "id": "req-gsc", "requirement": "Google Search Console: отчёты, индексация, проверка URL", "importance": "required", "topic_ids": ["indexing-gsc"], "status": "not_started", "evidence": "", "evidence_hint": "Скриншот или описание отчёта, который вы регулярно смотрели", "gap": "", "next_action": "Подготовить мини-кейс по GSC с динамикой показов и кликов" },
+        { "id": "req-keyword-research", "requirement": "Сбор семантического ядра", "importance": "required", "topic_ids": ["keyword-research", "clustering-mapping"], "status": "not_started", "evidence": "", "evidence_hint": "Готовая таблица с запросами, частотностью и группировкой", "gap": "", "next_action": "Собрать семантику для одной услуги и оформить таблицей" },
+        { "id": "req-sheets", "requirement": "Google Sheets на уровне обработки выгрузок", "importance": "required", "topic_ids": ["sheets"], "status": "not_started", "evidence": "", "evidence_hint": "Таблица, где вы использовали фильтры, сводные или ВПР/QUERY", "gap": "", "next_action": "Сделать шаблон обработки выгрузки Screaming Frog" },
+        { "id": "req-analytics", "requirement": "Google Analytics 4: базовые отчёты по органическому трафику", "importance": "required", "topic_ids": ["analytics-ga4"], "status": "not_started", "evidence": "", "evidence_hint": "Какие отчёты вы открывали и какие выводы делали", "gap": "", "next_action": "Пройти уроки по GA4 и тест по теме" },
+        { "id": "req-screaming-frog", "requirement": "Screaming Frog: краул сайта и разбор находок", "importance": "desirable", "topic_ids": ["seo-tools"], "status": "not_started", "evidence": "", "evidence_hint": "Отчёт краула с описанием найденных проблем", "gap": "", "next_action": "Прокраулить учебный сайт и выписать топ-5 проблем" },
+        { "id": "req-ahrefs-semrush", "requirement": "Ahrefs или Semrush: анализ конкурентов и видимости", "importance": "desirable", "topic_ids": ["seo-tools", "competitor-analysis"], "status": "not_started", "evidence": "", "evidence_hint": "Сравнение своего сайта с конкурентом по видимости", "gap": "", "next_action": "Сделать разбор одного конкурента" },
+        { "id": "req-cwv", "requirement": "Core Web Vitals: что измеряют и на что влияют", "importance": "desirable", "topic_ids": ["performance-cwv"], "status": "not_started", "evidence": "", "evidence_hint": "Разбор отчёта PageSpeed Insights по реальной странице", "gap": "", "next_action": "Прогнать страницу через PageSpeed Insights и объяснить метрики" },
+        { "id": "req-content-brief", "requirement": "Подготовка технических заданий на контент", "importance": "desirable", "topic_ids": ["content-briefs"], "status": "not_started", "evidence": "", "evidence_hint": "Готовое ТЗ копирайтеру", "gap": "", "next_action": "Написать ТЗ по шаблону из кейса case-content-brief-010" },
+        { "id": "req-reporting", "requirement": "Отчётность: показать результат заказчику", "importance": "desirable", "topic_ids": ["reporting"], "status": "not_started", "evidence": "", "evidence_hint": "Пример отчёта или его структуры", "gap": "", "next_action": "Собрать шаблон месячного отчёта" },
+        { "id": "req-dev-communication", "requirement": "Постановка технических задач разработчикам", "importance": "desirable", "topic_ids": ["dev-communication"], "status": "not_started", "evidence": "", "evidence_hint": "Задача в трекере, которую по вашему описанию сделали без уточнений", "gap": "", "next_action": "Пройти кейс case-dev-task-012" },
+        { "id": "req-english", "requirement": "Английский для чтения документации", "importance": "desirable", "topic_ids": ["interview-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Регулярно читаете Google Search Central в оригинале", "gap": "", "next_action": "Разобрать блок Interview English в словаре" },
+        { "id": "req-international", "requirement": "Международное и мультиязычное SEO", "importance": "nice_to_have", "topic_ids": ["international-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Работа с hreflang или языковыми версиями", "gap": "", "next_action": "Пройти урок по hreflang" }
+      ]
+    }
+  ]
+}

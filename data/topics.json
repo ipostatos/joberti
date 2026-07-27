@@ -1,0 +1,25 @@
+{
+  "schema": "topics/v1",
+  "topics": [
+    { "id": "search-basics", "track_id": "redcore-junior-seo", "order": 1, "title": "Как работает поиск", "short": "Crawling, indexing, ranking и что из этого вы можете контролировать", "required": true, "critical": true },
+    { "id": "search-intent", "track_id": "redcore-junior-seo", "order": 2, "title": "Поисковый интент", "short": "Что человек на самом деле хочет получить по запросу и какой тип страницы этому отвечает", "required": true, "critical": true },
+    { "id": "on-page", "track_id": "redcore-junior-seo", "order": 3, "title": "On-page SEO", "short": "Title, description, заголовки, структура и содержимое страницы", "required": true, "critical": true },
+    { "id": "html-http", "track_id": "redcore-junior-seo", "order": 4, "title": "HTML и HTTP", "short": "Разметка документа, коды ответа сервера, редиректы", "required": true, "critical": false },
+    { "id": "technical-seo", "track_id": "redcore-junior-seo", "order": 5, "title": "Технический SEO", "short": "robots.txt, sitemap.xml, canonical, дубли, параметры, рендеринг", "required": true, "critical": true },
+    { "id": "indexing-gsc", "track_id": "redcore-junior-seo", "order": 6, "title": "Индексация и Search Console", "short": "Почему страница не в индексе и как это проверить в GSC", "required": true, "critical": true },
+    { "id": "keyword-research", "track_id": "redcore-junior-seo", "order": 7, "title": "Сбор семантики", "short": "Источники запросов, частотность, сложность, отбор", "required": true, "critical": true },
+    { "id": "clustering-mapping", "track_id": "redcore-junior-seo", "order": 8, "title": "Кластеризация и mapping", "short": "Группировка запросов и распределение их по страницам", "required": true, "critical": false },
+    { "id": "analytics-ga4", "track_id": "redcore-junior-seo", "order": 9, "title": "Аналитика и GA4", "short": "Каналы, сессии, события, конверсии и связка с органикой", "required": true, "critical": false },
+    { "id": "seo-tools", "track_id": "redcore-junior-seo", "order": 10, "title": "Инструменты SEO", "short": "Screaming Frog, Ahrefs, Semrush: что чем смотрят", "required": true, "critical": false },
+    { "id": "performance-cwv", "track_id": "redcore-junior-seo", "order": 11, "title": "Скорость и Core Web Vitals", "short": "LCP, INP, CLS: что измеряют и на что влияют", "required": true, "critical": false },
+    { "id": "internal-linking", "track_id": "redcore-junior-seo", "order": 12, "title": "Внутренняя перелинковка", "short": "Как ссылки внутри сайта распределяют вес и помогают обходу", "required": true, "critical": false },
+    { "id": "international-seo", "track_id": "redcore-junior-seo", "order": 13, "title": "Международное SEO", "short": "hreflang, языковые и региональные версии", "required": false, "critical": false },
+    { "id": "content-briefs", "track_id": "redcore-junior-seo", "order": 14, "title": "Контентные ТЗ", "short": "Как поставить задачу копирайтеру, чтобы текст решал задачу поиска", "required": true, "critical": false },
+    { "id": "competitor-analysis", "track_id": "redcore-junior-seo", "order": 15, "title": "Конкурентный анализ", "short": "Кто в выдаче, за счёт чего и что из этого воспроизводимо", "required": true, "critical": false },
+    { "id": "sheets", "track_id": "redcore-junior-seo", "order": 16, "title": "Google Sheets для SEO", "short": "Обработка выгрузок: формулы, сводные, склейка данных", "required": true, "critical": false },
+    { "id": "reporting", "track_id": "redcore-junior-seo", "order": 17, "title": "Отчётность", "short": "Что показывать заказчику и как отделить сигнал от шума", "required": true, "critical": false },
+    { "id": "dev-communication", "track_id": "redcore-junior-seo", "order": 18, "title": "Работа с разработчиками", "short": "Как сформулировать техническую задачу так, чтобы её сделали", "required": true, "critical": false },
+    { "id": "interview-seo", "track_id": "redcore-junior-seo", "order": 19, "title": "Вопросы SEO-интервью", "short": "Что реально спрашивают junior-кандидата и как отвечать", "required": true, "critical": false },
+    { "id": "behavioral", "track_id": "redcore-junior-seo", "order": 20, "title": "Behavioral interview", "short": "Истории про опыт, конфликты, ошибки и обучение по схеме STAR", "required": true, "critical": false }
+  ]
+}

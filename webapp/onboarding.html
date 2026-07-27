@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Настройка · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js" data-home="true"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .dots{ display:flex; gap:6px; justify-content:center; margin-bottom:var(--sp-5) }
+  .dots i{ width:7px; height:7px; border-radius:50%; background:var(--border);
+    transition:width .2s, background .2s }
+  .dots i.on{ background:var(--accent); width:22px; border-radius:4px }
+  .sa-row{ padding:var(--sp-3) 0; border-bottom:1px solid var(--border) }
+  .sa-row:last-child{ border-bottom:none }
+  .sa-row .t{ font-weight:600; font-size:var(--fs-body) }
+  .sa-row .h{ color:var(--hint); font-size:var(--fs-xs); margin:2px 0 var(--sp-2); line-height:1.4 }
+  .scale{ display:flex; gap:5px }
+  .scale button{ flex:1; padding:8px 0; font:inherit; font-weight:700; font-size:var(--fs-sm);
+    color:var(--hint); background:var(--muted-fill); border:1px solid var(--border);
+    border-radius:var(--r-sm); cursor:pointer }
+  .scale button.on{ background:var(--accent); color:var(--accent-text); border-color:transparent }
+  .legend{ font-size:var(--fs-xs); color:var(--hint); line-height:1.6; margin-top:var(--sp-2) }
+  .track-opt{ display:flex; align-items:flex-start; gap:var(--sp-3); width:100%;
+    text-align:left; font:inherit; color:var(--text); background:var(--card);
+    border:1px solid var(--border); border-radius:var(--r-md);
+    padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2); cursor:pointer }
+  .track-opt.on{ border-color:var(--accent) }
+  .track-opt[disabled]{ opacity:.5; cursor:default }
+  .track-opt .body{ flex:1; min-width:0 }
+</style>
+</head>
+<body>
+
+<div class="dots" id="dots"></div>
+
+<!-- ШАГ 1: трек -->
+<section id="s1">
+  <h1>Куда готовимся</h1>
+  <p class="sub">Выберите направление. Наполненный трек можно проходить целиком,
+    остальные появятся позже.</p>
+  <div id="trackList"></div>
+  <button class="btn" id="s1next" disabled>Далее</button>
+</section>
+
+<!-- ШАГ 2: самооценка -->
+<section id="s2" class="hidden">
+  <h1>Что уже умеете</h1>
+  <p class="sub">Честная оценка нужна, чтобы построить план. На процент готовности
+    она не влияет — он считается только по реальным результатам.</p>
+  <div class="card" id="saList"></div>
+  <div class="legend">
+    0 — не знаю · 1 — слышал · 2 — понимаю базу · 3 — применял ·
+    4 — могу объяснить · 5 — могу выполнить и защитить решение
+  </div>
+  <div class="btn-row" style="margin-top:var(--sp-4)">
+    <button class="btn ghost" data-back="1">Назад</button>
+    <button class="btn" id="s2next">Далее</button>
+  </div>
+</section>
+
+<!-- ШАГ 3: дата -->
+<section id="s3" class="hidden">
+  <h1>Дата собеседования</h1>
+  <p class="sub">Если дата известна, план пересчитает дневную норму под неё.
+    Можно пропустить и указать позже.</p>
+  <div class="card">
+    <label class="field">
+      <span class="lb">Дата</span>
+      <input type="date" id="examDate">
+    </label>
+    <div class="muted small" id="examHint">Дата не указана</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost" data-back="2">Назад</button>
+    <button class="btn" id="s3next">Далее</button>
+  </div>
+  <button class="btn ghost" id="s3skip" style="margin-top:var(--sp-2)">Пропустить</button>
+</section>
+
+<!-- ШАГ 4: цель -->
+<section id="s4" class="hidden">
+  <h1>Дневная цель</h1>
+  <p class="sub">Сколько действий в день вы готовы делать. Действие — ответ на тест,
+    проверенный термин, вопрос mock interview или пройденный кейс.</p>
+  <div id="goalList"></div>
+  <div class="card flat">
+    <div class="muted small" id="goalNote"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost" data-back="3">Назад</button>
+    <button class="btn" id="finish">Готово</button>
+  </div>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var STEPS = 4;
+  var state = {
+    step: 1,
+    trackId: Progress.getTrack() || null,
+    self: Object.assign({}, Progress.profile().selfAssessment || {}),
+    examDate: Progress.getExamDate() || "",
+    goal: Progress.getGoal(),
+  };
+
+  function renderDots() {
+    document.getElementById("dots").innerHTML =
+      Array.from({ length: STEPS }, function (_, i) {
+        return '<i class="' + (i + 1 === state.step ? "on" : "") + '"></i>';
+      }).join("");
+  }
+
+  function show(n) {
+    state.step = n;
+    for (var i = 1; i <= STEPS; i++) {
+      document.getElementById("s" + i).classList.toggle("hidden", i !== n);
+    }
+    renderDots();
+    window.scrollTo(0, 0);
+  }
+
+  // ── шаг 1: треки ──
+  function renderTracks() {
+    var html = CONTENT.tracks.map(function (t) {
+      var active = t.status === "active";
+      var label = active ? "" :
+        '<span class="chip" style="margin-left:6px">скоро</span>';
+      return '<button class="track-opt' + (state.trackId === t.id ? " on" : "") + '"' +
+        (active ? "" : " disabled") + ' data-track="' + App.esc(t.id) + '">' +
+        '<span class="ic-tile ' + (active ? "blue" : "slate") + '" data-icon="' +
+        (active ? "target" : "lock") + '"></span>' +
+        '<span class="body"><span class="t">' + App.esc(t.title) +
+        (t.company ? " · " + App.esc(t.company) : "") + label + "</span>" +
+        '<span class="d">' + App.esc(t.summary) + "</span></span></button>";
+    }).join("");
+    document.getElementById("trackList").innerHTML = html;
+    Icons.hydrate(document.getElementById("trackList"));
+    document.getElementById("s1next").disabled = !state.trackId;
+  }
+
+  document.getElementById("trackList").addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-track]");
+    if (!btn || btn.disabled) return;
+    state.trackId = btn.getAttribute("data-track");
+    renderTracks();
+    if (window.haptic) haptic("select");
+  });
+
+  document.getElementById("s1next").addEventListener("click", function () {
+    Progress.setTrack(state.trackId);
+    renderSelf();
+    show(2);
+  });
+
+  // ── шаг 2: самооценка ──
+  function areas() {
+    var t = App.byId(CONTENT.tracks, state.trackId);
+    return (t && t.self_assessment_areas) || [];
+  }
+
+  function renderSelf() {
+    var html = areas().map(function (a) {
+      var cur = state.self[a.id];
+      var scale = [0, 1, 2, 3, 4, 5].map(function (n) {
+        return '<button class="' + (cur === n ? "on" : "") + '" data-area="' +
+          App.esc(a.id) + '" data-val="' + n + '">' + n + "</button>";
+      }).join("");
+      return '<div class="sa-row"><div class="t">' + App.esc(a.title) + "</div>" +
+        '<div class="h">' + App.esc(a.hint) + "</div>" +
+        '<div class="scale">' + scale + "</div></div>";
+    }).join("");
+    document.getElementById("saList").innerHTML = html ||
+      '<div class="state">Для этого трека самооценка не настроена</div>';
+  }
+
+  document.getElementById("saList").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-area]");
+    if (!b) return;
+    state.self[b.getAttribute("data-area")] = parseInt(b.getAttribute("data-val"), 10);
+    renderSelf();
+    if (window.haptic) haptic("select");
+  });
+
+  document.getElementById("s2next").addEventListener("click", function () {
+    Progress.patchProfile(function (p) { p.selfAssessment = state.self; });
+    show(3);
+  });
+
+  // ── шаг 3: дата ──
+  var examInput = document.getElementById("examDate");
+  examInput.value = state.examDate;
+  // Дата в прошлом бессмысленна для плана, поэтому ограничиваем снизу сегодняшним днём.
+  examInput.min = Progress.dayKey();
+  function examHint() {
+    var v = examInput.value;
+    if (!v) {
+      document.getElementById("examHint").textContent = "Дата не указана";
+      return;
+    }
+    var d = Progress.dayDiff(Progress.dayKey(), v);
+    document.getElementById("examHint").textContent =
+      d < 0 ? "Эта дата уже прошла" :
+      d === 0 ? "Собеседование сегодня" :
+      "Осталось " + d + " " + App.plural(d, "день", "дня", "дней");
+  }
+  examInput.addEventListener("change", examHint);
+  examHint();
+
+  document.getElementById("s3next").addEventListener("click", function () {
+    state.examDate = examInput.value || "";
+    App.setExamDate(state.examDate || null);
+    renderGoals();
+    show(4);
+  });
+  document.getElementById("s3skip").addEventListener("click", function () {
+    state.examDate = "";
+    App.setExamDate(null);
+    renderGoals();
+    show(4);
+  });
+
+  // ── шаг 4: цель ──
+  function renderGoals() {
+    document.getElementById("goalList").innerHTML = Progress.GOAL_OPTIONS.map(function (g) {
+      var mins = Math.round(g * 1.2);
+      return '<button class="track-opt' + (state.goal === g ? " on" : "") +
+        '" data-goal="' + g + '">' +
+        '<span class="ic-tile ' + (g <= 15 ? "green" : g <= 25 ? "amber" : "red") +
+        '" data-icon="gauge"></span>' +
+        '<span class="body"><span class="t">' + g + " действий в день</span>" +
+        '<span class="d">примерно ' + mins + " минут занятий</span></span></button>";
+    }).join("");
+    Icons.hydrate(document.getElementById("goalList"));
+    updateGoalNote();
+  }
+
+  function updateGoalNote() {
+    var note = document.getElementById("goalNote");
+    if (!state.examDate) {
+      note.textContent = "Дата собеседования не указана — норму можно менять в любой момент.";
+      return;
+    }
+    // Считаем предварительный план по выбранной цели: honest — на пустом
+    // прогрессе объём работы максимальный, и это как раз полезно увидеть.
+    var plan = Readiness.examPlan({
+      content: CONTENT, trackId: state.trackId, srs: SRS.stateMap(),
+      profile: Progress.profile(), examDate: state.examDate,
+      today: Progress.dayKey(), goal: state.goal,
+    });
+    if (!plan || plan.past) {
+      note.textContent = "Дата в прошлом — план не рассчитывается.";
+      return;
+    }
+    note.textContent = plan.onTrack
+      ? "При такой цели вы успеваете: нужно около " + plan.needPerDay + " действий в день."
+      : "Чтобы всё закрыть к дате, нужно около " + plan.needPerDay +
+        " действий в день. Это выше выбранной цели — план покажет, что можно отложить.";
+  }
+
+  document.getElementById("goalList").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-goal]");
+    if (!b) return;
+    state.goal = parseInt(b.getAttribute("data-goal"), 10);
+    renderGoals();
+    if (window.haptic) haptic("select");
+  });
+
+  document.getElementById("finish").addEventListener("click", function () {
+    Progress.setGoal(state.goal);
+    Progress.patchProfile(function (p) { p.selfAssessment = state.self; });
+    Progress.setTrack(state.trackId);
+    Progress.setOnboarded(true);
+    App.recomputeRoadmap();
+    if (window.Sync) Sync.push();
+    if (window.haptic) haptic("success");
+    location.replace("index.html");
+  });
+
+  // ── навигация назад ──
+  document.body.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-back]");
+    if (b) show(parseInt(b.getAttribute("data-back"), 10));
+  });
+
+  // Системная кнопка «назад» внутри мастера возвращает на предыдущий шаг,
+  // а не закрывает приложение.
+  window.__navBack = function () {
+    if (state.step > 1) { show(state.step - 1); return true; }
+    return false;
+  };
+
+  // Если настройка уже пройдена, мастер можно открыть повторно для правок.
+  renderTracks();
+  show(1);
+  Icons.hydrate();
+})();
+</script>
+</body>
+</html>

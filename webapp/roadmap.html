@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>План подготовки · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .plan-head{ display:flex; gap:var(--sp-4); align-items:center }
+  .plan-head .body{ flex:1; min-width:0 }
+  .req-badge{ font-size:var(--fs-xs); color:var(--hint) }
+  .item{ display:flex; align-items:center; gap:var(--sp-3); padding:10px 0;
+    border-bottom:1px solid var(--border); text-decoration:none; color:inherit }
+  .item:last-child{ border-bottom:none }
+  .item .body{ flex:1; min-width:0 }
+  .item .t{ font-size:var(--fs-sm); font-weight:600 }
+  .item .d{ font-size:var(--fs-xs); color:var(--hint) }
+  .item .mark{ flex:0 0 20px; display:flex; color:var(--hint) }
+  .item .mark.done{ color:var(--ok) }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="ic-tile blue" data-icon="map"></span>
+  <div class="body">
+    <h1>План подготовки</h1>
+    <div class="muted small" id="planSub"></div>
+  </div>
+</div>
+
+<!-- сводка плана -->
+<div class="card">
+  <div class="plan-head">
+    <div class="ring sm" id="planRing">
+      <div class="ring-val"><span class="ring-num" id="planPct">0%</span></div>
+    </div>
+    <div class="body">
+      <div class="h3" style="margin:0 0 3px" id="planTitle">—</div>
+      <div class="muted small" id="planNote"></div>
+    </div>
+  </div>
+  <div id="deadline" class="muted small" style="margin-top:var(--sp-3)"></div>
+</div>
+
+<div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">
+  <button class="chip on" data-f="all">Все</button>
+  <button class="chip" data-f="required">Обязательные</button>
+  <button class="chip" data-f="todo">Осталось</button>
+  <button class="chip" data-f="done">Выполнено</button>
+</div>
+
+<div id="steps"></div>
+
+<!-- карточка одного шага -->
+<div id="stepDetail" class="hidden"></div>
+
+<div class="foot" id="footNote"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var steps = App.steps();
+  var filter = "all";
+  var openId = App.param("id");
+
+  var listEl = document.getElementById("steps");
+  var detailEl = document.getElementById("stepDetail");
+  var filtersEl = document.getElementById("filters");
+
+  document.getElementById("planSub").textContent =
+    App.track() ? App.track().title : "Трек не выбран";
+
+  // ── сводка ──
+  function renderSummary() {
+    var required = steps.filter(function (s) { return s.required; });
+    var doneReq = required.filter(App.stepDone).length;
+    var pct = required.length ? Math.round(doneReq / required.length * 100) : 0;
+
+    var ring = document.getElementById("planRing");
+    ring.style.setProperty("--p", pct);
+    ring.style.setProperty("--ring-color", pct >= 100 ? "var(--ok)" : "var(--accent)");
+    document.getElementById("planPct").textContent = pct + "%";
+
+    var cur = App.currentStep();
+    document.getElementById("planTitle").textContent =
+      cur ? ("Сейчас: " + cur.title) : "Все шаги выполнены";
+    document.getElementById("planNote").textContent =
+      doneReq + " из " + required.length + " обязательных шагов · всего шагов " + steps.length;
+
+    var plan = App.examPlan();
+    var dl = document.getElementById("deadline");
+    if (!plan) {
+      dl.innerHTML = 'Дата собеседования не указана — <a href="index.html">задать</a>';
+      return;
+    }
+    if (plan.past) {
+      dl.innerHTML = "Дата " + App.esc(plan.date) +
+        ' уже прошла — <a href="index.html">изменить</a>';
+      return;
+    }
+    var parts = [];
+    if (plan.stepsLeft) parts.push(plan.stepsLeft + " " + App.plural(plan.stepsLeft, "шаг", "шага", "шагов"));
+    if (plan.casesLeft) parts.push(plan.casesLeft + " " + App.plural(plan.casesLeft, "кейс", "кейса", "кейсов"));
+    if (plan.mocksLeft) parts.push(plan.mocksLeft + " " + App.plural(plan.mocksLeft, "вопрос", "вопроса", "вопросов") + " mock");
+    if (plan.reviewsLeft) parts.push(plan.reviewsLeft + " повторений");
+
+    dl.innerHTML = "<b>" + plan.daysLeft + " " +
+      App.plural(plan.daysLeft, "день", "дня", "дней") + "</b> до собеседования. Осталось: " +
+      App.esc(parts.join(", ") || "ничего") + ".<br>" +
+      (plan.onTrack
+        ? "Норма " + plan.needPerDay + " действий в день — вы в графике."
+        : '<span style="color:var(--warn)">Норма ' + plan.needPerDay +
+          " действий в день выше дневной цели " + plan.goal +
+          ". Ниже отмечено, что можно отложить.</span>");
+  }
+
+  // ── список шагов ──
+  function stepState(s) {
+    if (App.stepDone(s)) return "done";
+    if (!App.stepUnlocked(s)) return "locked";
+    var cur = App.currentStep();
+    return cur && cur.id === s.id ? "current" : "todo";
+  }
+
+  function renderList() {
+    var plan = App.examPlan();
+    // Когда времени не хватает, необязательные шаги честно помечаем как то,
+    // что можно отложить, вместо того чтобы молча вырезать их из плана.
+    var tight = plan && !plan.past && !plan.onTrack;
+
+    var rows = steps.filter(function (s) {
+      var st = stepState(s);
+      if (filter === "required") return s.required;
+      if (filter === "todo") return st !== "done";
+      if (filter === "done") return st === "done";
+      return true;
+    });
+
+    if (!rows.length) {
+      listEl.innerHTML = '<div class="state">Здесь пусто</div>';
+      return;
+    }
+
+    listEl.innerHTML = rows.map(function (s) {
+      var st = stepState(s);
+      var pr = App.stepProgress(s);
+      var bits = [];
+      if (pr.studyTotal) bits.push("теория " + pr.studyDone + "/" + pr.studyTotal);
+      if (pr.quizTopics.length) bits.push("тест " + pr.quizBest + "%");
+      if (pr.caseIds.length) bits.push("кейсы " + pr.casesDone + "/" + pr.caseIds.length);
+      if (pr.mockIds.length) bits.push("mock " + pr.mocksAnswered + "/" + pr.mockIds.length);
+
+      var badge = s.required
+        ? (tight ? "" : '<span class="req-badge">обязательный</span>')
+        : '<span class="req-badge">' + (tight ? "можно отложить" : "по желанию") + "</span>";
+
+      return '<button class="step ' + st + '" data-step="' + App.esc(s.id) + '">' +
+        '<span class="num">' + (st === "done" ? "&#10003;" : s.order) + "</span>" +
+        '<span class="body"><span class="t">' + App.esc(s.title) + "</span>" +
+        '<span class="d">' + App.esc(s.goal) + "</span>" +
+        '<span class="d" style="margin-top:4px">' + App.esc(bits.join(" · ")) +
+        (badge ? " · " : "") + badge + "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right" style="align-self:center"></span>' +
+        "</button>";
+    }).join("");
+    Icons.hydrate(listEl);
+  }
+
+  // ── карточка шага ──
+  function renderDetail(id) {
+    var s = App.byId(steps, id);
+    if (!s) { closeDetail(); return; }
+    var pr = App.stepProgress(s);
+    var done = App.stepDone(s);
+    var unlocked = App.stepUnlocked(s);
+    var rule = s.completion_rule || {};
+
+    var blocked = (s.prerequisites || []).filter(function (pid) {
+      var pre = App.byId(steps, pid);
+      return pre && !App.stepDone(pre);
+    }).map(function (pid) {
+      return App.byId(steps, pid).title;
+    });
+
+    var html = '<div class="hero">' +
+      '<span class="ic-tile ' + (done ? "green" : unlocked ? "blue" : "slate") +
+      '" data-icon="' + (done ? "check-circle" : unlocked ? "map" : "lock") + '"></span>' +
+      '<div class="body"><h1>' + App.esc(s.title) + "</h1>" +
+      '<div class="muted small">Шаг ' + s.order + " из " + steps.length +
+      " · " + s.estimated_minutes + " мин · " +
+      (s.required ? "обязательный" : "по желанию") + "</div></div></div>";
+
+    html += '<div class="card"><div class="h3">Цель</div><p class="small">' +
+      App.esc(s.goal) + "</p>";
+    if ((s.topic_ids || []).length) {
+      html += '<div class="chip-row">' + s.topic_ids.map(function (t) {
+        return '<span class="chip">' + App.esc(App.topicTitle(t)) + "</span>";
+      }).join("") + "</div>";
+    }
+    html += "</div>";
+
+    if (blocked.length) {
+      html += '<div class="card"><div class="h3">Сначала нужно закрыть</div>' +
+        '<ul class="points warn">' + blocked.map(function (t) {
+          return '<li><span class="b"></span><span>' + App.esc(t) + "</span></li>";
+        }).join("") + "</ul></div>";
+    }
+
+    // теория
+    if ((s.study_items || []).length) {
+      html += '<div class="card"><div class="h3">Теория</div>' +
+        s.study_items.map(function (lid) {
+          var l = App.byId(CONTENT.lessons, lid);
+          if (!l) return "";
+          var read = App.isLessonRead(lid);
+          return '<a class="item" href="lesson.html?id=' + encodeURIComponent(lid) + '">' +
+            '<span class="mark' + (read ? " done" : "") + '" data-icon="' +
+            (read ? "check-circle" : "circle") + '"></span>' +
+            '<span class="body"><span class="t">' + App.esc(l.title) + "</span>" +
+            '<span class="d">' + l.estimated_minutes + " мин</span></span>" +
+            '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+        }).join("") + "</div>";
+    }
+
+    // практика
+    if ((s.practice_items || []).length) {
+      html += '<div class="card"><div class="h3">Практика</div>' +
+        s.practice_items.map(function (item) {
+          var parts = String(item).split(":");
+          var kind = parts[0], ref = parts.slice(1).join(":");
+          if (kind === "quiz") {
+            var best = pr.quizBest;
+            var need = rule.quiz_score_min || 0;
+            var ok = need ? best >= need : best > 0;
+            return '<a class="item" href="quiz.html?topic=' + encodeURIComponent(ref) + '">' +
+              '<span class="mark' + (ok ? " done" : "") + '" data-icon="' +
+              (ok ? "check-circle" : "clipboard-list") + '"></span>' +
+              '<span class="body"><span class="t">Тест: ' +
+              App.esc(App.topicTitle(ref)) + "</span>" +
+              '<span class="d">лучший результат ' + best + "%" +
+              (need ? " · нужно от " + need + "%" : "") + "</span></span>" +
+              '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+          }
+          if (kind === "case") {
+            var cs = App.byId(CONTENT.cases, ref);
+            var st = (Progress.profile().cases || {})[ref];
+            var okc = st && typeof st.rating === "number";
+            return '<a class="item" href="cases.html?id=' + encodeURIComponent(ref) + '">' +
+              '<span class="mark' + (okc ? " done" : "") + '" data-icon="' +
+              (okc ? "check-circle" : "briefcase") + '"></span>' +
+              '<span class="body"><span class="t">Кейс: ' +
+              App.esc(cs ? cs.title : ref) + "</span>" +
+              '<span class="d">' + (okc ? "самооценка " + st.rating + " из 4" : "не пройден") +
+              "</span></span>" +
+              '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+          }
+          if (kind === "mock") {
+            var mq = App.byId(CONTENT.mockQuestions, ref);
+            var ms = (Progress.profile().mock || {})[ref];
+            var okm = ms && typeof ms.rating === "number";
+            return '<a class="item" href="mock.html?id=' + encodeURIComponent(ref) + '">' +
+              '<span class="mark' + (okm ? " done" : "") + '" data-icon="' +
+              (okm ? "check-circle" : "message-square") + '"></span>' +
+              '<span class="body"><span class="t">Вопрос: ' +
+              App.esc(mq ? mq.question : ref) + "</span>" +
+              '<span class="d">' + (okm ? "самооценка " + ms.rating + " из 4" : "нет ответа") +
+              "</span></span>" +
+              '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+          }
+          return "";
+        }).join("") + "</div>";
+    }
+
+    // условие завершения
+    var conds = [];
+    if (rule.lesson_read) conds.push("вся теория шага прочитана");
+    if (rule.quiz_score_min) conds.push("тест не ниже " + rule.quiz_score_min + "%");
+    if (rule.case_completed_min) conds.push("кейсов пройдено: " + rule.case_completed_min);
+    if (rule.mock_answered_min) conds.push("вопросов mock отвечено: " + rule.mock_answered_min);
+    if (rule.stories_filled_min) conds.push("историй заполнено: " + rule.stories_filled_min);
+    if (rule.full_mock_sessions_min) conds.push("полных сессий mock: " + rule.full_mock_sessions_min);
+
+    html += '<div class="card"><div class="h3">Шаг считается пройденным, когда</div>' +
+      '<ul class="points ' + (done ? "ok" : "") + '">' + conds.map(function (c) {
+        return '<li><span class="b"></span><span>' + App.esc(c) + "</span></li>";
+      }).join("") + "</ul>" +
+      '<div class="' + (done ? "st st-done" : "st st-not_started") + '">' +
+      (done ? "Выполнено" : "Не выполнено") + "</div></div>";
+
+    html += '<button class="btn ghost" id="backToList">К списку шагов</button>';
+
+    detailEl.innerHTML = html;
+    Icons.hydrate(detailEl);
+    document.getElementById("backToList").addEventListener("click", closeDetail);
+  }
+
+  function openDetail(id) {
+    openId = id;
+    document.querySelector(".hero").classList.add("hidden");
+    listEl.classList.add("hidden");
+    filtersEl.classList.add("hidden");
+    document.querySelectorAll(".card")[0].classList.add("hidden");
+    document.getElementById("footNote").classList.add("hidden");
+    detailEl.classList.remove("hidden");
+    renderDetail(id);
+    window.scrollTo(0, 0);
+  }
+
+  function closeDetail() {
+    openId = null;
+    document.querySelector(".hero").classList.remove("hidden");
+    listEl.classList.remove("hidden");
+    filtersEl.classList.remove("hidden");
+    document.querySelectorAll(".card")[0].classList.remove("hidden");
+    document.getElementById("footNote").classList.remove("hidden");
+    detailEl.classList.add("hidden");
+    renderSummary();
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  listEl.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-step]");
+    if (b) openDetail(b.getAttribute("data-step"));
+  });
+
+  filtersEl.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    Array.prototype.forEach.call(filtersEl.children, function (c) {
+      c.classList.toggle("on", c === b);
+    });
+    renderList();
+  });
+
+  // «Назад» из карточки шага возвращает к списку, а не закрывает приложение.
+  window.__navBack = function () {
+    if (openId) { closeDetail(); return true; }
+    return false;
+  };
+
+  var totalMin = steps.reduce(function (a, s) { return a + s.estimated_minutes; }, 0);
+  document.getElementById("footNote").textContent =
+    "Весь план — около " + Math.round(totalMin / 60) + " часов занятий";
+
+  App.recomputeRoadmap();
+  renderSummary();
+  renderList();
+  Icons.hydrate();
+  if (openId) openDetail(openId);
+})();
+</script>
+</body>
+</html>

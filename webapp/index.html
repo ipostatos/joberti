@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js" data-home="true"></script>
+<script src="generated/content_data.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="heatmap.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .brand{ display:flex; align-items:center; gap:var(--sp-2); margin-bottom:2px }
+  .brand h1{ margin:0 }
+  .vac{ display:flex; align-items:center; gap:var(--sp-2); color:var(--hint);
+    font-size:var(--fs-sm); margin-bottom:var(--sp-4) }
+  .ready-head{ display:flex; align-items:center; gap:var(--sp-4) }
+  .ready-head .body{ flex:1; min-width:0 }
+  .cap-note{ font-size:var(--fs-xs); color:var(--warn); margin-top:6px; line-height:1.45 }
+  .weak-list{ display:flex; flex-direction:column; gap:6px; margin-top:var(--sp-3) }
+  .weak{ display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-sm) }
+  .weak .bar{ flex:1; height:5px; background:var(--muted-fill); border-radius:99px;
+    overflow:hidden; border:1px solid var(--border) }
+  .weak .bar i{ display:block; height:100%; background:var(--warn) }
+  .weak .pct{ font-size:var(--fs-xs); color:var(--hint); width:34px; text-align:right }
+  .exam{ display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-sm);
+    margin-top:var(--sp-3); cursor:pointer }
+</style>
+</head>
+<body>
+
+<div class="brand">
+  <span class="emi plain" data-icon="target" style="color:var(--accent); width:22px; height:22px"></span>
+  <h1>Interview Trainer</h1>
+</div>
+<div class="vac" id="vacLine"></div>
+
+<!-- ЧТО ДЕЛАТЬ ДАЛЬШЕ -->
+<div class="next">
+  <div class="label" id="nextLabel">Загрузка</div>
+  <div class="big" id="nextTitle">…</div>
+  <div class="hintline" id="nextHint"></div>
+  <div class="btn-row">
+    <a class="btn" id="nextBtn" href="roadmap.html"><span class="emi" data-icon="play"></span><span id="nextCta">Начать</span></a>
+    <a class="btn ghost" href="learn.html"><span class="emi" data-icon="book-open"></span>Учить</a>
+  </div>
+</div>
+
+<!-- ГОТОВНОСТЬ -->
+<div class="card" id="readyCard">
+  <div class="ready-head">
+    <div class="ring" id="ring">
+      <div class="ring-val">
+        <span class="ring-num" id="readyPct">—</span>
+        <span class="ring-cap">готовность</span>
+      </div>
+    </div>
+    <div class="body">
+      <div class="h2" style="margin:0 0 4px" id="readyVerdict">—</div>
+      <div class="muted small" id="readySub"></div>
+      <div class="cap-note hidden" id="capNote"></div>
+    </div>
+  </div>
+
+  <div class="stats" style="margin-top:var(--sp-4)">
+    <div id="goalBox" style="cursor:pointer">
+      <div class="k">Сегодня</div>
+      <div class="v" id="goalToday">0/0</div>
+    </div>
+    <div>
+      <div class="k">Серия</div>
+      <div class="v" id="streakVal">0</div>
+    </div>
+    <div>
+      <div class="k">К повтору</div>
+      <div class="v" id="dueVal">0</div>
+    </div>
+  </div>
+
+  <div class="weak-list" id="weakList"></div>
+
+  <label class="exam" for="examInput" id="examLine"></label>
+  <input type="date" id="examInput" style="position:absolute; width:1px; height:1px; opacity:0; border:0; padding:0">
+</div>
+
+<div class="section-title">Подготовка</div>
+<div class="grid">
+  <a class="cell" href="roadmap.html">
+    <span class="ic-tile blue" data-icon="map"></span>
+    <span class="t">План</span>
+    <span class="d" id="planCount">—</span>
+  </a>
+  <a class="cell" href="learn.html">
+    <span class="ic-tile green" data-icon="book-open"></span>
+    <span class="t">Учить</span>
+    <span class="d" id="learnCount">—</span>
+  </a>
+  <a class="cell" href="quiz.html">
+    <span class="ic-tile amber" data-icon="clipboard-list"></span>
+    <span class="t">Практика</span>
+    <span class="d" id="quizCount">—</span>
+  </a>
+  <a class="cell" href="mock.html">
+    <span class="ic-tile violet" data-icon="message-square"></span>
+    <span class="t">Mock interview</span>
+    <span class="d" id="mockCount">—</span>
+  </a>
+  <a class="cell" href="cases.html">
+    <span class="ic-tile cyan" data-icon="briefcase"></span>
+    <span class="t">Кейсы</span>
+    <span class="d" id="caseCount">—</span>
+  </a>
+  <a class="cell" href="glossary.html">
+    <span class="ic-tile slate" data-icon="file-text"></span>
+    <span class="t">Словарь</span>
+    <span class="d" id="termCount">—</span>
+  </a>
+  <a class="cell wide" href="vacancy.html">
+    <span class="ic-tile red" data-icon="target"></span>
+    <span class="body">
+      <span class="t">Вакансия и разрыв</span>
+      <span class="d" id="gapCount">—</span>
+    </span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </a>
+  <a class="cell wide" href="library.html">
+    <span class="ic-tile blue" data-icon="library"></span>
+    <span class="body">
+      <span class="t">Библиотека</span>
+      <span class="d" id="libCount">—</span>
+    </span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </a>
+</div>
+
+<div class="section-title">Активность</div>
+<div class="card">
+  <div id="heatmap"></div>
+</div>
+
+<div class="section-title">Ещё</div>
+<a class="row-card" href="search.html">
+  <span class="ic-tile slate" data-icon="search"></span>
+  <span class="body"><span class="t">Поиск</span><span class="d">По урокам, терминам, вопросам и кейсам</span></span>
+  <span class="chev emi plain" data-icon="chevron-right"></span>
+</a>
+<a class="row-card" href="stories.html">
+  <span class="ic-tile violet" data-icon="file-text"></span>
+  <span class="body"><span class="t">Мои истории</span><span class="d" id="storyCount">Шаблоны ответов по схеме STAR</span></span>
+  <span class="chev emi plain" data-icon="chevron-right"></span>
+</a>
+<a class="row-card" href="profile.html">
+  <span class="ic-tile green" data-icon="user"></span>
+  <span class="body"><span class="t">Профиль</span><span class="d">Достижения, настройки, данные</span></span>
+  <span class="chev emi plain" data-icon="chevron-right"></span>
+</a>
+<a class="row-card" href="history.html">
+  <span class="ic-tile amber" data-icon="history"></span>
+  <span class="body"><span class="t">История</span><span class="d" id="histCount">Тесты, сессии и кейсы</span></span>
+  <span class="chev emi plain" data-icon="chevron-right"></span>
+</a>
+
+<div class="foot">
+  Interview Trainer · <a href="about.html">о приложении</a>
+</div>
+
+<!-- окно выбора дневной цели -->
+<div class="overlay hidden" id="goalOverlay">
+  <div class="box">
+    <div class="h2">Дневная цель</div>
+    <p class="muted small">Действием считается ответ на тест, проверенный термин,
+      отвеченный вопрос mock interview или пройденный кейс.</p>
+    <div class="chip-row" id="goalChips" style="margin-bottom:var(--sp-4)"></div>
+    <button class="btn ghost" id="goalClose">Закрыть</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // Не выбран трек или не пройден onboarding — отправляем на настройку.
+  if (!Progress.isOnboarded()) {
+    location.replace("onboarding.html");
+    return;
+  }
+
+  var r = App.readiness();
+  App.trackWeakTopicRecovery(r);
+  if (r.available) Progress.recordReadinessSnapshot(r.percent);
+
+  var t = App.track();
+  var v = App.vacancy();
+
+  document.getElementById("vacLine").innerHTML =
+    '<span class="emi plain" data-icon="building"></span> ' +
+    App.esc(v ? (v.title + " · " + v.company) : (t ? t.title : "Трек не выбран"));
+
+  // ── что дальше ──
+  var na = App.nextAction();
+  document.getElementById("nextLabel").textContent = na.label;
+  document.getElementById("nextTitle").textContent = na.title;
+  document.getElementById("nextHint").textContent = na.hint;
+  document.getElementById("nextCta").textContent = na.cta;
+  document.getElementById("nextBtn").href = na.href;
+
+  // ── готовность ──
+  var ring = document.getElementById("ring");
+  if (r.available) {
+    ring.style.setProperty("--p", r.percent);
+    ring.style.setProperty("--ring-color",
+      r.percent >= 70 ? "var(--ok)" : r.percent >= 50 ? "var(--accent)" : "var(--warn)");
+    document.getElementById("readyPct").textContent = r.percent + "%";
+    document.getElementById("readyVerdict").textContent = r.verdict;
+
+    var answered = r.blocks[0].detail.answered || 0;
+    var total = r.blocks[0].detail.total || 0;
+    document.getElementById("readySub").textContent =
+      "Изучено " + answered + " из " + total + " вопросов · " +
+      "кейсов " + r.blocks[2].detail.completed + " из " + r.blocks[2].detail.total;
+
+    if (r.appliedCap) {
+      var note = document.getElementById("capNote");
+      note.classList.remove("hidden");
+      note.textContent = "Ограничение " + r.capMax + "%: " + r.appliedCap.reason;
+    }
+  } else {
+    document.getElementById("readyPct").textContent = "—";
+    document.getElementById("readyVerdict").textContent = "Готовность недоступна";
+    document.getElementById("readySub").textContent = r.reason;
+    document.getElementById("readyCard").classList.add("flat");
+  }
+
+  // ── статистика ──
+  var goal = Progress.getGoal();
+  document.getElementById("goalToday").textContent = Progress.todayCount() + "/" + goal;
+  var st = Progress.streakInfo();
+  document.getElementById("streakVal").innerHTML =
+    st.streak + (st.streak ? ' <span class="emi plain" data-icon="flame" style="color:var(--warn)"></span>' : "");
+  document.getElementById("dueVal").textContent = App.reviewDue();
+
+  // ── слабые темы ──
+  var weak = (r.topics || []).filter(function (x) {
+    return x.questions > 0 && x.mastery != null && x.mastery < 0.6;
+  }).slice(0, 3);
+  var wl = document.getElementById("weakList");
+  if (weak.length) {
+    wl.innerHTML = '<div class="xs muted" style="margin-bottom:2px">Слабые темы</div>' +
+      weak.map(function (x) {
+        return '<a class="weak" style="text-decoration:none;color:inherit" href="quiz.html?topic=' +
+          encodeURIComponent(x.id) + '">' +
+          '<span style="flex:0 0 44%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">' +
+          App.esc(x.title) + "</span>" +
+          '<span class="bar"><i style="width:' + x.pct + '%"></i></span>' +
+          '<span class="pct">' + x.pct + "%</span></a>";
+      }).join("");
+  }
+
+  // ── дата собеседования ──
+  var examInput = document.getElementById("examInput");
+  var examLine = document.getElementById("examLine");
+
+  function renderExam() {
+    var plan = App.examPlan();
+    if (!plan) {
+      examLine.innerHTML = '<span class="emi plain" data-icon="calendar" style="color:var(--hint)"></span>' +
+        '<span class="muted">Указать дату собеседования</span>';
+      return;
+    }
+    if (plan.past) {
+      examLine.innerHTML = '<span class="emi plain" data-icon="calendar" style="color:var(--hint)"></span>' +
+        '<span class="muted">Дата ' + App.esc(plan.date) + " уже прошла — нажмите, чтобы изменить</span>";
+      return;
+    }
+    var d = plan.daysLeft;
+    var word = App.plural(d, "день", "дня", "дней");
+    var ok = plan.onTrack;
+    examLine.innerHTML = '<span class="emi plain" data-icon="calendar" style="color:' +
+      (ok ? "var(--ok)" : "var(--warn)") + '"></span>' +
+      "<span>До собеседования <b>" + d + " " + word + "</b> · норма " +
+      plan.needPerDay + " в день" + (ok ? "" : " — выше цели") + "</span>";
+  }
+  renderExam();
+
+  examInput.value = Progress.getExamDate() || "";
+  examInput.addEventListener("change", function () {
+    App.setExamDate(examInput.value || null);
+    renderExam();
+    if (window.haptic) haptic("success");
+  });
+
+  // ── дневная цель ──
+  var overlay = document.getElementById("goalOverlay");
+  document.getElementById("goalBox").addEventListener("click", function () {
+    var chips = document.getElementById("goalChips");
+    chips.innerHTML = Progress.GOAL_OPTIONS.map(function (g) {
+      return '<button class="chip' + (g === Progress.getGoal() ? " on" : "") +
+        '" data-goal="' + g + '">' + g + " в день</button>";
+    }).join("");
+    overlay.classList.remove("hidden");
+  });
+  overlay.addEventListener("click", function (e) {
+    var g = e.target.getAttribute && e.target.getAttribute("data-goal");
+    if (g) {
+      Progress.setGoal(g);
+      if (window.Sync) Sync.schedulePush();
+      location.reload();
+      return;
+    }
+    if (e.target === overlay || e.target.id === "goalClose") overlay.classList.add("hidden");
+  });
+
+  // ── счётчики разделов ──
+  var steps = App.steps();
+  var doneSteps = steps.filter(App.stepDone).length;
+  document.getElementById("planCount").textContent = doneSteps + " из " + steps.length + " шагов";
+  document.getElementById("learnCount").textContent = App.lessons().length + " уроков";
+  document.getElementById("quizCount").textContent = App.questions().length + " вопросов";
+  document.getElementById("mockCount").textContent = App.mocks().length + " вопросов";
+  var doneCases = r.available ? r.blocks[2].detail.completed : 0;
+  document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
+  var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
+  document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
+  document.getElementById("libCount").textContent =
+    CONTENT.library.length + " материалов · " +
+    CONTENT.library.filter(function (x) { return x.read_before_interview; }).length +
+    " обязательных к прочтению";
+  if (v) {
+    var reqs = v.requirements || [];
+    var closed = reqs.filter(function (x) {
+      var s = App.requirementState(x).status;
+      return s === "confirmed" || s === "partial";
+    }).length;
+    document.getElementById("gapCount").textContent =
+      closed + " из " + reqs.length + " требований закрыто";
+  }
+  document.getElementById("storyCount").textContent =
+    App.storyFilledCount() + " из " + CONTENT.stories.length + " историй заполнено";
+  document.getElementById("histCount").textContent =
+    Progress.history().length + " записей";
+
+  // ── карта активности ──
+  Heatmap.render(document.getElementById("heatmap"), {
+    weeks: 16, days: Progress.days(), goal: goal, today: Progress.dayKey(),
+  });
+
+  Icons.hydrate();
+
+  // Синхронизация в фоне: результат не блокирует отрисовку.
+  if (window.Sync && Sync.enabled) Sync.boot();
+})();
+</script>
+</body>
+</html>
