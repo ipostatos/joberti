@@ -9,7 +9,7 @@
 #   BASE=https://example.org bash deploy/smoke.sh   # плюс проверка Mini App
 set -uo pipefail
 
-API="${API:-http://127.0.0.1:4200}"
+API="${API:-http://127.0.0.1:${API_PORT:-4200}}"
 BASE="${BASE:-}"
 FAILED=0
 

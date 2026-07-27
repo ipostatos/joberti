@@ -10,7 +10,10 @@ WorkingDirectory=/opt/interview-trainer/api
 # .env общий с ботом: токен один и тот же, им проверяется подпись initData.
 EnvironmentFile=/opt/interview-trainer/.env
 # Слушаем только localhost — наружу отдаёт reverse-proxy на пути /api/*.
-ExecStart=/opt/interview-trainer/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 4200
+# Порт берётся из .env (API_PORT): на машине с несколькими сервисами 4200
+# бывает занят. Если переменной нет, systemd подставит пустую строку и uvicorn
+# не стартует — поэтому API_PORT должен быть в .env всегда.
+ExecStart=/opt/interview-trainer/.venv/bin/uvicorn app:app --host 127.0.0.1 --port ${API_PORT}
 
 Restart=on-failure
 RestartSec=3
