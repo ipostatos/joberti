@@ -38,6 +38,12 @@
   .track-opt.on{ border-color:var(--accent) }
   .track-opt[disabled]{ opacity:.5; cursor:default }
   .track-opt .body{ flex:1; min-width:0 }
+  /* В теме .t/.d оформлены только внутри .row-card, .cell и .step. Здесь
+     контейнер свой, поэтому без этих правил спаны остаются инлайновыми и
+     название трека склеивается с описанием: «… · RedCoreПодготовка к…». */
+  .track-opt .t{ display:block; font-size:var(--fs-body); font-weight:700 }
+  .track-opt .d{ display:block; margin-top:2px; color:var(--hint);
+    font-size:var(--fs-sm); line-height:1.4 }
 </style>
 </head>
 <body>

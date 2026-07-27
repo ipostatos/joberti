@@ -79,6 +79,32 @@ pages.forEach((page) => {
   });
 });
 
+// ── .t/.d лежат внутри контейнера, для которого есть правила ──
+// Классы .t (заголовок) и .d (пояснение) — инлайновые <span>. Оформление им
+// даёт только правило вида «.контейнер .t», и в theme.css таких контейнеров
+// три. В своём контейнере без собственных правил спаны остаются инлайновыми
+// и текст склеивается: «Junior SEO Specialist · RedCoreПодготовка к…».
+// Ошибка чисто визуальная, тестами логики не ловится.
+const scopeRe = /\.([a-z][\w-]*)\s+\.[td]\b/g;
+const scopesIn = (css) => new Set([...css.matchAll(scopeRe)].map((m) => m[1]));
+const themeScopes = scopesIn(readFileSync(join(DIR, "theme.css"), "utf8"));
+
+pages.forEach((page) => {
+  const html = readFileSync(join(DIR, page), "utf8");
+  const known = new Set([...themeScopes, ...scopesIn(html)]);
+  // Контейнер строки — ближайший предшествующий блочный тег, а НЕ соседний
+  // <span class="ic-tile">, который идёт прямо перед .body. Класс бывает
+  // литералом и началом склейки: class="step ' + st + '".
+  const rowRe = /<(?:button|div|a|li|label)\b[^>]*?class="([a-z][\w-]*)/g;
+  for (const m of html.matchAll(/<span class="body"><span class="t"/g)) {
+    const before = html.slice(0, m.index);
+    const open = [...before.matchAll(rowRe)].pop();
+    ok(open && known.has(open[1]),
+      `${page}: <span class="t"> внутри «${open ? open[1] : "?"}», ` +
+      `для которого нет правил .t/.d — заголовок склеится с описанием`);
+  }
+});
+
 // ── иконки, используемые в разметке, существуют ──
 const Icons = require("./icons.js");
 const iconRe = /data-icon="([a-z-]+)"/g;
