@@ -23,10 +23,12 @@ Group=interview
 # Вся файловая система только для чтения; писать разрешено только туда, куда
 # бот действительно пишет.
 ProtectSystem=strict
-# Ведущий «-»: не падать с 226/NAMESPACE, если каталога ещё нет. progress/ в
-# .gitignore, git его не приносит, а bot.py создаёт при старте — но namespace
-# строится ДО запуска Python.
-ReadWritePaths=-/opt/interview-trainer/progress
+# progress/ в .gitignore, git его не приносит — каталог создаётся при выкате
+# (см. DEPLOY.md, шаг 2). Ведущего «-» здесь быть НЕ должно: с ним systemd
+# молча оставляет несуществующий путь только для чтения, бот падает на mkdir
+# с «Read-only file system» и бесконечно перезапускается, а systemctl status
+# при этом показывает active. Без «-» сервис честно падает 226/NAMESPACE.
+ReadWritePaths=/opt/interview-trainer/progress
 ProtectHome=true
 PrivateTmp=true
 NoNewPrivileges=true

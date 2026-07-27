@@ -22,6 +22,11 @@ cd /opt/interview-trainer
 sudo -u interview python3.12 -m venv .venv
 sudo -u interview .venv/bin/pip install -r requirements.txt
 sudo -u interview .venv/bin/pip install -r api/requirements.txt
+
+# progress/ в .gitignore, поэтому его нет ни в клоне, ни в архиве. Сам бот его
+# не создаст: юнит работает с ProtectSystem=strict, и всё, чего нет в
+# ReadWritePaths на момент старта, остаётся только для чтения.
+sudo -u interview mkdir -p progress
 ```
 
 ## 3. Конфигурация
