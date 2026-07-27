@@ -57,10 +57,16 @@ log = logging.getLogger("interview-bot")
 # ── конфигурация ───────────────────────────────────────────────────────────
 
 def load_env_value(name: str) -> str:
-    """Значение из окружения, иначе из .env рядом с ботом."""
-    v = os.environ.get(name)
-    if v:
-        return v.strip()
+    """Значение из окружения, иначе из .env рядом с ботом.
+
+    Переменная, ЗАДАННАЯ в окружении, перебивает файл — даже если она пустая.
+    Пустое значение здесь означает «выключено», а не «посмотри в .env»: иначе
+    невозможно отключить настройку, не редактируя файл, и любой запуск рядом
+    с боевым .env молча подхватывает боевые значения (на этом падал
+    tests/test_bot.py прямо на сервере).
+    """
+    if name in os.environ:
+        return os.environ[name].strip()
     env_path = BASE_DIR / ".env"
     if env_path.exists():
         for line in env_path.read_text(encoding="utf-8").splitlines():
