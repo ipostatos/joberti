@@ -162,16 +162,26 @@ jobs:
         run: |
           # Морская предметная область и старые ключи хранилища не должны
           # встречаться нигде: их наличие означает недочищенный копипаст.
-          if grep -rEni 'żeglarz|zeglarz|sternik|colreg|\bissa\b|швартов|оверштаг' \
-               --include='*.py' --include='*.js' --include='*.mjs' \
-               --include='*.json' --include='*.html' --include='*.css' \
-               --exclude-dir=.git . ; then
+          # Сами сторожа не в счёт: в tools/validate_content.py и
+          # tests/test_content.py эти слова лежат как чёрный список — там им и
+          # место. Отфильтровываем по полному пути, а не по имени файла.
+          GUARDS='^\./(tools/validate_content\.py|tests/test_content\.py):'
+
+          HITS=$(grep -rEni 'żeglarz|zeglarz|sternik|colreg|\bissa\b|швартов|оверштаг' \
+                   --include='*.py' --include='*.js' --include='*.mjs' \
+                   --include='*.json' --include='*.html' --include='*.css' \
+                   --exclude-dir=.git . | grep -vE "$GUARDS" || true)
+          if [ -n "$HITS" ]; then
+            echo "$HITS"
             echo "::error::Найден контент референсного проекта"
             exit 1
           fi
-          if grep -rEn 'issa_|marine_|pl_progress_' \
-               --include='*.py' --include='*.js' --include='*.html' \
-               --include='*.json' --exclude-dir=.git . ; then
+
+          HITS=$(grep -rEn 'issa_|marine_|pl_progress_' \
+                   --include='*.py' --include='*.js' --include='*.html' \
+                   --include='*.json' --exclude-dir=.git . | grep -vE "$GUARDS" || true)
+          if [ -n "$HITS" ]; then
+            echo "$HITS"
             echo "::error::Найдены старые ключи хранилища"
             exit 1
           fi
