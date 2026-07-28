@@ -1135,6 +1135,393 @@
       "type": "tool",
       "verified": true,
       "verified_at": "2026-07-28"
+    },
+    {
+      "id": "pci-dss-standards",
+      "title": "PCI DSS",
+      "publisher": "PCI Security Standards Council",
+      "url": "https://www.pcisecuritystandards.org/standards/pci-dss/",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "pci-ssc-documents",
+      "title": "PCI SSC Document Library",
+      "publisher": "PCI Security Standards Council",
+      "url": "https://www.pcisecuritystandards.org/document_library/",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "iso-4217-registry",
+      "title": "ISO 4217 Currency Codes — реестр",
+      "publisher": "SIX Group",
+      "url": "https://www.six-group.com/en/products-services/financial-information/data-standards.html",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "rfc-9110-idempotent",
+      "title": "RFC 9110: Idempotent Methods",
+      "publisher": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-idempotent-methods",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "rfc-9110-methods",
+      "title": "RFC 9110: Method Definitions",
+      "publisher": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-method-definitions",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "rfc-4122-uuid",
+      "title": "RFC 4122: UUID",
+      "publisher": "RFC Editor",
+      "url": "https://www.rfc-editor.org/rfc/rfc4122.html",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "emvco-3ds",
+      "title": "EMV 3-D Secure",
+      "publisher": "EMVCo",
+      "url": "https://www.emvco.com/emv-technologies/3-d-secure/",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "w3c-payment-request",
+      "title": "Payment Request API",
+      "publisher": "W3C",
+      "url": "https://w3c.github.io/payment-request/",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "openapi-spec",
+      "title": "OpenAPI Specification",
+      "publisher": "OpenAPI Initiative",
+      "url": "https://spec.openapis.org/oas/latest.html",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "json-schema",
+      "title": "Understanding JSON Schema",
+      "publisher": "JSON Schema",
+      "url": "https://json-schema.org/understanding-json-schema/reference",
+      "type": "specification",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-idempotency",
+      "title": "Idempotent requests",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/api/idempotent_requests",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-webhooks",
+      "title": "Webhooks",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/webhooks",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-testing",
+      "title": "Testing",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/testing",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-disputes",
+      "title": "Disputes and fraud",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/disputes",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-refunds",
+      "title": "Refunds",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/refunds",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-payment-intents",
+      "title": "PaymentIntent lifecycle",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/payments/paymentintents/lifecycle",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-3ds",
+      "title": "3D Secure authentication",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/payments/3d-secure",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-currencies",
+      "title": "Supported currencies",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/currencies",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-errors",
+      "title": "Error handling",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/error-handling",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "adyen-online-payments",
+      "title": "Online payments",
+      "publisher": "Adyen Docs",
+      "url": "https://docs.adyen.com/online-payments/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "adyen-webhooks",
+      "title": "Webhooks",
+      "publisher": "Adyen Docs",
+      "url": "https://docs.adyen.com/development-resources/webhooks/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "adyen-webhook-types",
+      "title": "Webhook types",
+      "publisher": "Adyen Docs",
+      "url": "https://docs.adyen.com/development-resources/webhooks/webhook-types/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "adyen-disputes",
+      "title": "Disputes API",
+      "publisher": "Adyen Docs",
+      "url": "https://docs.adyen.com/risk-management/disputes-api/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "paypal-webhooks",
+      "title": "Webhooks",
+      "publisher": "PayPal Developer",
+      "url": "https://developer.paypal.com/api/rest/webhooks/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "istqb-glossary",
+      "title": "ISTQB Glossary",
+      "publisher": "ISTQB",
+      "url": "https://glossary.istqb.org/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "owasp-testing-guide",
+      "title": "Web Security Testing Guide",
+      "publisher": "OWASP",
+      "url": "https://owasp.org/www-project-web-security-testing-guide/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "owasp-top-ten",
+      "title": "OWASP Top 10",
+      "publisher": "OWASP",
+      "url": "https://owasp.org/www-project-top-ten/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "owasp-logging-cheatsheet",
+      "title": "Logging Cheat Sheet",
+      "publisher": "OWASP Cheat Sheet Series",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "owasp-input-validation",
+      "title": "Input Validation Cheat Sheet",
+      "publisher": "OWASP Cheat Sheet Series",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "martin-fowler-test-pyramid",
+      "title": "The Practical Test Pyramid",
+      "publisher": "martinfowler.com",
+      "url": "https://martinfowler.com/articles/practical-test-pyramid.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "martin-fowler-flaky",
+      "title": "Eradicating Non-Determinism in Tests",
+      "publisher": "martinfowler.com",
+      "url": "https://martinfowler.com/articles/nonDeterminism.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "google-test-sizes",
+      "title": "Test Sizes",
+      "publisher": "Google Testing Blog",
+      "url": "https://testing.googleblog.com/2010/12/test-sizes.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "playwright-docs",
+      "title": "Playwright — Getting started",
+      "publisher": "Playwright",
+      "url": "https://playwright.dev/docs/intro",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "postman-docs",
+      "title": "Postman — Overview",
+      "publisher": "Postman Learning Center",
+      "url": "https://learning.postman.com/docs/getting-started/overview/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "charles-proxy",
+      "title": "Charles Proxy Documentation",
+      "publisher": "Charles",
+      "url": "https://www.charlesproxy.com/documentation/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "mdn-http-methods",
+      "title": "HTTP request methods",
+      "publisher": "MDN Web Docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "mdn-numbers-floats",
+      "title": "Numbers and strings",
+      "publisher": "MDN Web Docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_strings",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "postgres-numeric",
+      "title": "Numeric Types",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/datatype-numeric.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "postgres-transactions",
+      "title": "Transactions",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "postgres-sql-select",
+      "title": "SELECT",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/sql-select.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "mozilla-bug-writing",
+      "title": "Bug Writing Guidelines",
+      "publisher": "Mozilla",
+      "url": "https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-payout-reconciliation",
+      "title": "Payout reconciliation",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/payouts/reconciliation",
+      "type": "documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "stripe-payments-analytics",
+      "title": "Payments analytics",
+      "publisher": "Stripe Docs",
+      "url": "https://docs.stripe.com/payments/analytics",
+      "type": "documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
     }
   ]
 }

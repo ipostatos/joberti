@@ -1200,6 +1200,595 @@
       "completion_rule": {
         "full_mock_sessions_min": 1
       }
+    },
+    {
+      "id": "step-qa-01-basics",
+      "track_id": "qa-payments",
+      "order": 1,
+      "title": "Основы тестирования",
+      "goal": "Научиться объяснять, что и почему вы проверяете, вместо перечисления кейсов",
+      "topic_ids": [
+        "qa-testing-basics"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-qa-testing-basics"
+      ],
+      "practice_items": [
+        "quiz:qa-testing-basics",
+        "mock:mock-qa-fund-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-qa-02-design",
+      "track_id": "qa-payments",
+      "order": 2,
+      "title": "Техники тест-дизайна",
+      "goal": "Строить набор проверок по технике, а не по наитию",
+      "topic_ids": [
+        "qa-test-design"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-01-basics"
+      ],
+      "study_items": [
+        "lesson-qa-test-design"
+      ],
+      "practice_items": [
+        "quiz:qa-test-design",
+        "mock:mock-qa-fund-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-03-docs",
+      "track_id": "qa-payments",
+      "order": 3,
+      "title": "Тестовая документация",
+      "goal": "Писать баг-репорт, по которому проблему воспроизведут без вас",
+      "topic_ids": [
+        "qa-test-docs"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-qa-01-basics"
+      ],
+      "study_items": [
+        "lesson-qa-test-docs"
+      ],
+      "practice_items": [
+        "quiz:qa-test-docs",
+        "mock:mock-qa-port-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-qa-04-flow",
+      "track_id": "qa-payments",
+      "order": 4,
+      "title": "Как устроен платёж",
+      "goal": "Уверенно рассказывать путь денег от нажатия кнопки до счёта магазина",
+      "topic_ids": [
+        "qa-payment-flow"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-01-basics"
+      ],
+      "study_items": [
+        "lesson-qa-payment-flow"
+      ],
+      "practice_items": [
+        "quiz:qa-payment-flow",
+        "mock:mock-qa-fund-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-05-methods",
+      "track_id": "qa-payments",
+      "order": 5,
+      "title": "Способы оплаты",
+      "goal": "Понимать, чем сценарии карт, переводов и кошельков отличаются друг от друга",
+      "topic_ids": [
+        "qa-payment-methods"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-qa-04-flow"
+      ],
+      "study_items": [
+        "lesson-qa-payment-methods"
+      ],
+      "practice_items": [
+        "quiz:qa-payment-methods"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-qa-06-3ds",
+      "track_id": "qa-payments",
+      "order": 6,
+      "title": "3-D Secure и аутентификация",
+      "goal": "Проверять не только успешный ввод кода, но и все способы прервать проверку",
+      "topic_ids": [
+        "qa-3ds-auth"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-04-flow"
+      ],
+      "study_items": [
+        "lesson-qa-3ds"
+      ],
+      "practice_items": [
+        "quiz:qa-3ds-auth",
+        "case:case-qa-3ds-stuck-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-07-idempotency",
+      "track_id": "qa-payments",
+      "order": 7,
+      "title": "Идемпотентность и повторы",
+      "goal": "Уметь доказать запросами, что двойное списание невозможно",
+      "topic_ids": [
+        "qa-idempotency"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-qa-04-flow"
+      ],
+      "study_items": [
+        "lesson-qa-idempotency"
+      ],
+      "practice_items": [
+        "quiz:qa-idempotency",
+        "case:case-qa-double-charge-001",
+        "mock:mock-qa-tech-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 85,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-08-refunds",
+      "track_id": "qa-payments",
+      "order": 8,
+      "title": "Возвраты, отмены и споры",
+      "goal": "Различать отмену, возврат и чарджбэк и проверять частичные возвраты до копейки",
+      "topic_ids": [
+        "qa-refunds"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-qa-04-flow"
+      ],
+      "study_items": [
+        "lesson-qa-refunds"
+      ],
+      "practice_items": [
+        "quiz:qa-refunds",
+        "case:case-qa-refund-penny-001",
+        "mock:mock-qa-prac-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-09-webhooks",
+      "track_id": "qa-payments",
+      "order": 9,
+      "title": "Вебхуки и асинхронность",
+      "goal": "Проверять обработчик так, будто доставка ненадёжна и порядок не гарантирован",
+      "topic_ids": [
+        "qa-webhooks"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-qa-07-idempotency"
+      ],
+      "study_items": [
+        "lesson-qa-webhooks"
+      ],
+      "practice_items": [
+        "quiz:qa-webhooks",
+        "case:case-qa-webhook-lost-001",
+        "mock:mock-qa-tech-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 85,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-10-api",
+      "track_id": "qa-payments",
+      "order": 10,
+      "title": "Тестирование API платежей",
+      "goal": "Проверять контракт, коды ответа и отказы, а не только успешный сценарий",
+      "topic_ids": [
+        "qa-api-testing"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-qa-07-idempotency"
+      ],
+      "study_items": [
+        "lesson-qa-api-testing"
+      ],
+      "practice_items": [
+        "quiz:qa-api-testing",
+        "mock:mock-qa-tech-004",
+        "mock:mock-qa-tools-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-11-money",
+      "track_id": "qa-payments",
+      "order": 11,
+      "title": "Деньги, валюты и округление",
+      "goal": "Ловить потерянные копейки на суммах, которые не делятся нацело",
+      "topic_ids": [
+        "qa-money-precision"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-08-refunds"
+      ],
+      "study_items": [
+        "lesson-qa-money-precision"
+      ],
+      "practice_items": [
+        "quiz:qa-money-precision",
+        "case:case-qa-currency-001",
+        "mock:mock-qa-tech-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-12-cards",
+      "track_id": "qa-payments",
+      "order": 12,
+      "title": "Данные карт и PCI DSS",
+      "goal": "Уметь искать утечку данных карты по всем следам системы",
+      "topic_ids": [
+        "qa-card-security"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-04-flow"
+      ],
+      "study_items": [
+        "lesson-qa-card-security"
+      ],
+      "practice_items": [
+        "quiz:qa-card-security",
+        "case:case-qa-card-leak-001",
+        "mock:mock-qa-tech-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 85,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-13-integrations",
+      "track_id": "qa-payments",
+      "order": 13,
+      "title": "Песочницы, тестовые карты и заглушки",
+      "goal": "Получать сценарии, которых песочница не даёт",
+      "topic_ids": [
+        "qa-integrations"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-10-api"
+      ],
+      "study_items": [
+        "lesson-qa-integrations"
+      ],
+      "practice_items": [
+        "quiz:qa-integrations",
+        "mock:mock-qa-tools-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-14-reconciliation",
+      "track_id": "qa-payments",
+      "order": 14,
+      "title": "Сверка и расхождения",
+      "goal": "Понимать, почему сверка по итогам ничего не гарантирует",
+      "topic_ids": [
+        "qa-reconciliation"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-09-webhooks"
+      ],
+      "study_items": [
+        "lesson-qa-reconciliation"
+      ],
+      "practice_items": [
+        "quiz:qa-reconciliation",
+        "case:case-qa-recon-gap-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-15-sql",
+      "track_id": "qa-payments",
+      "order": 15,
+      "title": "SQL для проверки данных",
+      "goal": "Находить дубли платежей и расхождения статусов запросом, а не глазами",
+      "topic_ids": [
+        "qa-sql-data"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-qa-14-reconciliation"
+      ],
+      "study_items": [
+        "lesson-qa-sql-data"
+      ],
+      "practice_items": [
+        "quiz:qa-sql-data",
+        "mock:mock-qa-tools-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-16-logs",
+      "track_id": "qa-payments",
+      "order": 16,
+      "title": "Логи и разбор проблем",
+      "goal": "Держать порядок действий при жалобе на деньги: факт, причина, помощь клиенту",
+      "topic_ids": [
+        "qa-logs-incidents"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-14-reconciliation"
+      ],
+      "study_items": [
+        "lesson-qa-logs-incidents"
+      ],
+      "practice_items": [
+        "quiz:qa-logs-incidents",
+        "mock:mock-qa-prac-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-qa-17-release",
+      "track_id": "qa-payments",
+      "order": 17,
+      "title": "Регресс, релиз и откат",
+      "goal": "Уметь выбрать проверки под нехватку времени и передать риск дальше",
+      "topic_ids": [
+        "qa-regression-release"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-16-logs"
+      ],
+      "study_items": [
+        "lesson-qa-regression-release"
+      ],
+      "practice_items": [
+        "quiz:qa-regression-release",
+        "case:case-qa-decline-spike-001",
+        "mock:mock-qa-prac-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-qa-18-automation",
+      "track_id": "qa-payments",
+      "order": 18,
+      "title": "Автоматизация проверок",
+      "goal": "Объяснять, что автоматизировать первым и почему зелёные тесты не гарантируют оплату",
+      "topic_ids": [
+        "qa-automation"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-13-integrations"
+      ],
+      "study_items": [
+        "lesson-qa-automation"
+      ],
+      "practice_items": [
+        "quiz:qa-automation"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-qa-19-metrics",
+      "track_id": "qa-payments",
+      "order": 19,
+      "title": "Метрики платежей",
+      "goal": "Говорить о качестве цифрами, которые понятны бизнесу",
+      "topic_ids": [
+        "qa-metrics"
+      ],
+      "estimated_minutes": 45,
+      "required": false,
+      "prerequisites": [
+        "step-qa-17-release"
+      ],
+      "study_items": [
+        "lesson-qa-metrics"
+      ],
+      "practice_items": [
+        "quiz:qa-metrics",
+        "mock:mock-qa-prac-002",
+        "mock:mock-qa-comm-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-qa-20-behavioral",
+      "track_id": "qa-payments",
+      "order": 20,
+      "title": "Behavioral и свои истории",
+      "goal": "Собрать три истории по схеме STAR и отрепетировать их вслух",
+      "topic_ids": [
+        "qa-behavioral"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-qa-17-release"
+      ],
+      "study_items": [
+        "lesson-qa-behavioral"
+      ],
+      "practice_items": [
+        "quiz:qa-behavioral",
+        "mock:mock-qa-beh-001",
+        "mock:mock-qa-comm-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75,
+        "stories_filled_min": 3
+      }
+    },
+    {
+      "id": "step-qa-21-vacancy",
+      "track_id": "qa-payments",
+      "order": 21,
+      "title": "Разбор вакансии и самопрезентация",
+      "goal": "Сопоставить свой опыт с требованиями и подготовить рассказ о себе",
+      "topic_ids": [
+        "qa-behavioral"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-qa-20-behavioral"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-qa-intro-001",
+        "mock:mock-qa-mot-001",
+        "mock:mock-qa-port-002"
+      ],
+      "completion_rule": {
+        "mock_answered_min": 3
+      }
+    },
+    {
+      "id": "step-qa-22-full-mock",
+      "track_id": "qa-payments",
+      "order": 22,
+      "title": "Полная сессия mock interview",
+      "goal": "Пройти сессию целиком и увидеть, где ответы рассыпаются под давлением времени",
+      "topic_ids": [
+        "qa-behavioral"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-qa-21-vacancy"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-qa-tech-002",
+        "mock:mock-qa-beh-002"
+      ],
+      "completion_rule": {
+        "full_mock_sessions_min": 1
+      }
     }
   ]
 }

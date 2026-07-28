@@ -278,19 +278,19 @@
  "cases":[],
  "counts":{
   "achievements":24,
-  "active_tracks":2,
-  "cases":20,
-  "glossary_terms":156,
-  "lessons":48,
-  "library_resources":125,
-  "mock_questions":72,
-  "questions":222,
-  "roadmap_steps":46,
-  "sources":126,
-  "story_templates":18,
-  "topics":40,
+  "active_tracks":3,
+  "cases":28,
+  "glossary_terms":205,
+  "lessons":68,
+  "library_resources":166,
+  "mock_questions":101,
+  "questions":346,
+  "roadmap_steps":68,
+  "sources":169,
+  "story_templates":24,
+  "topics":60,
   "tracks":4,
-  "vacancies":2
+  "vacancies":3
  },
  "glossary":[],
  "glossaryCategories":[
@@ -319,7 +319,14 @@
   "Надёжность",
   "Безопасность",
   "Базы данных",
-  "Облако"
+  "Облако",
+  "Тестирование",
+  "Тест-дизайн",
+  "Платежи",
+  "Возвраты и споры",
+  "Деньги и валюты",
+  "Данные карт и PCI DSS",
+  "Интеграции и API"
  ],
  "lessons":[],
  "library":[
@@ -1326,7 +1333,8 @@
    "source_ref":"mdn-http-status",
    "title":"HTTP response status codes",
    "topic_ids":[
-    "html-http"
+    "html-http",
+    "qa-api-testing"
    ],
    "type":"official_documentation",
    "url":"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
@@ -2616,6 +2624,755 @@
    "url":"https://man7.org/linux/man-pages/man5/systemd.exec.5.html",
    "verification_status":"verified",
    "why_read":"Песочница службы: ProtectSystem, ReadWritePaths и почему служба падает с отказом в доступе."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-stripe-payment-intents",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-payment-intents",
+   "title":"PaymentIntent lifecycle",
+   "topic_ids":[
+    "qa-payment-flow"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/payments/paymentintents/lifecycle",
+   "verification_status":"verified",
+   "why_read":"Жизненный цикл платежа по состояниям: какие переходы возможны, а какие нет. Из этого напрямую вырастает чек-лист проверок."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-adyen-online-payments",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Adyen Docs",
+   "read_before_interview":false,
+   "source_ref":"adyen-online-payments",
+   "title":"Online payments",
+   "topic_ids":[
+    "qa-payment-flow",
+    "qa-payment-methods"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/online-payments/",
+   "verification_status":"verified",
+   "why_read":"Второй взгляд на ту же схему у другого провайдера. Полезно увидеть, что общее в устройстве платежа, а что особенность конкретного поставщика."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-qa-stripe-idempotency",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-idempotency",
+   "title":"Idempotent requests",
+   "topic_ids":[
+    "qa-idempotency"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/api/idempotent_requests",
+   "verification_status":"verified",
+   "why_read":"Ключ идемпотентности в первоисточнике: как повторный запрос возвращает прежний результат вместо второго списания. Спрашивают почти всегда."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":25,
+   "id":"lib-qa-rfc-9110-idempotent",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"RFC Editor",
+   "read_before_interview":true,
+   "source_ref":"rfc-9110-idempotent",
+   "title":"RFC 9110: Idempotent Methods",
+   "topic_ids":[
+    "qa-idempotency",
+    "qa-api-testing"
+   ],
+   "type":"specification",
+   "url":"https://www.rfc-editor.org/rfc/rfc9110.html#name-idempotent-methods",
+   "verification_status":"verified",
+   "why_read":"Формальное определение идемпотентности метода. Помогает объяснить, почему POST по умолчанию неидемпотентен и что с этим делают."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":40,
+   "id":"lib-qa-rfc-9110-methods",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"RFC Editor",
+   "read_before_interview":false,
+   "source_ref":"rfc-9110-methods",
+   "title":"RFC 9110: Method Definitions",
+   "topic_ids":[
+    "qa-api-testing"
+   ],
+   "type":"specification",
+   "url":"https://www.rfc-editor.org/rfc/rfc9110.html#name-method-definitions",
+   "verification_status":"verified",
+   "why_read":"Методы HTTP и их семантика. Нужен, когда спорите, какой код и метод правильны."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":15,
+   "id":"lib-qa-mdn-http-methods",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"MDN Web Docs",
+   "read_before_interview":true,
+   "source_ref":"mdn-http-methods",
+   "title":"HTTP request methods",
+   "topic_ids":[
+    "qa-api-testing"
+   ],
+   "type":"official_documentation",
+   "url":"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
+   "verification_status":"verified",
+   "why_read":"Быстрая шпаргалка по методам: что безопасно, что идемпотентно, что кэшируется."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-stripe-errors",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-errors",
+   "title":"Error handling",
+   "topic_ids":[
+    "qa-api-testing",
+    "qa-integrations"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/error-handling",
+   "verification_status":"verified",
+   "why_read":"Типы ошибок платёжного API: отказ карты, ошибка запроса, сбой на стороне сети. Разные типы требуют разного поведения приложения."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-stripe-webhooks",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-webhooks",
+   "title":"Webhooks",
+   "topic_ids":[
+    "qa-webhooks"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/webhooks",
+   "verification_status":"verified",
+   "why_read":"Вебхуки: доставка не гарантирует порядок и может повториться. Ключевая мысль для тестирования асинхронных сценариев."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-adyen-webhooks",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Adyen Docs",
+   "read_before_interview":false,
+   "source_ref":"adyen-webhooks",
+   "title":"Webhooks",
+   "topic_ids":[
+    "qa-webhooks"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/development-resources/webhooks/",
+   "verification_status":"verified",
+   "why_read":"Тот же механизм у другого провайдера: подтверждение приёма, повторные попытки."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-qa-adyen-webhook-types",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Adyen Docs",
+   "read_before_interview":false,
+   "source_ref":"adyen-webhook-types",
+   "title":"Webhook types",
+   "topic_ids":[
+    "qa-webhooks"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/development-resources/webhooks/webhook-types/",
+   "verification_status":"verified",
+   "why_read":"Перечень событий, которые приходят по вебхукам. Готовая основа для чек-листа асинхронных сценариев."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-qa-paypal-webhooks",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PayPal Developer",
+   "read_before_interview":false,
+   "source_ref":"paypal-webhooks",
+   "title":"Webhooks",
+   "topic_ids":[
+    "qa-webhooks"
+   ],
+   "type":"official_documentation",
+   "url":"https://developer.paypal.com/api/rest/webhooks/",
+   "verification_status":"verified",
+   "why_read":"Третий взгляд на вебхуки. Полезен, чтобы отделить общее от частного."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-stripe-refunds",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-refunds",
+   "title":"Refunds",
+   "topic_ids":[
+    "qa-refunds"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/refunds",
+   "verification_status":"verified",
+   "why_read":"Возвраты: полный и частичный, сроки, состояния. Разбор того, чем возврат отличается от отмены до списания."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":30,
+   "id":"lib-qa-stripe-disputes",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-disputes",
+   "title":"Disputes and fraud",
+   "topic_ids":[
+    "qa-refunds"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/disputes",
+   "verification_status":"verified",
+   "why_read":"Спор и чарджбэк: как это выглядит со стороны продавца и какие есть сроки. Вопрос про разницу возврата и чарджбэка задают часто."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":25,
+   "id":"lib-qa-adyen-disputes",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Adyen Docs",
+   "read_before_interview":false,
+   "source_ref":"adyen-disputes",
+   "title":"Disputes API",
+   "topic_ids":[
+    "qa-refunds"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/risk-management/disputes-api/",
+   "verification_status":"verified",
+   "why_read":"Работа со спорами через API: стадии, документы, сроки ответа."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-stripe-3ds",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-3ds",
+   "title":"3D Secure authentication",
+   "topic_ids":[
+    "qa-3ds-auth"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/payments/3d-secure",
+   "verification_status":"verified",
+   "why_read":"3-D Secure: когда запускается, что происходит при отказе и как это влияет на ответственность за мошенническую операцию."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":30,
+   "id":"lib-qa-emvco-3ds",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"EMVCo",
+   "read_before_interview":false,
+   "source_ref":"emvco-3ds",
+   "title":"EMV 3-D Secure",
+   "topic_ids":[
+    "qa-3ds-auth"
+   ],
+   "type":"specification",
+   "url":"https://www.emvco.com/emv-technologies/3-d-secure/",
+   "verification_status":"verified",
+   "why_read":"Первоисточник стандарта. Нужен, чтобы говорить о 3-D Secure точно, а не по слухам."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-qa-stripe-testing",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-testing",
+   "title":"Testing",
+   "topic_ids":[
+    "qa-integrations"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/testing",
+   "verification_status":"verified",
+   "why_read":"Тестовые карты и сценарии: как воспроизвести отказ, требование аутентификации, недостаток средств. Это ежедневный инструмент тестировщика платежей."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-qa-stripe-currencies",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-currencies",
+   "title":"Supported currencies",
+   "topic_ids":[
+    "qa-money-precision"
+   ],
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/currencies",
+   "verification_status":"verified",
+   "why_read":"Минорные единицы и валюты без дробной части. Отсюда классическая ошибка: сумма в 100 единиц означает разное в разных валютах."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-qa-iso-4217-registry",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"SIX Group",
+   "read_before_interview":false,
+   "source_ref":"iso-4217-registry",
+   "title":"ISO 4217 Currency Codes — реестр",
+   "topic_ids":[
+    "qa-money-precision"
+   ],
+   "type":"specification",
+   "url":"https://www.six-group.com/en/products-services/financial-information/data-standards.html",
+   "verification_status":"verified",
+   "why_read":"Реестр валютных кодов и числа знаков после запятой — то, на что опираются платёжные системы."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-postgres-numeric",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PostgreSQL Documentation",
+   "read_before_interview":true,
+   "source_ref":"postgres-numeric",
+   "title":"Numeric Types",
+   "topic_ids":[
+    "qa-money-precision",
+    "qa-sql-data"
+   ],
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/datatype-numeric.html",
+   "verification_status":"verified",
+   "why_read":"Почему деньги хранят в точных типах, а не в числах с плавающей точкой."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-qa-mdn-numbers-floats",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"MDN Web Docs",
+   "read_before_interview":true,
+   "source_ref":"mdn-numbers-floats",
+   "title":"Numbers and strings",
+   "topic_ids":[
+    "qa-money-precision"
+   ],
+   "type":"official_documentation",
+   "url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_strings",
+   "verification_status":"verified",
+   "why_read":"Наглядно про то, откуда берётся 0,1 + 0,2 ≠ 0,3 и почему это проблема для сумм."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-pci-dss-standards",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PCI Security Standards Council",
+   "read_before_interview":true,
+   "source_ref":"pci-dss-standards",
+   "title":"PCI DSS",
+   "topic_ids":[
+    "qa-card-security"
+   ],
+   "type":"specification",
+   "url":"https://www.pcisecuritystandards.org/standards/pci-dss/",
+   "verification_status":"verified",
+   "why_read":"Что вообще требует стандарт по данным карт. Тестировщику важна применимая часть: что нельзя хранить и что нельзя показывать."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":20,
+   "id":"lib-qa-pci-ssc-documents",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PCI Security Standards Council",
+   "read_before_interview":false,
+   "source_ref":"pci-ssc-documents",
+   "title":"PCI SSC Document Library",
+   "topic_ids":[
+    "qa-card-security"
+   ],
+   "type":"specification",
+   "url":"https://www.pcisecuritystandards.org/document_library/",
+   "verification_status":"verified",
+   "why_read":"Библиотека документов совета: куда идти за точной формулировкой требования."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-owasp-logging-cheatsheet",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"OWASP Cheat Sheet Series",
+   "read_before_interview":true,
+   "source_ref":"owasp-logging-cheatsheet",
+   "title":"Logging Cheat Sheet",
+   "topic_ids":[
+    "qa-card-security",
+    "qa-logs-incidents"
+   ],
+   "type":"guide",
+   "url":"https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+   "verification_status":"verified",
+   "why_read":"Что нельзя писать в логи. Для платежей это номер карты, код проверки и токены."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-owasp-input-validation",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"OWASP Cheat Sheet Series",
+   "read_before_interview":false,
+   "source_ref":"owasp-input-validation",
+   "title":"Input Validation Cheat Sheet",
+   "topic_ids":[
+    "qa-test-design",
+    "qa-api-testing"
+   ],
+   "type":"guide",
+   "url":"https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+   "verification_status":"verified",
+   "why_read":"Проверка ввода: готовый список того, что стоит попробовать в полях формы оплаты."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":45,
+   "id":"lib-qa-owasp-testing-guide",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"OWASP",
+   "read_before_interview":false,
+   "source_ref":"owasp-testing-guide",
+   "title":"Web Security Testing Guide",
+   "topic_ids":[
+    "qa-card-security",
+    "qa-api-testing"
+   ],
+   "type":"guide",
+   "url":"https://owasp.org/www-project-web-security-testing-guide/",
+   "verification_status":"verified",
+   "why_read":"Подробное руководство по проверке безопасности. Читать выборочно под свои сценарии."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-owasp-top-ten",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"OWASP",
+   "read_before_interview":false,
+   "source_ref":"owasp-top-ten",
+   "title":"OWASP Top 10",
+   "topic_ids":[
+    "qa-card-security"
+   ],
+   "type":"guide",
+   "url":"https://owasp.org/www-project-top-ten/",
+   "verification_status":"verified",
+   "why_read":"Основные классы уязвимостей. Нужен, чтобы понимать, о чём вас спросят из безопасности на позиции с платежами."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-qa-istqb-glossary",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"ISTQB",
+   "read_before_interview":true,
+   "source_ref":"istqb-glossary",
+   "title":"ISTQB Glossary",
+   "topic_ids":[
+    "qa-testing-basics",
+    "qa-test-design"
+   ],
+   "type":"official_documentation",
+   "url":"https://glossary.istqb.org/",
+   "verification_status":"verified",
+   "why_read":"Словарь терминов тестирования. Полезен, чтобы называть вещи так же, как их называет интервьюер."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-martin-fowler-test-pyramid",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"martinfowler.com",
+   "read_before_interview":true,
+   "source_ref":"martin-fowler-test-pyramid",
+   "title":"The Practical Test Pyramid",
+   "topic_ids":[
+    "qa-automation"
+   ],
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/practical-test-pyramid.html",
+   "verification_status":"verified",
+   "why_read":"Пирамида тестов: почему модульных тестов много, а сквозных мало. Классический вопрос про стратегию автоматизации."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":30,
+   "id":"lib-qa-martin-fowler-flaky",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"martinfowler.com",
+   "read_before_interview":true,
+   "source_ref":"martin-fowler-flaky",
+   "title":"Eradicating Non-Determinism in Tests",
+   "topic_ids":[
+    "qa-automation",
+    "qa-regression-release"
+   ],
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/nonDeterminism.html",
+   "verification_status":"verified",
+   "why_read":"Нестабильные тесты и что с ними делать. Ответ «перезапустить» считается слабым."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-qa-google-test-sizes",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google Testing Blog",
+   "read_before_interview":false,
+   "source_ref":"google-test-sizes",
+   "title":"Test Sizes",
+   "topic_ids":[
+    "qa-automation"
+   ],
+   "type":"guide",
+   "url":"https://testing.googleblog.com/2010/12/test-sizes.html",
+   "verification_status":"verified",
+   "why_read":"Размеры тестов вместо споров о названиях. Удобная рамка для ответа про уровни."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-qa-playwright-docs",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Playwright",
+   "read_before_interview":false,
+   "source_ref":"playwright-docs",
+   "title":"Playwright — Getting started",
+   "topic_ids":[
+    "qa-automation"
+   ],
+   "type":"tool_documentation",
+   "url":"https://playwright.dev/docs/intro",
+   "verification_status":"verified",
+   "why_read":"Современный инструмент сквозных тестов. Достаточно понимать модель работы."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-qa-postman-docs",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Postman Learning Center",
+   "read_before_interview":true,
+   "source_ref":"postman-docs",
+   "title":"Postman — Overview",
+   "topic_ids":[
+    "qa-api-testing"
+   ],
+   "type":"tool_documentation",
+   "url":"https://learning.postman.com/docs/getting-started/overview/",
+   "verification_status":"verified",
+   "why_read":"Базовый инструмент ручного тестирования API. На интервью просят показать, как вы проверяете запрос."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-charles-proxy",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Charles",
+   "read_before_interview":false,
+   "source_ref":"charles-proxy",
+   "title":"Charles Proxy Documentation",
+   "topic_ids":[
+    "qa-api-testing",
+    "qa-logs-incidents"
+   ],
+   "type":"tool_documentation",
+   "url":"https://www.charlesproxy.com/documentation/",
+   "verification_status":"verified",
+   "why_read":"Перехват трафика: как посмотреть, что реально уходит от мобильного клиента."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":35,
+   "id":"lib-qa-openapi-spec",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"OpenAPI Initiative",
+   "read_before_interview":false,
+   "source_ref":"openapi-spec",
+   "title":"OpenAPI Specification",
+   "topic_ids":[
+    "qa-api-testing"
+   ],
+   "type":"specification",
+   "url":"https://spec.openapis.org/oas/latest.html",
+   "verification_status":"verified",
+   "why_read":"Формат описания API. Нужен, чтобы проверять соответствие ответа контракту."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-json-schema",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"JSON Schema",
+   "read_before_interview":false,
+   "source_ref":"json-schema",
+   "title":"Understanding JSON Schema",
+   "topic_ids":[
+    "qa-api-testing"
+   ],
+   "type":"specification",
+   "url":"https://json-schema.org/understanding-json-schema/reference",
+   "verification_status":"verified",
+   "why_read":"Проверка структуры ответа схемой вместо сравнения глазами."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":30,
+   "id":"lib-qa-postgres-sql-select",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PostgreSQL Documentation",
+   "read_before_interview":true,
+   "source_ref":"postgres-sql-select",
+   "title":"SELECT",
+   "topic_ids":[
+    "qa-sql-data"
+   ],
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/sql-select.html",
+   "verification_status":"verified",
+   "why_read":"Выборки для проверки данных после операции. Базовый навык на любой позиции QA."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-qa-postgres-transactions",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PostgreSQL Documentation",
+   "read_before_interview":true,
+   "source_ref":"postgres-transactions",
+   "title":"Transactions",
+   "topic_ids":[
+    "qa-sql-data",
+    "qa-payment-flow"
+   ],
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/tutorial-transactions.html",
+   "verification_status":"verified",
+   "why_read":"Транзакции: почему платёж либо целиком применяется, либо целиком откатывается."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-mozilla-bug-writing",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Mozilla",
+   "read_before_interview":true,
+   "source_ref":"mozilla-bug-writing",
+   "title":"Bug Writing Guidelines",
+   "topic_ids":[
+    "qa-test-docs"
+   ],
+   "type":"guide",
+   "url":"https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html",
+   "verification_status":"verified",
+   "why_read":"Разбор того, что делает баг-репорт воспроизводимым: шаги, а не выводы. Классика, на которую ссылаются до сих пор."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-stripe-payout-reconciliation",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":true,
+   "source_ref":"stripe-payout-reconciliation",
+   "title":"Payout reconciliation",
+   "topic_ids":[
+    "qa-reconciliation"
+   ],
+   "type":"documentation",
+   "url":"https://docs.stripe.com/payouts/reconciliation",
+   "verification_status":"verified",
+   "why_read":"Показывает, из чего складывается выплата магазину и как сопоставить её с операциями — база для разговора о сверке."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-stripe-payments-analytics",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Stripe Docs",
+   "read_before_interview":false,
+   "source_ref":"stripe-payments-analytics",
+   "title":"Payments analytics",
+   "topic_ids":[
+    "qa-metrics"
+   ],
+   "type":"documentation",
+   "url":"https://docs.stripe.com/payments/analytics",
+   "verification_status":"verified",
+   "why_read":"Какие метрики платежей смотрят на практике: доля успешных, причины отказов, влияние аутентификации, споры."
   }
  ],
  "mockCategories":[
@@ -3779,6 +4536,393 @@
    "url":"https://www.shellcheck.net/",
    "verified":true,
    "verified_at":"2026-07-28"
+  },
+  {
+   "id":"pci-dss-standards",
+   "publisher":"PCI Security Standards Council",
+   "title":"PCI DSS",
+   "type":"specification",
+   "url":"https://www.pcisecuritystandards.org/standards/pci-dss/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"pci-ssc-documents",
+   "publisher":"PCI Security Standards Council",
+   "title":"PCI SSC Document Library",
+   "type":"specification",
+   "url":"https://www.pcisecuritystandards.org/document_library/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"iso-4217-registry",
+   "publisher":"SIX Group",
+   "title":"ISO 4217 Currency Codes — реестр",
+   "type":"specification",
+   "url":"https://www.six-group.com/en/products-services/financial-information/data-standards.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"rfc-9110-idempotent",
+   "publisher":"RFC Editor",
+   "title":"RFC 9110: Idempotent Methods",
+   "type":"specification",
+   "url":"https://www.rfc-editor.org/rfc/rfc9110.html#name-idempotent-methods",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"rfc-9110-methods",
+   "publisher":"RFC Editor",
+   "title":"RFC 9110: Method Definitions",
+   "type":"specification",
+   "url":"https://www.rfc-editor.org/rfc/rfc9110.html#name-method-definitions",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"rfc-4122-uuid",
+   "publisher":"RFC Editor",
+   "title":"RFC 4122: UUID",
+   "type":"specification",
+   "url":"https://www.rfc-editor.org/rfc/rfc4122.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"emvco-3ds",
+   "publisher":"EMVCo",
+   "title":"EMV 3-D Secure",
+   "type":"specification",
+   "url":"https://www.emvco.com/emv-technologies/3-d-secure/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"w3c-payment-request",
+   "publisher":"W3C",
+   "title":"Payment Request API",
+   "type":"specification",
+   "url":"https://w3c.github.io/payment-request/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"openapi-spec",
+   "publisher":"OpenAPI Initiative",
+   "title":"OpenAPI Specification",
+   "type":"specification",
+   "url":"https://spec.openapis.org/oas/latest.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"json-schema",
+   "publisher":"JSON Schema",
+   "title":"Understanding JSON Schema",
+   "type":"specification",
+   "url":"https://json-schema.org/understanding-json-schema/reference",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-idempotency",
+   "publisher":"Stripe Docs",
+   "title":"Idempotent requests",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/api/idempotent_requests",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-webhooks",
+   "publisher":"Stripe Docs",
+   "title":"Webhooks",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/webhooks",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-testing",
+   "publisher":"Stripe Docs",
+   "title":"Testing",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/testing",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-disputes",
+   "publisher":"Stripe Docs",
+   "title":"Disputes and fraud",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/disputes",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-refunds",
+   "publisher":"Stripe Docs",
+   "title":"Refunds",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/refunds",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-payment-intents",
+   "publisher":"Stripe Docs",
+   "title":"PaymentIntent lifecycle",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/payments/paymentintents/lifecycle",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-3ds",
+   "publisher":"Stripe Docs",
+   "title":"3D Secure authentication",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/payments/3d-secure",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-currencies",
+   "publisher":"Stripe Docs",
+   "title":"Supported currencies",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/currencies",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-errors",
+   "publisher":"Stripe Docs",
+   "title":"Error handling",
+   "type":"official_documentation",
+   "url":"https://docs.stripe.com/error-handling",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"adyen-online-payments",
+   "publisher":"Adyen Docs",
+   "title":"Online payments",
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/online-payments/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"adyen-webhooks",
+   "publisher":"Adyen Docs",
+   "title":"Webhooks",
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/development-resources/webhooks/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"adyen-webhook-types",
+   "publisher":"Adyen Docs",
+   "title":"Webhook types",
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/development-resources/webhooks/webhook-types/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"adyen-disputes",
+   "publisher":"Adyen Docs",
+   "title":"Disputes API",
+   "type":"official_documentation",
+   "url":"https://docs.adyen.com/risk-management/disputes-api/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"paypal-webhooks",
+   "publisher":"PayPal Developer",
+   "title":"Webhooks",
+   "type":"official_documentation",
+   "url":"https://developer.paypal.com/api/rest/webhooks/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"istqb-glossary",
+   "publisher":"ISTQB",
+   "title":"ISTQB Glossary",
+   "type":"official_documentation",
+   "url":"https://glossary.istqb.org/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"owasp-testing-guide",
+   "publisher":"OWASP",
+   "title":"Web Security Testing Guide",
+   "type":"guide",
+   "url":"https://owasp.org/www-project-web-security-testing-guide/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"owasp-top-ten",
+   "publisher":"OWASP",
+   "title":"OWASP Top 10",
+   "type":"guide",
+   "url":"https://owasp.org/www-project-top-ten/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"owasp-logging-cheatsheet",
+   "publisher":"OWASP Cheat Sheet Series",
+   "title":"Logging Cheat Sheet",
+   "type":"guide",
+   "url":"https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"owasp-input-validation",
+   "publisher":"OWASP Cheat Sheet Series",
+   "title":"Input Validation Cheat Sheet",
+   "type":"guide",
+   "url":"https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"martin-fowler-test-pyramid",
+   "publisher":"martinfowler.com",
+   "title":"The Practical Test Pyramid",
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/practical-test-pyramid.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"martin-fowler-flaky",
+   "publisher":"martinfowler.com",
+   "title":"Eradicating Non-Determinism in Tests",
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/nonDeterminism.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"google-test-sizes",
+   "publisher":"Google Testing Blog",
+   "title":"Test Sizes",
+   "type":"guide",
+   "url":"https://testing.googleblog.com/2010/12/test-sizes.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"playwright-docs",
+   "publisher":"Playwright",
+   "title":"Playwright — Getting started",
+   "type":"tool_documentation",
+   "url":"https://playwright.dev/docs/intro",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"postman-docs",
+   "publisher":"Postman Learning Center",
+   "title":"Postman — Overview",
+   "type":"tool_documentation",
+   "url":"https://learning.postman.com/docs/getting-started/overview/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"charles-proxy",
+   "publisher":"Charles",
+   "title":"Charles Proxy Documentation",
+   "type":"tool_documentation",
+   "url":"https://www.charlesproxy.com/documentation/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"mdn-http-methods",
+   "publisher":"MDN Web Docs",
+   "title":"HTTP request methods",
+   "type":"official_documentation",
+   "url":"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"mdn-numbers-floats",
+   "publisher":"MDN Web Docs",
+   "title":"Numbers and strings",
+   "type":"official_documentation",
+   "url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_strings",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"postgres-numeric",
+   "publisher":"PostgreSQL Documentation",
+   "title":"Numeric Types",
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/datatype-numeric.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"postgres-transactions",
+   "publisher":"PostgreSQL Documentation",
+   "title":"Transactions",
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/tutorial-transactions.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"postgres-sql-select",
+   "publisher":"PostgreSQL Documentation",
+   "title":"SELECT",
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/sql-select.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"mozilla-bug-writing",
+   "publisher":"Mozilla",
+   "title":"Bug Writing Guidelines",
+   "type":"guide",
+   "url":"https://bugzilla.mozilla.org/page.cgi?id=bug-writing.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-payout-reconciliation",
+   "publisher":"Stripe Docs",
+   "title":"Payout reconciliation",
+   "type":"documentation",
+   "url":"https://docs.stripe.com/payouts/reconciliation",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"stripe-payments-analytics",
+   "publisher":"Stripe Docs",
+   "title":"Payments analytics",
+   "type":"documentation",
+   "url":"https://docs.stripe.com/payments/analytics",
+   "verified":true,
+   "verified_at":"2026-07-28"
   }
  ],
  "stories":[],
@@ -3898,14 +5042,99 @@
   },
   {
    "company":null,
-   "critical_topic_ids":[],
+   "critical_topic_ids":[
+    "qa-testing-basics",
+    "qa-test-design",
+    "qa-payment-flow",
+    "qa-idempotency",
+    "qa-refunds",
+    "qa-webhooks",
+    "qa-api-testing",
+    "qa-money-precision"
+   ],
    "id":"qa-payments",
    "language":"ru",
-   "self_assessment_areas":[],
-   "status":"coming_soon",
-   "summary":"Тестирование платёжных сценариев: интеграции, идемпотентность, возвраты, безопасность данных карт.",
+   "self_assessment_areas":[
+    {
+     "hint":"Виды и уровни проверок, приоритет и серьёзность",
+     "id":"sa-qa-basics",
+     "title":"Основы тестирования"
+    },
+    {
+     "hint":"Классы эквивалентности, границы, таблицы решений",
+     "id":"sa-qa-design",
+     "title":"Тест-дизайн"
+    },
+    {
+     "hint":"Чек-листы, тест-кейсы, баг-репорты",
+     "id":"sa-qa-docs",
+     "title":"Тестовая документация"
+    },
+    {
+     "hint":"Авторизация, списание, расчёт, участники",
+     "id":"sa-qa-payments",
+     "title":"Устройство платежа"
+    },
+    {
+     "hint":"Проверка держателя карты и сценарии отказа",
+     "id":"sa-qa-3ds",
+     "title":"Аутентификация и 3-D Secure"
+    },
+    {
+     "hint":"Ключи, повторы, защита от двойных списаний",
+     "id":"sa-qa-idempotency",
+     "title":"Идемпотентность"
+    },
+    {
+     "hint":"Отмена, возврат, частичный возврат, чарджбэк",
+     "id":"sa-qa-refunds",
+     "title":"Возвраты и споры"
+    },
+    {
+     "hint":"Повторы, порядок событий, подпись",
+     "id":"sa-qa-webhooks",
+     "title":"Вебхуки и асинхронность"
+    },
+    {
+     "hint":"Коды ответа, контракт, отказы и таймауты",
+     "id":"sa-qa-api",
+     "title":"Тестирование API"
+    },
+    {
+     "hint":"Минорные единицы, округление, конвертация",
+     "id":"sa-qa-money",
+     "title":"Деньги и валюты"
+    },
+    {
+     "hint":"Маскирование, токенизация, требования к хранению",
+     "id":"sa-qa-cards",
+     "title":"Данные карт"
+    },
+    {
+     "hint":"Выборки, соединения, группировки для проверки данных",
+     "id":"sa-qa-sql",
+     "title":"SQL"
+    },
+    {
+     "hint":"Проверки на уровне API и работа с нестабильными тестами",
+     "id":"sa-qa-automation",
+     "title":"Автоматизация"
+    },
+    {
+     "hint":"Чтение документации и короткий устный ответ",
+     "id":"sa-qa-english",
+     "title":"Английский язык"
+    },
+    {
+     "hint":"Можете ли внятно объяснить, что делали и какой был результат",
+     "id":"sa-qa-storytelling",
+     "title":"Рассказ о своих проектах"
+    }
+   ],
+   "status":"active",
+   "summary":"Подготовка к собеседованию на позицию QA Engineer в платежах: основы тестирования и тест-дизайн, устройство платежа, идемпотентность и возвраты, вебхуки и API, деньги и точность, данные карт, сверка и поведение в инциденте.",
    "title":"QA Engineer — платежи",
-   "vacancy_id":null
+   "vacancy_id":"qa-payments-generic"
   },
   {
    "company":null,

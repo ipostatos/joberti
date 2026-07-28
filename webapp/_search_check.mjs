@@ -4,7 +4,8 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
 const Search = require("./search.js");
-const CONTENT = require("./_content_all.js").forTrack("redcore-junior-seo");
+const TRACK_DEFAULT = "redcore-junior-seo";
+const CONTENT = require("./_content_all.js").forTrack(TRACK_DEFAULT);
 
 let failed = 0;
 const ok = (c, m) => { if (!c) { console.error("FAIL:", m); failed++; } };
@@ -93,6 +94,37 @@ ok(find("расскажите о себе", { types: ["mock"] }).length > 0,
   "открытый вопрос находится по формулировке");
 ok(find("как работает google", { types: ["step"] }).length > 0,
   "шаг плана находится по названию");
+
+// ── КАЖДЫЙ активный трек попадает в индекс ──
+// Проверки выше написаны на контенте SEO-трека и о пробеле в новом треке
+// молчат: индекс строится по одному треку за раз. Поэтому отдельно
+// прогоняем структурную проверку по всем активным трекам.
+const ALL = require("./_content_all.js");
+(ALL.forTrack(TRACK_DEFAULT).tracks || [])
+  .filter((t) => t.status === "active")
+  .forEach((t) => {
+    const c = ALL.forTrack(t.id);
+    const idx = Search.buildIndex(c, t.id);
+    ok(idx.length > 200, `трек ${t.id}: в индексе всего ${idx.length} записей`);
+    const kinds = new Set(idx.map((e) => e.type));
+    ["lesson", "term", "library", "question", "mock", "case", "step"].forEach((k) => {
+      ok(kinds.has(k), `трек ${t.id}: в индексе нет записей типа ${k}`);
+    });
+    // Записи чужих треков в индекс попадать не должны: человек ищет по своему.
+    // У записи индекса своего track_id нет, поэтому сверяемся по идентификаторам
+    // вопросов и уроков соседних треков.
+    const mine = new Set(idx.map((e) => e.id));
+    (ALL.forTrack(TRACK_DEFAULT).tracks || [])
+      .filter((o) => o.id !== t.id && o.status === "active")
+      .forEach((o) => {
+        const other = ALL.forTrack(o.id);
+        const alien = []
+          .concat(other.questions || [], other.lessons || [], other.cases || [])
+          .filter((x) => mine.has(x.id));
+        ok(alien.length === 0,
+          `трек ${t.id}: в индексе ${alien.length} записей трека ${o.id}`);
+      });
+  });
 
 if (failed) { console.error(`\n_search_check: провалено проверок ${failed}`); process.exit(1); }
 console.log(`_search_check: OK (записей в индексе ${index.length})`);

@@ -7,18 +7,18 @@
 | Коллекция | Количество |
 |---|---:|
 | tracks | 4 |
-| active_tracks | 2 |
-| topics | 40 |
-| vacancies | 2 |
-| sources | 126 |
-| lessons | 48 |
-| glossary_terms | 156 |
-| library_resources | 125 |
-| questions | 222 |
-| mock_questions | 72 |
-| cases | 20 |
-| roadmap_steps | 46 |
-| story_templates | 18 |
+| active_tracks | 3 |
+| topics | 60 |
+| vacancies | 3 |
+| sources | 169 |
+| lessons | 68 |
+| glossary_terms | 205 |
+| library_resources | 166 |
+| questions | 346 |
+| mock_questions | 101 |
+| cases | 28 |
+| roadmap_steps | 68 |
+| story_templates | 24 |
 | achievements | 24 |
 
 ## Трек: Junior SEO Specialist (`redcore-junior-seo`) — статус `active`
@@ -80,9 +80,62 @@ behavioral             ........................   0
 - тема `interview-seo` без материалов библиотеки
 - тема `behavioral` без материалов библиотеки
 
-## Трек: QA Engineer — платежи (`qa-payments`) — статус `coming_soon`
+## Трек: QA Engineer — платежи (`qa-payments`) — статус `active`
 
-_Трек не заполнен. Готовность по нему не рассчитывается._
+### Покрытие тем
+
+| Тема | Крит. | Обяз. | Тесты | Уроки | Термины | Материалы | Mock | Кейсы |
+|---|:-:|:-:|---:|---:|---:|---:|---:|---:|
+| Основы тестирования `qa-testing-basics` | да | да | 8 | 1 | 4 | 1 | 4 | 0 |
+| Техники тест-дизайна `qa-test-design` | да | да | 8 | 1 | 6 | 2 | 1 | 0 |
+| Тестовая документация `qa-test-docs` |  | да | 5 | 1 | 3 | 1 | 3 | 0 |
+| Как устроен платёж `qa-payment-flow` | да | да | 8 | 1 | 10 | 3 | 3 | 2 |
+| Способы оплаты `qa-payment-methods` |  | да | 5 | 1 | 4 | 1 | 0 | 1 |
+| 3-D Secure и аутентификация `qa-3ds-auth` |  | да | 5 | 1 | 3 | 2 | 0 | 1 |
+| Идемпотентность и повторы `qa-idempotency` | да | да | 8 | 1 | 2 | 2 | 1 | 1 |
+| Возвраты, отмены, чарджбэки `qa-refunds` | да | да | 8 | 1 | 6 | 3 | 1 | 1 |
+| Вебхуки и асинхронность `qa-webhooks` | да | да | 8 | 1 | 3 | 4 | 2 | 1 |
+| Тестирование API `qa-api-testing` | да | да | 8 | 1 | 5 | 11 | 3 | 0 |
+| Деньги и точность `qa-money-precision` | да | да | 8 | 1 | 7 | 4 | 2 | 2 |
+| Безопасность данных карт `qa-card-security` |  | да | 5 | 1 | 7 | 5 | 1 | 1 |
+| Интеграции и песочницы `qa-integrations` |  | да | 5 | 1 | 4 | 2 | 1 | 0 |
+| Сверка и отчётность `qa-reconciliation` |  | да | 5 | 1 | 2 | 1 | 0 | 2 |
+| SQL и проверка данных `qa-sql-data` |  | да | 5 | 1 | 1 | 3 | 1 | 1 |
+| Логи и разбор проблем `qa-logs-incidents` |  | да | 5 | 1 | 3 | 2 | 1 | 1 |
+| Регресс и релиз `qa-regression-release` |  | да | 5 | 1 | 2 | 1 | 3 | 1 |
+| Автоматизация тестов `qa-automation` |  | да | 5 | 1 | 3 | 4 | 2 | 0 |
+| Метрики качества `qa-metrics` |  |  | 5 | 1 | 1 | 1 | 2 | 1 |
+| Behavioral interview `qa-behavioral` |  | да | 5 | 1 | 0 | 0 | 13 | 0 |
+
+### Распределение вопросов по темам
+
+```
+qa-testing-basics      ########################   8
+qa-test-design         ########################   8
+qa-test-docs           ###############.........   5
+qa-payment-flow        ########################   8
+qa-payment-methods     ###############.........   5
+qa-3ds-auth            ###############.........   5
+qa-idempotency         ########################   8
+qa-refunds             ########################   8
+qa-webhooks            ########################   8
+qa-api-testing         ########################   8
+qa-money-precision     ########################   8
+qa-card-security       ###############.........   5
+qa-integrations        ###############.........   5
+qa-reconciliation      ###############.........   5
+qa-sql-data            ###############.........   5
+qa-logs-incidents      ###############.........   5
+qa-regression-release  ###############.........   5
+qa-automation          ###############.........   5
+qa-metrics             ###############.........   5
+qa-behavioral          ###############.........   5
+```
+
+### Пробелы
+
+- тема `qa-behavioral` без терминов словаря
+- тема `qa-behavioral` без материалов библиотеки
 
 ## Трек: Technical Engineer (`technical-engineer`) — статус `coming_soon`
 
@@ -150,16 +203,16 @@ behavioral-devops      #########...............   3
 
 | Коллекция | 1 | 2 | 3 |
 |---|---:|---:|---:|
-| Вопросы | 48 | 132 | 42 |
-| Термины | 47 | 90 | 19 |
-| Mock | 11 | 41 | 20 |
-| Кейсы | 0 | 12 | 8 |
-| Материалы | 32 | 72 | 21 |
+| Вопросы | 74 | 209 | 63 |
+| Термины | 61 | 118 | 26 |
+| Mock | 17 | 60 | 24 |
+| Кейсы | 0 | 17 | 11 |
+| Материалы | 38 | 98 | 30 |
 
 ## Источники
 
-- всего: 126
-- проверено (`verified: true`): 126
+- всего: 169
+- проверено (`verified: true`): 169
 - требуют ручной проверки: 0
 - не используются нигде: 0
 - материалов библиотеки со статусом needs_review: 0
@@ -168,16 +221,16 @@ behavioral-devops      #########...............   3
 
 | Источник | Ссылок |
 |---|---:|
+| `istqb-glossary` — ISTQB Glossary | 50 |
+| `adyen-online-payments` — Online payments | 29 |
 | `ahrefs-keyword-research` — Keyword Research: The Beginner's Guide | 28 |
+| `stripe-payment-intents` — PaymentIntent lifecycle | 24 |
 | `google-seo-starter-guide` — SEO Starter Guide | 23 |
 | `gsc-performance-report` — Performance report (Search results): Overview and basic setup | 21 |
 | `google-helpful-content` — Creating helpful, reliable, people-first content | 18 |
-| `google-crawl-budget` — Large site owner's guide to managing your crawl budget | 14 |
-| `google-javascript-seo` — Understand JavaScript SEO basics | 14 |
-| `google-how-search-works` — In-depth guide to how Google Search works | 13 |
-| `google-canonicalization` — What is URL canonicalization | 13 |
-| `google-301-redirects` — Redirects and Google Search | 12 |
-| `ga4-dimensions-metrics` — Analytics dimensions and metrics | 12 |
+| `stripe-webhooks` — Webhooks | 17 |
+| `pci-dss-standards` — PCI DSS | 17 |
+| `mdn-http-status` — HTTP response status codes | 16 |
 
 ## Записи без источника
 
@@ -188,6 +241,6 @@ behavioral-devops      #########...............   3
 
 ## План подготовки
 
-- шагов всего: 46, обязательных: 44
-- суммарная оценка времени: 2355 мин (~39.2 ч), из них обязательных 2270 мин (~37.8 ч)
+- шагов всего: 68, обязательных: 65
+- суммарная оценка времени: 3730 мин (~62.2 ч), из них обязательных 3600 мин (~60.0 ч)
 

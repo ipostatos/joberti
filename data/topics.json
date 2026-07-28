@@ -360,6 +360,186 @@
       "short": "Рассказ о своих проектах, поведение в аварии, работа с разработчиками, STAR",
       "required": true,
       "critical": false
+    },
+    {
+      "id": "qa-testing-basics",
+      "track_id": "qa-payments",
+      "order": 1,
+      "title": "Основы тестирования",
+      "short": "Виды и уровни тестирования, приоритет и серьёзность, когда останавливаться",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-test-design",
+      "track_id": "qa-payments",
+      "order": 2,
+      "title": "Техники тест-дизайна",
+      "short": "Классы эквивалентности, граничные значения, таблицы решений, попарное тестирование",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-test-docs",
+      "track_id": "qa-payments",
+      "order": 3,
+      "title": "Тестовая документация",
+      "short": "Чек-листы, тест-кейсы и баг-репорт, по которому проблему воспроизведут без вас",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-payment-flow",
+      "track_id": "qa-payments",
+      "order": 4,
+      "title": "Как устроен платёж",
+      "short": "Авторизация, списание, клиринг и расчёт: кто участвует и на каком шаге деньги ещё не ушли",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-payment-methods",
+      "track_id": "qa-payments",
+      "order": 5,
+      "title": "Способы оплаты",
+      "short": "Карты, переводы, кошельки, отложенная оплата и чем их сценарии отличаются",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-3ds-auth",
+      "track_id": "qa-payments",
+      "order": 6,
+      "title": "3-D Secure и аутентификация",
+      "short": "Проверка держателя карты, перевод ответственности, сценарии отказа и таймаута",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-idempotency",
+      "track_id": "qa-payments",
+      "order": 7,
+      "title": "Идемпотентность и повторы",
+      "short": "Ключ идемпотентности, двойные списания, повторные отправки формы и сетевые сбои",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-refunds",
+      "track_id": "qa-payments",
+      "order": 8,
+      "title": "Возвраты, отмены, чарджбэки",
+      "short": "Отмена до списания и возврат после, частичный возврат, спор со стороны банка",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-webhooks",
+      "track_id": "qa-payments",
+      "order": 9,
+      "title": "Вебхуки и асинхронность",
+      "short": "Уведомления от провайдера, порядок и повторы доставки, гонки состояний",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-api-testing",
+      "track_id": "qa-payments",
+      "order": 10,
+      "title": "Тестирование API",
+      "short": "Коды ответа, контракт, обязательные поля, проверка ошибок и таймаутов",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-money-precision",
+      "track_id": "qa-payments",
+      "order": 11,
+      "title": "Деньги и точность",
+      "short": "Минорные единицы, округление, валюты и почему сумму не хранят числом с плавающей точкой",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "qa-card-security",
+      "track_id": "qa-payments",
+      "order": 12,
+      "title": "Безопасность данных карт",
+      "short": "PCI DSS в применимой части, маскирование, токенизация, что нельзя писать в логи",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-integrations",
+      "track_id": "qa-payments",
+      "order": 13,
+      "title": "Интеграции и песочницы",
+      "short": "Тестовые среды провайдеров, тестовые карты, заглушки и что нельзя проверить в песочнице",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-reconciliation",
+      "track_id": "qa-payments",
+      "order": 14,
+      "title": "Сверка и отчётность",
+      "short": "Сверка с провайдером и банком, расхождения, зависшие платежи",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-sql-data",
+      "track_id": "qa-payments",
+      "order": 15,
+      "title": "SQL и проверка данных",
+      "short": "Выборки для проверки результата, статусы платежа в базе, поиск расхождений",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-logs-incidents",
+      "track_id": "qa-payments",
+      "order": 16,
+      "title": "Логи и разбор проблем",
+      "short": "Как найти путь платежа по идентификатору и что писать в тикет, чтобы его взяли в работу",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-regression-release",
+      "track_id": "qa-payments",
+      "order": 17,
+      "title": "Регресс и релиз",
+      "short": "Что проверять перед выкатом, дымовое тестирование, приёмка, поведение при откате",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-automation",
+      "track_id": "qa-payments",
+      "order": 18,
+      "title": "Автоматизация тестов",
+      "short": "Что автоматизировать в первую очередь, пирамида тестов, нестабильные тесты",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "qa-metrics",
+      "track_id": "qa-payments",
+      "order": 19,
+      "title": "Метрики качества",
+      "short": "Конверсия оплаты, доля отказов, утечки дефектов на продакшен",
+      "required": false,
+      "critical": false
+    },
+    {
+      "id": "qa-behavioral",
+      "track_id": "qa-payments",
+      "order": 20,
+      "title": "Behavioral interview",
+      "short": "Рассказ о своих проектах, спор с разработчиком, пропущенный дефект, STAR",
+      "required": true,
+      "critical": false
     }
   ]
 }

@@ -50,11 +50,27 @@ eq(empty.verdict, "Начало подготовки", "вердикт на ну
 ok(empty.caps.length >= 3, "на пустом прогрессе срабатывает несколько ограничителей");
 
 // ── незаполненный трек не получает процента ──
-const draft = R.compute(base({ trackId: "qa-payments" }));
+// Трек берётся не по имени, а по статусу: наполненный трек рано или поздно
+// становится активным, и проверка молча начинала бы сравнивать не то.
+const draftTrack = (CONTENT.tracks || []).find((t) => t.status !== "active");
+if (!draftTrack) throw new Error("в контенте не осталось незаполненного трека для проверки");
+const draft = R.compute(base({ trackId: draftTrack.id }));
 ok(!draft.available, "трек со статусом coming_soon не получает готовности");
 ok(draft.percent === null, "у незаполненного трека процент равен null, а не нулю");
 const noTrack = R.compute(base({ trackId: "нет-такого" }));
 ok(!noTrack.available, "неизвестный трек не получает готовности");
+
+// ── КАЖДЫЙ активный трек считается ──
+// Проверки выше идут по контенту SEO-трека. Пробел в новом треке — например
+// нехватка кейсов или mock — они не увидят, поэтому считаем готовность на
+// пустом прогрессе для всех активных треков.
+const ALL = require("./_content_all.js");
+(CONTENT.tracks || []).filter((t) => t.status === "active").forEach((t) => {
+  const r = R.compute(base({ content: ALL.forTrack(t.id), trackId: t.id }));
+  ok(r.available, `трек ${t.id}: готовность не считается`);
+  eq(r.percent, 0, `трек ${t.id}: на пустом прогрессе готовность равна нулю`);
+  ok(r.caps.length >= 3, `трек ${t.id}: ограничители не срабатывают на пустом прогрессе`);
+});
 
 // ── воспроизводимость ──
 const srsSample = {};
