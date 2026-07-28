@@ -51,10 +51,18 @@ ok(empty.caps.length >= 3, "на пустом прогрессе срабаты�
 
 // ── незаполненный трек не получает процента ──
 // Трек берётся не по имени, а по статусу: наполненный трек рано или поздно
-// становится активным, и проверка молча начинала бы сравнивать не то.
-const draftTrack = (CONTENT.tracks || []).find((t) => t.status !== "active");
-if (!draftTrack) throw new Error("в контенте не осталось незаполненного трека для проверки");
-const draft = R.compute(base({ trackId: draftTrack.id }));
+// становится активным, и проверка молча начинала бы сравнивать не то. А когда
+// незаполненных треков не осталось вовсе — так и случилось, когда наполнили
+// четвёртый, — правило всё равно нужно проверять, поэтому берём синтетический
+// трек: проверяется поведение расчёта, а не наличие черновика в контенте.
+const draftInContent = (CONTENT.tracks || []).find((t) => t.status !== "active");
+const draftId = draftInContent ? draftInContent.id : "draft-track-for-check";
+const draftContent = draftInContent ? CONTENT : Object.assign({}, CONTENT, {
+  tracks: (CONTENT.tracks || []).concat([
+    { id: draftId, title: "Черновик", status: "coming_soon", language: "ru" },
+  ]),
+});
+const draft = R.compute(base({ content: draftContent, trackId: draftId }));
 ok(!draft.available, "трек со статусом coming_soon не получает готовности");
 ok(draft.percent === null, "у незаполненного трека процент равен null, а не нулю");
 const noTrack = R.compute(base({ trackId: "нет-такого" }));

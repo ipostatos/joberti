@@ -7,22 +7,22 @@
 | Коллекция | Количество |
 |---|---:|
 | tracks | 4 |
-| active_tracks | 3 |
-| topics | 60 |
-| vacancies | 3 |
-| sources | 181 |
-| lessons | 68 |
-| glossary_terms | 214 |
-| library_resources | 178 |
-| questions | 346 |
-| mock_questions | 101 |
-| cases | 28 |
-| roadmap_steps | 68 |
-| story_templates | 24 |
+| active_tracks | 4 |
+| topics | 80 |
+| vacancies | 4 |
+| sources | 197 |
+| lessons | 88 |
+| glossary_terms | 254 |
+| library_resources | 194 |
+| questions | 470 |
+| mock_questions | 134 |
+| cases | 36 |
+| roadmap_steps | 90 |
+| story_templates | 30 |
 | achievements | 24 |
 | english_phrases | 64 |
-| english_vocab | 68 |
-| english_drills | 19 |
+| english_vocab | 76 |
+| english_drills | 23 |
 | english_writing | 40 |
 
 ## Трек: Junior SEO Specialist (`redcore-junior-seo`) — статус `active`
@@ -137,9 +137,61 @@ qa-behavioral          ###############.........   5
 
 Пробелов не обнаружено.
 
-## Трек: Technical Engineer (`technical-engineer`) — статус `coming_soon`
+## Трек: Technical Engineer (`technical-engineer`) — статус `active`
 
-_Трек не заполнен. Готовность по нему не рассчитывается._
+### Покрытие тем
+
+| Тема | Крит. | Обяз. | Тесты | Уроки | Термины | Материалы | Mock | Кейсы |
+|---|:-:|:-:|---:|---:|---:|---:|---:|---:|
+| Роль инженера поддержки `ts-support-role` |  | да | 5 | 1 | 5 | 2 | 4 | 0 |
+| Обращение от заявки до закрытия `ts-ticket-flow` | да | да | 8 | 1 | 7 | 1 | 2 | 0 |
+| Воспроизведение проблемы `ts-reproduce` | да | да | 8 | 1 | 5 | 2 | 2 | 2 |
+| Чтение логов `ts-logs` | да | да | 8 | 1 | 4 | 2 | 2 | 2 |
+| HTTP и API `ts-http-api` | да | да | 8 | 1 | 8 | 3 | 3 | 1 |
+| Сеть и доступность `ts-network` | да | да | 8 | 1 | 7 | 3 | 1 | 1 |
+| Командная строка Linux `ts-linux` |  | да | 5 | 1 | 3 | 3 | 1 | 1 |
+| SQL для поддержки `ts-sql` | да | да | 8 | 1 | 3 | 2 | 1 | 1 |
+| Инструменты браузера `ts-devtools` |  | да | 5 | 1 | 4 | 1 | 1 | 1 |
+| Интеграции и вебхуки `ts-integrations` |  | да | 5 | 1 | 4 | 1 | 1 | 2 |
+| Инциденты и эскалация `ts-incidents` | да | да | 8 | 1 | 10 | 6 | 2 | 1 |
+| Мониторинг и алерты `ts-monitoring` |  | да | 5 | 1 | 3 | 1 | 2 | 1 |
+| Поиск первопричины `ts-rca` |  | да | 5 | 1 | 2 | 3 | 1 | 1 |
+| Релизы, откаты и регрессии `ts-release` |  | да | 5 | 1 | 4 | 2 | 1 | 1 |
+| Персональные данные и доступы `ts-privacy` |  | да | 5 | 1 | 4 | 1 | 1 | 1 |
+| База знаний и runbook `ts-knowledge` |  | да | 5 | 1 | 4 | 2 | 1 | 0 |
+| Общение с клиентом `ts-communication` | да | да | 8 | 1 | 5 | 3 | 3 | 2 |
+| Метрики поддержки `ts-metrics` |  | да | 5 | 1 | 5 | 1 | 2 | 0 |
+| Инструменты работы `ts-tools` |  | да | 5 | 1 | 3 | 3 | 2 | 0 |
+| Поведенческие вопросы `ts-behavioral` |  | да | 5 | 1 | 8 | 2 | 7 | 0 |
+
+### Распределение вопросов по темам
+
+```
+ts-support-role        ###############.........   5
+ts-ticket-flow         ########################   8
+ts-reproduce           ########################   8
+ts-logs                ########################   8
+ts-http-api            ########################   8
+ts-network             ########################   8
+ts-linux               ###############.........   5
+ts-sql                 ########################   8
+ts-devtools            ###############.........   5
+ts-integrations        ###############.........   5
+ts-incidents           ########################   8
+ts-monitoring          ###############.........   5
+ts-rca                 ###############.........   5
+ts-release             ###############.........   5
+ts-privacy             ###############.........   5
+ts-knowledge           ###############.........   5
+ts-communication       ########################   8
+ts-metrics             ###############.........   5
+ts-tools               ###############.........   5
+ts-behavioral          ###############.........   5
+```
+
+### Пробелы
+
+Пробелов не обнаружено.
 
 ## Трек: DevOps / Platform Engineer (`devops-platform`) — статус `active`
 
@@ -203,23 +255,23 @@ behavioral-devops      #########...............   3
 |---|---:|---:|---:|---:|---:|
 | Junior SEO Specialist `redcore-junior-seo` | 64 | 46 | 13 | 38 | 14 |
 | QA Engineer — платежи `qa-payments` | 64 | 49 | 13 | 38 | 17 |
-| Technical Engineer `technical-engineer` | 64 | 36 | 10 | 37 | 0 |
+| Technical Engineer `technical-engineer` | 64 | 47 | 14 | 37 | 15 |
 | DevOps / Platform Engineer `devops-platform` | 64 | 46 | 13 | 38 | 14 |
 
 ## Распределение по сложности
 
 | Коллекция | 1 | 2 | 3 |
 |---|---:|---:|---:|
-| Вопросы | 74 | 209 | 63 |
-| Термины | 64 | 124 | 26 |
-| Mock | 17 | 60 | 24 |
-| Кейсы | 0 | 17 | 11 |
-| Материалы | 45 | 103 | 30 |
+| Вопросы | 111 | 287 | 72 |
+| Термины | 86 | 141 | 27 |
+| Mock | 22 | 82 | 30 |
+| Кейсы | 0 | 23 | 13 |
+| Материалы | 51 | 111 | 32 |
 
 ## Источники
 
-- всего: 181
-- проверено (`verified: true`): 181
+- всего: 197
+- проверено (`verified: true`): 197
 - требуют ручной проверки: 0
 - не используются нигде: 0
 - материалов библиотеки со статусом needs_review: 0
@@ -235,19 +287,19 @@ behavioral-devops      #########...............   3
 | `google-seo-starter-guide` — SEO Starter Guide | 23 |
 | `gsc-performance-report` — Performance report (Search results): Overview and basic setup | 21 |
 | `google-helpful-content` — Creating helpful, reliable, people-first content | 18 |
-| `stripe-webhooks` — Webhooks | 17 |
+| `stripe-webhooks` — Webhooks | 18 |
+| `mdn-http-status` — HTTP response status codes | 17 |
 | `pci-dss-standards` — PCI DSS | 17 |
-| `mdn-http-status` — HTTP response status codes | 16 |
 
 ## Записи без источника
 
-- вопросов без `source_refs`: 1
-- терминов без `source_refs`: 15
+- вопросов без `source_refs`: 125
+- терминов без `source_refs`: 55
 
 Часть записей без источника — норма: вопросы про поведение на собеседовании и коммуникацию не опираются на документацию.
 
 ## План подготовки
 
-- шагов всего: 68, обязательных: 65
-- суммарная оценка времени: 3730 мин (~62.2 ч), из них обязательных 3600 мин (~60.0 ч)
+- шагов всего: 90, обязательных: 87
+- суммарная оценка времени: 5185 мин (~86.4 ч), из них обязательных 5055 мин (~84.2 ч)
 

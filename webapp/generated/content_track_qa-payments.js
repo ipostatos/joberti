@@ -2096,7 +2096,8 @@
    "ru_hint":"ри-СИТ",
    "term":"receipt",
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ],
    "wrong":"«ресипт» с чтением «p» — она немая"
   },
@@ -2144,7 +2145,8 @@
    "ru_hint":"РИ-фанд (сущ.), ри-ФАНД (глаг.)",
    "term":"refund",
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ],
    "wrong":"одинаковое ударение в обеих формах"
   },
@@ -2720,10 +2722,12 @@
    ],
    "term":"Серьёзность и приоритет",
    "topic_ids":[
-    "qa-testing-basics"
+    "qa-testing-basics",
+    "ts-ticket-flow"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -2828,10 +2832,12 @@
    "term":"Баг-репорт",
    "topic_ids":[
     "qa-test-docs",
-    "qa-logs-incidents"
+    "qa-logs-incidents",
+    "ts-reproduce"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -2853,10 +2859,12 @@
    ],
    "term":"Шаги воспроизведения",
    "topic_ids":[
-    "qa-test-docs"
+    "qa-test-docs",
+    "ts-reproduce"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -3841,10 +3849,12 @@
    "term":"Ключ идемпотентности",
    "topic_ids":[
     "qa-idempotency",
-    "qa-api-testing"
+    "qa-api-testing",
+    "ts-integrations"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -3869,10 +3879,12 @@
    ],
    "term":"Вебхук",
    "topic_ids":[
-    "qa-webhooks"
+    "qa-webhooks",
+    "ts-integrations"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -3896,10 +3908,12 @@
    "term":"Подпись вебхука",
    "topic_ids":[
     "qa-webhooks",
-    "qa-card-security"
+    "qa-card-security",
+    "ts-integrations"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -3924,10 +3938,12 @@
    "term":"Повторы с выдержкой",
    "topic_ids":[
     "qa-idempotency",
-    "qa-webhooks"
+    "qa-webhooks",
+    "ts-integrations"
    ],
    "track_ids":[
-    "qa-payments"
+    "qa-payments",
+    "technical-engineer"
    ]
   },
   {
@@ -4103,11 +4119,13 @@
    "term":"Escalation",
    "topic_ids":[
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-incidents"
    ],
    "track_ids":[
     "qa-payments",
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -4128,11 +4146,13 @@
    "term":"Retrospective",
    "topic_ids":[
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-behavioral"
    ],
    "track_ids":[
     "qa-payments",
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   }
  ],
@@ -11042,6 +11062,25 @@
    "t-qa-retry-backoff",
    "t-qa-webhook",
    "t-qa-webhook-signature"
+  ],
+  "ts-behavioral":[
+   "t-retrospective"
+  ],
+  "ts-incidents":[
+   "t-escalation"
+  ],
+  "ts-integrations":[
+   "t-qa-idempotency-key",
+   "t-qa-retry-backoff",
+   "t-qa-webhook",
+   "t-qa-webhook-signature"
+  ],
+  "ts-reproduce":[
+   "t-qa-bug-report",
+   "t-qa-repro-steps"
+  ],
+  "ts-ticket-flow":[
+   "t-qa-severity-priority"
   ]
  },
  "topics":[

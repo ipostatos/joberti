@@ -540,6 +540,186 @@
       "short": "Рассказ о своих проектах, спор с разработчиком, пропущенный дефект, STAR",
       "required": true,
       "critical": false
+    },
+    {
+      "id": "ts-support-role",
+      "track_id": "technical-engineer",
+      "order": 1,
+      "title": "Роль инженера поддержки",
+      "short": "линии поддержки, зона ответственности, SLA, что решаем сами",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-ticket-flow",
+      "track_id": "technical-engineer",
+      "order": 2,
+      "title": "Обращение от заявки до закрытия",
+      "short": "приоритет и серьёзность, статусы, время реакции и решения, закрытие",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-reproduce",
+      "track_id": "technical-engineer",
+      "order": 3,
+      "title": "Воспроизведение проблемы",
+      "short": "минимальный сценарий, окружение, данные, «у меня работает»",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-logs",
+      "track_id": "technical-engineer",
+      "order": 4,
+      "title": "Чтение логов",
+      "short": "уровни, идентификатор запроса, время и часовые пояса, поиск по логам",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-http-api",
+      "track_id": "technical-engineer",
+      "order": 5,
+      "title": "HTTP и API",
+      "short": "коды ответов, заголовки, тело запроса, curl, повторяемость",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-network",
+      "track_id": "technical-engineer",
+      "order": 6,
+      "title": "Сеть и доступность",
+      "short": "DNS, TLS-сертификаты, порты, прокси, ping и traceroute",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-linux",
+      "track_id": "technical-engineer",
+      "order": 7,
+      "title": "Командная строка Linux",
+      "short": "файлы и права, процессы, место на диске, journalctl, поиск в файлах",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-sql",
+      "track_id": "technical-engineer",
+      "order": 8,
+      "title": "SQL для поддержки",
+      "short": "SELECT, фильтры, JOIN, безопасные запросы к боевой базе",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-devtools",
+      "track_id": "technical-engineer",
+      "order": 9,
+      "title": "Инструменты браузера",
+      "short": "консоль, вкладка «Сеть», HAR-файл, кэш, ошибки фронтенда",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-integrations",
+      "track_id": "technical-engineer",
+      "order": 10,
+      "title": "Интеграции и вебхуки",
+      "short": "доставка событий, повторы, подписи, таймауты, дубли",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-incidents",
+      "track_id": "technical-engineer",
+      "order": 11,
+      "title": "Инциденты и эскалация",
+      "short": "когда эскалировать, роли, хронология, статус наружу",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-monitoring",
+      "track_id": "technical-engineer",
+      "order": 12,
+      "title": "Мониторинг и алерты",
+      "short": "дашборды, метрики, шумные алерты, что смотреть первым",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-rca",
+      "track_id": "technical-engineer",
+      "order": 13,
+      "title": "Поиск первопричины",
+      "short": "гипотезы, «пять почему», отличие симптома от причины",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-release",
+      "track_id": "technical-engineer",
+      "order": 14,
+      "title": "Релизы, откаты и регрессии",
+      "short": "что изменилось, откат, флаги функций, связь с релизом",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-privacy",
+      "track_id": "technical-engineer",
+      "order": 15,
+      "title": "Персональные данные и доступы",
+      "short": "что нельзя просить у клиента, маскирование, принцип наименьших прав",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-knowledge",
+      "track_id": "technical-engineer",
+      "order": 16,
+      "title": "База знаний и runbook",
+      "short": "статья по итогам обращения, инструкция дежурного, повторяемость решений",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-communication",
+      "track_id": "technical-engineer",
+      "order": 17,
+      "title": "Общение с клиентом",
+      "short": "формулировки, ожидания и сроки, отказ и плохие новости, язык без жаргона",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "ts-metrics",
+      "track_id": "technical-engineer",
+      "order": 18,
+      "title": "Метрики поддержки",
+      "short": "SLA, время первой реакции, доля решённых на первой линии, CSAT",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-tools",
+      "track_id": "technical-engineer",
+      "order": 19,
+      "title": "Инструменты работы",
+      "short": "трекер обращений, Kibana и Grafana, Postman, удалённый доступ",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ts-behavioral",
+      "track_id": "technical-engineer",
+      "order": 20,
+      "title": "Поведенческие вопросы",
+      "short": "сложный клиент, своя ошибка, спор с разработкой, рассказ о себе",
+      "required": true,
+      "critical": false
     }
   ]
 }

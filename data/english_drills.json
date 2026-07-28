@@ -19,7 +19,11 @@
       "prompt_en": "Tell me about yourself.",
       "prompt_ru": "Расскажите о себе.",
       "hint": "Три части: кто вы сейчас, что делали раньше, чего хотите дальше. Заканчивайте мостиком к этой вакансии.",
-      "keywords": ["I've been working", "responsible for", "what caught my attention"],
+      "keywords": [
+        "I've been working",
+        "responsible for",
+        "what caught my attention"
+      ],
       "model_answer_en": "I'm a junior specialist with about two years of hands-on experience. Right now I'm responsible for day-to-day tasks in a small team: I plan the work, do it myself and report the results. Before that I worked in a different field, and I moved here because I like problems where you can measure the outcome. Recently I've been focused on getting deeper into the technical side, and that's exactly what caught my attention in your job description.",
       "model_answer_ru": "Я джуниор с примерно двухлетним практическим опытом. Сейчас отвечаю за ежедневные задачи в небольшой команде: планирую работу, делаю её сам(а) и отчитываюсь о результате. До этого работал(а) в другой сфере и перешёл(перешла) сюда, потому что люблю задачи с измеримым результатом. В последнее время углубляюсь в техническую часть — именно это привлекло меня в вашей вакансии.",
       "rubric": {
@@ -39,7 +43,11 @@
       "prompt_en": "Why are you leaving your current job?",
       "prompt_ru": "Почему уходите с текущего места?",
       "hint": "Причина про то, куда вы идёте, а не про то, от чего бежите. Никакой критики бывших коллег.",
-      "keywords": ["I'm looking for", "grow into", "the next step"],
+      "keywords": [
+        "I'm looking for",
+        "grow into",
+        "the next step"
+      ],
       "model_answer_en": "I've learned a lot in my current role, but the tasks have become repetitive. I'm looking for a place where I can take on more responsibility and work with a bigger system. This role looks like the next step rather than the same job somewhere else.",
       "model_answer_ru": "На текущем месте я многому научился(научилась), но задачи стали повторяться. Ищу место, где смогу взять больше ответственности и работать с системой побольше. Эта позиция выглядит как следующий шаг, а не как та же работа в другом месте.",
       "rubric": {
@@ -59,7 +67,11 @@
       "prompt_en": "What are your strengths and weaknesses?",
       "prompt_ru": "Какие у вас сильные и слабые стороны?",
       "hint": "Одна сильная сторона с примером и одна слабая с планом. Слабость не должна быть ключевым навыком вакансии.",
-      "keywords": ["my strongest side", "actively working on", "for example"],
+      "keywords": [
+        "my strongest side",
+        "actively working on",
+        "for example"
+      ],
       "model_answer_en": "My strongest side is that I finish what I start and I document it, so other people can pick it up. For example, I wrote the checklist our team still uses. The area I'm actively working on is speaking up earlier when I disagree — I used to wait until the decision was made. Now I say it during the discussion, even if my English is not perfect.",
       "model_answer_ru": "Сильная сторона — я довожу дело до конца и описываю его так, чтобы другой человек мог подхватить. Например, я написал(а) чек-лист, которым команда пользуется до сих пор. Работаю над тем, чтобы раньше высказывать несогласие: раньше я ждал(а) до принятого решения, теперь говорю во время обсуждения.",
       "rubric": {
@@ -79,7 +91,11 @@
       "prompt_en": "Walk me through a project you're proud of.",
       "prompt_ru": "Расскажите про проект, которым гордитесь.",
       "hint": "STAR: ситуация, задача, ваши действия, результат. Говорите «I», а не «we», когда речь о ваших действиях.",
-      "keywords": ["my role was", "I personally", "as a result"],
+      "keywords": [
+        "my role was",
+        "I personally",
+        "as a result"
+      ],
       "model_answer_en": "The situation was that our reports were built by hand every Monday and it took half a day. My task was to make it faster without buying anything. I personally collected the requirements from three people, built a template with automatic data import and wrote a short guide. As a result, the report takes about twenty minutes now, and two other people can do it without me.",
       "model_answer_ru": "Ситуация: отчёты собирались руками каждый понедельник и занимали полдня. Задача — ускорить без покупки инструментов. Я собрал(а) требования у трёх человек, сделал(а) шаблон с автоматическим импортом данных и написал(а) короткую инструкцию. В итоге отчёт занимает около двадцати минут, и его могут собрать ещё два человека без меня.",
       "rubric": {
@@ -99,7 +115,11 @@
       "prompt_en": "Tell me about a time when something went wrong because of you.",
       "prompt_ru": "Расскажите про случай, когда что-то сломалось по вашей вине.",
       "hint": "Признать, объяснить, что сделали немедленно, и что поменяли в процессе, чтобы не повторилось.",
-      "keywords": ["I made a mistake", "what I did first", "since then"],
+      "keywords": [
+        "I made a mistake",
+        "what I did first",
+        "since then"
+      ],
       "model_answer_en": "I made a mistake when I changed a setting on the live system without telling anyone. Users saw errors for about ten minutes. The first thing I did was roll the change back, then I wrote what happened in the team chat before anyone asked. Since then we agreed that changes on the live system go through a second pair of eyes, and I've never repeated it.",
       "model_answer_ru": "Я ошибся(ошиблась), поменяв настройку на боевой системе никого не предупредив. Пользователи видели ошибки минут десять. Первым делом я откатил(а) изменение, потом сам(а) написал(а) в чат команды, до того как меня спросили. После этого мы договорились, что изменения на бою проходят через вторую пару глаз.",
       "rubric": {
@@ -119,7 +139,11 @@
       "prompt_en": "Explain something technical from your work to a person who is not a specialist.",
       "prompt_ru": "Объясните что-то техническое из своей работы неспециалисту.",
       "hint": "Аналогия, один пример, без жаргона. Проверяют не знание, а умение объяснить.",
-      "keywords": ["think of it as", "for example", "the reason is"],
+      "keywords": [
+        "think of it as",
+        "for example",
+        "the reason is"
+      ],
       "model_answer_en": "Think of it as a queue in a shop. Requests come in faster than we can serve them, so they wait in line. If the line gets too long, people leave — that's a timeout. The reason we care is that a long line looks to the user exactly like a broken system, even though nothing is broken.",
       "model_answer_ru": "Представьте очередь в магазине. Запросы приходят быстрее, чем мы их обслуживаем, и ждут в очереди. Если очередь становится слишком длинной, люди уходят — это таймаут. Важно это потому, что для пользователя длинная очередь выглядит как поломка, даже если ничего не сломано.",
       "rubric": {
@@ -139,7 +163,11 @@
       "prompt_en": "You disagree with a senior colleague about a technical decision. What do you do?",
       "prompt_ru": "Вы не согласны с более опытным коллегой по техническому решению. Что делаете?",
       "hint": "Уточнить его аргументы, принести данные, обозначить риск, принять решение команды и зафиксировать его письменно.",
-      "keywords": ["I'd ask why", "look at the data", "write it down"],
+      "keywords": [
+        "I'd ask why",
+        "look at the data",
+        "write it down"
+      ],
       "model_answer_en": "First I'd ask why they prefer that option — often there's context I don't have. Then I'd bring data instead of opinions: numbers from the logs or a small test. If we still disagree, I'd say what risk I see, write it down in the ticket, and go with the team decision. Being right later is worth less than being clear now.",
       "model_answer_ru": "Сначала спросил(а) бы, почему он(а) выбирает этот вариант — часто есть контекст, которого я не знаю. Потом принёс(принесла) бы данные вместо мнений: цифры из логов или маленький тест. Если согласия нет, назвал(а) бы риск, зафиксировал(а) его в задаче и пошёл(пошла) бы за решением команды.",
       "rubric": {
@@ -159,7 +187,11 @@
       "prompt_en": "Do you have any questions for us?",
       "prompt_ru": "У вас есть вопросы к нам?",
       "hint": "Два-три вопроса про работу и команду. «Нет вопросов» — худший из возможных ответов.",
-      "keywords": ["first three months", "measure the results", "next steps"],
+      "keywords": [
+        "first three months",
+        "measure the results",
+        "next steps"
+      ],
       "model_answer_en": "Yes, three short ones. What would my first three months look like? How do you measure the results of this role? And what are the next steps in the process?",
       "model_answer_ru": "Да, три коротких. Как будут выглядеть мои первые три месяца? Как измеряется результат на этой позиции? И какие следующие шаги в процессе?",
       "rubric": {
@@ -172,14 +204,20 @@
     },
     {
       "id": "ed-seo-001",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "category": "Технический вопрос",
       "level": 2,
       "seconds": 90,
       "prompt_en": "What is the difference between crawling and indexing?",
       "prompt_ru": "В чём разница между обходом и индексацией?",
       "hint": "Два разных этапа: робот пришёл на страницу и робот решил хранить её в индексе. Между ними страница может выпасть.",
-      "keywords": ["crawling means", "indexing means", "does not guarantee"],
+      "keywords": [
+        "crawling means",
+        "indexing means",
+        "does not guarantee"
+      ],
       "model_answer_en": "Crawling means the search engine downloads the page. Indexing means it decides to store the page and show it in results. Crawling does not guarantee indexing: a page can be crawled and then dropped, for example if it duplicates another page or the canonical points somewhere else.",
       "model_answer_ru": "Обход означает, что поисковая система скачала страницу. Индексация — что она решила хранить её и показывать в выдаче. Обход не гарантирует индексацию: страницу могут обойти и не взять, например если она дублирует другую или canonical указывает в другое место.",
       "rubric": {
@@ -192,14 +230,20 @@
     },
     {
       "id": "ed-seo-002",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "category": "Ситуация на работе",
       "level": 2,
       "seconds": 120,
       "prompt_en": "Organic traffic dropped by 30% last week. How do you investigate?",
       "prompt_ru": "Органический трафик упал на 30% за неделю. Как разбираетесь?",
       "hint": "Сначала проверить, реальное ли падение (аналитика, сегменты), потом индексацию, потом изменения на сайте и апдейты.",
-      "keywords": ["first I'd check", "compare", "rule out"],
+      "keywords": [
+        "first I'd check",
+        "compare",
+        "rule out"
+      ],
       "model_answer_en": "First I'd check whether the drop is real: tracking can break and show a fake drop. Then I'd compare the same period a year ago to rule out seasonality. Next I'd look at Search Console — impressions, indexed pages and any manual actions. After that I'd check what changed on the site: releases, redirects and the robots file. Only then I'd think about an algorithm update.",
       "model_answer_ru": "Сначала проверил(а) бы, настоящее ли падение: аналитика могла сломаться и показать ложное. Потом сравнил(а) бы с тем же периодом год назад, чтобы исключить сезонность. Дальше — Search Console: показы, индексация, санкции. Затем изменения на сайте: релизы, редиректы, robots. И только потом версия про апдейт алгоритма.",
       "rubric": {
@@ -212,14 +256,20 @@
     },
     {
       "id": "ed-seo-003",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "category": "Опыт и проекты",
       "level": 2,
       "seconds": 90,
       "prompt_en": "How do you explain to a developer why a technical fix matters for SEO?",
       "prompt_ru": "Как объяснить разработчику, почему техническая правка важна для SEO?",
       "hint": "Через последствия для пользователя и бизнеса, с оценкой объёма работы и приоритета.",
-      "keywords": ["the impact is", "roughly", "priority"],
+      "keywords": [
+        "the impact is",
+        "roughly",
+        "priority"
+      ],
       "model_answer_en": "I explain the impact first: this template is used on about four thousand pages, and right now they all say the same title, so search engines pick one and ignore the rest. That's roughly a quarter of our landing pages. The fix is one change in the template, so the effort is small and the priority is high. I'd also tell them how we'll check it worked.",
       "model_answer_ru": "Сначала объясняю эффект: шаблон стоит примерно на четырёх тысячах страниц, и у всех одинаковый title, поэтому поиск выбирает одну и игнорирует остальные. Это около четверти посадочных. Правка — одно изменение в шаблоне, трудозатраты маленькие, приоритет высокий. И сразу говорю, как мы проверим результат.",
       "rubric": {
@@ -232,14 +282,20 @@
     },
     {
       "id": "ed-devops-001",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "category": "Технический вопрос",
       "level": 2,
       "seconds": 90,
       "prompt_en": "A service is responding slowly. Walk me through your first steps.",
       "prompt_ru": "Сервис отвечает медленно. Расскажите первые шаги.",
       "hint": "Симптом → метрики → зависимости → недавние изменения. Сначала уменьшить ущерб, потом искать причину.",
-      "keywords": ["I'd check the metrics", "recent changes", "roll back"],
+      "keywords": [
+        "I'd check the metrics",
+        "recent changes",
+        "roll back"
+      ],
       "model_answer_en": "First I'd look at the metrics: latency, error rate and saturation, and I'd check whether it's all requests or only one endpoint. Then I'd check dependencies — database, queue, external APIs. In parallel I'd look at recent changes, because a deploy an hour ago is the most likely cause. If a change looks suspicious, I'd roll it back first and investigate after: reducing the impact comes before finding the root cause.",
       "model_answer_ru": "Сначала метрики: задержка, доля ошибок, загрузка ресурсов, и все ли запросы медленные или только один эндпоинт. Потом зависимости: база, очередь, внешние API. Параллельно — недавние изменения, потому что выкат час назад самая вероятная причина. Если изменение выглядит подозрительно, сначала откат, разбор потом: снизить ущерб важнее, чем найти первопричину.",
       "rubric": {
@@ -252,14 +308,20 @@
     },
     {
       "id": "ed-devops-002",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "category": "Ситуация на работе",
       "level": 3,
       "seconds": 120,
       "prompt_en": "Describe an incident you took part in. What did you learn?",
       "prompt_ru": "Опишите инцидент, в котором вы участвовали. Какой вывод сделали?",
       "hint": "Хронология, ваша роль, как чинили, и что поменяли в системе после. Без поиска виноватых.",
-      "keywords": ["the impact was", "my role was", "after the incident"],
+      "keywords": [
+        "the impact was",
+        "my role was",
+        "after the incident"
+      ],
       "model_answer_en": "We had an outage of about twenty minutes: users couldn't log in. My role was to keep the timeline and check the metrics while a colleague rolled back the release. The impact was around two thousand failed logins. After the incident we wrote a blameless post-mortem, and the main change was an automatic check that blocks a deploy when the error rate goes up. What I learned is that the timeline is more useful than guesses: without it we couldn't tell which change caused it.",
       "model_answer_ru": "У нас был простой минут на двадцать: пользователи не могли войти. Я вёл(вела) хронологию и смотрел(а) метрики, пока коллега откатывал релиз. Пострадали примерно две тысячи попыток входа. После инцидента мы написали разбор без поиска виноватых, и главное изменение — автоматическая проверка, которая блокирует выкат при росте ошибок. Вывод: хронология полезнее догадок.",
       "rubric": {
@@ -272,14 +334,20 @@
     },
     {
       "id": "ed-devops-003",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "category": "Технический вопрос",
       "level": 3,
       "seconds": 90,
       "prompt_en": "Why do we need infrastructure as code if everything already works?",
       "prompt_ru": "Зачем инфраструктура как код, если и так всё работает?",
       "hint": "Воспроизводимость, история изменений, ревью и восстановление после потери сервера.",
-      "keywords": ["reproducible", "review", "restore"],
+      "keywords": [
+        "reproducible",
+        "review",
+        "restore"
+      ],
       "model_answer_en": "Because \"it works\" is not the same as \"we can rebuild it\". With infrastructure as code the environment is reproducible: the same file gives the same server. Changes go through review and have history, so we can see who changed what and roll it back. And if we lose a machine, we restore it in minutes instead of remembering what was installed there by hand.",
       "model_answer_ru": "Потому что «работает» и «можем собрать заново» — разные вещи. С инфраструктурой как кодом среда воспроизводима: один и тот же файл даёт один и тот же сервер. Изменения проходят ревью и имеют историю: видно, кто и что менял, и можно откатить. А если теряем машину, восстанавливаем за минуты, а не вспоминаем, что там ставили руками.",
       "rubric": {
@@ -292,14 +360,20 @@
     },
     {
       "id": "ed-qa-001",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "category": "Технический вопрос",
       "level": 2,
       "seconds": 90,
       "prompt_en": "How would you test a payment form?",
       "prompt_ru": "Как бы вы тестировали форму оплаты?",
       "hint": "Позитивный сценарий, отказы банка, границы сумм, валюты, повторная отправка, 3-D Secure, что видит пользователь при обрыве.",
-      "keywords": ["happy path", "edge cases", "double submit"],
+      "keywords": [
+        "happy path",
+        "edge cases",
+        "double submit"
+      ],
       "model_answer_en": "I'd start with the happy path: a valid card, a normal amount, a successful payment and a receipt. Then declines: insufficient funds, expired card, wrong CVV — the user must see a clear message, not a generic error. Then edge cases: minimum and maximum amounts, different currencies, rounding. Then the risky part: double submit, a lost connection after the bank approved the payment, and the 3-D Secure flow. The main question in every case is what the user sees and what the system stores.",
       "model_answer_ru": "Начал(а) бы с позитивного сценария: валидная карта, обычная сумма, успешная оплата и чек. Потом отказы: недостаточно средств, истёкшая карта, неверный CVV — пользователь должен видеть понятное сообщение, а не общую ошибку. Дальше границы: минимальная и максимальная сумма, валюты, округление. Затем рискованное: двойная отправка, обрыв связи после одобрения банком, сценарий 3-D Secure. Главный вопрос в каждом случае — что видит пользователь и что сохранила система.",
       "rubric": {
@@ -312,14 +386,20 @@
     },
     {
       "id": "ed-qa-002",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "category": "Ситуация на работе",
       "level": 3,
       "seconds": 120,
       "prompt_en": "You found a bug in production that costs money. What do you do?",
       "prompt_ru": "Вы нашли в проде баг, который стоит денег. Что делаете?",
       "hint": "Оценить масштаб и деньги, сообщить сразу, зафиксировать доказательства, предложить обходной путь, потом чинить.",
-      "keywords": ["how many users", "I reported it", "workaround"],
+      "keywords": [
+        "how many users",
+        "I reported it",
+        "workaround"
+      ],
       "model_answer_en": "First I'd check the scale: how many users and how much money, using the logs and the database rather than a guess. Then I'd report it immediately in the incident channel, with the exact steps to reproduce and the affected time window — waiting to look confident costs money. I'd save the evidence: request identifiers, screenshots, the rows in the ledger. Then I'd suggest a temporary workaround, for example switching off that payment method, while the fix is being prepared.",
       "model_answer_ru": "Сначала масштаб: сколько пользователей и сколько денег — по логам и базе, а не на глаз. Потом сразу сообщаю в канал инцидентов: точные шаги воспроизведения и затронутый период. Ждать, чтобы выглядеть увереннее, — это терять деньги. Сохраняю доказательства: идентификаторы запросов, скриншоты, строки в журнале операций. Дальше предлагаю обходной путь, например временно отключить этот способ оплаты, пока готовится исправление.",
       "rubric": {
@@ -332,14 +412,20 @@
     },
     {
       "id": "ed-qa-003",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "category": "Технический вопрос",
       "level": 3,
       "seconds": 90,
       "prompt_en": "Explain idempotency to a developer who says retries are safe anyway.",
       "prompt_ru": "Объясните идемпотентность разработчику, который считает, что повторы и так безопасны.",
       "hint": "Пример двойного списания, ключ идемпотентности, что считается одинаковым запросом.",
-      "keywords": ["the same key", "charged twice", "safe to retry"],
+      "keywords": [
+        "the same key",
+        "charged twice",
+        "safe to retry"
+      ],
       "model_answer_en": "Retries are safe only if the server can tell that it's the same request. If the network drops after the bank approved the payment, our retry looks like a brand new payment, and the customer is charged twice. That's why the client sends an idempotency key: the same key means the same operation, so the server returns the original result instead of charging again. Without that key, a retry is not a retry — it's a second payment.",
       "model_answer_ru": "Повторы безопасны только если сервер понимает, что это тот же самый запрос. Если связь оборвалась после одобрения банком, наш повтор выглядит как новый платёж, и с клиента списывают дважды. Поэтому клиент присылает ключ идемпотентности: одинаковый ключ означает одну и ту же операцию, и сервер возвращает прежний результат вместо нового списания. Без ключа повтор — это не повтор, а второй платёж.",
       "rubric": {
@@ -359,7 +445,11 @@
       "prompt_en": "I'm going to ask this quickly: what did you not understand in my last question?",
       "prompt_ru": "Отработайте переспрашивание: скажите, что именно вы не поняли.",
       "hint": "Цель упражнения — не ответить, а вежливо и точно переспросить. Назовите, какая часть вопроса потерялась.",
-      "keywords": ["could you repeat", "I missed the part", "do you mean"],
+      "keywords": [
+        "could you repeat",
+        "I missed the part",
+        "do you mean"
+      ],
       "model_answer_en": "Sorry, I missed the middle part of the question. Could you repeat it a bit more slowly? Just to make sure I understand: do you mean the process we use now, or the one I would design from scratch?",
       "model_answer_ru": "Извините, я потерял(а) середину вопроса. Можете повторить чуть медленнее? И чтобы убедиться, что я правильно понял(а): вы про процесс, который у нас сейчас, или про тот, который я бы спроектировал(а) с нуля?",
       "rubric": {
@@ -379,7 +469,11 @@
       "prompt_en": "Sum up in 30 seconds why we should hire you.",
       "prompt_ru": "За 30 секунд: почему стоит нанять именно вас.",
       "hint": "Два-три конкретных совпадения с вакансией и одно доказательство. Без превосходных степеней.",
-      "keywords": ["you're looking for", "I've done exactly that", "I can show"],
+      "keywords": [
+        "you're looking for",
+        "I've done exactly that",
+        "I can show"
+      ],
       "model_answer_en": "You're looking for someone who can take a task end to end and communicate with developers. I've done exactly that for two years, and I can show the checklist and the reports I built. I'm junior, so I'll need guidance on the parts I haven't seen, but I learn fast and I write things down so the team doesn't explain them twice.",
       "model_answer_ru": "Вы ищете человека, который доведёт задачу от начала до конца и сможет общаться с разработчиками. Я делал(а) ровно это два года и могу показать чек-лист и отчёты. Я джуниор, поэтому по незнакомым частям мне понадобится помощь, но я быстро учусь и записываю, чтобы команде не объяснять дважды.",
       "rubric": {
@@ -388,6 +482,110 @@
         "2": "Есть совпадения с вакансией, доказательств нет",
         "3": "Совпадения, доказательство и честная граница опыта",
         "4": "Укладывается в 30 секунд и звучит спокойно"
+      }
+    },
+    {
+      "id": "ed-ts-001",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "A customer writes: the payment failed. Explain what you will check.",
+      "prompt_ru": "Клиент пишет: платёж не прошёл. Объясните, что будете проверять.",
+      "hint": "Порядок: подтвердить получение, назвать проверки, дать срок обновления. Без жаргона.",
+      "keywords": [
+        "Thanks for reporting",
+        "I will check",
+        "I will update you by"
+      ],
+      "model_answer_en": "Thanks for reporting this. I can see your payment attempt at 14:32. I will check three things: the response from the bank, whether our system received the confirmation, and whether the order was created. I will update you by 4 p.m. today. If the money was taken and the order is missing, we will either create it manually or issue a refund.",
+      "model_answer_ru": "Спасибо, что сообщили. Вижу вашу попытку оплаты в 14:32. Проверю три вещи: ответ банка, получили ли мы подтверждение и создан ли заказ. Напишу до 16:00. Если деньги списаны, а заказа нет, либо создадим его вручную, либо оформим возврат.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Отдельные фразы, много пауз",
+        "2": "По сути верно, но с русскими словами и без структуры",
+        "3": "Связный структурный ответ без русских вставок",
+        "4": "Уверенно и естественно, с конкретикой и цифрами"
+      }
+    },
+    {
+      "id": "ed-ts-002",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "category": "Ситуация на работе",
+      "level": 3,
+      "seconds": 120,
+      "prompt_en": "A customer is angry about two hours of downtime. Respond in English.",
+      "prompt_ru": "Клиент разозлён двухчасовым простоем. Ответьте по-английски.",
+      "hint": "Одно извинение, признание факта с цифрами, что сделано, что дальше. Без спора о тоне.",
+      "keywords": [
+        "I'm sorry",
+        "the service was unavailable",
+        "here is what we did"
+      ],
+      "model_answer_en": "I'm sorry for the disruption. You are right: the service was unavailable from 13:05 to 15:10 today. Here is what happened and what we did: a change in our payment service caused login failures, we rolled it back and confirmed recovery at 15:10. We are running a post-mortem tomorrow and I will send you the summary. If the downtime affected your invoices, I will pass that to the account team today.",
+      "model_answer_ru": "Извините за сбой. Вы правы: сервис был недоступен с 13:05 до 15:10. Что произошло и что мы сделали: изменение в платёжном сервисе ломало вход, мы откатили его и подтвердили восстановление в 15:10. Завтра проводим разбор, пришлю итог. Если простой затронул ваши счета, передам менеджеру сегодня.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Отдельные фразы, много пауз",
+        "2": "По сути верно, но с русскими словами и без структуры",
+        "3": "Связный структурный ответ без русских вставок",
+        "4": "Уверенно и естественно, с конкретикой и цифрами"
+      }
+    },
+    {
+      "id": "ed-ts-003",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain in English how you would investigate a slow API response.",
+      "prompt_ru": "Объясните по-английски, как будете разбираться с медленным ответом API.",
+      "hint": "Метрики, зависимости, недавние изменения. Сначала масштаб, потом причина.",
+      "keywords": [
+        "first I would check",
+        "p95 latency",
+        "recent changes"
+      ],
+      "model_answer_en": "First I would check the metrics: p95 latency rather than the average, the error rate and the number of requests. Then I would look at dependencies — the database, the queue and external services. In parallel I would check recent changes, because a deploy an hour ago is the most likely cause. If a change looks suspicious, we roll it back first and investigate after.",
+      "model_answer_ru": "Сначала метрики: 95-й процентиль вместо среднего, доля ошибок, количество запросов. Потом зависимости: база, очередь, внешние сервисы. Параллельно недавние изменения — выкат час назад самая вероятная причина. Если изменение выглядит подозрительно, сначала откат, разбор потом.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Отдельные фразы, много пауз",
+        "2": "По сути верно, но с русскими словами и без структуры",
+        "3": "Связный структурный ответ без русских вставок",
+        "4": "Уверенно и естественно, с конкретикой и цифрами"
+      }
+    },
+    {
+      "id": "ed-ts-004",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "category": "О себе",
+      "level": 2,
+      "seconds": 60,
+      "prompt_en": "Tell me in English about a support case you are proud of.",
+      "prompt_ru": "Расскажите по-английски о разборе, которым гордитесь.",
+      "hint": "STAR: ситуация, задача, ваши действия, результат. Говорите «I», а не «we».",
+      "keywords": [
+        "The situation was",
+        "I personally",
+        "As a result"
+      ],
+      "model_answer_en": "The situation was that customers reported missing notifications, but we could not reproduce it. I collected the request ids for a week and noticed that all cases happened during peak hours. In the delivery log I saw timeouts and retries: our handler was slower than the sender's timeout. I passed it to the developers with the data, and we added a queue. As a result, the missing notifications stopped.",
+      "model_answer_ru": "Ситуация: клиенты жаловались на пропавшие уведомления, а воспроизвести не удавалось. Я собрал идентификаторы за неделю и увидел, что все случаи приходятся на пиковые часы. В журнале доставок нашёл таймауты и повторы. Передал разработке с данными, добавили очередь. Уведомления перестали пропадать.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Отдельные фразы, много пауз",
+        "2": "По сути верно, но с русскими словами и без структуры",
+        "3": "Связный структурный ответ без русских вставок",
+        "4": "Уверенно и естественно, с конкретикой и цифрами"
       }
     }
   ]

@@ -1630,6 +1630,150 @@
       "type": "official_documentation",
       "verified": true,
       "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-slas",
+      "title": "SLAs: what they are and how to use them",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/itsm/service-request-management/slas",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-incident-handbook",
+      "title": "Incident management handbook",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/handbook",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-incident-communication",
+      "title": "Incident communication best practices",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/incident-communication",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-knowledge-management",
+      "title": "Knowledge management in ITSM",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/itsm/knowledge-management",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-5-whys",
+      "title": "5 Whys play",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/team-playbook/plays/5-whys",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "chrome-devtools-network",
+      "title": "Inspect network activity",
+      "publisher": "Chrome for Developers",
+      "url": "https://developer.chrome.com/docs/devtools/network",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "curl-manual",
+      "title": "curl manual",
+      "publisher": "curl",
+      "url": "https://curl.se/docs/manual.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "elastic-discover",
+      "title": "Discover: explore your data",
+      "publisher": "Elastic",
+      "url": "https://www.elastic.co/docs/explore-analyze/discover",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "cloudflare-ssl-concepts",
+      "title": "SSL/TLS concepts",
+      "publisher": "Cloudflare",
+      "url": "https://developers.cloudflare.com/ssl/concepts/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "letsencrypt-expiration",
+      "title": "Expiration emails and certificate lifetime",
+      "publisher": "Let's Encrypt",
+      "url": "https://letsencrypt.org/docs/expiration-emails/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "martin-fowler-feature-toggles",
+      "title": "Feature Toggles (aka Feature Flags)",
+      "publisher": "Martin Fowler",
+      "url": "https://martinfowler.com/articles/feature-toggles.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "microsoft-gdpr",
+      "title": "GDPR overview for organisations",
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/compliance/regulatory/gdpr",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "sre-managing-incidents",
+      "title": "Managing Incidents",
+      "publisher": "Google SRE",
+      "url": "https://sre.google/sre-book/managing-incidents/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "postgres-limit",
+      "title": "LIMIT and OFFSET",
+      "publisher": "PostgreSQL",
+      "url": "https://www.postgresql.org/docs/current/queries-limit.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "man-grep",
+      "title": "grep(1) manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+      "type": "documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "man-df",
+      "title": "df(1) manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+      "type": "documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
     }
   ]
 }

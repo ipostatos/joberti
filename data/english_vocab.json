@@ -8,7 +8,8 @@
     "Инфраструктура",
     "SEO",
     "DevOps",
-    "QA и платежи"
+    "QA и платежи",
+    "Поддержка"
   ],
   "words": [
     {
@@ -519,7 +520,9 @@
       "id": "ev-canonical",
       "term": "canonical",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "/kəˈnɒnɪkl/",
       "ru_hint": "ка-НО-ни-кл",
@@ -533,7 +536,9 @@
       "id": "ev-crawl",
       "term": "crawl",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 1,
       "ipa": "/krɔːl/",
       "ru_hint": "крол",
@@ -547,7 +552,9 @@
       "id": "ev-index-word",
       "term": "index / indices",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "/ˈɪndeks/, мн. ч. /ˈɪndɪsiːz/",
       "ru_hint": "ИН-декс, ИН-ди-сиз",
@@ -561,7 +568,9 @@
       "id": "ev-anchor",
       "term": "anchor",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 1,
       "ipa": "/ˈæŋkə/",
       "ru_hint": "ЭН-ка",
@@ -575,7 +584,9 @@
       "id": "ev-audience",
       "term": "audience",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 1,
       "ipa": "/ˈɔːdiəns/",
       "ru_hint": "О-ди-энс",
@@ -589,7 +600,9 @@
       "id": "ev-revenue",
       "term": "revenue",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "/ˈrevənjuː/",
       "ru_hint": "РЕ-ве-нью",
@@ -603,7 +616,9 @@
       "id": "ev-relevance",
       "term": "relevance",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "/ˈreləvəns/",
       "ru_hint": "РЕ-ле-ванс",
@@ -617,7 +632,9 @@
       "id": "ev-authority",
       "term": "authority",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "/ɔːˈθɒrəti/",
       "ru_hint": "о-СО-ри-ти (второй звук межзубный)",
@@ -631,7 +648,9 @@
       "id": "ev-conversion",
       "term": "conversion",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 1,
       "ipa": "/kənˈvɜːʃn/",
       "ru_hint": "кан-ВЁ-шн",
@@ -645,7 +664,9 @@
       "id": "ev-duplicate",
       "term": "duplicate",
       "category": "SEO",
-      "track_ids": ["redcore-junior-seo"],
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
       "level": 2,
       "ipa": "сущ. /ˈdjuːplɪkət/, глаг. /ˈdjuːplɪkeɪt/",
       "ru_hint": "ДЬЮ-пли-кат (сущ.), ДЬЮ-пли-кейт (глаг.)",
@@ -659,7 +680,9 @@
       "id": "ev-kubernetes",
       "term": "Kubernetes",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 1,
       "ipa": "/ˌkuːbəˈnetiːz/",
       "ru_hint": "ку-бер-НЕ-тис",
@@ -673,7 +696,9 @@
       "id": "ev-daemon",
       "term": "daemon",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 2,
       "ipa": "/ˈdiːmən/",
       "ru_hint": "ДИ-мон",
@@ -687,7 +712,9 @@
       "id": "ev-kernel",
       "term": "kernel",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 1,
       "ipa": "/ˈkɜːnl/",
       "ru_hint": "КЁ-нл",
@@ -701,7 +728,9 @@
       "id": "ev-sudo",
       "term": "sudo",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 1,
       "ipa": "/ˈsuːduː/ или /ˈsuːdəʊ/",
       "ru_hint": "СУ-ду",
@@ -715,7 +744,9 @@
       "id": "ev-yaml",
       "term": "YAML",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 1,
       "ipa": "/ˈjæməl/",
       "ru_hint": "ЯМ-л",
@@ -729,7 +760,10 @@
       "id": "ev-idempotent",
       "term": "idempotent",
       "category": "DevOps",
-      "track_ids": ["devops-platform", "qa-payments"],
+      "track_ids": [
+        "devops-platform",
+        "qa-payments"
+      ],
       "level": 3,
       "ipa": "/ˌaɪdemˈpəʊtənt/",
       "ru_hint": "ай-дем-ПО-тент",
@@ -743,7 +777,9 @@
       "id": "ev-resilience",
       "term": "resilience",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 3,
       "ipa": "/rɪˈzɪliəns/",
       "ru_hint": "ри-ЗИ-ли-энс",
@@ -757,7 +793,9 @@
       "id": "ev-quota",
       "term": "quota",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 2,
       "ipa": "/ˈkwəʊtə/",
       "ru_hint": "КВОУ-та",
@@ -771,7 +809,10 @@
       "id": "ev-outage",
       "term": "outage",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
       "level": 2,
       "ipa": "/ˈaʊtɪdʒ/",
       "ru_hint": "АУ-тидж",
@@ -785,7 +826,9 @@
       "id": "ev-capacity",
       "term": "capacity",
       "category": "DevOps",
-      "track_ids": ["devops-platform"],
+      "track_ids": [
+        "devops-platform"
+      ],
       "level": 2,
       "ipa": "/kəˈpæsəti/",
       "ru_hint": "ка-ПА-си-ти",
@@ -799,7 +842,10 @@
       "id": "ev-receipt",
       "term": "receipt",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments",
+        "technical-engineer"
+      ],
       "level": 1,
       "ipa": "/rɪˈsiːt/",
       "ru_hint": "ри-СИТ",
@@ -813,7 +859,9 @@
       "id": "ev-merchant",
       "term": "merchant",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 1,
       "ipa": "/ˈmɜːtʃənt/",
       "ru_hint": "МЁ-чант",
@@ -827,7 +875,9 @@
       "id": "ev-chargeback",
       "term": "chargeback",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 2,
       "ipa": "/ˈtʃɑːdʒbæk/",
       "ru_hint": "ЧАРДЖ-бэк",
@@ -841,7 +891,10 @@
       "id": "ev-refund",
       "term": "refund",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments",
+        "technical-engineer"
+      ],
       "level": 1,
       "ipa": "сущ. /ˈriːfʌnd/, глаг. /rɪˈfʌnd/",
       "ru_hint": "РИ-фанд (сущ.), ри-ФАНД (глаг.)",
@@ -855,7 +908,9 @@
       "id": "ev-currency",
       "term": "currency",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 1,
       "ipa": "/ˈkʌrənsi/",
       "ru_hint": "КА-рен-си",
@@ -869,7 +924,9 @@
       "id": "ev-invoice",
       "term": "invoice",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 1,
       "ipa": "/ˈɪnvɔɪs/",
       "ru_hint": "ИН-войс",
@@ -883,7 +940,9 @@
       "id": "ev-settlement",
       "term": "settlement",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 2,
       "ipa": "/ˈsetlmənt/",
       "ru_hint": "СЕТ-л-мент",
@@ -897,7 +956,9 @@
       "id": "ev-acquirer",
       "term": "acquirer",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 3,
       "ipa": "/əˈkwaɪərə/",
       "ru_hint": "а-КВАЙ-э-ра",
@@ -911,7 +972,9 @@
       "id": "ev-issuer",
       "term": "issuer",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 3,
       "ipa": "/ˈɪʃuːə/",
       "ru_hint": "И-шу-э",
@@ -925,7 +988,9 @@
       "id": "ev-reconciliation",
       "term": "reconciliation",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 3,
       "ipa": "/ˌrekənsɪliˈeɪʃn/",
       "ru_hint": "ре-кан-си-ли-ЭЙ-шн",
@@ -939,7 +1004,9 @@
       "id": "ev-fraud",
       "term": "fraud",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 1,
       "ipa": "/frɔːd/",
       "ru_hint": "фрод",
@@ -953,7 +1020,9 @@
       "id": "ev-ledger",
       "term": "ledger",
       "category": "QA и платежи",
-      "track_ids": ["qa-payments"],
+      "track_ids": [
+        "qa-payments"
+      ],
       "level": 2,
       "ipa": "/ˈledʒə/",
       "ru_hint": "ЛЕ-джа",
@@ -962,6 +1031,134 @@
       "example_en": "Every money movement is written to the ledger.",
       "example_ru": "Каждое движение денег пишется в журнал операций.",
       "dict_url": "https://dictionary.cambridge.org/dictionary/english/ledger"
+    },
+    {
+      "id": "ev-escalate",
+      "term": "escalate",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/ˈeskəleɪt/",
+      "ru_hint": "ЭС-ка-лейт",
+      "meaning": "передать проблему выше по согласованному пути",
+      "wrong": "«эскалейт» с ударением на второй слог",
+      "example_en": "We escalated the issue to the on-call engineer.",
+      "example_ru": "Мы передали проблему дежурному инженеру.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/escalate"
+    },
+    {
+      "id": "ev-acknowledge",
+      "term": "acknowledge",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/əkˈnɒlɪdʒ/",
+      "ru_hint": "эк-НО-лидж",
+      "meaning": "подтвердить получение обращения или алерта",
+      "wrong": "«акновледж» с чтением «w» — она немая",
+      "example_en": "Please acknowledge the alert so others know it is being handled.",
+      "example_ru": "Подтвердите алерт, чтобы остальные видели: им уже занимаются.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/acknowledge"
+    },
+    {
+      "id": "ev-workaround",
+      "term": "workaround",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/ˈwɜːkəraʊnd/",
+      "ru_hint": "ВЁК-э-раунд",
+      "meaning": "обходное решение на время, пока причина не устранена",
+      "wrong": "путают с fix: workaround не устраняет причину",
+      "example_en": "As a workaround, place the order without the promo code.",
+      "example_ru": "Как обходное решение, оформите заказ без промокода.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/workaround"
+    },
+    {
+      "id": "ev-downtime",
+      "term": "downtime",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 1,
+      "ipa": "/ˈdaʊntaɪm/",
+      "ru_hint": "ДАУН-тайм",
+      "meaning": "время, когда сервис недоступен",
+      "wrong": "«даунтим» с коротким «и» в конце",
+      "example_en": "The downtime lasted twelve minutes.",
+      "example_ru": "Простой длился двенадцать минут.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/downtime"
+    },
+    {
+      "id": "ev-troubleshoot",
+      "term": "troubleshoot",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/ˈtrʌblʃuːt/",
+      "ru_hint": "ТРАБЛ-шут",
+      "meaning": "искать и устранять причину неисправности",
+      "wrong": "«траублшут» с «ау»: там короткое «а»",
+      "example_en": "Let's troubleshoot it together on a call.",
+      "example_ru": "Давайте разберёмся вместе на созвоне.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/troubleshoot"
+    },
+    {
+      "id": "ev-credentials",
+      "term": "credentials",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/krəˈdenʃlz/",
+      "ru_hint": "кре-ДЕН-шлз",
+      "meaning": "учётные данные для входа",
+      "wrong": "«креденциалс» с «ц»: там звук «ш»",
+      "example_en": "Never send your credentials over chat.",
+      "example_ru": "Никогда не присылайте учётные данные в чат.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/credentials"
+    },
+    {
+      "id": "ev-severity",
+      "term": "severity",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 2,
+      "ipa": "/sɪˈverəti/",
+      "ru_hint": "си-ВЕ-ри-ти",
+      "meaning": "серьёзность последствий дефекта",
+      "wrong": "«северити» с ударением на первый слог",
+      "example_en": "High severity, medium priority: rare but expensive.",
+      "example_ru": "Высокая серьёзность, средний приоритет: редко, но дорого.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/severity"
+    },
+    {
+      "id": "ev-outage-window",
+      "term": "maintenance window",
+      "category": "Поддержка",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "level": 3,
+      "ipa": "/ˈmeɪntənəns ˈwɪndəʊ/",
+      "ru_hint": "МЭЙН-те-нанс ВИН-доу",
+      "meaning": "согласованное окно работ, когда сервис может быть недоступен",
+      "wrong": "путают с простоем: окно планируется заранее и объявляется",
+      "example_en": "The migration runs during the maintenance window on Sunday.",
+      "example_ru": "Миграция идёт в окно работ в воскресенье.",
+      "dict_url": ""
     }
   ]
 }

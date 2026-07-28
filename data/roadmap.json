@@ -1789,6 +1789,576 @@
       "completion_rule": {
         "full_mock_sessions_min": 1
       }
+    },
+    {
+      "id": "step-ts-01-role",
+      "track_id": "technical-engineer",
+      "order": 1,
+      "title": "Роль поддержки и линии",
+      "goal": "Понять границы роли и что собирают перед передачей выше",
+      "topic_ids": [
+        "ts-support-role"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-ts-support-role"
+      ],
+      "practice_items": [
+        "quiz:ts-support-role"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-02-tickets",
+      "track_id": "technical-engineer",
+      "order": 2,
+      "title": "Обращения, приоритеты и SLA",
+      "goal": "Научиться считать приоритет из влияния и срочности",
+      "topic_ids": [
+        "ts-ticket-flow"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-01-role"
+      ],
+      "study_items": [
+        "lesson-ts-ticket-flow"
+      ],
+      "practice_items": [
+        "quiz:ts-ticket-flow",
+        "mock:mock-ts-fund-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-ts-03-reproduce",
+      "track_id": "technical-engineer",
+      "order": 3,
+      "title": "Воспроизведение проблемы",
+      "goal": "Сводить жалобу к минимальному проверяемому сценарию",
+      "topic_ids": [
+        "ts-reproduce"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-02-tickets"
+      ],
+      "study_items": [
+        "lesson-ts-reproduce"
+      ],
+      "practice_items": [
+        "quiz:ts-reproduce",
+        "case:case-ts-empty-report"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-04-http",
+      "track_id": "technical-engineer",
+      "order": 4,
+      "title": "HTTP и коды ответов",
+      "goal": "Отличать проблему запроса от проблемы сервиса",
+      "topic_ids": [
+        "ts-http-api"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-03-reproduce"
+      ],
+      "study_items": [
+        "lesson-ts-http-api"
+      ],
+      "practice_items": [
+        "quiz:ts-http-api",
+        "mock:mock-ts-fund-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-ts-05-logs",
+      "track_id": "technical-engineer",
+      "order": 5,
+      "title": "Чтение логов",
+      "goal": "Искать по идентификатору и делать выводы по контексту",
+      "topic_ids": [
+        "ts-logs"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-04-http"
+      ],
+      "study_items": [
+        "lesson-ts-logs"
+      ],
+      "practice_items": [
+        "quiz:ts-logs",
+        "mock:mock-ts-fund-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-ts-06-network",
+      "track_id": "technical-engineer",
+      "order": 6,
+      "title": "Сеть и доступность",
+      "goal": "Пройти цепочку от имени до ответа сервиса",
+      "topic_ids": [
+        "ts-network"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-05-logs"
+      ],
+      "study_items": [
+        "lesson-ts-network"
+      ],
+      "practice_items": [
+        "quiz:ts-network",
+        "case:case-ts-one-client-unreachable"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-07-linux",
+      "track_id": "technical-engineer",
+      "order": 7,
+      "title": "Командная строка",
+      "goal": "Проверять службу, ресурсы и права без помощи администратора",
+      "topic_ids": [
+        "ts-linux"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-06-network"
+      ],
+      "study_items": [
+        "lesson-ts-linux"
+      ],
+      "practice_items": [
+        "quiz:ts-linux"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-08-sql",
+      "track_id": "technical-engineer",
+      "order": 8,
+      "title": "SQL для поддержки",
+      "goal": "Смотреть данные, не мешая работе боевой базы",
+      "topic_ids": [
+        "ts-sql"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-07-linux"
+      ],
+      "study_items": [
+        "lesson-ts-sql"
+      ],
+      "practice_items": [
+        "quiz:ts-sql",
+        "mock:mock-ts-tech-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-ts-09-devtools",
+      "track_id": "technical-engineer",
+      "order": 9,
+      "title": "Инструменты браузера",
+      "goal": "Собирать доказательства со стороны клиента",
+      "topic_ids": [
+        "ts-devtools"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-08-sql"
+      ],
+      "study_items": [
+        "lesson-ts-devtools"
+      ],
+      "practice_items": [
+        "quiz:ts-devtools",
+        "mock:mock-ts-tech-006"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-10-integrations",
+      "track_id": "technical-engineer",
+      "order": 10,
+      "title": "Интеграции и вебхуки",
+      "goal": "Разбирать доставку событий и дубли",
+      "topic_ids": [
+        "ts-integrations"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-09-devtools"
+      ],
+      "study_items": [
+        "lesson-ts-integrations"
+      ],
+      "practice_items": [
+        "quiz:ts-integrations",
+        "case:case-ts-duplicate-emails"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-11-incidents",
+      "track_id": "technical-engineer",
+      "order": 11,
+      "title": "Инциденты и эскалация",
+      "goal": "Действовать по процессу, а не по настроению",
+      "topic_ids": [
+        "ts-incidents"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-ts-10-integrations"
+      ],
+      "study_items": [
+        "lesson-ts-incidents"
+      ],
+      "practice_items": [
+        "quiz:ts-incidents",
+        "case:case-ts-login-outage",
+        "mock:mock-ts-pract-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-12-monitoring",
+      "track_id": "technical-engineer",
+      "order": 12,
+      "title": "Мониторинг",
+      "goal": "За минуту понимать, у всех или у одного",
+      "topic_ids": [
+        "ts-monitoring"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-11-incidents"
+      ],
+      "study_items": [
+        "lesson-ts-monitoring"
+      ],
+      "practice_items": [
+        "quiz:ts-monitoring",
+        "mock:mock-ts-tools-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-13-rca",
+      "track_id": "technical-engineer",
+      "order": 13,
+      "title": "Поиск первопричины",
+      "goal": "Отличать симптом от причины и проверять гипотезы",
+      "topic_ids": [
+        "ts-rca"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-12-monitoring"
+      ],
+      "study_items": [
+        "lesson-ts-rca"
+      ],
+      "practice_items": [
+        "quiz:ts-rca",
+        "case:case-ts-nightly-crash"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-14-release",
+      "track_id": "technical-engineer",
+      "order": 14,
+      "title": "Релизы и откаты",
+      "goal": "Связывать проблему с изменением фактами",
+      "topic_ids": [
+        "ts-release"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-13-rca"
+      ],
+      "study_items": [
+        "lesson-ts-release"
+      ],
+      "practice_items": [
+        "quiz:ts-release",
+        "case:case-ts-stale-frontend"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-15-privacy",
+      "track_id": "technical-engineer",
+      "order": 15,
+      "title": "Данные клиента",
+      "goal": "Знать, что нельзя просить и что делать с присланным",
+      "topic_ids": [
+        "ts-privacy"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-ts-14-release"
+      ],
+      "study_items": [
+        "lesson-ts-privacy"
+      ],
+      "practice_items": [
+        "quiz:ts-privacy",
+        "case:case-ts-password-in-chat"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-ts-16-knowledge",
+      "track_id": "technical-engineer",
+      "order": 16,
+      "title": "База знаний и runbook",
+      "goal": "Оставлять после себя решение, которым воспользуются",
+      "topic_ids": [
+        "ts-knowledge"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-ts-15-privacy"
+      ],
+      "study_items": [
+        "lesson-ts-knowledge"
+      ],
+      "practice_items": [
+        "quiz:ts-knowledge"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-17-communication",
+      "track_id": "technical-engineer",
+      "order": 17,
+      "title": "Общение с клиентом",
+      "goal": "Писать ответы, после которых не остаётся вопросов",
+      "topic_ids": [
+        "ts-communication"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-ts-16-knowledge"
+      ],
+      "study_items": [
+        "lesson-ts-communication"
+      ],
+      "practice_items": [
+        "quiz:ts-communication",
+        "mock:mock-ts-comm-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-ts-18-metrics",
+      "track_id": "technical-engineer",
+      "order": 18,
+      "title": "Метрики поддержки",
+      "goal": "Понимать, как каждая метрика ломается",
+      "topic_ids": [
+        "ts-metrics"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-ts-17-communication"
+      ],
+      "study_items": [
+        "lesson-ts-metrics"
+      ],
+      "practice_items": [
+        "quiz:ts-metrics"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-19-tools",
+      "track_id": "technical-engineer",
+      "order": 19,
+      "title": "Инструменты работы",
+      "goal": "Отвечать не названиями, а задачами инструментов",
+      "topic_ids": [
+        "ts-tools"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-ts-18-metrics"
+      ],
+      "study_items": [
+        "lesson-ts-tools"
+      ],
+      "practice_items": [
+        "quiz:ts-tools",
+        "mock:mock-ts-tools-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-ts-20-behavioral",
+      "track_id": "technical-engineer",
+      "order": 20,
+      "title": "Поведенческая часть",
+      "goal": "Собрать истории по схеме STAR и проговорить их вслух",
+      "topic_ids": [
+        "ts-behavioral"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-ts-19-tools"
+      ],
+      "study_items": [
+        "lesson-ts-behavioral"
+      ],
+      "practice_items": [
+        "quiz:ts-behavioral",
+        "mock:mock-ts-beh-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "stories_filled_min": 3
+      }
+    },
+    {
+      "id": "step-ts-21-vacancy",
+      "track_id": "technical-engineer",
+      "order": 21,
+      "title": "Вакансия и разрыв",
+      "goal": "Пройти требования вакансии и закрыть их доказательствами",
+      "topic_ids": [
+        "ts-support-role",
+        "ts-behavioral"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-ts-20-behavioral"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-ts-port-001"
+      ],
+      "completion_rule": {
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-ts-22-full-mock",
+      "track_id": "technical-engineer",
+      "order": 22,
+      "title": "Полная сессия mock interview",
+      "goal": "Пройти сессию целиком и увидеть, где ответы рассыпаются",
+      "topic_ids": [
+        "ts-behavioral"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-ts-21-vacancy"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-ts-tech-002",
+        "mock:mock-ts-beh-002"
+      ],
+      "completion_rule": {
+        "full_mock_sessions_min": 1
+      }
     }
   ]
 }

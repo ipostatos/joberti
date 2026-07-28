@@ -34,7 +34,8 @@
     "Деньги и валюты",
     "Данные карт и PCI DSS",
     "Интеграции и API",
-    "Работа в команде"
+    "Работа в команде",
+    "Поддержка и обращения"
   ],
   "terms": [
     {
@@ -705,10 +706,12 @@
     {
       "id": "t-404",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "html-http"
+        "html-http",
+        "ts-http-api"
       ],
       "category": "HTML and HTTP",
       "term": "404 Not Found",
@@ -756,10 +759,12 @@
     {
       "id": "t-http-status",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "html-http"
+        "html-http",
+        "ts-http-api"
       ],
       "category": "HTML and HTTP",
       "term": "HTTP status code",
@@ -2620,10 +2625,12 @@
     {
       "id": "t-star-method",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "behavioral"
+        "behavioral",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "STAR method",
@@ -2643,10 +2650,12 @@
     {
       "id": "t-behavioral-interview",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "behavioral"
+        "behavioral",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Behavioral interview",
@@ -2665,11 +2674,13 @@
     {
       "id": "t-red-flag",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
         "behavioral",
-        "interview-seo"
+        "interview-seo",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Red flag",
@@ -2688,10 +2699,12 @@
     {
       "id": "t-elevator-pitch",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "interview-seo"
+        "interview-seo",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Elevator pitch",
@@ -2710,10 +2723,12 @@
     {
       "id": "t-trade-off",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "interview-seo"
+        "interview-seo",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Trade-off",
@@ -2733,11 +2748,13 @@
     {
       "id": "t-stakeholder",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
         "dev-communication",
-        "reporting"
+        "reporting",
+        "ts-communication"
       ],
       "category": "Interview English",
       "term": "Stakeholder",
@@ -2756,10 +2773,12 @@
     {
       "id": "t-scope",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "dev-communication"
+        "dev-communication",
+        "ts-communication"
       ],
       "category": "Interview English",
       "term": "Scope",
@@ -2779,10 +2798,12 @@
     {
       "id": "t-walk-me-through",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "interview-seo"
+        "interview-seo",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Walk me through",
@@ -2801,10 +2822,12 @@
     {
       "id": "t-follow-up-question",
       "track_ids": [
-        "redcore-junior-seo"
+        "redcore-junior-seo",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "interview-seo"
+        "interview-seo",
+        "ts-behavioral"
       ],
       "category": "Interview English",
       "term": "Follow-up question",
@@ -2878,12 +2901,14 @@
     {
       "id": "t-exit-code",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "linux-basics",
         "scripting",
-        "ci-cd"
+        "ci-cd",
+        "ts-linux"
       ],
       "category": "Linux и системы",
       "term": "Код возврата",
@@ -2906,11 +2931,13 @@
     {
       "id": "t-journald",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "linux-basics",
-        "observability"
+        "observability",
+        "ts-linux"
       ],
       "category": "Linux и системы",
       "term": "journalctl",
@@ -2933,11 +2960,13 @@
     {
       "id": "t-file-permissions",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "linux-basics",
-        "security-pipeline"
+        "security-pipeline",
+        "ts-linux"
       ],
       "category": "Linux и системы",
       "term": "Права доступа",
@@ -2961,10 +2990,12 @@
     {
       "id": "t-dns-ttl",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "networking"
+        "networking",
+        "ts-network"
       ],
       "category": "Сети",
       "term": "TTL записи DNS",
@@ -2987,10 +3018,13 @@
     {
       "id": "t-http-502-503-504",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "networking"
+        "networking",
+        "ts-http-api",
+        "ts-network"
       ],
       "category": "Сети",
       "term": "502, 503 и 504",
@@ -3016,10 +3050,12 @@
     {
       "id": "t-tcp-refused-timeout",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "networking"
+        "networking",
+        "ts-network"
       ],
       "category": "Сети",
       "term": "Отказ в соединении и таймаут",
@@ -3042,11 +3078,13 @@
     {
       "id": "t-tls-cert",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "networking",
-        "security-pipeline"
+        "security-pipeline",
+        "ts-network"
       ],
       "category": "Сети",
       "term": "TLS-сертификат",
@@ -3612,11 +3650,13 @@
     {
       "id": "t-percentile",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "observability",
-        "reliability-slo"
+        "reliability-slo",
+        "ts-monitoring"
       ],
       "category": "Наблюдаемость",
       "term": "Перцентиль",
@@ -3641,11 +3681,13 @@
     {
       "id": "t-golden-signals",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "observability",
-        "reliability-slo"
+        "reliability-slo",
+        "ts-monitoring"
       ],
       "category": "Наблюдаемость",
       "term": "Четыре золотых сигнала",
@@ -3747,10 +3789,12 @@
     {
       "id": "t-postmortem",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "category": "Надёжность",
       "term": "Постмортем",
@@ -3878,10 +3922,12 @@
     {
       "id": "t-replication-lag",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "databases-ops"
+        "databases-ops",
+        "ts-sql"
       ],
       "category": "Базы данных",
       "term": "Отставание реплики",
@@ -3904,11 +3950,13 @@
     {
       "id": "t-least-privilege",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "security-pipeline",
-        "cloud-basics"
+        "cloud-basics",
+        "ts-privacy"
       ],
       "category": "Безопасность",
       "term": "Наименьшие привилегии",
@@ -4040,10 +4088,12 @@
     {
       "id": "t-qa-severity-priority",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "qa-testing-basics"
+        "qa-testing-basics",
+        "ts-ticket-flow"
       ],
       "category": "Тестирование",
       "term": "Серьёзность и приоритет",
@@ -4146,11 +4196,13 @@
     {
       "id": "t-qa-bug-report",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-test-docs",
-        "qa-logs-incidents"
+        "qa-logs-incidents",
+        "ts-reproduce"
       ],
       "category": "Тестирование",
       "term": "Баг-репорт",
@@ -4174,10 +4226,12 @@
     {
       "id": "t-qa-repro-steps",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "qa-test-docs"
+        "qa-test-docs",
+        "ts-reproduce"
       ],
       "category": "Тестирование",
       "term": "Шаги воспроизведения",
@@ -5160,11 +5214,13 @@
     {
       "id": "t-qa-idempotency-key",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-idempotency",
-        "qa-api-testing"
+        "qa-api-testing",
+        "ts-integrations"
       ],
       "category": "Интеграции и API",
       "term": "Ключ идемпотентности",
@@ -5187,10 +5243,12 @@
     {
       "id": "t-qa-webhook",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "qa-webhooks"
+        "qa-webhooks",
+        "ts-integrations"
       ],
       "category": "Интеграции и API",
       "term": "Вебхук",
@@ -5215,11 +5273,13 @@
     {
       "id": "t-qa-webhook-signature",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-webhooks",
-        "qa-card-security"
+        "qa-card-security",
+        "ts-integrations"
       ],
       "category": "Интеграции и API",
       "term": "Подпись вебхука",
@@ -5242,11 +5302,13 @@
     {
       "id": "t-qa-retry-backoff",
       "track_ids": [
-        "qa-payments"
+        "qa-payments",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-idempotency",
-        "qa-webhooks"
+        "qa-webhooks",
+        "ts-integrations"
       ],
       "category": "Интеграции и API",
       "term": "Повторы с выдержкой",
@@ -5426,11 +5488,13 @@
       "id": "t-escalation",
       "track_ids": [
         "qa-payments",
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-behavioral",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-incidents"
       ],
       "category": "Работа в команде",
       "term": "Escalation",
@@ -5451,11 +5515,13 @@
       "id": "t-retrospective",
       "track_ids": [
         "qa-payments",
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "qa-behavioral",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-behavioral"
       ],
       "category": "Работа в команде",
       "term": "Retrospective",
@@ -5475,11 +5541,13 @@
     {
       "id": "t-blameless-postmortem",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "behavioral-devops",
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "category": "Работа в команде",
       "term": "Blameless post-mortem",
@@ -5503,11 +5571,13 @@
     {
       "id": "t-on-call",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "behavioral-devops",
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "category": "Работа в команде",
       "term": "On-call",
@@ -5527,11 +5597,13 @@
     {
       "id": "t-incident-commander",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
         "behavioral-devops",
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "category": "Работа в команде",
       "term": "Incident commander",
@@ -5553,10 +5625,12 @@
     {
       "id": "t-handover",
       "track_ids": [
-        "devops-platform"
+        "devops-platform",
+        "technical-engineer"
       ],
       "topic_ids": [
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-incidents"
       ],
       "category": "Работа в команде",
       "term": "Handover",
@@ -5570,6 +5644,970 @@
       "common_confusion": "Путают с отчётом о работе: важна не проделанная работа, а незакрытое состояние.",
       "question": "Что обязательно попадает в передачу смены?",
       "answer": "Незакрытые инциденты, временные обходные решения с датой снятия и всё, что сломается, если об этом не знать.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-sla",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-support-role",
+        "ts-ticket-flow",
+        "ts-metrics"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "SLA",
+      "aliases": [
+        "Service Level Agreement",
+        "соглашение об уровне обслуживания",
+        "эс-эл-эй"
+      ],
+      "definition_simple": "Обещание компании о сроках: за сколько ответим и за сколько решим.",
+      "definition_interview": "Договор с клиентом о времени реакции и времени решения по каждому приоритету. Обещание относится к срокам обработки, а не к тому, что любая проблема будет решена: невыполнимую задачу SLA не делает выполнимой.",
+      "example": "По первому приоритету реакция 15 минут, обновления каждый час; по третьему — реакция один рабочий день.",
+      "common_confusion": "Путают время реакции и время решения: первое — когда ответили, второе — когда закрыли вопрос.",
+      "question": "Что именно обещает SLA?",
+      "answer": "Сроки реакции и решения по приоритетам, а не гарантию, что проблема будет устранена именно так, как хочет клиент.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-frt",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-metrics",
+        "ts-ticket-flow"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Время первой реакции",
+      "aliases": [
+        "FRT",
+        "first response time"
+      ],
+      "definition_simple": "Сколько прошло от обращения клиента до первого осмысленного ответа.",
+      "definition_interview": "Метрика скорости, а не пользы. Её легко улучшить автоответом, поэтому смотреть её нужно вместе с содержанием первого ответа и долей повторных обращений.",
+      "example": "Автоответ пришёл через секунду, живой ответ — через четыре часа. Формально метрика отличная, для клиента — нет.",
+      "common_confusion": "Считают автоответ первой реакцией: это улучшает отчёт и ничего не даёт клиенту.",
+      "question": "Почему время первой реакции нельзя оценивать отдельно?",
+      "answer": "Потому что его улучшает автоответ. Вместе с ним смотрят полезность первого ответа и долю обращений, вернувшихся снова.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-support-lines",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-support-role"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Линии поддержки",
+      "aliases": [
+        "L1 L2 L3",
+        "первая линия",
+        "вторая линия",
+        "tiers"
+      ],
+      "definition_simple": "Уровни поддержки: от быстрых типовых ответов до правки кода.",
+      "definition_interview": "Первая линия отвечает по инструкции и закрывает типовое, вторая разбирается в устройстве системы — логи, база, запросы, третья меняет код. Границы у компаний разные, принцип один: чем выше линия, тем дороже её время, поэтому наверх передают с готовым разбором.",
+      "example": "Сброс пароля — первая линия, разбор расхождения в отчёте — вторая, исправление ошибки округления — третья.",
+      "common_confusion": "Считают линии рангом сотрудника, а не типом задач: инженер второй линии не «выше» коллеги, у него другой круг вопросов.",
+      "question": "Что должно быть собрано, прежде чем обращение уйдёт на следующую линию?",
+      "answer": "Шаги воспроизведения, окружение, время с часовым поясом, идентификаторы запросов, выдержки из логов и гипотеза — иначе следующая линия начинает с нуля.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-priority",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-ticket-flow"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Приоритет обращения",
+      "aliases": [
+        "priority",
+        "очередь обращений"
+      ],
+      "definition_simple": "Место обращения в очереди работы.",
+      "definition_interview": "Считается из влияния (сколько людей задето и насколько блокирует работу) и срочности (растёт ли ущерб со временем). Тон письма и статус клиента в расчёт не входят, хотя на практике давят именно они.",
+      "example": "Оплата не проходит у пятидесяти клиентов — первый приоритет. Не открывается отчёт у одного — третий, даже если он написал раньше.",
+      "common_confusion": "Путают с серьёзностью: серьёзность про последствия, приоритет про очередь.",
+      "question": "Из чего складывается приоритет?",
+      "answer": "Из влияния и срочности. Влияние — сколько клиентов задето и блокирует ли это работу, срочность — растёт ли ущерб и есть ли дедлайн.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-minimal-repro",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-reproduce"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Минимальный сценарий воспроизведения",
+      "aliases": [
+        "minimal repro",
+        "минимальный пример"
+      ],
+      "definition_simple": "Самый короткий путь, на котором ошибка появляется предсказуемо.",
+      "definition_interview": "Из истории клиента убирают всё, что не влияет на результат, пока не останутся только необходимые условия. Короткий сценарий и проверяется быстрее, и указывает на причину точнее длинного.",
+      "example": "Вместо «зашёл, посмотрел заказы, потом отчёт, потом выгрузку» остаётся: роль «менеджер», период больше 90 дней, формат CSV.",
+      "common_confusion": "Считают, что чем подробнее описание, тем лучше: лишние шаги прячут причину.",
+      "question": "Зачем сокращать сценарий, если ошибка и так воспроизводится?",
+      "answer": "Каждое лишнее условие — ложная зацепка. Короткий сценарий показывает, что именно ломает поведение, и ускоряет проверку исправления.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-correlation-id",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-logs",
+        "ts-http-api"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Идентификатор запроса",
+      "aliases": [
+        "request id",
+        "correlation id",
+        "trace id"
+      ],
+      "definition_simple": "Метка, по которой все записи об одном запросе собираются вместе.",
+      "definition_interview": "Уникальная строка, которую сервис присваивает запросу и передаёт дальше по цепочке. Без неё в системе из нескольких сервисов приходится искать по времени и угадывать, а с ней виден весь путь запроса и место, где он сломался.",
+      "example": "Клиент присылает идентификатор из сообщения об ошибке — по нему находятся записи шлюза, сервиса заказов и платёжного сервиса.",
+      "common_confusion": "Путают с идентификатором сессии или пользователя: те живут дольше и не привязаны к одному запросу.",
+      "question": "Почему в поддержке просят идентификатор запроса, а не описание ошибки?",
+      "answer": "Он однозначно находит нужную запись в логах всех сервисов, а описание приходится сопоставлять по времени и часто ошибочно.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-log-levels",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-logs"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Уровни логирования",
+      "aliases": [
+        "log level",
+        "DEBUG INFO WARN ERROR"
+      ],
+      "definition_simple": "Градация записей в логе по важности.",
+      "definition_interview": "DEBUG и INFO описывают ход работы, WARN — то, что насторожило, ERROR — сбой операции, FATAL — остановку сервиса. Уровень задаёт автор кода, поэтому запись ERROR не всегда означает проблему клиента, а важная информация иногда лежит на INFO.",
+      "example": "В логе десятки ERROR от повторных попыток, но операция в итоге прошла: причина жалобы не здесь.",
+      "common_confusion": "Считают, что любая строка ERROR объясняет обращение, и останавливают разбор на первой найденной.",
+      "question": "Почему нельзя искать в логах по слову «error»?",
+      "answer": "Часть ошибок штатная и ни на что не влияет, а нужная запись может быть уровнем ниже. Ищут по идентификатору запроса и смотрят контекст вокруг.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-utc",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-logs",
+        "ts-reproduce"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "UTC и часовой пояс",
+      "aliases": [
+        "UTC",
+        "часовой пояс",
+        "timezone"
+      ],
+      "definition_simple": "Единое время, в котором обычно пишутся логи.",
+      "definition_interview": "Логи ведут в UTC, интерфейсы показывают местное время, а клиент называет своё. Пока три времени не приведены к одному, поиск идёт не в том окне, и запрос «не находится».",
+      "example": "Клиент пишет «в 14:32», логи в UTC — искать нужно в 11:32, если клиент в поясе +3.",
+      "common_confusion": "Считают расхождение ошибкой системы, хотя это разные системы отсчёта.",
+      "question": "Клиент называет время ошибки. Что уточнить?",
+      "answer": "Часовой пояс клиента и в каком поясе показывает время интерфейс — после этого перевести в пояс логов и искать в узком окне.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-stacktrace",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-logs"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Стек вызовов",
+      "aliases": [
+        "stack trace",
+        "стектрейс",
+        "трассировка стека"
+      ],
+      "definition_simple": "Список функций, через которые прошла программа до ошибки.",
+      "definition_interview": "Читают снизу вверх: нижние строки показывают, где ошибка возникла, верхние — где она всплыла. Для поддержки ценны первая строка с типом ошибки и ближайшая строка своего кода, а не библиотечные кадры.",
+      "example": "Верх стека — библиотека HTTP-клиента, ниже — наш модуль отправки уведомлений: значит, сломалась отправка, а не библиотека.",
+      "common_confusion": "Копируют в тикет только последнюю строку, теряя тип ошибки и место возникновения.",
+      "question": "Что из стека вызовов действительно нужно приложить к обращению?",
+      "answer": "Тип и текст ошибки целиком плюс ближайшие строки своего кода и идентификатор запроса, а не одну верхнюю строку.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-workaround",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-communication",
+        "ts-knowledge"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Обходное решение",
+      "aliases": [
+        "workaround",
+        "временное решение"
+      ],
+      "definition_simple": "Способ продолжить работу, пока настоящая причина не устранена.",
+      "definition_interview": "Временный путь в обход поломки: другой сценарий, ручная операция, отключённая функция. Обходное решение не закрывает задачу на исправление и обязано иметь срок жизни, иначе оно тихо становится постоянным.",
+      "example": "Пока не исправлен расчёт скидки, заказы оформляются без промокода, а разница возвращается вручную.",
+      "common_confusion": "Считают обходное решение решением и закрывают обращение вместе с задачей на причину.",
+      "question": "Чем обходное решение отличается от исправления?",
+      "answer": "Оно снимает боль клиента здесь и сейчас, но причина остаётся. Поэтому задача на исправление живёт дальше, а у обхода есть срок снятия.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-kb-article",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-knowledge"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Статья базы знаний",
+      "aliases": [
+        "KB article",
+        "база знаний",
+        "knowledge base"
+      ],
+      "definition_simple": "Короткая инструкция, как узнать и решить конкретную проблему.",
+      "definition_interview": "Пишется по схеме «признаки — шаги — чего делать нельзя» и рассчитана на коллегу, который видит проблему впервые. У статьи есть владелец и дата проверки: устаревшая инструкция опаснее отсутствующей, потому что ей верят.",
+      "example": "Статья из семи строк о пустой выгрузке отчёта: как узнать, что это оно, три шага решения и предупреждение не менять права роли.",
+      "common_confusion": "Путают со справкой для клиента: та объясняет продукт, а статья базы знаний — что делать инженеру.",
+      "question": "Что делает статью базы знаний живой?",
+      "answer": "Владелец, дата проверки и ссылки из тикетов. Если на статью никто не ссылается, её либо не находят, либо она не нужна.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-runbook",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-knowledge",
+        "ts-incidents"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Runbook",
+      "aliases": [
+        "ранбук",
+        "инструкция дежурного",
+        "playbook"
+      ],
+      "definition_simple": "Пошаговая инструкция на случай конкретного сбоя.",
+      "definition_interview": "Пишется для дежурного в три часа ночи: команды целиком, ожидаемый результат каждого шага, условия остановки и кого будить. Хороший runbook не требует догадок и не ссылается на устные договорённости.",
+      "example": "«Очередь растёт»: как посмотреть длину, как перезапустить обработчик, когда останавливаться и кому звонить, если не помогло.",
+      "common_confusion": "Путают со статьёй базы знаний: runbook — про действия в инциденте, статья — про типовое обращение.",
+      "question": "Чем runbook отличается от обычной инструкции?",
+      "answer": "Он рассчитан на стресс и нехватку контекста: полные команды, ожидаемый результат, условие остановки и путь эскалации.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-status-page",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-incidents",
+        "ts-communication"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Статус-страница",
+      "aliases": [
+        "status page",
+        "страница статуса"
+      ],
+      "definition_simple": "Публичная страница о состоянии сервиса и текущих сбоях.",
+      "definition_interview": "Один источник правды для всех клиентов сразу: что сломано, кого задевает, что делаем и когда следующее обновление. Она снимает основную часть обращений во время инцидента, если обновляется по обещанному расписанию.",
+      "example": "«Оплата картами недоступна с 14:05, работаем над восстановлением, следующее обновление в 14:45» — и десятки клиентов не пишут в поддержку.",
+      "common_confusion": "Считают её отчётом после инцидента, хотя ценность именно в обновлениях во время.",
+      "question": "Что обязательно должно быть в сообщении на статус-странице?",
+      "answer": "Что сломано, кого задевает, что делается и время следующего обновления. Причину указывают только после подтверждения.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-csat",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-metrics"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "CSAT",
+      "aliases": [
+        "оценка клиента",
+        "customer satisfaction"
+      ],
+      "definition_simple": "Оценка, которую клиент ставит после закрытия обращения.",
+      "definition_interview": "Измеряет не скорость, а совпадение с ожиданиями: честно названный долгий срок часто даёт оценку выше, чем быстрое, но невнятное решение. Низкие оценки полезнее средних значений — их читают поштучно.",
+      "example": "Проблему решали три дня, но клиент получал обновления вовремя и поставил высшую оценку.",
+      "common_confusion": "Считают, что оценка зависит только от скорости решения.",
+      "question": "Почему оценка клиента может быть высокой при долгом решении?",
+      "answer": "Потому что она отражает ожидания: если срок назван честно и обновления приходят вовремя, человек чувствует, что вопросом занимаются.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-fcr",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-metrics",
+        "ts-support-role"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Доля решённых на первой линии",
+      "aliases": [
+        "FCR",
+        "first contact resolution"
+      ],
+      "definition_simple": "Какая часть обращений закрывается без передачи дальше.",
+      "definition_interview": "Показывает качество инструкций и базы знаний, а не старательность операторов. Растёт, когда типовые случаи описаны и у первой линии есть права выполнить нужное действие.",
+      "example": "После статьи про пустую выгрузку доля выросла с 60 до 75 процентов: случай перестал уходить на вторую линию.",
+      "common_confusion": "Гонятся за долей и закрывают обращения без реального решения, а те возвращаются повторно.",
+      "question": "Как повысить долю решённых на первой линии честно?",
+      "answer": "Описать типовые случаи в базе знаний и дать первой линии права на нужные действия. Иначе метрика растёт за счёт повторных обращений.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-reopen",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-metrics",
+        "ts-ticket-flow"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Повторное обращение",
+      "aliases": [
+        "reopen",
+        "возврат тикета",
+        "повторный тикет"
+      ],
+      "definition_simple": "Клиент вернулся с той же проблемой после закрытия.",
+      "definition_interview": "Самая честная метрика поддержки: она показывает, чинили симптом или причину. Видна только если тикеты связывают между собой, поэтому связывание дублей — не бюрократия, а измерение.",
+      "example": "Среднее время решения улучшилось на треть, а повторные обращения выросли вдвое — значит, закрывали быстрее, чем проверяли.",
+      "common_confusion": "Считают повтор виной клиента, который «не так понял», вместо сигнала о недоделанном решении.",
+      "question": "Почему доля повторных обращений важнее среднего времени решения?",
+      "answer": "Время решения улучшается закрытием без проверки, а повторы сразу показывают, что проблема осталась.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-escalation-matrix",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-incidents",
+        "ts-support-role"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Эскалационная матрица",
+      "aliases": [
+        "escalation matrix",
+        "порядок эскалации"
+      ],
+      "definition_simple": "Заранее записанное правило, кого и когда подключать.",
+      "definition_interview": "Таблица «условие — кто — за какое время»: сколько клиентов задето, какая функция, сколько минут прошло. Она снимает главный вопрос инцидента — «не рано ли я поднимаю тревогу», — потому что решение принято заранее и не зависит от смелости дежурного.",
+      "example": "Оплата недоступна больше 10 минут — поднимаем дежурного разработчика; больше 30 — руководителя направления.",
+      "common_confusion": "Путают с организационной иерархией: матрица описывает роли и пороги, а не подчинённость.",
+      "question": "Зачем нужен формальный порог эскалации?",
+      "answer": "Чтобы решение о тревоге не зависело от характера дежурного. С порогом эскалация происходит вовремя и не воспринимается как жалоба.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-known-issue",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-knowledge",
+        "ts-ticket-flow"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Известная проблема",
+      "aliases": [
+        "known issue",
+        "известный дефект"
+      ],
+      "definition_simple": "Подтверждённый дефект, о котором уже знают и есть план.",
+      "definition_interview": "Запись, которая связывает обращения с одной причиной: описание, признаки, обходное решение и ссылка на задачу. Позволяет отвечать клиентам за минуту и показывает разработке реальный вес проблемы по количеству связанных обращений.",
+      "example": "К известной проблеме с выгрузкой привязано 15 обращений за месяц — это и есть аргумент за приоритет в бэклоге.",
+      "common_confusion": "Считают, что запись заменяет исправление: без задачи и срока это просто способ отказывать вежливо.",
+      "question": "Чем полезен список известных проблем?",
+      "answer": "Он ускоряет ответы, связывает обращения с одной причиной и превращает количество жалоб в аргумент для приоритизации.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-root-cause",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-rca"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Первопричина",
+      "aliases": [
+        "root cause",
+        "корневая причина"
+      ],
+      "definition_simple": "То, устранение чего не даёт проблеме повториться.",
+      "definition_interview": "Отличается от симптома тем, что между ней и жалобой обычно два-три шага. Проверка простая: если после устранения проблема способна вернуться тем же путём, это был симптом.",
+      "example": "Симптом — служба падает по ночам, причина — отключённая неделю назад ротация логов и переполненный диск.",
+      "common_confusion": "Останавливаются на действии, которое помогло («перезапустили»), и называют его причиной.",
+      "question": "Как понять, что найдена именно причина, а не симптом?",
+      "answer": "Есть механизм, объясняющий связь с жалобой, и после устранения проблема не может повториться тем же путём.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-five-whys",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-rca"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Пять почему",
+      "aliases": [
+        "5 whys",
+        "five whys"
+      ],
+      "definition_simple": "Приём: задавать вопрос «почему» к каждому ответу, пока не дойдёшь до причины.",
+      "definition_interview": "Работает, только если каждый ответ подтверждён данными. Без проверки получается связная, но выдуманная цепочка, которая звучит убедительно и ведёт не туда.",
+      "example": "Сервис недоступен — почему? Диск полон — почему? Логи не ротируются — почему? Правило удалено при выкате — почему? Изменение не проходило ревью.",
+      "common_confusion": "Считают, что почему должно быть ровно пять: останавливаются там, где ответ уже нельзя проверить данными.",
+      "question": "В чём главная опасность метода «пять почему»?",
+      "answer": "Непроверенные шаги. Каждый ответ нужно подтверждать логами, конфигурацией или историей изменений, иначе цепочка становится догадкой.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-har",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-devtools",
+        "ts-reproduce"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "HAR-файл",
+      "aliases": [
+        "HAR",
+        "har",
+        "запись сетевых запросов"
+      ],
+      "definition_simple": "Файл с записью всех запросов страницы: адреса, коды ответов, время.",
+      "definition_interview": "Собирается во вкладке «Сеть» браузера и показывает, что реально происходило у клиента: дошёл ли запрос, какой пришёл ответ и сколько он занял. Это главный способ разобрать проблему, которая не воспроизводится у вас.",
+      "example": "В HAR видно: запрос сохранения вернул 200, а ошибку на экране вызвал следующий запрос к аналитике, заблокированный расширением.",
+      "common_confusion": "Считают безобидным файлом: в нём заголовки и данные сессии, поэтому его не пересылают в общие чаты.",
+      "question": "Когда вы просите у клиента HAR-файл?",
+      "answer": "Когда проблема не воспроизводится у нас: HAR показывает запросы и ответы на стороне клиента и сразу отделяет проблему браузера от проблемы сервиса.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-browser-cache",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-devtools",
+        "ts-release"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Кэш браузера",
+      "aliases": [
+        "browser cache",
+        "жёсткая перезагрузка",
+        "hard reload"
+      ],
+      "definition_simple": "Сохранённые копии файлов сайта на компьютере клиента.",
+      "definition_interview": "Ускоряет загрузку, но после выката может держать старую версию приложения: у клиента ошибка, которой на сервере уже нет. Проверяется жёсткой перезагрузкой или приватным окном.",
+      "example": "После релиза часть клиентов видит старую форму: у них закэширован прежний файл приложения.",
+      "common_confusion": "Путают с кэшем сервера: очистка на стороне клиента не влияет на данные, которые кэширует сервис.",
+      "question": "Как быстро проверить, что дело в кэше клиента?",
+      "answer": "Попросить открыть приватное окно или сделать жёсткую перезагрузку. Если проблема исчезла, дело в старых файлах у клиента.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-browser-console",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-devtools"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Консоль браузера",
+      "aliases": [
+        "console",
+        "devtools console",
+        "F12"
+      ],
+      "definition_simple": "Панель, где браузер показывает ошибки страницы.",
+      "definition_interview": "Показывает ошибки скриптов и предупреждения. Красные строки там есть почти всегда, поэтому их сопоставляют по времени с действием клиента, а не считают причиной автоматически.",
+      "example": "Ошибка от блокировщика рекламы висит на каждой странице и к жалобе клиента отношения не имеет.",
+      "common_confusion": "Считают любую красную строку в консоли причиной проблемы.",
+      "question": "Как отличить значимую ошибку в консоли от шума?",
+      "answer": "По времени и по связи с действием: значимая появляется в момент воспроизведения и относится к домену продукта, а не к расширениям и внешним скриптам.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-cors",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-devtools",
+        "ts-http-api"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "CORS",
+      "aliases": [
+        "cors",
+        "кросс-доменный запрос"
+      ],
+      "definition_simple": "Правило браузера: можно ли странице обращаться к чужому домену.",
+      "definition_interview": "Ограничение живёт в браузере, а разрешение выдаёт сервис заголовками ответа. Поэтому ошибка CORS означает настройку на стороне сервиса, а не поломку у клиента, и тем же запросом из curl она не воспроизводится.",
+      "example": "Запрос из браузера падает с ошибкой CORS, а тот же curl проходит: не хватает разрешающего заголовка для домена клиента.",
+      "common_confusion": "Считают ошибкой сети или блокировщика, хотя это осознанное правило безопасности браузера.",
+      "question": "Почему ошибка CORS не воспроизводится через curl?",
+      "answer": "Потому что это ограничение браузера, а не сервера: curl не выполняет проверку происхождения и получает ответ как есть.",
+      "source_refs": [],
+      "difficulty": 3
+    },
+    {
+      "id": "t-ts-curl",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-http-api",
+        "ts-tools"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "curl",
+      "aliases": [
+        "курл",
+        "командная строка HTTP"
+      ],
+      "definition_simple": "Команда, которой можно повторить любой HTTP-запрос вручную.",
+      "definition_interview": "Позволяет отделить проблему интерфейса от проблемы сервиса: если тот же запрос из терминала проходит, дело во фронтенде или в браузере клиента. Используется со своими тестовыми доступами, а не с чужим токеном.",
+      "example": "curl с методом POST и телом заказа возвращает 422 с описанием поля — значит, сервис работает, а форма шлёт неверные данные.",
+      "common_confusion": "Считают инструментом разработчика, хотя для поддержки это самый быстрый способ проверить гипотезу.",
+      "question": "Что даёт повтор запроса через curl?",
+      "answer": "Отделяет сервис от интерфейса и показывает полный ответ: код, заголовки и тело с описанием ошибки.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-dns-resolve",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-network"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Разрешение имени",
+      "aliases": [
+        "DNS resolve",
+        "резолвинг",
+        "nslookup",
+        "dig"
+      ],
+      "definition_simple": "Превращение адреса сайта в IP-адрес.",
+      "definition_interview": "Первый шаг любого обращения к сервису. Если у клиента имя разрешается в другой адрес, дальше проверять сервис бессмысленно: он ходит не туда. Причины — кэш, локальный файл hosts, корпоративный DNS или региональные записи.",
+      "example": "У клиента имя разрешается в старый адрес: запись обновили вчера, а у него в кэше ответ с суточным сроком жизни.",
+      "common_confusion": "Считают, что изменения DNS действуют мгновенно для всех.",
+      "question": "Клиент открывает сайт, а видит старую версию сервиса. Что проверить в сети?",
+      "answer": "В какой адрес у него разрешается имя и какой срок жизни у записи: скорее всего, ответ взят из кэша.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-port",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-network"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Порт",
+      "aliases": [
+        "port",
+        "443",
+        "telnet порт"
+      ],
+      "definition_simple": "Номер «двери» на сервере, за которой слушает конкретная служба.",
+      "definition_interview": "Узел может отвечать на ping и при этом не принимать соединения на нужном порту: это разные проверки. Для веб-сервисов проверяют 443 и 80, для базы — свой порт, и часто именно его закрывает корпоративный экран.",
+      "example": "Узел доступен, но соединение на 443 отклоняется: правило межсетевого экрана в сети клиента.",
+      "common_confusion": "Считают доступность узла доказательством доступности сервиса.",
+      "question": "Почему ping отвечает, а сервис недоступен?",
+      "answer": "Ping проверяет узел, а сервис слушает конкретный порт. Порт может быть закрыт правилом сети или служба на нём не работает.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-proxy",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-network"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Прокси",
+      "aliases": [
+        "proxy",
+        "корпоративный прокси",
+        "VPN"
+      ],
+      "definition_simple": "Посредник, через который идут запросы клиента.",
+      "definition_interview": "Корпоративный прокси и VPN меняют путь, адрес и иногда сам ответ: подменяют сертификат, режут заголовки, блокируют домены. Поэтому в диагностике их выясняют одним из первых вопросов.",
+      "example": "Сервис недоступен только из офиса клиента: прокси блокирует домен, с личного интернета всё открывается.",
+      "common_confusion": "Считают проблему серверной, не спросив, идёт ли трафик через корпоративную сеть.",
+      "question": "Почему в диагностике важно спросить про VPN и прокси?",
+      "answer": "Они меняют маршрут и содержимое ответа. Одинаковая проверка из офиса и с личной сети сразу показывает, на чьей стороне ограничение.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-limit",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-sql"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Ограничение выборки",
+      "aliases": [
+        "LIMIT",
+        "лимит строк"
+      ],
+      "definition_simple": "Ограничение количества строк в результате запроса.",
+      "definition_interview": "Правило поддержки: любой запрос к боевой базе выполняется с ограничением. Без него выборка на большой таблице нагружает базу и мешает пользователям — и это самый частый способ уронить прод из поддержки.",
+      "example": "Вместо выборки всех платежей за год — тот же запрос с ограничением в сто строк и фильтром по дате.",
+      "common_confusion": "Думают, что ограничение экономит только время вывода: оно снижает нагрузку на саму базу и блокировки.",
+      "question": "Почему в поддержке всегда ставят ограничение на выборку?",
+      "answer": "Чтобы случайный запрос на большой таблице не нагрузил боевую базу. Сначала смотрят десятки строк, а не миллионы.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-read-replica",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-sql"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Реплика на чтение",
+      "aliases": [
+        "read replica",
+        "реплика"
+      ],
+      "definition_simple": "Копия базы, к которой ходят с запросами на чтение.",
+      "definition_interview": "Снимает нагрузку с основной базы, но отстаёт на секунды или минуты. Поэтому свежесозданная запись может там ещё не появиться — и это не потеря данных, а отставание.",
+      "example": "Клиент оформил заказ минуту назад, в реплике его нет: смотрим основную базу или ждём догон.",
+      "common_confusion": "Отсутствие записи в реплике принимают за пропажу данных.",
+      "question": "Запись есть в приложении, но нет в вашей выборке. Что проверить первым?",
+      "answer": "Не смотрю ли я на реплику с отставанием и правильный ли период фильтра по времени.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-masking",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-privacy"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Маскирование данных",
+      "aliases": [
+        "masking",
+        "маскировка",
+        "скрытие данных"
+      ],
+      "definition_simple": "Показ данных частично: видно достаточно, чтобы узнать, но недостаточно, чтобы использовать.",
+      "definition_interview": "В поддержке это стандарт для карт, документов и контактов: первые и последние символы видны, середина скрыта. Позволяет подтвердить, что речь об одном и том же объекте, не перенося чувствительные данные в переписку.",
+      "example": "В тикете указывают карту как 4276 12** **** 3344 и идентификатор платежа, а не полный номер.",
+      "common_confusion": "Считают маскирование формальностью, хотя именно оно отделяет переписку от утечки.",
+      "question": "Клиент просит подтвердить, с какой карты списали деньги. Что вы напишете?",
+      "answer": "Первые шесть и последние четыре цифры плюс идентификатор платежа — этого достаточно для сверки и не является полным номером.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-access-token",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-privacy",
+        "ts-http-api"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Токен доступа",
+      "aliases": [
+        "access token",
+        "токен",
+        "Bearer"
+      ],
+      "definition_simple": "Строка, которая подтверждает право приложения обращаться к API.",
+      "definition_interview": "Действует как временный пароль: у него есть срок жизни и права. Просить чужой токен для проверки нельзя — воспроизводят под своей тестовой учётной записью, а присланный клиентом токен отзывают.",
+      "example": "Клиент присылает запрос вместе с заголовком авторизации — токен из переписки удаляют и просят его обновить.",
+      "common_confusion": "Считают безобидной технической строкой, хотя это полноценный доступ к данным.",
+      "question": "Клиент прислал свой токен, чтобы вы повторили запрос. Что делаете?",
+      "answer": "Не использую, удаляю из переписки, прошу отозвать и выпустить новый, а запрос повторяю под своим тестовым доступом.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-feature-flag",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-release"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Флаг функции",
+      "aliases": [
+        "feature flag",
+        "feature toggle",
+        "фича-флаг"
+      ],
+      "definition_simple": "Переключатель, который включает функцию части пользователей без нового релиза.",
+      "definition_interview": "Объясняет самую загадочную для поддержки картину: у одних работает, у других нет, версия одна. Поэтому при разборе смотрят не только релизы, но и включённые флаги и долю аудитории.",
+      "example": "Новая форма включена на 20% пользователей — доля жалоб примерно совпадает с этой долей.",
+      "common_confusion": "Считают различия в поведении ошибкой сборки, не проверив эксперименты.",
+      "question": "У части клиентов новая форма, у части старая, версия одна. В чём причина?",
+      "answer": "Скорее всего, включён флаг функции на часть аудитории. Проверяю список флагов и долю, а затем прошу отключить, если жалобы совпадают.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-rollback",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-release",
+        "ts-incidents"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Откат релиза",
+      "aliases": [
+        "rollback",
+        "откат"
+      ],
+      "definition_simple": "Возврат на предыдущую рабочую версию.",
+      "definition_interview": "Первый инструмент снижения ущерба: сначала вернуть работу, потом разбираться. Требует, чтобы изменения в базе оставались совместимыми со старой версией, иначе откат невозможен и приходится чинить вперёд.",
+      "example": "Через семь минут после выката выросли ошибки оплаты — откатили, разбирались уже на спокойную голову.",
+      "common_confusion": "Воспринимают как поражение команды; на деле промедление с откатом стоит дороже.",
+      "question": "Почему при подозрении на релиз сначала откатывают, а потом разбираются?",
+      "answer": "Потому что задача инцидента — вернуть работу клиентам. Разбор причины никуда не денется, а минуты простоя не вернуть.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-regression",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-release"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Регрессия",
+      "aliases": [
+        "regression",
+        "сломалось после обновления"
+      ],
+      "definition_simple": "То, что работало раньше и перестало после изменения.",
+      "definition_interview": "Для разработки это более сильный сигнал, чем «не работает»: есть точка отсчёта, до которой поведение было верным. Поэтому в тикете важно указать, когда работало в последний раз и что менялось между этими моментами.",
+      "example": "Выгрузка отчёта работала в пятницу, в понедельник пустая; между ними один выкат — это регрессия, а не новая функция.",
+      "common_confusion": "Называют регрессией любую ошибку, даже ту, что была всегда.",
+      "question": "Чем регрессия отличается от обычного дефекта?",
+      "answer": "Наличием точки, где поведение было правильным. Это сразу сужает поиск до изменений между двумя моментами.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-alert-noise",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-monitoring"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Шум алертов",
+      "aliases": [
+        "alert fatigue",
+        "усталость от алертов",
+        "ложные срабатывания"
+      ],
+      "definition_simple": "Поток уведомлений, на которые никто не реагирует.",
+      "definition_interview": "Если срабатывание не ведёт к действию, порог настроен неверно. Опасность не в самих уведомлениях, а в привычке их игнорировать: настоящий сбой теряется среди привычного шума.",
+      "example": "Алерт о задержке горит каждое утро в час пиковой нагрузки — на седьмой день его перестают открывать, а на восьмой пропускают настоящий сбой.",
+      "common_confusion": "Считают шум неизбежной ценой чувствительного мониторинга, а не дефектом настройки.",
+      "question": "Что делать с алертом, который срабатывает каждый день без последствий?",
+      "answer": "Менять порог или условие, либо убирать его вовсе. Уведомление без действия обучает команду игнорировать оповещения.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ts-api-client",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-tools",
+        "ts-http-api"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Клиент API",
+      "aliases": [
+        "Postman",
+        "Insomnia",
+        "API client"
+      ],
+      "definition_simple": "Программа для отправки запросов к API вручную.",
+      "definition_interview": "Позволяет собрать коллекцию типовых запросов поддержки: проверить статус заказа, повторить вызов клиента, сравнить среды. Коллекция превращает разовую проверку в инструмент, которым пользуется вся команда.",
+      "example": "В коллекции лежит запрос «статус платежа по идентификатору» — первая линия закрывает такие обращения без второй.",
+      "common_confusion": "Считают заменой доступа к базе: клиент API показывает то, что отдаёт сервис, а не то, что лежит в хранилище.",
+      "question": "Зачем поддержке коллекция запросов в клиенте API?",
+      "answer": "Чтобы типовая проверка занимала минуту и выполнялась одинаково всеми, а не собиралась заново каждым инженером.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-remote-session",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-tools",
+        "ts-privacy"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Удалённый сеанс",
+      "aliases": [
+        "remote session",
+        "удалённый доступ",
+        "демонстрация экрана"
+      ],
+      "definition_simple": "Подключение к экрану клиента, чтобы увидеть проблему своими глазами.",
+      "definition_interview": "Сильный инструмент и одновременно зона риска: инженер видит рабочий стол с чужими данными. Правила простые — явное согласие, объяснение каждого действия, никаких действий вне обращения и завершение сеанса сразу после.",
+      "example": "Пять минут демонстрации экрана заменяют двадцать сообщений: сразу видно, что клиент открывает другой раздел.",
+      "common_confusion": "Считают удалённый доступ универсальным ускорителем и предлагают его до простых проверок.",
+      "question": "Какие правила вы соблюдаете при удалённом сеансе?",
+      "answer": "Явное согласие клиента, объяснение действий вслух, только то, что относится к обращению, и завершение сеанса сразу после. Запись — только по согласию.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-tone",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-communication"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Тон ответа",
+      "aliases": [
+        "tone of voice",
+        "тон общения"
+      ],
+      "definition_simple": "Как звучит ответ поддержки: спокойно, понятно и по делу.",
+      "definition_interview": "Тон не сводится к вежливости. Он складывается из структуры — что понял, что сделал, что дальше, когда напишу снова — и из отсутствия жаргона. Раздражение клиента направлено на ситуацию, поэтому спор о тоне уводит от решения.",
+      "example": "«Проблема передана разработчикам» и «Ошибку воспроизвели, обходной путь такой, следующее обновление в 17:00» — одинаково вежливо и совершенно по-разному полезно.",
+      "common_confusion": "Считают тоном набор вежливых слов, хотя клиенту важнее ясность и следующий шаг.",
+      "question": "Из чего складывается хороший ответ поддержки?",
+      "answer": "Что понял, что уже сделал, что делаю дальше и когда напишу снова. Без жаргона и с одним извинением, а не с извинениями вместо фактов.",
+      "source_refs": [],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ts-duplicate-ticket",
+      "track_ids": [
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "ts-ticket-flow",
+        "ts-support-role"
+      ],
+      "category": "Поддержка и обращения",
+      "term": "Связывание обращений",
+      "aliases": [
+        "дубль тикета",
+        "merge tickets",
+        "связанные обращения"
+      ],
+      "definition_simple": "Объединение обращений об одной и той же проблеме.",
+      "definition_interview": "Нужно не для порядка в трекере, а для измерения: количество связанных обращений показывает реальный вес проблемы и становится аргументом при расстановке приоритетов. Заодно все клиенты получают обновление одним действием.",
+      "example": "К известной проблеме привязано 15 обращений — с этой цифрой задача переезжает в ближайший спринт.",
+      "common_confusion": "Заводят новые тикеты вместо связывания, и проблема выглядит редкой.",
+      "question": "Зачем связывать обращения с одной причиной?",
+      "answer": "Чтобы видеть реальный масштаб, обновлять всех клиентов разом и приносить разработке количество, а не ощущение.",
       "source_refs": [],
       "difficulty": 1
     }

@@ -2211,7 +2211,8 @@
    "ru_hint":"АУ-тидж",
    "term":"outage",
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ],
    "wrong":"«оутэйдж» с длинным «эй»"
   },
@@ -2732,10 +2733,12 @@
    "topic_ids":[
     "linux-basics",
     "scripting",
-    "ci-cd"
+    "ci-cd",
+    "ts-linux"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2759,10 +2762,12 @@
    "term":"journalctl",
    "topic_ids":[
     "linux-basics",
-    "observability"
+    "observability",
+    "ts-linux"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2787,10 +2792,12 @@
    "term":"Права доступа",
    "topic_ids":[
     "linux-basics",
-    "security-pipeline"
+    "security-pipeline",
+    "ts-linux"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2813,10 +2820,12 @@
    ],
    "term":"TTL записи DNS",
    "topic_ids":[
-    "networking"
+    "networking",
+    "ts-network"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2842,10 +2851,13 @@
    ],
    "term":"502, 503 и 504",
    "topic_ids":[
-    "networking"
+    "networking",
+    "ts-http-api",
+    "ts-network"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2868,10 +2880,12 @@
    ],
    "term":"Отказ в соединении и таймаут",
    "topic_ids":[
-    "networking"
+    "networking",
+    "ts-network"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -2897,10 +2911,12 @@
    "term":"TLS-сертификат",
    "topic_ids":[
     "networking",
-    "security-pipeline"
+    "security-pipeline",
+    "ts-network"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3467,10 +3483,12 @@
    "term":"Перцентиль",
    "topic_ids":[
     "observability",
-    "reliability-slo"
+    "reliability-slo",
+    "ts-monitoring"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3493,10 +3511,12 @@
    "term":"Четыре золотых сигнала",
    "topic_ids":[
     "observability",
-    "reliability-slo"
+    "reliability-slo",
+    "ts-monitoring"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3599,10 +3619,12 @@
    ],
    "term":"Постмортем",
    "topic_ids":[
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3730,10 +3752,12 @@
    ],
    "term":"Отставание реплики",
    "topic_ids":[
-    "databases-ops"
+    "databases-ops",
+    "ts-sql"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3758,10 +3782,12 @@
    "term":"Наименьшие привилегии",
    "topic_ids":[
     "security-pipeline",
-    "cloud-basics"
+    "cloud-basics",
+    "ts-privacy"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3890,11 +3916,13 @@
    "term":"Escalation",
    "topic_ids":[
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-incidents"
    ],
    "track_ids":[
     "qa-payments",
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3915,11 +3943,13 @@
    "term":"Retrospective",
    "topic_ids":[
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-behavioral"
    ],
    "track_ids":[
     "qa-payments",
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3944,10 +3974,12 @@
    "term":"Blameless post-mortem",
    "topic_ids":[
     "behavioral-devops",
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3968,10 +4000,12 @@
    "term":"On-call",
    "topic_ids":[
     "behavioral-devops",
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -3994,10 +4028,12 @@
    "term":"Incident commander",
    "topic_ids":[
     "behavioral-devops",
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   },
   {
@@ -4017,10 +4053,12 @@
    "source_refs":[],
    "term":"Handover",
    "topic_ids":[
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-incidents"
    ],
    "track_ids":[
-    "devops-platform"
+    "devops-platform",
+    "technical-engineer"
    ]
   }
  ],
@@ -9730,6 +9768,41 @@
    "t-least-privilege",
    "t-secret-rotation",
    "t-tls-cert"
+  ],
+  "ts-behavioral":[
+   "t-retrospective"
+  ],
+  "ts-http-api":[
+   "t-http-502-503-504"
+  ],
+  "ts-incidents":[
+   "t-blameless-postmortem",
+   "t-escalation",
+   "t-handover",
+   "t-incident-commander",
+   "t-on-call",
+   "t-postmortem"
+  ],
+  "ts-linux":[
+   "t-exit-code",
+   "t-file-permissions",
+   "t-journald"
+  ],
+  "ts-monitoring":[
+   "t-golden-signals",
+   "t-percentile"
+  ],
+  "ts-network":[
+   "t-dns-ttl",
+   "t-http-502-503-504",
+   "t-tcp-refused-timeout",
+   "t-tls-cert"
+  ],
+  "ts-privacy":[
+   "t-least-privilege"
+  ],
+  "ts-sql":[
+   "t-replication-lag"
   ]
  },
  "topics":[

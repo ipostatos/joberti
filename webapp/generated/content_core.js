@@ -278,23 +278,23 @@
  "cases":[],
  "counts":{
   "achievements":24,
-  "active_tracks":3,
-  "cases":28,
-  "english_drills":19,
+  "active_tracks":4,
+  "cases":36,
+  "english_drills":23,
   "english_phrases":64,
-  "english_vocab":68,
+  "english_vocab":76,
   "english_writing":40,
-  "glossary_terms":214,
-  "lessons":68,
-  "library_resources":178,
-  "mock_questions":101,
-  "questions":346,
-  "roadmap_steps":68,
-  "sources":181,
-  "story_templates":24,
-  "topics":60,
+  "glossary_terms":254,
+  "lessons":88,
+  "library_resources":194,
+  "mock_questions":134,
+  "questions":470,
+  "roadmap_steps":90,
+  "sources":197,
+  "story_templates":30,
+  "topics":80,
   "tracks":4,
-  "vacancies":3
+  "vacancies":4
  },
  "englishDrillCategories":[
   "О себе",
@@ -323,7 +323,8 @@
   "Инфраструктура",
   "SEO",
   "DevOps",
-  "QA и платежи"
+  "QA и платежи",
+  "Поддержка"
  ],
  "englishWriting":[],
  "englishWritingCategories":[
@@ -368,7 +369,8 @@
   "Деньги и валюты",
   "Данные карт и PCI DSS",
   "Интеграции и API",
-  "Работа в команде"
+  "Работа в команде",
+  "Поддержка и обращения"
  ],
  "lessons":[],
  "library":[
@@ -1378,7 +1380,8 @@
    "title":"HTTP response status codes",
    "topic_ids":[
     "html-http",
-    "qa-api-testing"
+    "qa-api-testing",
+    "ts-http-api"
    ],
    "type":"official_documentation",
    "url":"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
@@ -1673,7 +1676,8 @@
    "source_ref":"cloudflare-dns-intro",
    "title":"What is DNS?",
    "topic_ids":[
-    "networking"
+    "networking",
+    "ts-network"
    ],
    "type":"guide",
    "url":"https://www.cloudflare.com/learning/dns/what-is-dns/",
@@ -2353,7 +2357,8 @@
    "title":"Monitoring Distributed Systems",
    "topic_ids":[
     "observability",
-    "reliability-slo"
+    "reliability-slo",
+    "ts-monitoring"
    ],
    "type":"guide",
    "url":"https://sre.google/sre-book/monitoring-distributed-systems/",
@@ -2372,7 +2377,8 @@
    "title":"Postmortem Culture: Learning from Failure",
    "topic_ids":[
     "incidents",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-rca"
    ],
    "type":"guide",
    "url":"https://sre.google/sre-book/postmortem-culture/",
@@ -2390,7 +2396,8 @@
    "source_ref":"sre-oncall",
    "title":"Being On-Call",
    "topic_ids":[
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "type":"guide",
    "url":"https://sre.google/sre-book/being-on-call/",
@@ -2426,7 +2433,8 @@
    "source_ref":"martin-fowler-canary",
    "title":"CanaryRelease",
    "topic_ids":[
-    "deployment-strategies"
+    "deployment-strategies",
+    "ts-release"
    ],
    "type":"guide",
    "url":"https://martinfowler.com/bliki/CanaryRelease.html",
@@ -2644,7 +2652,8 @@
    "source_ref":"systemd-man",
    "title":"systemd(1) — система инициализации",
    "topic_ids":[
-    "linux-basics"
+    "linux-basics",
+    "ts-linux"
    ],
    "type":"official_documentation",
    "url":"https://man7.org/linux/man-pages/man1/systemd.1.html",
@@ -2810,7 +2819,8 @@
    "source_ref":"stripe-webhooks",
    "title":"Webhooks",
    "topic_ids":[
-    "qa-webhooks"
+    "qa-webhooks",
+    "ts-integrations"
    ],
    "type":"official_documentation",
    "url":"https://docs.stripe.com/webhooks",
@@ -3266,7 +3276,9 @@
    "source_ref":"postman-docs",
    "title":"Postman — Overview",
    "topic_ids":[
-    "qa-api-testing"
+    "qa-api-testing",
+    "ts-tools",
+    "ts-http-api"
    ],
    "type":"tool_documentation",
    "url":"https://learning.postman.com/docs/getting-started/overview/",
@@ -3339,7 +3351,8 @@
    "source_ref":"postgres-sql-select",
    "title":"SELECT",
    "topic_ids":[
-    "qa-sql-data"
+    "qa-sql-data",
+    "ts-sql"
    ],
    "type":"official_documentation",
    "url":"https://www.postgresql.org/docs/current/sql-select.html",
@@ -3488,7 +3501,8 @@
    "title":"User stories with examples and a template",
    "topic_ids":[
     "dev-communication",
-    "qa-test-docs"
+    "qa-test-docs",
+    "ts-knowledge"
    ],
    "type":"guide",
    "url":"https://www.atlassian.com/agile/project-management/user-stories",
@@ -3508,7 +3522,8 @@
    "topic_ids":[
     "dev-communication",
     "behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-communication"
    ],
    "type":"guide",
    "url":"https://handbook.gitlab.com/handbook/communication/",
@@ -3528,7 +3543,9 @@
    "topic_ids":[
     "qa-behavioral",
     "qa-test-docs",
-    "dev-communication"
+    "dev-communication",
+    "ts-reproduce",
+    "ts-communication"
    ],
    "type":"guide",
    "url":"https://www.chiark.greenend.org.uk/~sgtatham/bugs.html",
@@ -3549,7 +3566,8 @@
     "interview-seo",
     "behavioral",
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-behavioral"
    ],
    "type":"guide",
    "url":"https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/introduction/",
@@ -3569,7 +3587,8 @@
    "topic_ids":[
     "behavioral",
     "qa-behavioral",
-    "behavioral-devops"
+    "behavioral-devops",
+    "ts-behavioral"
    ],
    "type":"documentation",
    "url":"https://www.amazon.jobs/content/en/our-workplace/leadership-principles",
@@ -3588,7 +3607,8 @@
    "title":"Blameless postmortems: how to run them",
    "topic_ids":[
     "behavioral-devops",
-    "incidents"
+    "incidents",
+    "ts-incidents"
    ],
    "type":"guide",
    "url":"https://www.atlassian.com/incident-management/postmortem/blameless",
@@ -3649,6 +3669,304 @@
    "url":"https://cloud.google.com/learn/what-is-cloud-computing",
    "verification_status":"verified",
    "why_read":"Второй взгляд на ту же базу: полезно увидеть, что модели одинаковы, а названия сервисов у провайдеров разные."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-ts-slas",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":true,
+   "source_ref":"atlassian-slas",
+   "title":"SLAs: what they are and how to use them",
+   "topic_ids":[
+    "ts-support-role",
+    "ts-ticket-flow",
+    "ts-metrics"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/itsm/service-request-management/slas",
+   "verification_status":"verified",
+   "why_read":"Разбирает, из чего состоит обещание по времени и почему реакция и решение считаются отдельно. Ровно то, что спрашивают в первые минуты собеседования."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":60,
+   "id":"lib-ts-incident-handbook",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":true,
+   "source_ref":"atlassian-incident-handbook",
+   "title":"Incident management handbook",
+   "topic_ids":[
+    "ts-incidents",
+    "ts-support-role"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/handbook",
+   "verification_status":"verified",
+   "why_read":"Готовый процесс инцидента: роли, пороги, хронология, коммуникация. Читать по диагонали, но знать структуру наизусть."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-ts-incident-communication",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":true,
+   "source_ref":"atlassian-incident-communication",
+   "title":"Incident communication best practices",
+   "topic_ids":[
+    "ts-communication",
+    "ts-incidents"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/incident-communication",
+   "verification_status":"verified",
+   "why_read":"Шаблоны сообщений во время сбоя: что писать в первые пять минут и как обещать следующее обновление. Половина работы поддержки в инциденте — это текст."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-ts-knowledge-management",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":false,
+   "source_ref":"atlassian-knowledge-management",
+   "title":"Knowledge management in ITSM",
+   "topic_ids":[
+    "ts-knowledge"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/itsm/knowledge-management",
+   "verification_status":"verified",
+   "why_read":"Почему база знаний окупается и как не превратить её в кладбище устаревших статей."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":15,
+   "id":"lib-ts-5-whys",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":false,
+   "source_ref":"atlassian-5-whys",
+   "title":"5 Whys play",
+   "topic_ids":[
+    "ts-rca"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/team-playbook/plays/5-whys",
+   "verification_status":"verified",
+   "why_read":"Короткая инструкция к методу поиска причины, с примером и с предупреждением о догадках вместо данных."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-ts-devtools-network",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Chrome for Developers",
+   "read_before_interview":true,
+   "source_ref":"chrome-devtools-network",
+   "title":"Inspect network activity",
+   "topic_ids":[
+    "ts-devtools",
+    "ts-reproduce"
+   ],
+   "type":"official_documentation",
+   "url":"https://developer.chrome.com/docs/devtools/network",
+   "verification_status":"verified",
+   "why_read":"Официальное руководство по вкладке «Сеть»: фильтры, тайминги и сохранение HAR. Это инструмент номер один, когда проблема видна только у клиента."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-ts-curl-manual",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"curl",
+   "read_before_interview":false,
+   "source_ref":"curl-manual",
+   "title":"curl manual",
+   "topic_ids":[
+    "ts-http-api",
+    "ts-tools"
+   ],
+   "type":"tool_documentation",
+   "url":"https://curl.se/docs/manual.html",
+   "verification_status":"verified",
+   "why_read":"Как повторить запрос клиента руками: методы, заголовки, тело, вывод заголовков ответа. Читать выборочно, но уметь собрать запрос с нуля."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-ts-elastic-discover",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Elastic",
+   "read_before_interview":true,
+   "source_ref":"elastic-discover",
+   "title":"Discover: explore your data",
+   "topic_ids":[
+    "ts-logs",
+    "ts-tools"
+   ],
+   "type":"official_documentation",
+   "url":"https://www.elastic.co/docs/explore-analyze/discover",
+   "verification_status":"verified",
+   "why_read":"Как искать в логах осмысленно: фильтры по полям, временное окно, сохранённые запросы. Названия систем разные, приёмы одинаковые."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":25,
+   "id":"lib-ts-tls-concepts",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Cloudflare",
+   "read_before_interview":false,
+   "source_ref":"cloudflare-ssl-concepts",
+   "title":"SSL/TLS concepts",
+   "topic_ids":[
+    "ts-network"
+   ],
+   "type":"official_documentation",
+   "url":"https://developers.cloudflare.com/ssl/concepts/",
+   "verification_status":"verified",
+   "why_read":"Что проверяет браузер в сертификате и почему ошибка бывает у всех сразу. Помогает не путать просроченный сертификат с недоступностью сервиса."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":10,
+   "id":"lib-ts-cert-expiration",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Let's Encrypt",
+   "read_before_interview":false,
+   "source_ref":"letsencrypt-expiration",
+   "title":"Expiration emails and certificate lifetime",
+   "topic_ids":[
+    "ts-network",
+    "ts-incidents"
+   ],
+   "type":"official_documentation",
+   "url":"https://letsencrypt.org/docs/expiration-emails/",
+   "verification_status":"verified",
+   "why_read":"Короткая заметка о сроке жизни сертификата: половина внезапных «сайт недоступен» — это он."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":45,
+   "id":"lib-ts-feature-toggles",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Martin Fowler",
+   "read_before_interview":false,
+   "source_ref":"martin-fowler-feature-toggles",
+   "title":"Feature Toggles (aka Feature Flags)",
+   "topic_ids":[
+    "ts-release"
+   ],
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/feature-toggles.html",
+   "verification_status":"verified",
+   "why_read":"Объясняет, почему у одних клиентов новая функция, а у других старая при одной и той же версии. Читать первую половину."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-ts-gdpr-overview",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Microsoft Learn",
+   "read_before_interview":false,
+   "source_ref":"microsoft-gdpr",
+   "title":"GDPR overview for organisations",
+   "topic_ids":[
+    "ts-privacy"
+   ],
+   "type":"official_documentation",
+   "url":"https://learn.microsoft.com/en-us/compliance/regulatory/gdpr",
+   "verification_status":"verified",
+   "why_read":"Зачем поддержке правила о персональных данных и что значит минимально необходимый доступ. Не юридический разбор, а рабочие рамки."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":40,
+   "id":"lib-ts-managing-incidents",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google SRE",
+   "read_before_interview":true,
+   "source_ref":"sre-managing-incidents",
+   "title":"Managing Incidents",
+   "topic_ids":[
+    "ts-incidents",
+    "ts-rca"
+   ],
+   "type":"guide",
+   "url":"https://sre.google/sre-book/managing-incidents/",
+   "verification_status":"verified",
+   "why_read":"Классическая глава о ролях в инциденте: кто чинит, кто координирует, кто говорит наружу. Отвечает на вопрос, зачем нужен отдельный координатор."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":10,
+   "id":"lib-ts-postgres-limit",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"PostgreSQL",
+   "read_before_interview":false,
+   "source_ref":"postgres-limit",
+   "title":"LIMIT and OFFSET",
+   "topic_ids":[
+    "ts-sql"
+   ],
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/queries-limit.html",
+   "verification_status":"verified",
+   "why_read":"Две страницы про ограничение выборки. Правило «любой запрос к боевой базе с LIMIT» начинается отсюда."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-ts-grep",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"man7.org",
+   "read_before_interview":false,
+   "source_ref":"man-grep",
+   "title":"grep(1) manual page",
+   "topic_ids":[
+    "ts-linux",
+    "ts-logs"
+   ],
+   "type":"documentation",
+   "url":"https://man7.org/linux/man-pages/man1/grep.1.html",
+   "verification_status":"verified",
+   "why_read":"Поиск по файлам и логам: контекст вокруг совпадения, регистронезависимость, инверсия. Три флага закрывают почти все задачи поддержки."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":10,
+   "id":"lib-ts-df",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"man7.org",
+   "read_before_interview":false,
+   "source_ref":"man-df",
+   "title":"df(1) manual page",
+   "topic_ids":[
+    "ts-linux"
+   ],
+   "type":"documentation",
+   "url":"https://man7.org/linux/man-pages/man1/df.1.html",
+   "verification_status":"verified",
+   "why_read":"Переполненный диск выглядит как случайные ошибки в самых разных местах. Проверка занимает одну команду."
   }
  ],
  "mockCategories":[
@@ -5307,6 +5625,150 @@
    "url":"https://cloud.google.com/learn/what-is-cloud-computing",
    "verified":true,
    "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-slas",
+   "publisher":"Atlassian",
+   "title":"SLAs: what they are and how to use them",
+   "type":"guide",
+   "url":"https://www.atlassian.com/itsm/service-request-management/slas",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-incident-handbook",
+   "publisher":"Atlassian",
+   "title":"Incident management handbook",
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/handbook",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-incident-communication",
+   "publisher":"Atlassian",
+   "title":"Incident communication best practices",
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/incident-communication",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-knowledge-management",
+   "publisher":"Atlassian",
+   "title":"Knowledge management in ITSM",
+   "type":"guide",
+   "url":"https://www.atlassian.com/itsm/knowledge-management",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-5-whys",
+   "publisher":"Atlassian",
+   "title":"5 Whys play",
+   "type":"guide",
+   "url":"https://www.atlassian.com/team-playbook/plays/5-whys",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"chrome-devtools-network",
+   "publisher":"Chrome for Developers",
+   "title":"Inspect network activity",
+   "type":"official_documentation",
+   "url":"https://developer.chrome.com/docs/devtools/network",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"curl-manual",
+   "publisher":"curl",
+   "title":"curl manual",
+   "type":"tool_documentation",
+   "url":"https://curl.se/docs/manual.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"elastic-discover",
+   "publisher":"Elastic",
+   "title":"Discover: explore your data",
+   "type":"official_documentation",
+   "url":"https://www.elastic.co/docs/explore-analyze/discover",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"cloudflare-ssl-concepts",
+   "publisher":"Cloudflare",
+   "title":"SSL/TLS concepts",
+   "type":"official_documentation",
+   "url":"https://developers.cloudflare.com/ssl/concepts/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"letsencrypt-expiration",
+   "publisher":"Let's Encrypt",
+   "title":"Expiration emails and certificate lifetime",
+   "type":"official_documentation",
+   "url":"https://letsencrypt.org/docs/expiration-emails/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"martin-fowler-feature-toggles",
+   "publisher":"Martin Fowler",
+   "title":"Feature Toggles (aka Feature Flags)",
+   "type":"guide",
+   "url":"https://martinfowler.com/articles/feature-toggles.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"microsoft-gdpr",
+   "publisher":"Microsoft Learn",
+   "title":"GDPR overview for organisations",
+   "type":"official_documentation",
+   "url":"https://learn.microsoft.com/en-us/compliance/regulatory/gdpr",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"sre-managing-incidents",
+   "publisher":"Google SRE",
+   "title":"Managing Incidents",
+   "type":"guide",
+   "url":"https://sre.google/sre-book/managing-incidents/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"postgres-limit",
+   "publisher":"PostgreSQL",
+   "title":"LIMIT and OFFSET",
+   "type":"official_documentation",
+   "url":"https://www.postgresql.org/docs/current/queries-limit.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"man-grep",
+   "publisher":"man7.org",
+   "title":"grep(1) manual page",
+   "type":"documentation",
+   "url":"https://man7.org/linux/man-pages/man1/grep.1.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"man-df",
+   "publisher":"man7.org",
+   "title":"df(1) manual page",
+   "type":"documentation",
+   "url":"https://man7.org/linux/man-pages/man1/df.1.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
   }
  ],
  "stories":[],
@@ -5521,15 +5983,100 @@
    "vacancy_id":"qa-payments-generic"
   },
   {
-   "company":null,
-   "critical_topic_ids":[],
+   "company":"Профиль рынка",
+   "critical_topic_ids":[
+    "ts-ticket-flow",
+    "ts-reproduce",
+    "ts-logs",
+    "ts-http-api",
+    "ts-network",
+    "ts-sql",
+    "ts-incidents",
+    "ts-communication"
+   ],
    "id":"technical-engineer",
    "language":"ru",
-   "self_assessment_areas":[],
-   "status":"coming_soon",
-   "summary":"Поддержка и диагностика технических продуктов: логи, сеть, воспроизведение проблем, эскалация.",
+   "self_assessment_areas":[
+    {
+     "hint":"Разбирали ли вы обращения второй линии самостоятельно",
+     "id":"sa-ts-support",
+     "title":"Опыт поддержки"
+    },
+    {
+     "hint":"Считаете ли приоритет по влиянию и срочности",
+     "id":"sa-ts-priority",
+     "title":"Приоритеты и SLA"
+    },
+    {
+     "hint":"Сводите ли жалобу к минимальному сценарию",
+     "id":"sa-ts-repro",
+     "title":"Воспроизведение"
+    },
+    {
+     "hint":"Ищете ли по идентификатору запроса и читаете ли контекст",
+     "id":"sa-ts-logs",
+     "title":"Логи"
+    },
+    {
+     "hint":"Понимаете ли коды ответов и умеете повторить запрос",
+     "id":"sa-ts-http",
+     "title":"HTTP и API"
+    },
+    {
+     "hint":"DNS, TLS, порты, прокси и диагностика доступности",
+     "id":"sa-ts-network",
+     "title":"Сеть"
+    },
+    {
+     "hint":"Смотрите ли журнал службы, место на диске и права",
+     "id":"sa-ts-linux",
+     "title":"Командная строка"
+    },
+    {
+     "hint":"Пишете ли выборки с соединениями и ограничением",
+     "id":"sa-ts-sql",
+     "title":"SQL"
+    },
+    {
+     "hint":"Читаете ли вкладку «Сеть» и HAR-файл",
+     "id":"sa-ts-devtools",
+     "title":"Инструменты браузера"
+    },
+    {
+     "hint":"Разбирали ли доставку событий, повторы и дубли",
+     "id":"sa-ts-integrations",
+     "title":"Интеграции"
+    },
+    {
+     "hint":"Участвовали ли в массовых сбоях и эскалации",
+     "id":"sa-ts-incidents",
+     "title":"Инциденты"
+    },
+    {
+     "hint":"Читаете ли дашборды и понимаете ли процентили",
+     "id":"sa-ts-monitoring",
+     "title":"Мониторинг"
+    },
+    {
+     "hint":"Знаете ли правила работы с персональными данными",
+     "id":"sa-ts-privacy",
+     "title":"Данные клиентов"
+    },
+    {
+     "hint":"Пишете ли ответы со следующим шагом и сроком",
+     "id":"sa-ts-communication",
+     "title":"Общение с клиентом"
+    },
+    {
+     "hint":"Переписка и созвоны на английском в рабочих задачах",
+     "id":"sa-ts-english",
+     "title":"Английский"
+    }
+   ],
+   "status":"active",
+   "summary":"Подготовка к собеседованию на позицию инженера технической поддержки: обращения и приоритеты, воспроизведение проблем, логи и HTTP, сетевая диагностика, SQL, интеграции, инциденты и общение с клиентом.",
    "title":"Technical Engineer",
-   "vacancy_id":null
+   "vacancy_id":"technical-engineer-generic"
   },
   {
    "company":null,

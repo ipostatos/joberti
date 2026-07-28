@@ -836,6 +836,277 @@
           "next_action": "Прочитайте раздел про идемпотентность в документации провайдера и перескажите его по-английски"
         }
       ]
+    },
+    {
+      "id": "technical-engineer-generic",
+      "track_id": "technical-engineer",
+      "title": "Technical Support Engineer",
+      "company": "Профиль рынка",
+      "level": "Junior-Middle",
+      "work_format": "Обобщённый профиль по типовым объявлениям рынка",
+      "summary": "Собирательный портрет требований к инженеру технической поддержки второй линии. Составлен по типовым объявлениям, а не под конкретного работодателя: когда появится реальная вакансия, требования стоит сверить с её текстом и дополнить.",
+      "main_tasks": [
+        "Разбор обращений второй линии: воспроизведение, диагностика, решение",
+        "Поиск в логах по идентификатору запроса и разбор ответов сервисов",
+        "Проверка интеграций и доставки событий между системами",
+        "Работа с боевой базой на чтение и подготовка выгрузок",
+        "Участие в инцидентах: эскалация, хронология, статус для клиентов",
+        "Ведение базы знаний и инструкций дежурного"
+      ],
+      "tools": [
+        "Система обращений (Jira Service Management, Zendesk или аналог)",
+        "Поиск по логам (Kibana, Grafana Loki или облачный аналог)",
+        "Дашборды мониторинга",
+        "Клиент API (Postman, curl)",
+        "SQL и доступ к реплике на чтение",
+        "Командная строка Linux"
+      ],
+      "interview_topics": [
+        "ts-ticket-flow",
+        "ts-reproduce",
+        "ts-logs",
+        "ts-http-api",
+        "ts-network",
+        "ts-sql",
+        "ts-incidents",
+        "ts-communication"
+      ],
+      "requirements": [
+        {
+          "id": "req-ts-support-exp",
+          "requirement": "Опыт работы в технической поддержке от года",
+          "importance": "required",
+          "topic_ids": [
+            "ts-support-role"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Обращения, которые вы разбирали самостоятельно, с примерами",
+          "gap": "",
+          "next_action": "Опишите три типовых обращения, которые вы закрывали от начала до конца"
+        },
+        {
+          "id": "req-ts-priority",
+          "requirement": "Умение расставлять приоритеты по влиянию и срочности",
+          "importance": "required",
+          "topic_ids": [
+            "ts-ticket-flow"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы обосновали приоритет данными, а не тоном клиента",
+          "gap": "",
+          "next_action": "Составьте матрицу приоритетов для своего продукта и проверьте её на трёх обращениях"
+        },
+        {
+          "id": "req-ts-repro",
+          "requirement": "Навык воспроизведения проблем и составления сценариев",
+          "importance": "required",
+          "topic_ids": [
+            "ts-reproduce"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Минимальный сценарий, который вы сократили до трёх шагов",
+          "gap": "",
+          "next_action": "Возьмите известную ошибку и запишите её сценарий в три шага плюс окружение"
+        },
+        {
+          "id": "req-ts-logs",
+          "requirement": "Чтение логов и поиск по идентификатору запроса",
+          "importance": "required",
+          "topic_ids": [
+            "ts-logs"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор, где логи изменили первоначальную версию причины",
+          "gap": "",
+          "next_action": "Опишите свой порядок сужения окна поиска в логах"
+        },
+        {
+          "id": "req-ts-http",
+          "requirement": "Понимание HTTP: коды ответов, заголовки, тело запроса",
+          "importance": "required",
+          "topic_ids": [
+            "ts-http-api"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, где по коду ответа вы отделили клиента от сервиса",
+          "gap": "",
+          "next_action": "Соберите curl-запрос и получите намеренно 401, 404 и 422"
+        },
+        {
+          "id": "req-ts-network",
+          "requirement": "Базовая сетевая диагностика: DNS, TLS, порты",
+          "importance": "required",
+          "topic_ids": [
+            "ts-network"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Обращение, где причина оказалась в сети клиента, а не в сервисе",
+          "gap": "",
+          "next_action": "Пройдите цепочку проверок для одного домена и запишите команды"
+        },
+        {
+          "id": "req-ts-linux",
+          "requirement": "Работа в командной строке Linux",
+          "importance": "required",
+          "topic_ids": [
+            "ts-linux"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Задачи, которые вы решали в терминале сами",
+          "gap": "",
+          "next_action": "Соберите шпаргалку из десяти команд с пояснением, какой вопрос закрывает каждая"
+        },
+        {
+          "id": "req-ts-sql",
+          "requirement": "SQL на уровне выборок и соединений",
+          "importance": "required",
+          "topic_ids": [
+            "ts-sql"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Запросы, которыми вы проверяли состояние записей",
+          "gap": "",
+          "next_action": "Напишите три запроса под свой продукт: поиск заказа, ошибки по дням, клиенты без подписки"
+        },
+        {
+          "id": "req-ts-integrations",
+          "requirement": "Понимание интеграций и вебхуков",
+          "importance": "desirable",
+          "topic_ids": [
+            "ts-integrations"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор недоставленного или задвоенного события",
+          "gap": "",
+          "next_action": "Опишите путь одного события: формирование, доставка, повторы, подпись"
+        },
+        {
+          "id": "req-ts-incidents",
+          "requirement": "Участие в инцидентах и эскалация",
+          "importance": "required",
+          "topic_ids": [
+            "ts-incidents"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Инцидент, где вы вели хронологию или коммуникацию",
+          "gap": "",
+          "next_action": "Напишите свой порог эскалации и шаблон первого сообщения клиентам"
+        },
+        {
+          "id": "req-ts-monitoring",
+          "requirement": "Чтение дашбордов и метрик",
+          "importance": "desirable",
+          "topic_ids": [
+            "ts-monitoring"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, где мониторинг определил масштаб проблемы",
+          "gap": "",
+          "next_action": "Опишите четыре графика, которые открываете первыми при жалобе на медленную работу"
+        },
+        {
+          "id": "req-ts-rca",
+          "requirement": "Поиск первопричины, а не симптома",
+          "importance": "required",
+          "topic_ids": [
+            "ts-rca"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Проблема, которая перестала повторяться после вашего разбора",
+          "gap": "",
+          "next_action": "Постройте цепочку из трёх «почему» с подтверждением данными"
+        },
+        {
+          "id": "req-ts-release",
+          "requirement": "Связь проблем с релизами и флагами функций",
+          "importance": "desirable",
+          "topic_ids": [
+            "ts-release"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Обращение, связанное с выкатом, подтверждённое данными",
+          "gap": "",
+          "next_action": "Найдите, где публикуются релизы и флаги, и добавьте в свой чек-лист"
+        },
+        {
+          "id": "req-ts-privacy",
+          "requirement": "Аккуратность с персональными данными",
+          "importance": "required",
+          "topic_ids": [
+            "ts-privacy"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Правила, которые вы соблюдали при работе с данными клиентов",
+          "gap": "",
+          "next_action": "Составьте списки: что можно просить и что нельзя никогда"
+        },
+        {
+          "id": "req-ts-knowledge",
+          "requirement": "Ведение базы знаний и инструкций",
+          "importance": "desirable",
+          "topic_ids": [
+            "ts-knowledge"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Статья или runbook, которыми пользуются коллеги",
+          "gap": "",
+          "next_action": "Напишите статью на семь строк с разделом «чего делать нельзя»"
+        },
+        {
+          "id": "req-ts-communication",
+          "requirement": "Письменная коммуникация с клиентами",
+          "importance": "required",
+          "topic_ids": [
+            "ts-communication"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Ответы, где вы сообщали плохие новости с вариантами",
+          "gap": "",
+          "next_action": "Перепишите три шаблонных ответа по схеме «понял — сделал — делаю — напишу в»"
+        },
+        {
+          "id": "req-ts-english",
+          "requirement": "Английский на уровне переписки и документации",
+          "importance": "desirable",
+          "topic_ids": [
+            "ts-communication"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Переписка или документация на английском в рабочих задачах",
+          "gap": "",
+          "next_action": "Разберите раздел «Английский для IT»: письма, тикеты и фразы созвонов"
+        },
+        {
+          "id": "req-ts-oncall",
+          "requirement": "Готовность к дежурствам и работе в инцидентах",
+          "importance": "nice_to_have",
+          "topic_ids": [
+            "ts-incidents"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Опыт дежурств или работы в нерабочие часы",
+          "gap": "",
+          "next_action": "Опишите, как устроено дежурство, которое вы считаете здоровым"
+        }
+      ]
     }
   ]
 }

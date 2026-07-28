@@ -3573,10 +3573,12 @@
    ],
    "term":"404 Not Found",
    "topic_ids":[
-    "html-http"
+    "html-http",
+    "ts-http-api"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -3624,10 +3626,12 @@
    ],
    "term":"HTTP status code",
    "topic_ids":[
-    "html-http"
+    "html-http",
+    "ts-http-api"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5486,10 +5490,12 @@
    "source_refs":[],
    "term":"STAR method",
    "topic_ids":[
-    "behavioral"
+    "behavioral",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5508,10 +5514,12 @@
    "source_refs":[],
    "term":"Behavioral interview",
    "topic_ids":[
-    "behavioral"
+    "behavioral",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5531,10 +5539,12 @@
    "term":"Red flag",
    "topic_ids":[
     "behavioral",
-    "interview-seo"
+    "interview-seo",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5553,10 +5563,12 @@
    "source_refs":[],
    "term":"Elevator pitch",
    "topic_ids":[
-    "interview-seo"
+    "interview-seo",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5576,10 +5588,12 @@
    "source_refs":[],
    "term":"Trade-off",
    "topic_ids":[
-    "interview-seo"
+    "interview-seo",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5599,10 +5613,12 @@
    "term":"Stakeholder",
    "topic_ids":[
     "dev-communication",
-    "reporting"
+    "reporting",
+    "ts-communication"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5622,10 +5638,12 @@
    "source_refs":[],
    "term":"Scope",
    "topic_ids":[
-    "dev-communication"
+    "dev-communication",
+    "ts-communication"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5644,10 +5662,12 @@
    "source_refs":[],
    "term":"Walk me through",
    "topic_ids":[
-    "interview-seo"
+    "interview-seo",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   },
   {
@@ -5666,10 +5686,12 @@
    "source_refs":[],
    "term":"Follow-up question",
    "topic_ids":[
-    "interview-seo"
+    "interview-seo",
+    "ts-behavioral"
    ],
    "track_ids":[
-    "redcore-junior-seo"
+    "redcore-junior-seo",
+    "technical-engineer"
    ]
   }
  ],
@@ -13722,6 +13744,23 @@
    "t-url-parameters",
    "t-user-agent",
    "t-x-robots-tag"
+  ],
+  "ts-behavioral":[
+   "t-behavioral-interview",
+   "t-elevator-pitch",
+   "t-follow-up-question",
+   "t-red-flag",
+   "t-star-method",
+   "t-trade-off",
+   "t-walk-me-through"
+  ],
+  "ts-communication":[
+   "t-scope",
+   "t-stakeholder"
+  ],
+  "ts-http-api":[
+   "t-404",
+   "t-http-status"
   ]
  },
  "topics":[

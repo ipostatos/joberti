@@ -1006,7 +1006,8 @@
       "language": "en",
       "topic_ids": [
         "html-http",
-        "qa-api-testing"
+        "qa-api-testing",
+        "ts-http-api"
       ],
       "difficulty": 1,
       "estimated_minutes": 20,
@@ -1301,7 +1302,8 @@
       "type": "guide",
       "language": "en",
       "topic_ids": [
-        "networking"
+        "networking",
+        "ts-network"
       ],
       "difficulty": 1,
       "estimated_minutes": 15,
@@ -1981,7 +1983,8 @@
       "language": "en",
       "topic_ids": [
         "observability",
-        "reliability-slo"
+        "reliability-slo",
+        "ts-monitoring"
       ],
       "difficulty": 2,
       "estimated_minutes": 35,
@@ -2000,7 +2003,8 @@
       "language": "en",
       "topic_ids": [
         "incidents",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-rca"
       ],
       "difficulty": 2,
       "estimated_minutes": 30,
@@ -2018,7 +2022,8 @@
       "type": "guide",
       "language": "en",
       "topic_ids": [
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "difficulty": 2,
       "estimated_minutes": 30,
@@ -2054,7 +2059,8 @@
       "type": "guide",
       "language": "en",
       "topic_ids": [
-        "deployment-strategies"
+        "deployment-strategies",
+        "ts-release"
       ],
       "difficulty": 2,
       "estimated_minutes": 15,
@@ -2272,7 +2278,8 @@
       "type": "official_documentation",
       "language": "en",
       "topic_ids": [
-        "linux-basics"
+        "linux-basics",
+        "ts-linux"
       ],
       "difficulty": 2,
       "estimated_minutes": 20,
@@ -2438,7 +2445,8 @@
       "type": "official_documentation",
       "language": "en",
       "topic_ids": [
-        "qa-webhooks"
+        "qa-webhooks",
+        "ts-integrations"
       ],
       "difficulty": 2,
       "estimated_minutes": 30,
@@ -2894,7 +2902,9 @@
       "type": "tool_documentation",
       "language": "en",
       "topic_ids": [
-        "qa-api-testing"
+        "qa-api-testing",
+        "ts-tools",
+        "ts-http-api"
       ],
       "difficulty": 1,
       "estimated_minutes": 25,
@@ -2967,7 +2977,8 @@
       "type": "official_documentation",
       "language": "en",
       "topic_ids": [
-        "qa-sql-data"
+        "qa-sql-data",
+        "ts-sql"
       ],
       "difficulty": 1,
       "estimated_minutes": 30,
@@ -3116,7 +3127,8 @@
       "language": "en",
       "topic_ids": [
         "dev-communication",
-        "qa-test-docs"
+        "qa-test-docs",
+        "ts-knowledge"
       ],
       "difficulty": 1,
       "estimated_minutes": 20,
@@ -3136,7 +3148,8 @@
       "topic_ids": [
         "dev-communication",
         "behavioral",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-communication"
       ],
       "difficulty": 2,
       "estimated_minutes": 30,
@@ -3156,7 +3169,9 @@
       "topic_ids": [
         "qa-behavioral",
         "qa-test-docs",
-        "dev-communication"
+        "dev-communication",
+        "ts-reproduce",
+        "ts-communication"
       ],
       "difficulty": 1,
       "estimated_minutes": 25,
@@ -3177,7 +3192,8 @@
         "interview-seo",
         "behavioral",
         "qa-behavioral",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-behavioral"
       ],
       "difficulty": 1,
       "estimated_minutes": 25,
@@ -3197,7 +3213,8 @@
       "topic_ids": [
         "behavioral",
         "qa-behavioral",
-        "behavioral-devops"
+        "behavioral-devops",
+        "ts-behavioral"
       ],
       "difficulty": 1,
       "estimated_minutes": 20,
@@ -3216,7 +3233,8 @@
       "language": "en",
       "topic_ids": [
         "behavioral-devops",
-        "incidents"
+        "incidents",
+        "ts-incidents"
       ],
       "difficulty": 2,
       "estimated_minutes": 20,
@@ -3276,6 +3294,304 @@
       "difficulty": 1,
       "estimated_minutes": 15,
       "why_read": "Второй взгляд на ту же базу: полезно увидеть, что модели одинаковы, а названия сервисов у провайдеров разные.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-slas",
+      "source_ref": "atlassian-slas",
+      "title": "SLAs: what they are and how to use them",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/itsm/service-request-management/slas",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-support-role",
+        "ts-ticket-flow",
+        "ts-metrics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Разбирает, из чего состоит обещание по времени и почему реакция и решение считаются отдельно. Ровно то, что спрашивают в первые минуты собеседования.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-incident-handbook",
+      "source_ref": "atlassian-incident-handbook",
+      "title": "Incident management handbook",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/handbook",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-incidents",
+        "ts-support-role"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 60,
+      "why_read": "Готовый процесс инцидента: роли, пороги, хронология, коммуникация. Читать по диагонали, но знать структуру наизусть.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-incident-communication",
+      "source_ref": "atlassian-incident-communication",
+      "title": "Incident communication best practices",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/incident-communication",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-communication",
+        "ts-incidents"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Шаблоны сообщений во время сбоя: что писать в первые пять минут и как обещать следующее обновление. Половина работы поддержки в инциденте — это текст.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-knowledge-management",
+      "source_ref": "atlassian-knowledge-management",
+      "title": "Knowledge management in ITSM",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/itsm/knowledge-management",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-knowledge"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Почему база знаний окупается и как не превратить её в кладбище устаревших статей.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-5-whys",
+      "source_ref": "atlassian-5-whys",
+      "title": "5 Whys play",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/team-playbook/plays/5-whys",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-rca"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Короткая инструкция к методу поиска причины, с примером и с предупреждением о догадках вместо данных.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-devtools-network",
+      "source_ref": "chrome-devtools-network",
+      "title": "Inspect network activity",
+      "publisher": "Chrome for Developers",
+      "url": "https://developer.chrome.com/docs/devtools/network",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-devtools",
+        "ts-reproduce"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Официальное руководство по вкладке «Сеть»: фильтры, тайминги и сохранение HAR. Это инструмент номер один, когда проблема видна только у клиента.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-curl-manual",
+      "source_ref": "curl-manual",
+      "title": "curl manual",
+      "publisher": "curl",
+      "url": "https://curl.se/docs/manual.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-http-api",
+        "ts-tools"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Как повторить запрос клиента руками: методы, заголовки, тело, вывод заголовков ответа. Читать выборочно, но уметь собрать запрос с нуля.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-elastic-discover",
+      "source_ref": "elastic-discover",
+      "title": "Discover: explore your data",
+      "publisher": "Elastic",
+      "url": "https://www.elastic.co/docs/explore-analyze/discover",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-logs",
+        "ts-tools"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Как искать в логах осмысленно: фильтры по полям, временное окно, сохранённые запросы. Названия систем разные, приёмы одинаковые.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-tls-concepts",
+      "source_ref": "cloudflare-ssl-concepts",
+      "title": "SSL/TLS concepts",
+      "publisher": "Cloudflare",
+      "url": "https://developers.cloudflare.com/ssl/concepts/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-network"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Что проверяет браузер в сертификате и почему ошибка бывает у всех сразу. Помогает не путать просроченный сертификат с недоступностью сервиса.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-cert-expiration",
+      "source_ref": "letsencrypt-expiration",
+      "title": "Expiration emails and certificate lifetime",
+      "publisher": "Let's Encrypt",
+      "url": "https://letsencrypt.org/docs/expiration-emails/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-network",
+        "ts-incidents"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Короткая заметка о сроке жизни сертификата: половина внезапных «сайт недоступен» — это он.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-feature-toggles",
+      "source_ref": "martin-fowler-feature-toggles",
+      "title": "Feature Toggles (aka Feature Flags)",
+      "publisher": "Martin Fowler",
+      "url": "https://martinfowler.com/articles/feature-toggles.html",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-release"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 45,
+      "why_read": "Объясняет, почему у одних клиентов новая функция, а у других старая при одной и той же версии. Читать первую половину.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-gdpr-overview",
+      "source_ref": "microsoft-gdpr",
+      "title": "GDPR overview for organisations",
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/compliance/regulatory/gdpr",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-privacy"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Зачем поддержке правила о персональных данных и что значит минимально необходимый доступ. Не юридический разбор, а рабочие рамки.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-managing-incidents",
+      "source_ref": "sre-managing-incidents",
+      "title": "Managing Incidents",
+      "publisher": "Google SRE",
+      "url": "https://sre.google/sre-book/managing-incidents/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ts-incidents",
+        "ts-rca"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 40,
+      "why_read": "Классическая глава о ролях в инциденте: кто чинит, кто координирует, кто говорит наружу. Отвечает на вопрос, зачем нужен отдельный координатор.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-postgres-limit",
+      "source_ref": "postgres-limit",
+      "title": "LIMIT and OFFSET",
+      "publisher": "PostgreSQL",
+      "url": "https://www.postgresql.org/docs/current/queries-limit.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-sql"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Две страницы про ограничение выборки. Правило «любой запрос к боевой базе с LIMIT» начинается отсюда.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-grep",
+      "source_ref": "man-grep",
+      "title": "grep(1) manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+      "type": "documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-linux",
+        "ts-logs"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Поиск по файлам и логам: контекст вокруг совпадения, регистронезависимость, инверсия. Три флага закрывают почти все задачи поддержки.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-ts-df",
+      "source_ref": "man-df",
+      "title": "df(1) manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+      "type": "documentation",
+      "language": "en",
+      "topic_ids": [
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Переполненный диск выглядит как случайные ошибки в самых разных местах. Проверка занимает одну команду.",
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-07-28"
