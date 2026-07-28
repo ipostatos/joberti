@@ -53,7 +53,10 @@ if [ -n "$BASE" ]; then
   check "кейсы" 200 "$BASE/cases.html"
   check "словарь" 200 "$BASE/glossary.html"
   check "тема" 200 "$BASE/theme.css"
-  check "данные" 200 "$BASE/generated/content_data.js"
+  check "данные (общая часть)" 200 "$BASE/generated/content_core.js"
+  check "загрузчик трека" 200 "$BASE/content-loader.js"
+  check "данные трека SEO" 200 "$BASE/generated/content_track_redcore-junior-seo.js"
+  check "данные трека DevOps" 200 "$BASE/generated/content_track_devops-platform.js"
   check "service worker" 200 "$BASE/service-worker.js"
   check "манифест" 200 "$BASE/manifest.webmanifest"
 
@@ -69,14 +72,23 @@ if [ -n "$BASE" ]; then
   done
 
   echo "==> Данные не пустые"
-  SIZE=$(curl -s -o /dev/null -w "%{size_download}" --max-time 20 \
-    "$BASE/generated/content_data.js" || echo 0)
-  if [ "$SIZE" -gt 100000 ]; then
-    echo "  OK   content_data.js: $((SIZE / 1024)) КБ"
-  else
-    echo "  FAIL content_data.js подозрительно мал: $SIZE байт"
-    FAILED=$((FAILED + 1))
-  fi
+  # Порог на каждый файл свой: общая часть — это реестры и список треков,
+  # трековый файл — весь учебный материал профессии. Оба «живых» трека проверяем
+  # отдельно: пустой файл одного из них раньше прятался за общим объёмом.
+  for pair in \
+    "generated/content_core.js:50000" \
+    "generated/content_track_redcore-junior-seo.js:200000" \
+    "generated/content_track_devops-platform.js:200000"; do
+    FILE=${pair%:*}
+    MIN=${pair##*:}
+    SIZE=$(curl -s -o /dev/null -w "%{size_download}" --max-time 20 "$BASE/$FILE" || echo 0)
+    if [ "$SIZE" -gt "$MIN" ]; then
+      echo "  OK   $(basename "$FILE"): $((SIZE / 1024)) КБ"
+    else
+      echo "  FAIL $(basename "$FILE") подозрительно мал: $SIZE байт"
+      FAILED=$((FAILED + 1))
+    fi
+  done
 else
   echo "==> BASE не задан — проверка Mini App пропущена"
 fi

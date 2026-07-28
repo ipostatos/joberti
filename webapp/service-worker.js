@@ -18,7 +18,7 @@
 // ===========================================================================
 "use strict";
 
-var CACHE = "interview-trainer-v1";
+var CACHE = "interview-trainer-v2";
 var NET_TIMEOUT_MS = 4000;
 
 // Файлы, без которых приложение не открывается офлайн.
@@ -49,10 +49,32 @@ var PRECACHE = [
   "search.js",
   "heatmap.js",
   "app.js",
-  "generated/content_data.js",
+  "content-loader.js",
+  "generated/content_core.js",
   "manifest.webmanifest",
   "icon.svg",
 ];
+
+// Трековые файлы (generated/content_track_*.js) СОЗНАТЕЛЬНО не в PRECACHE:
+// иначе установка тянула бы контент всех треков сразу — ровно то, ради чего
+// контент и разрезали. Нужный файл называет страница: см. content-loader.js.
+self.addEventListener("message", function (e) {
+  var data = e.data || {};
+  if (data.type !== "cache-track" || typeof data.url !== "string") return;
+  // Кэшируем только своё и только трековые данные: сообщение приходит со
+  // страницы, слепо доверять пути в нём нельзя.
+  var url;
+  try { url = new URL(data.url, self.location.href); } catch (err) { return; }
+  if (url.origin !== self.location.origin) return;
+  if (!/\/generated\/content_track_[a-z0-9-]+\.js$/.test(url.pathname)) return;
+  e.waitUntil(
+    caches.open(CACHE).then(function (c) {
+      return c.match(url.href).then(function (hit) {
+        return hit ? undefined : c.add(url.href);
+      });
+    }).catch(function () {})
+  );
+});
 
 self.addEventListener("install", function (e) {
   e.waitUntil(

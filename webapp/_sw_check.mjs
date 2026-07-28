@@ -37,12 +37,23 @@ scripts.forEach((f) => {
   ok(precache.includes(f), `модуль ${f} отсутствует в PRECACHE`);
 });
 
-// theme.css, манифест, иконка и сгенерированные данные — без них офлайн-режим
+// theme.css, манифест, иконка и общая часть данных — без них офлайн-режим
 // открывается сломанным.
-["theme.css", "manifest.webmanifest", "icon.svg", "generated/content_data.js"]
+["theme.css", "manifest.webmanifest", "icon.svg", "generated/content_core.js"]
   .forEach((f) => {
     ok(precache.includes(f), `${f} отсутствует в PRECACHE`);
   });
+
+// ── трековые данные грузятся по требованию ──
+// Их появление в PRECACHE означало бы, что установка снова тянет контент всех
+// треков сразу — ровно то, ради чего файл и разрезали.
+precache.forEach((f) => {
+  ok(!/^generated\/content_track_/.test(f),
+    `${f} не должен лежать в PRECACHE: трековые данные кэшируются по требованию`);
+});
+ok(/"cache-track"/.test(swText),
+  "нужен обработчик сообщения cache-track: иначе выбранный трек не попадёт " +
+  "в кэш и офлайн-режим останется без контента");
 
 // ── обратная проверка: в списке нет несуществующих файлов ──
 precache.forEach((f) => {

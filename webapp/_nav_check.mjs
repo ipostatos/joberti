@@ -72,12 +72,30 @@ pages.forEach((page) => {
   // telegram-web-app.js, и поиск по ней давал бы ложные срабатывания.
   const appIdx = html.indexOf('src="app.js"');
   if (appIdx === -1) return;
-  ["generated/content_data.js", "srs.js", "progress.js", "readiness.js"].forEach((dep) => {
+  ["generated/content_core.js", "content-loader.js", "srs.js", "progress.js",
+   "readiness.js"].forEach((dep) => {
     const depIdx = html.indexOf('src="' + dep + '"');
     ok(depIdx !== -1 && depIdx < appIdx,
       `${page}: ${dep} должен подключаться до app.js`);
   });
+  // Загрузчик читает CONTENT.trackFiles, поэтому обязан идти ПОСЛЕ общей части.
+  ok(html.indexOf('src="generated/content_core.js"') < html.indexOf('src="content-loader.js"'),
+    `${page}: content-loader.js должен подключаться после generated/content_core.js`);
 });
+
+// ── ключ профиля продублирован в загрузчике ──
+// content-loader.js читает trackId до подключения progress.js, поэтому имя
+// ключа записано у него своей строкой. Рассинхрон проявился бы не ошибкой, а
+// «пустым» приложением у людей с уже выбранным треком.
+{
+  const loader = readFileSync(join(DIR, "content-loader.js"), "utf8");
+  const progress = readFileSync(join(DIR, "progress.js"), "utf8");
+  const inLoader = loader.match(/K_PROFILE\s*=\s*"([^"]+)"/);
+  const inProgress = progress.match(/K_PROFILE\s*=\s*"([^"]+)"/);
+  ok(!!inLoader && !!inProgress && inLoader[1] === inProgress[1],
+    "ключ профиля в content-loader.js и progress.js должен совпадать: " +
+    `${inLoader && inLoader[1]} против ${inProgress && inProgress[1]}`);
+}
 
 // ── .t/.d обязаны быть блочными ──
 // Классы .t (заголовок) и .d (пояснение) размечены как <span>, то есть по
@@ -147,7 +165,7 @@ usedIcons.forEach((name) => {
 });
 
 // Иконки достижений тоже приходят из данных, а не из разметки.
-const CONTENT = require("./generated/content_data.js");
+const CONTENT = require("./_content_all.js").core;
 CONTENT.achievements.forEach((a) => {
   ok(Icons.has(a.icon), `иконка достижения "${a.icon}" (${a.id}) отсутствует в наборе`);
 });

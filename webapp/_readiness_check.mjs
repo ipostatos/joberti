@@ -5,7 +5,7 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
 const R = require("./readiness.js");
-const CONTENT = require("./generated/content_data.js");
+const CONTENT = require("./_content_all.js").forTrack("redcore-junior-seo");
 
 let failed = 0;
 const ok = (c, m) => { if (!c) { console.error("FAIL:", m); failed++; } };
