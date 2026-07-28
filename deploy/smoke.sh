@@ -17,6 +17,7 @@ FAILED=0
 # записан руками: перечисление в коде уже отставало от контента — новый трек
 # выкатывался, а смоук проверял два прежних и молчал. Пустышки незаполненных
 # треков отсекаются по размеру.
+WEBAPP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../webapp" 2>/dev/null && pwd || true)"
 GEN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../webapp/generated" 2>/dev/null && pwd || true)"
 FILLED_TRACKS=""
 if [ -n "$GEN_DIR" ]; then
@@ -60,12 +61,20 @@ fi
 
 if [ -n "$BASE" ]; then
   echo "==> Mini App ($BASE)"
-  check "главная" 200 "$BASE/index.html"
-  check "план" 200 "$BASE/roadmap.html"
-  check "тесты" 200 "$BASE/quiz.html"
-  check "mock interview" 200 "$BASE/mock.html"
-  check "кейсы" 200 "$BASE/cases.html"
-  check "словарь" 200 "$BASE/glossary.html"
+  # Страницы перечисляются по каталогу, а не руками: список в коде уже отставал
+  # от приложения — новый экран выкатывался, а смоук рапортовал «всё пройдено»,
+  # не запросив его ни разу. Ровно та же ошибка, что была со списком треков.
+  PAGES=""
+  if [ -n "$WEBAPP_DIR" ]; then
+    for p in "$WEBAPP_DIR"/*.html; do
+      [ -e "$p" ] || continue
+      PAGES="$PAGES $(basename "$p")"
+    done
+  fi
+  [ -n "$PAGES" ] || PAGES="index.html roadmap.html quiz.html mock.html cases.html glossary.html english.html"
+  for p in $PAGES; do
+    check "страница $p" 200 "$BASE/$p"
+  done
   check "тема" 200 "$BASE/theme.css"
   check "данные (общая часть)" 200 "$BASE/generated/content_core.js"
   check "загрузчик трека" 200 "$BASE/content-loader.js"
