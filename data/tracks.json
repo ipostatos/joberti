@@ -18,17 +18,61 @@
         "keyword-research"
       ],
       "self_assessment_areas": [
-        { "id": "sa-seo-experience", "title": "Опыт SEO", "hint": "Работали ли вы с продвижением сайтов на практике" },
-        { "id": "sa-html-css", "title": "HTML и CSS", "hint": "Читаете ли вы разметку страницы и понимаете структуру документа" },
-        { "id": "sa-technical-seo", "title": "Технический SEO", "hint": "robots.txt, sitemap, canonical, коды ответа, индексация" },
-        { "id": "sa-gsc", "title": "Google Search Console", "hint": "Отчёты, проверка URL, индексация, показы и клики" },
-        { "id": "sa-ga4", "title": "GA4", "hint": "Отчёты по трафику, каналы, события, конверсии" },
-        { "id": "sa-keyword-research", "title": "Сбор семантики", "hint": "Подбор запросов, частотность, интент, кластеризация" },
-        { "id": "sa-screaming-frog", "title": "Screaming Frog", "hint": "Краул сайта, поиск ошибок, выгрузки" },
-        { "id": "sa-ahrefs-semrush", "title": "Ahrefs / Semrush", "hint": "Анализ конкурентов, ссылки, видимость, ключевые слова" },
-        { "id": "sa-sheets", "title": "Google Sheets", "hint": "Формулы, сводные, обработка выгрузок" },
-        { "id": "sa-english", "title": "Английский язык", "hint": "Чтение документации и короткий устный ответ" },
-        { "id": "sa-storytelling", "title": "Рассказ о своих проектах", "hint": "Можете ли внятно объяснить, что делали и какой был результат" }
+        {
+          "id": "sa-seo-experience",
+          "title": "Опыт SEO",
+          "hint": "Работали ли вы с продвижением сайтов на практике"
+        },
+        {
+          "id": "sa-html-css",
+          "title": "HTML и CSS",
+          "hint": "Читаете ли вы разметку страницы и понимаете структуру документа"
+        },
+        {
+          "id": "sa-technical-seo",
+          "title": "Технический SEO",
+          "hint": "robots.txt, sitemap, canonical, коды ответа, индексация"
+        },
+        {
+          "id": "sa-gsc",
+          "title": "Google Search Console",
+          "hint": "Отчёты, проверка URL, индексация, показы и клики"
+        },
+        {
+          "id": "sa-ga4",
+          "title": "GA4",
+          "hint": "Отчёты по трафику, каналы, события, конверсии"
+        },
+        {
+          "id": "sa-keyword-research",
+          "title": "Сбор семантики",
+          "hint": "Подбор запросов, частотность, интент, кластеризация"
+        },
+        {
+          "id": "sa-screaming-frog",
+          "title": "Screaming Frog",
+          "hint": "Краул сайта, поиск ошибок, выгрузки"
+        },
+        {
+          "id": "sa-ahrefs-semrush",
+          "title": "Ahrefs / Semrush",
+          "hint": "Анализ конкурентов, ссылки, видимость, ключевые слова"
+        },
+        {
+          "id": "sa-sheets",
+          "title": "Google Sheets",
+          "hint": "Формулы, сводные, обработка выгрузок"
+        },
+        {
+          "id": "sa-english",
+          "title": "Английский язык",
+          "hint": "Чтение документации и короткий устный ответ"
+        },
+        {
+          "id": "sa-storytelling",
+          "title": "Рассказ о своих проектах",
+          "hint": "Можете ли внятно объяснить, что делали и какой был результат"
+        }
       ]
     },
     {
@@ -57,12 +101,92 @@
       "id": "devops-platform",
       "title": "DevOps / Platform Engineer",
       "company": null,
-      "status": "coming_soon",
+      "status": "active",
       "language": "ru",
-      "summary": "CI/CD, контейнеры, наблюдаемость, инфраструктура как код, надёжность сервисов.",
-      "vacancy_id": null,
-      "critical_topic_ids": [],
-      "self_assessment_areas": []
+      "summary": "Подготовка к собеседованию на позицию DevOps / Platform Engineer: Linux и сети, контейнеры и Kubernetes, конвейеры сборки, инфраструктура как код, наблюдаемость и надёжность, поведение в аварии.",
+      "vacancy_id": "devops-platform-generic",
+      "critical_topic_ids": [
+        "linux-basics",
+        "networking",
+        "ci-cd",
+        "containers",
+        "kubernetes",
+        "iac",
+        "observability",
+        "reliability-slo"
+      ],
+      "self_assessment_areas": [
+        {
+          "id": "sa-dv-linux",
+          "title": "Linux",
+          "hint": "Работа в командной строке, службы, права, чтение журнала"
+        },
+        {
+          "id": "sa-dv-networking",
+          "title": "Сети",
+          "hint": "DNS, TCP, HTTP, TLS и диагностика доступности"
+        },
+        {
+          "id": "sa-dv-git",
+          "title": "Git",
+          "hint": "Ветвление, слияние, разрешение конфликтов, теги"
+        },
+        {
+          "id": "sa-dv-docker",
+          "title": "Docker",
+          "hint": "Сборка образов, контейнеры, тома, сети"
+        },
+        {
+          "id": "sa-dv-kubernetes",
+          "title": "Kubernetes",
+          "hint": "Основные объекты и разбор проблем с подами"
+        },
+        {
+          "id": "sa-dv-cicd",
+          "title": "CI/CD",
+          "hint": "Настройка конвейеров сборки, тестов и выката"
+        },
+        {
+          "id": "sa-dv-iac",
+          "title": "Terraform и IaC",
+          "hint": "Описание инфраструктуры кодом, состояние, дрейф"
+        },
+        {
+          "id": "sa-dv-observability",
+          "title": "Мониторинг и логи",
+          "hint": "Метрики, тревоги, разбор по логам"
+        },
+        {
+          "id": "sa-dv-cloud",
+          "title": "Облака",
+          "hint": "Ресурсы, зоны доступности, права доступа"
+        },
+        {
+          "id": "sa-dv-scripting",
+          "title": "Bash и Python",
+          "hint": "Скрипты автоматизации и обработка ошибок"
+        },
+        {
+          "id": "sa-dv-databases",
+          "title": "Базы данных",
+          "hint": "Резервные копии, миграции, реплики"
+        },
+        {
+          "id": "sa-dv-oncall",
+          "title": "Дежурства и аварии",
+          "hint": "Участие в дежурствах и разборах инцидентов"
+        },
+        {
+          "id": "sa-dv-english",
+          "title": "Английский язык",
+          "hint": "Чтение документации и короткий устный ответ"
+        },
+        {
+          "id": "sa-dv-storytelling",
+          "title": "Рассказ о своих проектах",
+          "hint": "Можете ли внятно объяснить, что делали и какой был результат"
+        }
+      ]
     }
   ]
 }

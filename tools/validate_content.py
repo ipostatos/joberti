@@ -231,6 +231,21 @@ def validate_library(rep: Report, c) -> None:
         seen_urls[u] = x.get("id")
 
 
+def _correct_is_notably_longer(x) -> bool:
+    """Правильный вариант заметно длиннее остальных — то есть подсказывает.
+
+    Заметным считается превосходство и на 8+ символов, и на 15%+ одновременно:
+    иначе метрика срабатывала бы на паре «Organic Search» — «Paid Search».
+    """
+    opts, ans = x.get("options") or [], x.get("answer")
+    if not (isinstance(ans, int) and 0 <= ans < len(opts) and len(opts) > 1):
+        return False
+    lens = [len(o) for o in opts]
+    second = sorted(lens, reverse=True)[1]
+    gap = lens[ans] - second
+    return lens[ans] == max(lens) and gap >= 8 and gap / max(1, second) >= 0.15
+
+
 def validate_questions(rep: Report, c) -> None:
     check_unique_ids(rep, c.questions, "questions")
     topic_ids, src_ids = set(c.topics_by_id), set(c.sources_by_id)
@@ -272,15 +287,8 @@ def validate_questions(rep: Report, c) -> None:
             rep.err(f"{where}: точный дубль вопроса '{seen[key]}'")
         seen[key] = x.get("id")
 
-        if isinstance(ans, int) and 0 <= ans < len(opts) and len(opts) > 1:
-            lens = [len(o) for o in opts]
-            second = sorted(lens, reverse=True)[1]
-            gap = lens[ans] - second
-            # Подсказкой считаем не любое превосходство на символ, а заметное:
-            # правильный вариант длиннее следующего и на 8+ символов, и на 15%+.
-            # Иначе метрика ловила бы «Organic Search» против «Paid Search».
-            if lens[ans] == max(lens) and gap >= 8 and gap / max(1, second) >= 0.15:
-                longest_correct += 1
+        if _correct_is_notably_longer(x):
+            longest_correct += 1
 
     # Если правильный вариант систематически заметно длиннее остальных,
     # банк угадывается без знания предмета.
@@ -305,6 +313,31 @@ def validate_questions(rep: Report, c) -> None:
                 rep.err(f"индекс правильного ответа {i} встречается в {share:.0%} вопросов")
             elif share < 0.10:
                 rep.warn(f"индекс правильного ответа {i} встречается лишь в {share:.0%} вопросов")
+
+    # ── те же метрики ПО КАЖДОМУ АКТИВНОМУ ТРЕКУ ──
+    # Пользователь видит вопросы только своего трека, поэтому общая доля по
+    # банку ничего не гарантирует: наполненный трек разбавляет перекос в новом.
+    # Проверено на живых данных — в банке из двух треков доля «длинного
+    # верного» была 13% суммарно и 31% внутри одного из треков.
+    for t in c.active_tracks():
+        pool = [q for q in c.questions if q.get("track_id") == t["id"]]
+        if len(pool) < 20:          # на малой выборке доли шумят
+            continue
+        long_in_track = sum(1 for q in pool if _correct_is_notably_longer(q))
+        share = long_in_track / len(pool)
+        if share > 0.25:
+            rep.err(f"track '{t['id']}': правильный ответ заметно длиннее остальных "
+                    f"в {share:.0%} вопросов трека (допустимо до 25%)")
+        tdist = {i: 0 for i in range(4)}
+        for q in pool:
+            a = q.get("answer")
+            if isinstance(a, int) and a in tdist:
+                tdist[a] += 1
+        for i, n in tdist.items():
+            s = n / len(pool)
+            if s > 0.45:
+                rep.err(f"track '{t['id']}': индекс правильного ответа {i} "
+                        f"встречается в {s:.0%} вопросов трека")
 
 
 def validate_mock(rep: Report, c) -> None:
@@ -341,6 +374,19 @@ def validate_mock(rep: Report, c) -> None:
             continue
         rep.check(cat in have, f"session_flow: нет ни одного вопроса категории '{cat}'")
 
+    # Сессия собирается из вопросов ОДНОГО трека: приложение фильтрует mock по
+    # track_id. Поэтому общая проверка выше ничего не гарантирует — пробел в
+    # новом треке она не увидит, пока категорию закрывает какой-то другой трек.
+    for t in c.active_tracks():
+        have_in_track = {q.get("category") for q in c.mock_questions
+                         if q.get("track_id") == t["id"]}
+        for cat in flow:
+            if cat == "candidate_questions":
+                continue
+            rep.check(cat in have_in_track,
+                      f"track '{t['id']}': нет ни одного mock-вопроса категории '{cat}' — "
+                      f"полная сессия для этого трека будет неполной")
+
 
 def validate_cases(rep: Report, c) -> None:
     check_unique_ids(rep, c.cases, "cases")
@@ -369,16 +415,20 @@ def validate_roadmap(rep: Report, c) -> None:
     step_ids = set(c.steps_by_id)
     topic_ids, lesson_ids = set(c.topics_by_id), set(c.lessons_by_id)
     case_ids, mock_ids, track_ids = set(c.cases_by_id), set(c.mock_by_id), set(c.tracks_by_id)
-    orders = set()
+    # order уникален В ПРЕДЕЛАХ ТРЕКА, как и у тем. Глобальная проверка была
+    # ошибкой: приложение показывает «Шаг {order} из {число шагов трека}», и
+    # сквозная нумерация во втором треке дала бы «Шаг 101 из 22».
+    orders: dict[str, set] = {}
 
     for x in c.roadmap:
         where = f"step '{x.get('id')}'"
         require_fields(rep, x, ["id", "track_id", "title", "goal"], where)
         rep.check(x.get("track_id") in track_ids, f"{where}: неизвестный track_id")
         rep.check(isinstance(x.get("order"), int), f"{where}: order должен быть числом")
-        if x.get("order") in orders:
-            rep.err(f"{where}: повторяющийся order {x.get('order')}")
-        orders.add(x.get("order"))
+        seen_orders = orders.setdefault(x.get("track_id"), set())
+        if x.get("order") in seen_orders:
+            rep.err(f"{where}: повторяющийся order {x.get('order')} внутри трека")
+        seen_orders.add(x.get("order"))
         rep.check(isinstance(x.get("required"), bool), f"{where}: required должен быть bool")
         rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
                   f"{where}: некорректный estimated_minutes")

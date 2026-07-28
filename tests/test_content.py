@@ -58,31 +58,40 @@ class TestCounts(unittest.TestCase):
                 )
 
     def test_question_distribution(self):
-        """Распределение вопросов по темам из требований."""
+        """Распределение вопросов по темам SEO-трека.
+
+        Проверка привязана к треку, а не к банку целиком: с появлением второго
+        трека сумма по SEO перестала совпадать с размером банка, и глобальная
+        проверка начала измерять не то, что задумано.
+        """
         expected = {
             "search-basics": 12, "search-intent": 10, "on-page": 18,
             "technical-seo": 24, "html-http": 12, "keyword-research": 12,
             "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
         }
         actual = {}
-        for q in self.c.questions:
+        seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
+        for q in seo:
             actual[q["topic"]] = actual.get(q["topic"], 0) + 1
         for topic, n in expected.items():
             with self.subTest(topic=topic):
                 self.assertEqual(actual.get(topic, 0), n,
                                  f"тема {topic}: {actual.get(topic, 0)} вопросов, ожидалось {n}")
-        self.assertEqual(sum(expected.values()), len(self.c.questions),
-                         "сумма распределения должна совпадать с размером банка")
+        self.assertEqual(sum(expected.values()), len(seo),
+                         "сумма распределения должна совпадать с числом вопросов трека")
 
     def test_active_track_is_complete(self):
-        """У активного трека есть всё необходимое для расчёта готовности."""
+        """У КАЖДОГО активного трека есть всё необходимое для расчёта готовности."""
         active = self.c.active_tracks()
-        self.assertEqual(len(active), 1, "в MVP должен быть ровно один наполненный трек")
-        t = active[0]
-        self.assertEqual(t["id"], "redcore-junior-seo")
-        self.assertTrue(t["critical_topic_ids"])
-        self.assertTrue(t["self_assessment_areas"])
-        self.assertTrue(any(v["id"] == t["vacancy_id"] for v in self.c.vacancies))
+        self.assertTrue(active, "должен быть хотя бы один наполненный трек")
+        for t in active:
+            with self.subTest(track=t["id"]):
+                self.assertTrue(t["critical_topic_ids"],
+                                "активный трек обязан объявлять критические темы")
+                self.assertTrue(t["self_assessment_areas"],
+                                "активный трек обязан иметь области самооценки")
+                self.assertTrue(any(v["id"] == t["vacancy_id"] for v in self.c.vacancies),
+                                "активный трек обязан ссылаться на существующую вакансию")
 
     def test_draft_tracks_are_empty(self):
         """Незаполненный трек не должен притворяться готовым."""

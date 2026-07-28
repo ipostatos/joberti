@@ -1,25 +1,365 @@
 {
   "schema": "topics/v1",
   "topics": [
-    { "id": "search-basics", "track_id": "redcore-junior-seo", "order": 1, "title": "Как работает поиск", "short": "Crawling, indexing, ranking и что из этого вы можете контролировать", "required": true, "critical": true },
-    { "id": "search-intent", "track_id": "redcore-junior-seo", "order": 2, "title": "Поисковый интент", "short": "Что человек на самом деле хочет получить по запросу и какой тип страницы этому отвечает", "required": true, "critical": true },
-    { "id": "on-page", "track_id": "redcore-junior-seo", "order": 3, "title": "On-page SEO", "short": "Title, description, заголовки, структура и содержимое страницы", "required": true, "critical": true },
-    { "id": "html-http", "track_id": "redcore-junior-seo", "order": 4, "title": "HTML и HTTP", "short": "Разметка документа, коды ответа сервера, редиректы", "required": true, "critical": false },
-    { "id": "technical-seo", "track_id": "redcore-junior-seo", "order": 5, "title": "Технический SEO", "short": "robots.txt, sitemap.xml, canonical, дубли, параметры, рендеринг", "required": true, "critical": true },
-    { "id": "indexing-gsc", "track_id": "redcore-junior-seo", "order": 6, "title": "Индексация и Search Console", "short": "Почему страница не в индексе и как это проверить в GSC", "required": true, "critical": true },
-    { "id": "keyword-research", "track_id": "redcore-junior-seo", "order": 7, "title": "Сбор семантики", "short": "Источники запросов, частотность, сложность, отбор", "required": true, "critical": true },
-    { "id": "clustering-mapping", "track_id": "redcore-junior-seo", "order": 8, "title": "Кластеризация и mapping", "short": "Группировка запросов и распределение их по страницам", "required": true, "critical": false },
-    { "id": "analytics-ga4", "track_id": "redcore-junior-seo", "order": 9, "title": "Аналитика и GA4", "short": "Каналы, сессии, события, конверсии и связка с органикой", "required": true, "critical": false },
-    { "id": "seo-tools", "track_id": "redcore-junior-seo", "order": 10, "title": "Инструменты SEO", "short": "Screaming Frog, Ahrefs, Semrush: что чем смотрят", "required": true, "critical": false },
-    { "id": "performance-cwv", "track_id": "redcore-junior-seo", "order": 11, "title": "Скорость и Core Web Vitals", "short": "LCP, INP, CLS: что измеряют и на что влияют", "required": true, "critical": false },
-    { "id": "internal-linking", "track_id": "redcore-junior-seo", "order": 12, "title": "Внутренняя перелинковка", "short": "Как ссылки внутри сайта распределяют вес и помогают обходу", "required": true, "critical": false },
-    { "id": "international-seo", "track_id": "redcore-junior-seo", "order": 13, "title": "Международное SEO", "short": "hreflang, языковые и региональные версии", "required": false, "critical": false },
-    { "id": "content-briefs", "track_id": "redcore-junior-seo", "order": 14, "title": "Контентные ТЗ", "short": "Как поставить задачу копирайтеру, чтобы текст решал задачу поиска", "required": true, "critical": false },
-    { "id": "competitor-analysis", "track_id": "redcore-junior-seo", "order": 15, "title": "Конкурентный анализ", "short": "Кто в выдаче, за счёт чего и что из этого воспроизводимо", "required": true, "critical": false },
-    { "id": "sheets", "track_id": "redcore-junior-seo", "order": 16, "title": "Google Sheets для SEO", "short": "Обработка выгрузок: формулы, сводные, склейка данных", "required": true, "critical": false },
-    { "id": "reporting", "track_id": "redcore-junior-seo", "order": 17, "title": "Отчётность", "short": "Что показывать заказчику и как отделить сигнал от шума", "required": true, "critical": false },
-    { "id": "dev-communication", "track_id": "redcore-junior-seo", "order": 18, "title": "Работа с разработчиками", "short": "Как сформулировать техническую задачу так, чтобы её сделали", "required": true, "critical": false },
-    { "id": "interview-seo", "track_id": "redcore-junior-seo", "order": 19, "title": "Вопросы SEO-интервью", "short": "Что реально спрашивают junior-кандидата и как отвечать", "required": true, "critical": false },
-    { "id": "behavioral", "track_id": "redcore-junior-seo", "order": 20, "title": "Behavioral interview", "short": "Истории про опыт, конфликты, ошибки и обучение по схеме STAR", "required": true, "critical": false }
+    {
+      "id": "search-basics",
+      "track_id": "redcore-junior-seo",
+      "order": 1,
+      "title": "Как работает поиск",
+      "short": "Crawling, indexing, ranking и что из этого вы можете контролировать",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "search-intent",
+      "track_id": "redcore-junior-seo",
+      "order": 2,
+      "title": "Поисковый интент",
+      "short": "Что человек на самом деле хочет получить по запросу и какой тип страницы этому отвечает",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "on-page",
+      "track_id": "redcore-junior-seo",
+      "order": 3,
+      "title": "On-page SEO",
+      "short": "Title, description, заголовки, структура и содержимое страницы",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "html-http",
+      "track_id": "redcore-junior-seo",
+      "order": 4,
+      "title": "HTML и HTTP",
+      "short": "Разметка документа, коды ответа сервера, редиректы",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "technical-seo",
+      "track_id": "redcore-junior-seo",
+      "order": 5,
+      "title": "Технический SEO",
+      "short": "robots.txt, sitemap.xml, canonical, дубли, параметры, рендеринг",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "indexing-gsc",
+      "track_id": "redcore-junior-seo",
+      "order": 6,
+      "title": "Индексация и Search Console",
+      "short": "Почему страница не в индексе и как это проверить в GSC",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "keyword-research",
+      "track_id": "redcore-junior-seo",
+      "order": 7,
+      "title": "Сбор семантики",
+      "short": "Источники запросов, частотность, сложность, отбор",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "clustering-mapping",
+      "track_id": "redcore-junior-seo",
+      "order": 8,
+      "title": "Кластеризация и mapping",
+      "short": "Группировка запросов и распределение их по страницам",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "analytics-ga4",
+      "track_id": "redcore-junior-seo",
+      "order": 9,
+      "title": "Аналитика и GA4",
+      "short": "Каналы, сессии, события, конверсии и связка с органикой",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "seo-tools",
+      "track_id": "redcore-junior-seo",
+      "order": 10,
+      "title": "Инструменты SEO",
+      "short": "Screaming Frog, Ahrefs, Semrush: что чем смотрят",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "performance-cwv",
+      "track_id": "redcore-junior-seo",
+      "order": 11,
+      "title": "Скорость и Core Web Vitals",
+      "short": "LCP, INP, CLS: что измеряют и на что влияют",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "internal-linking",
+      "track_id": "redcore-junior-seo",
+      "order": 12,
+      "title": "Внутренняя перелинковка",
+      "short": "Как ссылки внутри сайта распределяют вес и помогают обходу",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "international-seo",
+      "track_id": "redcore-junior-seo",
+      "order": 13,
+      "title": "Международное SEO",
+      "short": "hreflang, языковые и региональные версии",
+      "required": false,
+      "critical": false
+    },
+    {
+      "id": "content-briefs",
+      "track_id": "redcore-junior-seo",
+      "order": 14,
+      "title": "Контентные ТЗ",
+      "short": "Как поставить задачу копирайтеру, чтобы текст решал задачу поиска",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "competitor-analysis",
+      "track_id": "redcore-junior-seo",
+      "order": 15,
+      "title": "Конкурентный анализ",
+      "short": "Кто в выдаче, за счёт чего и что из этого воспроизводимо",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "sheets",
+      "track_id": "redcore-junior-seo",
+      "order": 16,
+      "title": "Google Sheets для SEO",
+      "short": "Обработка выгрузок: формулы, сводные, склейка данных",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "reporting",
+      "track_id": "redcore-junior-seo",
+      "order": 17,
+      "title": "Отчётность",
+      "short": "Что показывать заказчику и как отделить сигнал от шума",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "dev-communication",
+      "track_id": "redcore-junior-seo",
+      "order": 18,
+      "title": "Работа с разработчиками",
+      "short": "Как сформулировать техническую задачу так, чтобы её сделали",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "interview-seo",
+      "track_id": "redcore-junior-seo",
+      "order": 19,
+      "title": "Вопросы SEO-интервью",
+      "short": "Что реально спрашивают junior-кандидата и как отвечать",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "behavioral",
+      "track_id": "redcore-junior-seo",
+      "order": 20,
+      "title": "Behavioral interview",
+      "short": "Истории про опыт, конфликты, ошибки и обучение по схеме STAR",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "linux-basics",
+      "track_id": "devops-platform",
+      "order": 1,
+      "title": "Linux и командная строка",
+      "short": "Процессы, файловая система, права, systemd, диагностика на живой машине",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "networking",
+      "track_id": "devops-platform",
+      "order": 2,
+      "title": "Сети и протоколы",
+      "short": "DNS, TCP, HTTP, TLS, порты, маршрутизация и типовая диагностика связности",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "git-vcs",
+      "track_id": "devops-platform",
+      "order": 3,
+      "title": "Git и работа с кодом",
+      "short": "Ветвление, merge и rebase, конфликты, review, теги и версии",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ci-cd",
+      "track_id": "devops-platform",
+      "order": 4,
+      "title": "CI/CD",
+      "short": "Конвейеры сборки и выката, стадии, артефакты, кэш, отладка упавшей сборки",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "containers",
+      "track_id": "devops-platform",
+      "order": 5,
+      "title": "Контейнеры и Docker",
+      "short": "Слои образа, процессы в контейнере, сеть, тома, отличия от виртуальной машины",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "images-registry",
+      "track_id": "devops-platform",
+      "order": 6,
+      "title": "Образы и реестры",
+      "short": "Dockerfile, многостадийная сборка, теги и дайджесты, размер образа, реестр",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "kubernetes",
+      "track_id": "devops-platform",
+      "order": 7,
+      "title": "Kubernetes",
+      "short": "Pod, Deployment, Service, ConfigMap, планировщик и как приложение туда попадает",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "k8s-operations",
+      "track_id": "devops-platform",
+      "order": 8,
+      "title": "Эксплуатация Kubernetes",
+      "short": "CrashLoopBackOff, OOMKilled, лимиты и запросы, probes, разбор упавшего пода",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "iac",
+      "track_id": "devops-platform",
+      "order": 9,
+      "title": "Инфраструктура как код",
+      "short": "Terraform: план и применение, состояние, идемпотентность, дрейф конфигурации",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "config-secrets",
+      "track_id": "devops-platform",
+      "order": 10,
+      "title": "Конфигурация и секреты",
+      "short": "Переменные окружения, хранение секретов, разделение сред, ротация",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "observability",
+      "track_id": "devops-platform",
+      "order": 11,
+      "title": "Наблюдаемость",
+      "short": "Логи, метрики, трассировки: что чем измеряют и почему одного мало",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "reliability-slo",
+      "track_id": "devops-platform",
+      "order": 12,
+      "title": "Надёжность и SLO",
+      "short": "SLI, SLO, бюджет ошибок, доступность в девятках, что считать простоем",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "incidents",
+      "track_id": "devops-platform",
+      "order": 13,
+      "title": "Инциденты и дежурства",
+      "short": "Обнаружение, эскалация, коммуникация во время аварии, постмортем без поиска виноватых",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "deployment-strategies",
+      "track_id": "devops-platform",
+      "order": 14,
+      "title": "Стратегии выката",
+      "short": "Rolling, blue-green, канареечный выкат, откат, миграции базы под нагрузкой",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "cloud-basics",
+      "track_id": "devops-platform",
+      "order": 15,
+      "title": "Облачные основы",
+      "short": "Регионы и зоны, вычисления, хранилища, сети и права доступа в облаке",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "security-pipeline",
+      "track_id": "devops-platform",
+      "order": 16,
+      "title": "Безопасность конвейера",
+      "short": "Права по минимуму, сканирование образов, зависимости, секреты в репозитории",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "databases-ops",
+      "track_id": "devops-platform",
+      "order": 17,
+      "title": "Базы данных в эксплуатации",
+      "short": "Резервные копии и проверка восстановления, миграции, реплики, блокировки",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "scripting",
+      "track_id": "devops-platform",
+      "order": 18,
+      "title": "Скрипты и автоматизация",
+      "short": "Bash и Python для эксплуатации: коды возврата, идемпотентность, безопасные скрипты",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "cost-capacity",
+      "track_id": "devops-platform",
+      "order": 19,
+      "title": "Стоимость и ёмкость",
+      "short": "Откуда берётся счёт за облако, запас мощности, автомасштабирование",
+      "required": false,
+      "critical": false
+    },
+    {
+      "id": "behavioral-devops",
+      "track_id": "devops-platform",
+      "order": 20,
+      "title": "Behavioral interview",
+      "short": "Рассказ о своих проектах, поведение в аварии, работа с разработчиками, STAR",
+      "required": true,
+      "critical": false
+    }
   ]
 }

@@ -2,29 +2,1204 @@
   "schema": "roadmap/v1",
   "note": "practice_items: 'quiz:<topic_id>' — тест по теме, 'case:<id>' — практический кейс, 'mock:<id>' — открытый вопрос.",
   "steps": [
-    { "id": "step-01-how-search-works", "track_id": "redcore-junior-seo", "order": 1, "title": "Как работает Google", "goal": "Объяснить crawling, indexing и ranking и понимать, на каком этапе может застрять страница", "topic_ids": ["search-basics"], "estimated_minutes": 45, "required": true, "prerequisites": [], "study_items": ["lesson-how-search-works", "lesson-crawl-budget-discovery"], "practice_items": ["quiz:search-basics", "mock:mock-fundamentals-001"], "completion_rule": { "lesson_read": true, "quiz_score_min": 80 } },
-    { "id": "step-02-search-intent", "track_id": "redcore-junior-seo", "order": 2, "title": "Поисковый интент", "goal": "Определять интент по фактической выдаче и выбирать тип страницы под запрос", "topic_ids": ["search-intent"], "estimated_minutes": 40, "required": true, "prerequisites": ["step-01-how-search-works"], "study_items": ["lesson-search-intent"], "practice_items": ["quiz:search-intent", "mock:mock-fundamentals-005"], "completion_rule": { "lesson_read": true, "quiz_score_min": 80 } },
-    { "id": "step-03-onpage", "track_id": "redcore-junior-seo", "order": 3, "title": "On-page SEO", "goal": "Понимать, что на странице действительно влияет на релевантность, и уметь это править", "topic_ids": ["on-page"], "estimated_minutes": 50, "required": true, "prerequisites": ["step-02-search-intent"], "study_items": ["lesson-onpage-basics"], "practice_items": ["quiz:on-page"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-04-title-description", "track_id": "redcore-junior-seo", "order": 4, "title": "Title и meta description", "goal": "Писать заголовки и описания и объяснять, на что каждый из них влияет", "topic_ids": ["on-page"], "estimated_minutes": 35, "required": true, "prerequisites": ["step-03-onpage"], "study_items": ["lesson-title-description"], "practice_items": ["mock:mock-fundamentals-006", "case:case-duplicate-titles-007"], "completion_rule": { "lesson_read": true, "mock_answered_min": 1 } },
-    { "id": "step-05-html", "track_id": "redcore-junior-seo", "order": 5, "title": "HTML и структура документа", "goal": "Уверенно читать исходный код страницы и находить нужные теги", "topic_ids": ["html-http"], "estimated_minutes": 40, "required": true, "prerequisites": [], "study_items": ["lesson-html-structure"], "practice_items": ["quiz:html-http"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-06-http-redirects", "track_id": "redcore-junior-seo", "order": 6, "title": "HTTP-коды и редиректы", "goal": "Различать коды ответа и осознанно выбирать тип редиректа", "topic_ids": ["html-http"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-05-html"], "study_items": ["lesson-http-codes-redirects"], "practice_items": ["mock:mock-fundamentals-003", "case:case-redirect-chains-005"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-07-robots-sitemap-canonical", "track_id": "redcore-junior-seo", "order": 7, "title": "robots.txt, sitemap.xml, canonical", "goal": "Не путать управление обходом и управление индексацией", "topic_ids": ["technical-seo"], "estimated_minutes": 60, "required": true, "prerequisites": ["step-01-how-search-works"], "study_items": ["lesson-robots-sitemap-canonical"], "practice_items": ["quiz:technical-seo", "mock:mock-fundamentals-002", "mock:mock-fundamentals-004"], "completion_rule": { "lesson_read": true, "quiz_score_min": 80, "mock_answered_min": 2 } },
-    { "id": "step-08-indexing-gsc", "track_id": "redcore-junior-seo", "order": 8, "title": "Индексация и Search Console", "goal": "Уметь по шагам найти причину, почему страница не в индексе", "topic_ids": ["indexing-gsc"], "estimated_minutes": 60, "required": true, "prerequisites": ["step-07-robots-sitemap-canonical"], "study_items": ["lesson-indexing-diagnostics"], "practice_items": ["quiz:indexing-gsc", "case:case-indexing-001", "mock:mock-technical-001"], "completion_rule": { "lesson_read": true, "quiz_score_min": 80, "case_completed_min": 1 } },
-    { "id": "step-09-keyword-research", "track_id": "redcore-junior-seo", "order": 9, "title": "Сбор семантики", "goal": "Собрать ядро из нескольких источников и почистить его", "topic_ids": ["keyword-research"], "estimated_minutes": 55, "required": true, "prerequisites": ["step-02-search-intent"], "study_items": ["lesson-keyword-research"], "practice_items": ["quiz:keyword-research", "mock:mock-practical-001"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-10-clustering-mapping", "track_id": "redcore-junior-seo", "order": 10, "title": "Кластеризация и mapping", "goal": "Сгруппировать запросы по выдаче и привязать каждую группу к URL", "topic_ids": ["clustering-mapping"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-09-keyword-research"], "study_items": ["lesson-clustering-mapping"], "practice_items": ["case:case-semantics-009"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-11-screaming-frog", "track_id": "redcore-junior-seo", "order": 11, "title": "Screaming Frog", "goal": "Прокраулить сайт и превратить выгрузку в приоритизированный список проблем", "topic_ids": ["seo-tools"], "estimated_minutes": 60, "required": true, "prerequisites": ["step-06-http-redirects"], "study_items": ["lesson-screaming-frog"], "practice_items": ["quiz:seo-tools", "mock:mock-tools-002"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-12-ga4", "track_id": "redcore-junior-seo", "order": 12, "title": "GA4", "goal": "Читать органический канал, посадочные страницы и ключевые события", "topic_ids": ["analytics-ga4"], "estimated_minutes": 55, "required": true, "prerequisites": [], "study_items": ["lesson-ga4-basics"], "practice_items": ["quiz:analytics-ga4", "mock:mock-fundamentals-008"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-13-ahrefs-semrush", "track_id": "redcore-junior-seo", "order": 13, "title": "Ahrefs и Semrush", "goal": "Понимать, где у этих сервисов данные, а где оценки", "topic_ids": ["seo-tools"], "estimated_minutes": 40, "required": true, "prerequisites": ["step-11-screaming-frog"], "study_items": ["lesson-ahrefs-semrush"], "practice_items": ["mock:mock-tools-001"], "completion_rule": { "lesson_read": true, "mock_answered_min": 1 } },
-    { "id": "step-14-core-web-vitals", "track_id": "redcore-junior-seo", "order": 14, "title": "Core Web Vitals", "goal": "Назвать метрики с порогами и трезво оценивать их влияние", "topic_ids": ["performance-cwv"], "estimated_minutes": 45, "required": true, "prerequisites": [], "study_items": ["lesson-core-web-vitals"], "practice_items": ["case:case-cwv-008", "mock:mock-technical-005"], "completion_rule": { "lesson_read": true, "mock_answered_min": 1 } },
-    { "id": "step-15-internal-linking", "track_id": "redcore-junior-seo", "order": 15, "title": "Внутренняя перелинковка", "goal": "Объяснить три задачи внутренних ссылок и найти слабые места на сайте", "topic_ids": ["internal-linking"], "estimated_minutes": 35, "required": true, "prerequisites": ["step-03-onpage"], "study_items": ["lesson-internal-linking"], "practice_items": ["mock:mock-fundamentals-007"], "completion_rule": { "lesson_read": true, "mock_answered_min": 1 } },
-    { "id": "step-16-international", "track_id": "redcore-junior-seo", "order": 16, "title": "Международное и мультиязычное SEO", "goal": "Настроить hreflang и знать три типичные ошибки", "topic_ids": ["international-seo"], "estimated_minutes": 45, "required": false, "prerequisites": ["step-07-robots-sitemap-canonical"], "study_items": ["lesson-international-seo"], "practice_items": ["case:case-hreflang-004", "mock:mock-technical-007"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-17-content-briefs", "track_id": "redcore-junior-seo", "order": 17, "title": "Контентные ТЗ", "goal": "Написать ТЗ, по которому текст сделают с первого раза", "topic_ids": ["content-briefs"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-10-clustering-mapping"], "study_items": ["lesson-content-brief"], "practice_items": ["case:case-content-brief-010", "mock:mock-practical-002"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-18-competitor-analysis", "track_id": "redcore-junior-seo", "order": 18, "title": "Конкурентный анализ", "goal": "Превратить анализ выдачи в список воспроизводимых действий", "topic_ids": ["competitor-analysis"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-13-ahrefs-semrush"], "study_items": ["lesson-competitor-analysis"], "practice_items": ["mock:mock-practical-005"], "completion_rule": { "lesson_read": true, "mock_answered_min": 1 } },
-    { "id": "step-19-sheets", "track_id": "redcore-junior-seo", "order": 19, "title": "Google Sheets для SEO", "goal": "Соединять выгрузки по URL и считать сводными таблицами", "topic_ids": ["sheets"], "estimated_minutes": 45, "required": true, "prerequisites": [], "study_items": ["lesson-sheets-for-seo"], "practice_items": ["quiz:reporting", "mock:mock-tools-004"], "completion_rule": { "lesson_read": true, "quiz_score_min": 75 } },
-    { "id": "step-20-reporting", "track_id": "redcore-junior-seo", "order": 20, "title": "Отчётность", "goal": "Собрать отчёт, который отвечает на вопросы заказчика и не приукрашивает", "topic_ids": ["reporting"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-12-ga4", "step-19-sheets"], "study_items": ["lesson-reporting"], "practice_items": ["case:case-report-011", "mock:mock-practical-004"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-21-dev-communication", "track_id": "redcore-junior-seo", "order": 21, "title": "Коммуникация с разработчиками", "goal": "Ставить задачи так, чтобы их делали без уточняющих вопросов", "topic_ids": ["dev-communication"], "estimated_minutes": 40, "required": true, "prerequisites": ["step-07-robots-sitemap-canonical"], "study_items": ["lesson-dev-communication"], "practice_items": ["case:case-dev-task-012", "mock:mock-practical-003"], "completion_rule": { "lesson_read": true, "case_completed_min": 1 } },
-    { "id": "step-22-interview-questions", "track_id": "redcore-junior-seo", "order": 22, "title": "Вопросы junior SEO интервью", "goal": "Проговорить вслух ответы на базовые вопросы и уложить каждый в минуту", "topic_ids": ["interview-seo"], "estimated_minutes": 60, "required": true, "prerequisites": ["step-08-indexing-gsc"], "study_items": ["lesson-interview-questions"], "practice_items": ["mock:mock-intro-001", "mock:mock-motivation-001", "mock:mock-practical-006"], "completion_rule": { "lesson_read": true, "mock_answered_min": 3 } },
-    { "id": "step-23-behavioral", "track_id": "redcore-junior-seo", "order": 23, "title": "Behavioral interview и story bank", "goal": "Подготовить три истории по схеме STAR и уложить каждую в 90 секунд", "topic_ids": ["behavioral"], "estimated_minutes": 60, "required": true, "prerequisites": [], "study_items": ["lesson-behavioral-star"], "practice_items": ["mock:mock-behavioral-001", "mock:mock-behavioral-002", "mock:mock-behavioral-003"], "completion_rule": { "lesson_read": true, "mock_answered_min": 3, "stories_filled_min": 3 } },
-    { "id": "step-24-final-mock", "track_id": "redcore-junior-seo", "order": 24, "title": "Финальное mock interview", "goal": "Пройти полную сессию и получить разбор по блокам", "topic_ids": ["interview-seo", "behavioral", "technical-seo"], "estimated_minutes": 45, "required": true, "prerequisites": ["step-22-interview-questions", "step-23-behavioral", "step-08-indexing-gsc"], "study_items": [], "practice_items": ["mock:mock-technical-002", "mock:mock-communication-003", "mock:mock-english-002"], "completion_rule": { "full_mock_sessions_min": 1 } }
+    {
+      "id": "step-01-how-search-works",
+      "track_id": "redcore-junior-seo",
+      "order": 1,
+      "title": "Как работает Google",
+      "goal": "Объяснить crawling, indexing и ranking и понимать, на каком этапе может застрять страница",
+      "topic_ids": [
+        "search-basics"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-how-search-works",
+        "lesson-crawl-budget-discovery"
+      ],
+      "practice_items": [
+        "quiz:search-basics",
+        "mock:mock-fundamentals-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-02-search-intent",
+      "track_id": "redcore-junior-seo",
+      "order": 2,
+      "title": "Поисковый интент",
+      "goal": "Определять интент по фактической выдаче и выбирать тип страницы под запрос",
+      "topic_ids": [
+        "search-intent"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [
+        "step-01-how-search-works"
+      ],
+      "study_items": [
+        "lesson-search-intent"
+      ],
+      "practice_items": [
+        "quiz:search-intent",
+        "mock:mock-fundamentals-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-03-onpage",
+      "track_id": "redcore-junior-seo",
+      "order": 3,
+      "title": "On-page SEO",
+      "goal": "Понимать, что на странице действительно влияет на релевантность, и уметь это править",
+      "topic_ids": [
+        "on-page"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-02-search-intent"
+      ],
+      "study_items": [
+        "lesson-onpage-basics"
+      ],
+      "practice_items": [
+        "quiz:on-page"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-04-title-description",
+      "track_id": "redcore-junior-seo",
+      "order": 4,
+      "title": "Title и meta description",
+      "goal": "Писать заголовки и описания и объяснять, на что каждый из них влияет",
+      "topic_ids": [
+        "on-page"
+      ],
+      "estimated_minutes": 35,
+      "required": true,
+      "prerequisites": [
+        "step-03-onpage"
+      ],
+      "study_items": [
+        "lesson-title-description"
+      ],
+      "practice_items": [
+        "mock:mock-fundamentals-006",
+        "case:case-duplicate-titles-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-05-html",
+      "track_id": "redcore-junior-seo",
+      "order": 5,
+      "title": "HTML и структура документа",
+      "goal": "Уверенно читать исходный код страницы и находить нужные теги",
+      "topic_ids": [
+        "html-http"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-html-structure"
+      ],
+      "practice_items": [
+        "quiz:html-http"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-06-http-redirects",
+      "track_id": "redcore-junior-seo",
+      "order": 6,
+      "title": "HTTP-коды и редиректы",
+      "goal": "Различать коды ответа и осознанно выбирать тип редиректа",
+      "topic_ids": [
+        "html-http"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-05-html"
+      ],
+      "study_items": [
+        "lesson-http-codes-redirects"
+      ],
+      "practice_items": [
+        "mock:mock-fundamentals-003",
+        "case:case-redirect-chains-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-07-robots-sitemap-canonical",
+      "track_id": "redcore-junior-seo",
+      "order": 7,
+      "title": "robots.txt, sitemap.xml, canonical",
+      "goal": "Не путать управление обходом и управление индексацией",
+      "topic_ids": [
+        "technical-seo"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-01-how-search-works"
+      ],
+      "study_items": [
+        "lesson-robots-sitemap-canonical"
+      ],
+      "practice_items": [
+        "quiz:technical-seo",
+        "mock:mock-fundamentals-002",
+        "mock:mock-fundamentals-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 2
+      }
+    },
+    {
+      "id": "step-08-indexing-gsc",
+      "track_id": "redcore-junior-seo",
+      "order": 8,
+      "title": "Индексация и Search Console",
+      "goal": "Уметь по шагам найти причину, почему страница не в индексе",
+      "topic_ids": [
+        "indexing-gsc"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-07-robots-sitemap-canonical"
+      ],
+      "study_items": [
+        "lesson-indexing-diagnostics"
+      ],
+      "practice_items": [
+        "quiz:indexing-gsc",
+        "case:case-indexing-001",
+        "mock:mock-technical-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-09-keyword-research",
+      "track_id": "redcore-junior-seo",
+      "order": 9,
+      "title": "Сбор семантики",
+      "goal": "Собрать ядро из нескольких источников и почистить его",
+      "topic_ids": [
+        "keyword-research"
+      ],
+      "estimated_minutes": 55,
+      "required": true,
+      "prerequisites": [
+        "step-02-search-intent"
+      ],
+      "study_items": [
+        "lesson-keyword-research"
+      ],
+      "practice_items": [
+        "quiz:keyword-research",
+        "mock:mock-practical-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-10-clustering-mapping",
+      "track_id": "redcore-junior-seo",
+      "order": 10,
+      "title": "Кластеризация и mapping",
+      "goal": "Сгруппировать запросы по выдаче и привязать каждую группу к URL",
+      "topic_ids": [
+        "clustering-mapping"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-09-keyword-research"
+      ],
+      "study_items": [
+        "lesson-clustering-mapping"
+      ],
+      "practice_items": [
+        "case:case-semantics-009"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-11-screaming-frog",
+      "track_id": "redcore-junior-seo",
+      "order": 11,
+      "title": "Screaming Frog",
+      "goal": "Прокраулить сайт и превратить выгрузку в приоритизированный список проблем",
+      "topic_ids": [
+        "seo-tools"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-06-http-redirects"
+      ],
+      "study_items": [
+        "lesson-screaming-frog"
+      ],
+      "practice_items": [
+        "quiz:seo-tools",
+        "mock:mock-tools-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-12-ga4",
+      "track_id": "redcore-junior-seo",
+      "order": 12,
+      "title": "GA4",
+      "goal": "Читать органический канал, посадочные страницы и ключевые события",
+      "topic_ids": [
+        "analytics-ga4"
+      ],
+      "estimated_minutes": 55,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-ga4-basics"
+      ],
+      "practice_items": [
+        "quiz:analytics-ga4",
+        "mock:mock-fundamentals-008"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-13-ahrefs-semrush",
+      "track_id": "redcore-junior-seo",
+      "order": 13,
+      "title": "Ahrefs и Semrush",
+      "goal": "Понимать, где у этих сервисов данные, а где оценки",
+      "topic_ids": [
+        "seo-tools"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [
+        "step-11-screaming-frog"
+      ],
+      "study_items": [
+        "lesson-ahrefs-semrush"
+      ],
+      "practice_items": [
+        "mock:mock-tools-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-14-core-web-vitals",
+      "track_id": "redcore-junior-seo",
+      "order": 14,
+      "title": "Core Web Vitals",
+      "goal": "Назвать метрики с порогами и трезво оценивать их влияние",
+      "topic_ids": [
+        "performance-cwv"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-core-web-vitals"
+      ],
+      "practice_items": [
+        "case:case-cwv-008",
+        "mock:mock-technical-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-15-internal-linking",
+      "track_id": "redcore-junior-seo",
+      "order": 15,
+      "title": "Внутренняя перелинковка",
+      "goal": "Объяснить три задачи внутренних ссылок и найти слабые места на сайте",
+      "topic_ids": [
+        "internal-linking"
+      ],
+      "estimated_minutes": 35,
+      "required": true,
+      "prerequisites": [
+        "step-03-onpage"
+      ],
+      "study_items": [
+        "lesson-internal-linking"
+      ],
+      "practice_items": [
+        "mock:mock-fundamentals-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-16-international",
+      "track_id": "redcore-junior-seo",
+      "order": 16,
+      "title": "Международное и мультиязычное SEO",
+      "goal": "Настроить hreflang и знать три типичные ошибки",
+      "topic_ids": [
+        "international-seo"
+      ],
+      "estimated_minutes": 45,
+      "required": false,
+      "prerequisites": [
+        "step-07-robots-sitemap-canonical"
+      ],
+      "study_items": [
+        "lesson-international-seo"
+      ],
+      "practice_items": [
+        "case:case-hreflang-004",
+        "mock:mock-technical-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-17-content-briefs",
+      "track_id": "redcore-junior-seo",
+      "order": 17,
+      "title": "Контентные ТЗ",
+      "goal": "Написать ТЗ, по которому текст сделают с первого раза",
+      "topic_ids": [
+        "content-briefs"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-10-clustering-mapping"
+      ],
+      "study_items": [
+        "lesson-content-brief"
+      ],
+      "practice_items": [
+        "case:case-content-brief-010",
+        "mock:mock-practical-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-18-competitor-analysis",
+      "track_id": "redcore-junior-seo",
+      "order": 18,
+      "title": "Конкурентный анализ",
+      "goal": "Превратить анализ выдачи в список воспроизводимых действий",
+      "topic_ids": [
+        "competitor-analysis"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-13-ahrefs-semrush"
+      ],
+      "study_items": [
+        "lesson-competitor-analysis"
+      ],
+      "practice_items": [
+        "mock:mock-practical-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-19-sheets",
+      "track_id": "redcore-junior-seo",
+      "order": 19,
+      "title": "Google Sheets для SEO",
+      "goal": "Соединять выгрузки по URL и считать сводными таблицами",
+      "topic_ids": [
+        "sheets"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-sheets-for-seo"
+      ],
+      "practice_items": [
+        "quiz:reporting",
+        "mock:mock-tools-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 75
+      }
+    },
+    {
+      "id": "step-20-reporting",
+      "track_id": "redcore-junior-seo",
+      "order": 20,
+      "title": "Отчётность",
+      "goal": "Собрать отчёт, который отвечает на вопросы заказчика и не приукрашивает",
+      "topic_ids": [
+        "reporting"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-12-ga4",
+        "step-19-sheets"
+      ],
+      "study_items": [
+        "lesson-reporting"
+      ],
+      "practice_items": [
+        "case:case-report-011",
+        "mock:mock-practical-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-21-dev-communication",
+      "track_id": "redcore-junior-seo",
+      "order": 21,
+      "title": "Коммуникация с разработчиками",
+      "goal": "Ставить задачи так, чтобы их делали без уточняющих вопросов",
+      "topic_ids": [
+        "dev-communication"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [
+        "step-07-robots-sitemap-canonical"
+      ],
+      "study_items": [
+        "lesson-dev-communication"
+      ],
+      "practice_items": [
+        "case:case-dev-task-012",
+        "mock:mock-practical-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-22-interview-questions",
+      "track_id": "redcore-junior-seo",
+      "order": 22,
+      "title": "Вопросы junior SEO интервью",
+      "goal": "Проговорить вслух ответы на базовые вопросы и уложить каждый в минуту",
+      "topic_ids": [
+        "interview-seo"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-08-indexing-gsc"
+      ],
+      "study_items": [
+        "lesson-interview-questions"
+      ],
+      "practice_items": [
+        "mock:mock-intro-001",
+        "mock:mock-motivation-001",
+        "mock:mock-practical-006"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 3
+      }
+    },
+    {
+      "id": "step-23-behavioral",
+      "track_id": "redcore-junior-seo",
+      "order": 23,
+      "title": "Behavioral interview и story bank",
+      "goal": "Подготовить три истории по схеме STAR и уложить каждую в 90 секунд",
+      "topic_ids": [
+        "behavioral"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-behavioral-star"
+      ],
+      "practice_items": [
+        "mock:mock-behavioral-001",
+        "mock:mock-behavioral-002",
+        "mock:mock-behavioral-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 3,
+        "stories_filled_min": 3
+      }
+    },
+    {
+      "id": "step-24-final-mock",
+      "track_id": "redcore-junior-seo",
+      "order": 24,
+      "title": "Финальное mock interview",
+      "goal": "Пройти полную сессию и получить разбор по блокам",
+      "topic_ids": [
+        "interview-seo",
+        "behavioral",
+        "technical-seo"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-22-interview-questions",
+        "step-23-behavioral",
+        "step-08-indexing-gsc"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-technical-002",
+        "mock:mock-communication-003",
+        "mock:mock-english-002"
+      ],
+      "completion_rule": {
+        "full_mock_sessions_min": 1
+      }
+    },
+    {
+      "id": "step-dv-01-linux",
+      "track_id": "devops-platform",
+      "order": 1,
+      "title": "Linux и службы",
+      "goal": "Уверенно читать состояние службы и журнал: с этого начинается любая диагностика",
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [
+        "lesson-linux-processes-services"
+      ],
+      "practice_items": [
+        "quiz:linux-basics",
+        "mock:mock-devops-tools-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-02-networking",
+      "track_id": "devops-platform",
+      "order": 2,
+      "title": "Сеть и путь запроса",
+      "goal": "Пройти цепочку от домена до ответа приложения и знать, чем проверяется каждый шаг",
+      "topic_ids": [
+        "networking"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-01-linux"
+      ],
+      "study_items": [
+        "lesson-networking-diagnostics"
+      ],
+      "practice_items": [
+        "quiz:networking",
+        "mock:mock-devops-fund-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-03-git",
+      "track_id": "devops-platform",
+      "order": 3,
+      "title": "Git и релизы",
+      "goal": "Объяснять выбор между merge и rebase и собирать релиз по тегу",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [
+        "step-dv-01-linux"
+      ],
+      "study_items": [
+        "lesson-git-branching-review"
+      ],
+      "practice_items": [
+        "quiz:git-vcs"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-04-containers",
+      "track_id": "devops-platform",
+      "order": 4,
+      "title": "Контейнеры",
+      "goal": "Внятно отвечать, чем контейнер отличается от виртуальной машины, и понимать эфемерность",
+      "topic_ids": [
+        "containers"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-dv-01-linux"
+      ],
+      "study_items": [
+        "lesson-containers-basics"
+      ],
+      "practice_items": [
+        "quiz:containers",
+        "mock:mock-devops-fund-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-05-images",
+      "track_id": "devops-platform",
+      "order": 5,
+      "title": "Образы и кэш сборки",
+      "goal": "Уметь уменьшить образ и ускорить сборку, понимая слои",
+      "topic_ids": [
+        "images-registry"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-dv-04-containers"
+      ],
+      "study_items": [
+        "lesson-images-layers"
+      ],
+      "practice_items": [
+        "quiz:images-registry",
+        "case:case-devops-pipeline-004",
+        "mock:mock-devops-tech-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-06-cicd",
+      "track_id": "devops-platform",
+      "order": 6,
+      "title": "Конвейер CI/CD",
+      "goal": "Понимать стадии конвейера и уметь разобрать упавшую сборку",
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-03-git",
+        "step-dv-05-images"
+      ],
+      "study_items": [
+        "lesson-ci-cd-pipeline"
+      ],
+      "practice_items": [
+        "quiz:ci-cd",
+        "mock:mock-devops-tech-004",
+        "mock:mock-devops-tools-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-dv-07-k8s",
+      "track_id": "devops-platform",
+      "order": 7,
+      "title": "Kubernetes: базовые объекты",
+      "goal": "Объяснять связку Pod, Deployment, Service и декларативную модель",
+      "topic_ids": [
+        "kubernetes"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-dv-04-containers"
+      ],
+      "study_items": [
+        "lesson-kubernetes-objects"
+      ],
+      "practice_items": [
+        "quiz:kubernetes",
+        "mock:mock-devops-fund-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-08-k8s-ops",
+      "track_id": "devops-platform",
+      "order": 8,
+      "title": "Kubernetes: разбор проблем",
+      "goal": "Отличать Pending, CrashLoopBackOff и OOMKilled и знать порядок разбора",
+      "topic_ids": [
+        "k8s-operations"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-dv-07-k8s"
+      ],
+      "study_items": [
+        "lesson-k8s-troubleshooting"
+      ],
+      "practice_items": [
+        "quiz:k8s-operations",
+        "case:case-devops-crashloop-001",
+        "mock:mock-devops-tech-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-09-config",
+      "track_id": "devops-platform",
+      "order": 9,
+      "title": "Конфигурация и секреты",
+      "goal": "Знать, где живут настройки и что делать при утечке секрета",
+      "topic_ids": [
+        "config-secrets"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-dv-07-k8s"
+      ],
+      "study_items": [
+        "lesson-config-and-secrets"
+      ],
+      "practice_items": [
+        "quiz:config-secrets",
+        "case:case-devops-secret-005",
+        "mock:mock-devops-prac-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-10-iac",
+      "track_id": "devops-platform",
+      "order": 10,
+      "title": "Инфраструктура как код",
+      "goal": "Понимать состояние, дрейф и идемпотентность, а не только plan и apply",
+      "topic_ids": [
+        "iac"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-06-cicd"
+      ],
+      "study_items": [
+        "lesson-iac-terraform"
+      ],
+      "practice_items": [
+        "quiz:iac",
+        "mock:mock-devops-tech-006"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-11-observability",
+      "track_id": "devops-platform",
+      "order": 11,
+      "title": "Наблюдаемость",
+      "goal": "Различать сигналы и смотреть перцентили вместо среднего",
+      "topic_ids": [
+        "observability"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-02-networking"
+      ],
+      "study_items": [
+        "lesson-observability-signals"
+      ],
+      "practice_items": [
+        "quiz:observability",
+        "case:case-devops-latency-003",
+        "mock:mock-devops-fund-004",
+        "mock:mock-devops-tools-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-12-slo",
+      "track_id": "devops-platform",
+      "order": 12,
+      "title": "Надёжность и SLO",
+      "goal": "Считать бюджет ошибок и объяснять, почему цель не равна ста процентам",
+      "topic_ids": [
+        "reliability-slo"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-dv-11-observability"
+      ],
+      "study_items": [
+        "lesson-slo-error-budget"
+      ],
+      "practice_items": [
+        "quiz:reliability-slo",
+        "mock:mock-devops-fund-005"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-13-incidents",
+      "track_id": "devops-platform",
+      "order": 13,
+      "title": "Инциденты и постмортемы",
+      "goal": "Знать порядок действий в аварии и уметь написать разбор без поиска виноватых",
+      "topic_ids": [
+        "incidents"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-dv-12-slo"
+      ],
+      "study_items": [
+        "lesson-incident-response"
+      ],
+      "practice_items": [
+        "quiz:incidents",
+        "case:case-devops-network-008",
+        "mock:mock-devops-prac-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-14-deployment",
+      "track_id": "devops-platform",
+      "order": 14,
+      "title": "Выкат и откат",
+      "goal": "Выбирать стратегию выката и делать миграции, при которых откат возможен",
+      "topic_ids": [
+        "deployment-strategies"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-06-cicd",
+        "step-dv-11-observability"
+      ],
+      "study_items": [
+        "lesson-deployment-strategies"
+      ],
+      "practice_items": [
+        "quiz:deployment-strategies",
+        "case:case-devops-rollback-002",
+        "mock:mock-devops-tech-003",
+        "mock:mock-devops-prac-004"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-15-databases",
+      "track_id": "devops-platform",
+      "order": 15,
+      "title": "Базы данных в эксплуатации",
+      "goal": "Проверять восстановление копий и понимать цену миграций на живой базе",
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "estimated_minutes": 55,
+      "required": true,
+      "prerequisites": [
+        "step-dv-14-deployment"
+      ],
+      "study_items": [
+        "lesson-databases-operations"
+      ],
+      "practice_items": [
+        "quiz:databases-ops",
+        "case:case-devops-backup-006",
+        "mock:mock-devops-prac-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-16-security",
+      "track_id": "devops-platform",
+      "order": 16,
+      "title": "Безопасность конвейера",
+      "goal": "Выдавать права по минимуму и правильно обращаться с секретами",
+      "topic_ids": [
+        "security-pipeline"
+      ],
+      "estimated_minutes": 50,
+      "required": true,
+      "prerequisites": [
+        "step-dv-09-config",
+        "step-dv-10-iac"
+      ],
+      "study_items": [
+        "lesson-pipeline-security"
+      ],
+      "practice_items": [
+        "quiz:security-pipeline"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-17-cloud",
+      "track_id": "devops-platform",
+      "order": 17,
+      "title": "Облачные основы",
+      "goal": "Разбираться в зонах доступности, правах и источниках счёта",
+      "topic_ids": [
+        "cloud-basics"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-dv-10-iac"
+      ],
+      "study_items": [
+        "lesson-cloud-basics"
+      ],
+      "practice_items": [
+        "quiz:cloud-basics"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-18-scripting",
+      "track_id": "devops-platform",
+      "order": 18,
+      "title": "Скрипты автоматизации",
+      "goal": "Писать скрипты, которые безопасно перезапускать и которые честно возвращают код",
+      "topic_ids": [
+        "scripting"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-dv-01-linux"
+      ],
+      "study_items": [
+        "lesson-scripting-automation"
+      ],
+      "practice_items": [
+        "quiz:scripting"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80
+      }
+    },
+    {
+      "id": "step-dv-19-capacity",
+      "track_id": "devops-platform",
+      "order": 19,
+      "title": "Стоимость и ёмкость",
+      "goal": "Понимать, откуда берётся счёт и почему кластер бывает пуст и переполнен одновременно",
+      "topic_ids": [
+        "cost-capacity"
+      ],
+      "estimated_minutes": 40,
+      "required": false,
+      "prerequisites": [
+        "step-dv-17-cloud"
+      ],
+      "study_items": [
+        "lesson-cost-capacity"
+      ],
+      "practice_items": [
+        "quiz:cost-capacity",
+        "case:case-devops-capacity-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
+      }
+    },
+    {
+      "id": "step-dv-20-stories",
+      "track_id": "devops-platform",
+      "order": 20,
+      "title": "Свои истории",
+      "goal": "Собрать банк историй по схеме STAR: авария, ошибка, разногласие, улучшение",
+      "topic_ids": [
+        "behavioral-devops"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-13-incidents"
+      ],
+      "study_items": [
+        "lesson-behavioral-devops"
+      ],
+      "practice_items": [
+        "quiz:behavioral-devops",
+        "mock:mock-devops-beh-001",
+        "mock:mock-devops-beh-003"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "stories_filled_min": 3
+      }
+    },
+    {
+      "id": "step-dv-21-vacancy",
+      "track_id": "devops-platform",
+      "order": 21,
+      "title": "Разбор вакансии",
+      "goal": "Пройти требования и честно отметить, что подтверждено, а что предстоит закрыть",
+      "topic_ids": [
+        "behavioral-devops"
+      ],
+      "estimated_minutes": 45,
+      "required": true,
+      "prerequisites": [
+        "step-dv-20-stories"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-devops-intro-001",
+        "mock:mock-devops-mot-001"
+      ],
+      "completion_rule": {
+        "mock_answered_min": 2
+      }
+    },
+    {
+      "id": "step-dv-22-full-mock",
+      "track_id": "devops-platform",
+      "order": 22,
+      "title": "Полная сессия mock interview",
+      "goal": "Пройти сессию целиком и увидеть, где ответы рассыпаются под давлением времени",
+      "topic_ids": [
+        "behavioral-devops"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-dv-21-vacancy"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-devops-tech-002",
+        "mock:mock-devops-beh-002"
+      ],
+      "completion_rule": {
+        "full_mock_sessions_min": 1
+      }
+    }
   ]
 }

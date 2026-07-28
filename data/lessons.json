@@ -25,9 +25,21 @@
       "interview_question": "Чем отличаются crawling, indexing и ranking?",
       "short_answer": "Crawling — робот скачивает страницу. Indexing — Google разбирает её и решает, класть ли в индекс и какой URL считать каноническим. Ranking — на конкретный запрос из индекса подбираются лучшие ответы. Страница может быть обойдена, но не проиндексирована, и проиндексирована, но не ранжироваться.",
       "practice_task": "Возьмите любой сайт и найдите одну страницу для каждого состояния: в индексе и ранжируется, в индексе и не ранжируется, не в индексе. Объясните для каждой, на каком этапе она остановилась.",
-      "source_refs": ["google-how-search-works", "google-seo-starter-guide"],
-      "related_question_ids": ["q-search-basics-001", "q-search-basics-002", "q-search-basics-003"],
-      "related_term_ids": ["t-crawling", "t-indexing", "t-ranking", "t-googlebot"],
+      "source_refs": [
+        "google-how-search-works",
+        "google-seo-starter-guide"
+      ],
+      "related_question_ids": [
+        "q-search-basics-001",
+        "q-search-basics-002",
+        "q-search-basics-003"
+      ],
+      "related_term_ids": [
+        "t-crawling",
+        "t-indexing",
+        "t-ranking",
+        "t-googlebot"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -54,9 +66,20 @@
       "interview_question": "Что такое краулинговый бюджет и когда о нём стоит думать?",
       "short_answer": "Это объём обхода, который поисковик готов потратить на сайт. Он важен на крупных сайтах с десятками тысяч URL. Экономят его чисткой дублей и параметрических страниц, устранением цепочек редиректов, ускорением ответа сервера и корректной внутренней перелинковкой. На небольшом сайте это редко узкое место.",
       "practice_task": "Найдите на знакомом сайте URL, который явно тратит обход впустую: параметрический дубль, цепочку редиректов или страницу-сироту. Опишите, что бы вы с ним сделали.",
-      "source_refs": ["google-crawl-budget", "google-crawlers-overview", "google-sitemaps-overview"],
-      "related_question_ids": ["q-search-basics-004", "q-search-basics-005"],
-      "related_term_ids": ["t-crawl-budget", "t-orphan-page", "t-sitemap-xml"],
+      "source_refs": [
+        "google-crawl-budget",
+        "google-crawlers-overview",
+        "google-sitemaps-overview"
+      ],
+      "related_question_ids": [
+        "q-search-basics-004",
+        "q-search-basics-005"
+      ],
+      "related_term_ids": [
+        "t-crawl-budget",
+        "t-orphan-page",
+        "t-sitemap-xml"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -84,9 +107,21 @@
       "interview_question": "Как вы определяете интент запроса?",
       "short_answer": "Открываю выдачу и смотрю, какие типы страниц Google уже поставил в топ: статьи, категории, карточки, видео. Тип страниц в топе и есть ответ поисковика о том, какой интент он считает основным. Дополнительно смотрю на блоки выдачи и связанные запросы. Формулировку запроса использую как гипотезу, а не как вывод.",
       "practice_task": "Возьмите 10 запросов из своей ниши, откройте выдачу по каждому и запишите: тип интента, преобладающий тип страницы в топе, вывод о том, какую страницу нужно делать.",
-      "source_refs": ["google-helpful-content", "ahrefs-keyword-research", "semrush-keyword-research"],
-      "related_question_ids": ["q-search-intent-001", "q-search-intent-002"],
-      "related_term_ids": ["t-search-intent", "t-serp", "t-informational-intent", "t-transactional-intent"],
+      "source_refs": [
+        "google-helpful-content",
+        "ahrefs-keyword-research",
+        "semrush-keyword-research"
+      ],
+      "related_question_ids": [
+        "q-search-intent-001",
+        "q-search-intent-002"
+      ],
+      "related_term_ids": [
+        "t-search-intent",
+        "t-serp",
+        "t-informational-intent",
+        "t-transactional-intent"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -114,9 +149,23 @@
       "interview_question": "Что вы будете делать с посадочной страницей, которая не растёт по своему запросу?",
       "short_answer": "Сначала проверю, что страница вообще в индексе и что под этот запрос нет второй конкурирующей страницы. Потом сравню тип страницы с тем, что в топе выдачи. Если тип совпадает — смотрю, отвечает ли содержимое на запрос полнее конкурентов, поправляю title, H1, структуру и внутренние ссылки. Метаданные правлю в последнюю очередь, а не в первую.",
       "practice_task": "Возьмите одну страницу и выпишите: её основной запрос, текущие title и H1, три страницы из топа и чем они полнее. Сформулируйте три конкретные правки.",
-      "source_refs": ["google-seo-starter-guide", "google-helpful-content", "mdn-headings"],
-      "related_question_ids": ["q-on-page-001", "q-on-page-002", "q-on-page-003"],
-      "related_term_ids": ["t-on-page-seo", "t-h1", "t-alt-text", "t-anchor-text", "t-keyword-cannibalization"],
+      "source_refs": [
+        "google-seo-starter-guide",
+        "google-helpful-content",
+        "mdn-headings"
+      ],
+      "related_question_ids": [
+        "q-on-page-001",
+        "q-on-page-002",
+        "q-on-page-003"
+      ],
+      "related_term_ids": [
+        "t-on-page-seo",
+        "t-h1",
+        "t-alt-text",
+        "t-anchor-text",
+        "t-keyword-cannibalization"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -144,9 +193,20 @@
       "interview_question": "Влияет ли meta description на позиции?",
       "short_answer": "Напрямую на ранжирование не влияет. Влияет на кликабельность: это текст, который человек читает в выдаче перед переходом. При этом поисковик может показать вместо него фрагмент страницы, если сочтёт его более релевантным запросу. Поэтому описание пишут ради человека, а не ради робота.",
       "practice_task": "Найдите на сайте 5 страниц с одинаковыми или пустыми title. Напишите для каждой новый title и описание, объяснив, чем страницы отличаются друг от друга.",
-      "source_refs": ["google-title-link", "google-snippet"],
-      "related_question_ids": ["q-on-page-004", "q-on-page-005"],
-      "related_term_ids": ["t-title-tag", "t-meta-description", "t-ctr", "t-snippet"],
+      "source_refs": [
+        "google-title-link",
+        "google-snippet"
+      ],
+      "related_question_ids": [
+        "q-on-page-004",
+        "q-on-page-005"
+      ],
+      "related_term_ids": [
+        "t-title-tag",
+        "t-meta-description",
+        "t-ctr",
+        "t-snippet"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -173,9 +233,22 @@
       "interview_question": "Как проверить, видит ли поисковик текст на странице?",
       "short_answer": "Сначала смотрю исходный HTML через просмотр кода страницы: есть ли там текст. Потом сравниваю с DOM в инструментах разработчика — разница означает клиентский рендеринг. Дальше проверяю в Search Console через инструмент проверки URL: он показывает отрендеренный HTML и скриншот того, что получил Google.",
       "practice_task": "Откройте три сайта и определите для каждого: приходит текст в исходном HTML или дорисовывается скриптом. Зафиксируйте, как вы это определили.",
-      "source_refs": ["mdn-semantics", "mdn-meta-element", "mdn-link-element", "google-javascript-seo"],
-      "related_question_ids": ["q-html-http-001", "q-html-http-002"],
-      "related_term_ids": ["t-dom", "t-head-section", "t-nofollow", "t-rendering"],
+      "source_refs": [
+        "mdn-semantics",
+        "mdn-meta-element",
+        "mdn-link-element",
+        "google-javascript-seo"
+      ],
+      "related_question_ids": [
+        "q-html-http-001",
+        "q-html-http-002"
+      ],
+      "related_term_ids": [
+        "t-dom",
+        "t-head-section",
+        "t-nofollow",
+        "t-rendering"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -203,9 +276,24 @@
       "interview_question": "В чём разница между 301 и 302 и когда какой использовать?",
       "short_answer": "301 — постоянный редирект: поисковик со временем заменит старый URL новым в индексе и перенесёт сигналы. 302 — временный: в индексе остаётся исходный URL. 301 ставят при переезде страницы, смене домена или структуры, 302 — на время акции или технических работ. Неправильно выбранный код приводит к тому, что в выдаче держится не тот URL.",
       "practice_task": "Проверьте 10 URL сайта и запишите код ответа каждого. Найдите хотя бы одну цепочку из двух и более редиректов.",
-      "source_refs": ["mdn-http-status", "mdn-redirections", "google-301-redirects", "google-http-status-codes"],
-      "related_question_ids": ["q-html-http-003", "q-html-http-004", "q-html-http-005"],
-      "related_term_ids": ["t-301-redirect", "t-302-redirect", "t-404", "t-soft-404", "t-redirect-chain"],
+      "source_refs": [
+        "mdn-http-status",
+        "mdn-redirections",
+        "google-301-redirects",
+        "google-http-status-codes"
+      ],
+      "related_question_ids": [
+        "q-html-http-003",
+        "q-html-http-004",
+        "q-html-http-005"
+      ],
+      "related_term_ids": [
+        "t-301-redirect",
+        "t-302-redirect",
+        "t-404",
+        "t-soft-404",
+        "t-redirect-chain"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -233,9 +321,25 @@
       "interview_question": "Как правильно убрать страницу из поиска?",
       "short_answer": "Оставить страницу доступной для обхода и поставить в неё meta robots noindex либо заголовок X-Robots-Tag. Закрывать в robots.txt в этом случае нельзя: робот не зайдёт на страницу и не увидит noindex, а сама страница может остаться в выдаче без сниппета. Если нужно убрать срочно — дополнительно использовать инструмент удаления в Search Console, но это временная мера.",
       "practice_task": "Откройте robots.txt трёх сайтов. Для каждого объясните, что закрыто и зачем, и найдите хотя бы одно правило, которое выглядит рискованно.",
-      "source_refs": ["google-robots-intro", "google-robots-spec", "google-robots-meta-tag", "google-sitemaps-overview", "google-consolidate-duplicate-urls"],
-      "related_question_ids": ["q-technical-seo-001", "q-technical-seo-002", "q-technical-seo-003"],
-      "related_term_ids": ["t-robots-txt", "t-noindex", "t-canonical-url", "t-sitemap-xml", "t-x-robots-tag"],
+      "source_refs": [
+        "google-robots-intro",
+        "google-robots-spec",
+        "google-robots-meta-tag",
+        "google-sitemaps-overview",
+        "google-consolidate-duplicate-urls"
+      ],
+      "related_question_ids": [
+        "q-technical-seo-001",
+        "q-technical-seo-002",
+        "q-technical-seo-003"
+      ],
+      "related_term_ids": [
+        "t-robots-txt",
+        "t-noindex",
+        "t-canonical-url",
+        "t-sitemap-xml",
+        "t-x-robots-tag"
+      ],
       "estimated_minutes": 25
     },
     {
@@ -262,9 +366,22 @@
       "interview_question": "Несколько страниц сайта конкурируют по одному запросу. Ваши действия?",
       "short_answer": "Сначала подтверждаю проблему: смотрю в Search Console, какие URL показываются по этому запросу и как они чередуются. Потом решаю, действительно ли страницы дублируют смысл. Если да — оставляю сильнейшую, остальные объединяю и ставлю 301. Если страницы про разное — развожу их по интентам: правлю title, H1 и содержимое, перестраиваю внутренние ссылки на нужную страницу. Canonical использую только для настоящих дублей.",
       "practice_task": "Найдите в отчёте Search Console запрос, по которому показываются два разных URL вашего сайта. Опишите, что бы вы сделали и почему.",
-      "source_refs": ["google-canonicalization", "google-consolidate-duplicate-urls", "google-url-structure"],
-      "related_question_ids": ["q-technical-seo-004", "q-technical-seo-005", "q-technical-seo-006"],
-      "related_term_ids": ["t-duplicate-content", "t-keyword-cannibalization", "t-url-parameters", "t-canonical-url"],
+      "source_refs": [
+        "google-canonicalization",
+        "google-consolidate-duplicate-urls",
+        "google-url-structure"
+      ],
+      "related_question_ids": [
+        "q-technical-seo-004",
+        "q-technical-seo-005",
+        "q-technical-seo-006"
+      ],
+      "related_term_ids": [
+        "t-duplicate-content",
+        "t-keyword-cannibalization",
+        "t-url-parameters",
+        "t-canonical-url"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -292,9 +409,20 @@
       "interview_question": "Сайт на JavaScript-фреймворке плохо индексируется. С чего начнёте?",
       "short_answer": "Сравню исходный HTML и отрендеренный: если контента нет в исходном коде, проверю через инструмент проверки URL, что видит Google после рендеринга. Проверю, не закрыты ли в robots.txt скрипты и стили. Посмотрю, являются ли внутренние ссылки настоящими тегами a с href. Если рендеринг ненадёжен — предложу отдавать ключевой контент и ссылки сразу в HTML.",
       "practice_task": "Найдите сайт с клиентским рендерингом. Сравните исходный HTML и DOM, выпишите, какой ключевой контент отсутствует в исходном коде.",
-      "source_refs": ["google-javascript-seo", "gsc-url-inspection"],
-      "related_question_ids": ["q-technical-seo-007", "q-technical-seo-008"],
-      "related_term_ids": ["t-rendering", "t-ssr", "t-dom", "t-lazy-loading"],
+      "source_refs": [
+        "google-javascript-seo",
+        "gsc-url-inspection"
+      ],
+      "related_question_ids": [
+        "q-technical-seo-007",
+        "q-technical-seo-008"
+      ],
+      "related_term_ids": [
+        "t-rendering",
+        "t-ssr",
+        "t-dom",
+        "t-lazy-loading"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -323,9 +451,23 @@
       "interview_question": "Страница существует, но не индексируется. Как будете искать причину?",
       "short_answer": "Иду по порядку: код ответа, robots.txt, meta robots, canonical, наличие внутренних ссылок и присутствие в sitemap, затем рендеринг и качество содержимого. Основной инструмент — проверка URL в Search Console: она показывает статус, выбранный Google канонический адрес и отрендеренный HTML. Только после того, как причина найдена и устранена, отправляю на переобход. Сроки индексации не обещаю — это решение поисковика.",
       "practice_task": "Возьмите три непроиндексированных URL и пройдите по шагам весь список, зафиксировав результат каждой проверки в таблице.",
-      "source_refs": ["gsc-url-inspection", "gsc-page-indexing-report", "google-robots-meta-tag", "google-canonicalization"],
-      "related_question_ids": ["q-indexing-gsc-001", "q-indexing-gsc-002", "q-indexing-gsc-003"],
-      "related_term_ids": ["t-url-inspection", "t-index-coverage", "t-noindex", "t-canonical-url"],
+      "source_refs": [
+        "gsc-url-inspection",
+        "gsc-page-indexing-report",
+        "google-robots-meta-tag",
+        "google-canonicalization"
+      ],
+      "related_question_ids": [
+        "q-indexing-gsc-001",
+        "q-indexing-gsc-002",
+        "q-indexing-gsc-003"
+      ],
+      "related_term_ids": [
+        "t-url-inspection",
+        "t-index-coverage",
+        "t-noindex",
+        "t-canonical-url"
+      ],
       "estimated_minutes": 25
     },
     {
@@ -353,9 +495,20 @@
       "interview_question": "Какие метрики вы смотрите в Search Console и что из них делаете?",
       "short_answer": "Показы, клики, CTR и среднюю позицию, всегда в сравнении периодов. Показы говорят об охвате, клики — о результате, CTR — о качестве сниппета и позиции, средняя позиция — вспомогательная метрика. Разрезаю данные по запросам и страницам: так видно, растёт ли охват, проседает ли конкретная страница, или проблема в сниппете. Отдельно проверяю, не изменилась ли сезонность.",
       "practice_task": "Выгрузите данные за 3 месяца, найдите страницу с ростом показов и падением CTR и сформулируйте гипотезу причины.",
-      "source_refs": ["gsc-performance-report", "google-traffic-drops"],
-      "related_question_ids": ["q-indexing-gsc-004", "q-indexing-gsc-005"],
-      "related_term_ids": ["t-impressions", "t-clicks", "t-ctr", "t-average-position"],
+      "source_refs": [
+        "gsc-performance-report",
+        "google-traffic-drops"
+      ],
+      "related_question_ids": [
+        "q-indexing-gsc-004",
+        "q-indexing-gsc-005"
+      ],
+      "related_term_ids": [
+        "t-impressions",
+        "t-clicks",
+        "t-ctr",
+        "t-average-position"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -383,9 +536,23 @@
       "interview_question": "Как вы соберёте семантику для новой услуги?",
       "short_answer": "Начну с того, что уже есть: посмотрю в Search Console, по каким запросам сайт показывается. Дальше расширю подсказками поиска, Keyword Planner и выгрузкой запросов конкурентов из Ahrefs или Semrush. Соберу всё в таблицу с частотностью и источником, почищу нерелевантное, определю интент по выдаче и сгруппирую по смыслу. На выходе — группы запросов с привязкой к конкретным страницам, а не список слов.",
       "practice_task": "Соберите 100 запросов по одной услуге из трёх источников, приведите к одной таблице и отметьте интент каждого.",
-      "source_refs": ["ahrefs-keyword-research", "semrush-keyword-research", "google-keyword-planner", "google-trends"],
-      "related_question_ids": ["q-keyword-research-001", "q-keyword-research-002", "q-keyword-research-003"],
-      "related_term_ids": ["t-keyword-research", "t-search-volume", "t-long-tail", "t-keyword-difficulty"],
+      "source_refs": [
+        "ahrefs-keyword-research",
+        "semrush-keyword-research",
+        "google-keyword-planner",
+        "google-trends"
+      ],
+      "related_question_ids": [
+        "q-keyword-research-001",
+        "q-keyword-research-002",
+        "q-keyword-research-003"
+      ],
+      "related_term_ids": [
+        "t-keyword-research",
+        "t-search-volume",
+        "t-long-tail",
+        "t-keyword-difficulty"
+      ],
       "estimated_minutes": 25
     },
     {
@@ -413,9 +580,21 @@
       "interview_question": "Как вы кластеризуете запросы?",
       "short_answer": "Основной критерий — пересечение выдачи: если по двум запросам Google показывает во многом одни и те же страницы, их закроет одна страница. Смысловую группировку использую как первичную гипотезу, но проверяю выдачей. Дальше каждому кластеру назначаю конкретный URL и слежу, чтобы на одну страницу не приходилось два кластера — иначе получится каннибализация.",
       "practice_task": "Возьмите 30 собранных запросов, сгруппируйте их и заполните таблицу mapping: кластер, основной запрос, интент, URL, есть страница или нужна новая.",
-      "source_refs": ["ahrefs-keyword-research", "semrush-keyword-research", "google-helpful-content"],
-      "related_question_ids": ["q-keyword-research-004", "q-keyword-research-005"],
-      "related_term_ids": ["t-clustering", "t-keyword-mapping", "t-keyword-cannibalization", "t-serp"],
+      "source_refs": [
+        "ahrefs-keyword-research",
+        "semrush-keyword-research",
+        "google-helpful-content"
+      ],
+      "related_question_ids": [
+        "q-keyword-research-004",
+        "q-keyword-research-005"
+      ],
+      "related_term_ids": [
+        "t-clustering",
+        "t-keyword-mapping",
+        "t-keyword-cannibalization",
+        "t-serp"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -443,9 +622,20 @@
       "interview_question": "Что вы смотрите в Screaming Frog в первую очередь?",
       "short_answer": "Сначала коды ответа: 4xx и 5xx и откуда на них ведут ссылки. Затем цепочки редиректов. Потом дубли и пустые title, description и H1. Отдельно смотрю canonical: указывает ли страница на себя и нет ли расхождений. Дальше выгружаю в таблицу и приоритизирую: важно не количество предупреждений, а сколько страниц и какого типа затронуто.",
       "practice_task": "Прокраульте небольшой сайт, выгрузите результат и составьте список из пяти проблем, отсортированный по влиянию, а не по количеству.",
-      "source_refs": ["screamingfrog-user-guide", "screamingfrog-tutorials"],
-      "related_question_ids": ["q-seo-tools-001", "q-seo-tools-002"],
-      "related_term_ids": ["t-crawler", "t-redirect-chain", "t-duplicate-content", "t-user-agent"],
+      "source_refs": [
+        "screamingfrog-user-guide",
+        "screamingfrog-tutorials"
+      ],
+      "related_question_ids": [
+        "q-seo-tools-001",
+        "q-seo-tools-002"
+      ],
+      "related_term_ids": [
+        "t-crawler",
+        "t-redirect-chain",
+        "t-duplicate-content",
+        "t-user-agent"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -473,9 +663,21 @@
       "interview_question": "Чем вы пользуетесь для анализа конкурентов и насколько доверяете этим данным?",
       "short_answer": "Ahrefs или Semrush для внешней картины: какие страницы конкурентов собирают трафик, по каким запросам и каких тем нет у нас. Отношусь к их цифрам как к оценкам на собственной базе: они хороши для сравнения и приоритизации, но это не данные Google. Всё, что касается моего сайта, проверяю в Search Console — там факт.",
       "practice_task": "Возьмите двух конкурентов, постройте отчёт пересечения запросов и выпишите 10 тем, которых нет у вас.",
-      "source_refs": ["ahrefs-help", "ahrefs-seo-basics", "semrush-kb"],
-      "related_question_ids": ["q-seo-tools-003", "q-seo-tools-004"],
-      "related_term_ids": ["t-content-gap", "t-domain-rating", "t-backlink", "t-visibility"],
+      "source_refs": [
+        "ahrefs-help",
+        "ahrefs-seo-basics",
+        "semrush-kb"
+      ],
+      "related_question_ids": [
+        "q-seo-tools-003",
+        "q-seo-tools-004"
+      ],
+      "related_term_ids": [
+        "t-content-gap",
+        "t-domain-rating",
+        "t-backlink",
+        "t-visibility"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -503,9 +705,24 @@
       "interview_question": "Как вы оцените результат SEO по данным аналитики?",
       "short_answer": "Смотрю два источника вместе. В Search Console — показы, клики и запросы: это про видимость в поиске. В GA4 — канал Organic Search: сессии, посадочные страницы, вовлечённость и ключевые события. Отдельно проверяю, что рост пришёл на целевые страницы, а не только на информационные. Числа GSC и GA4 не свожу — они меряют разное.",
       "practice_task": "Постройте в GA4 отчёт по органическому каналу с разбивкой по посадочным страницам за 3 месяца и найдите страницу с ростом сессий без роста конверсий.",
-      "source_refs": ["ga4-default-channel-group", "ga4-about-events", "ga4-dimensions-metrics", "ga4-setup"],
-      "related_question_ids": ["q-analytics-ga4-001", "q-analytics-ga4-002", "q-analytics-ga4-003"],
-      "related_term_ids": ["t-ga4", "t-organic-search", "t-landing-page", "t-key-event", "t-session"],
+      "source_refs": [
+        "ga4-default-channel-group",
+        "ga4-about-events",
+        "ga4-dimensions-metrics",
+        "ga4-setup"
+      ],
+      "related_question_ids": [
+        "q-analytics-ga4-001",
+        "q-analytics-ga4-002",
+        "q-analytics-ga4-003"
+      ],
+      "related_term_ids": [
+        "t-ga4",
+        "t-organic-search",
+        "t-landing-page",
+        "t-key-event",
+        "t-session"
+      ],
       "estimated_minutes": 25
     },
     {
@@ -533,9 +750,25 @@
       "interview_question": "Что такое Core Web Vitals и влияют ли они на позиции?",
       "short_answer": "Это три метрики пользовательского опыта: LCP — скорость появления основного контента, INP — отзывчивость на действия, CLS — стабильность вёрстки. Они учитываются как часть оценки страницы, но не заменяют релевантность: страница, которая хуже отвечает на запрос, не обгонит конкурента за счёт скорости. Смотрю в первую очередь полевые данные реальных пользователей, а не лабораторный балл.",
       "practice_task": "Прогоните три страницы через PageSpeed Insights, выпишите лабораторные и полевые значения и объясните расхождение.",
-      "source_refs": ["webdev-vitals", "webdev-lcp", "webdev-inp", "webdev-cls", "psi-about", "chrome-crux"],
-      "related_question_ids": ["q-technical-seo-018", "q-technical-seo-019"],
-      "related_term_ids": ["t-lcp", "t-inp", "t-cls", "t-crux", "t-lighthouse"],
+      "source_refs": [
+        "webdev-vitals",
+        "webdev-lcp",
+        "webdev-inp",
+        "webdev-cls",
+        "psi-about",
+        "chrome-crux"
+      ],
+      "related_question_ids": [
+        "q-technical-seo-018",
+        "q-technical-seo-019"
+      ],
+      "related_term_ids": [
+        "t-lcp",
+        "t-inp",
+        "t-cls",
+        "t-crux",
+        "t-lighthouse"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -563,9 +796,20 @@
       "interview_question": "Зачем нужна внутренняя перелинковка?",
       "short_answer": "Чтобы робот находил страницы и обходил их регулярно, чтобы вес распределялся на важные страницы, и чтобы анкоры объясняли, о чём целевая страница. Практически это значит: у важной страницы должны быть входящие ссылки из основного контента смежных страниц, с осмысленным анкором, и она не должна быть глубоко спрятана от главной.",
       "practice_task": "Найдите на сайте три страницы с наименьшим числом входящих внутренних ссылок и предложите, откуда на них сослаться.",
-      "source_refs": ["google-seo-starter-guide", "google-crawl-budget"],
-      "related_question_ids": ["q-on-page-014", "q-on-page-015"],
-      "related_term_ids": ["t-internal-link", "t-anchor-text", "t-orphan-page", "t-click-depth"],
+      "source_refs": [
+        "google-seo-starter-guide",
+        "google-crawl-budget"
+      ],
+      "related_question_ids": [
+        "q-on-page-014",
+        "q-on-page-015"
+      ],
+      "related_term_ids": [
+        "t-internal-link",
+        "t-anchor-text",
+        "t-orphan-page",
+        "t-click-depth"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -593,9 +837,19 @@
       "interview_question": "Зачем нужен hreflang и какие ошибки в нём встречаются чаще всего?",
       "short_answer": "hreflang сообщает поиску, что страницы — версии одного содержимого для разных языков или регионов, чтобы человеку показывалась нужная. Чаще всего ошибаются в трёх вещах: ссылки не взаимные, страница не ссылается сама на себя и указаны неверные коды языка или региона. Ещё частая ошибка — принудительный редирект по IP, из-за которого робот вообще не видит остальные версии.",
       "practice_task": "Найдите сайт с несколькими языковыми версиями и проверьте взаимность hreflang хотя бы на трёх страницах.",
-      "source_refs": ["google-localized-versions", "google-multi-regional"],
-      "related_question_ids": ["q-technical-seo-020", "q-technical-seo-021"],
-      "related_term_ids": ["t-hreflang", "t-x-default", "t-canonical-url"],
+      "source_refs": [
+        "google-localized-versions",
+        "google-multi-regional"
+      ],
+      "related_question_ids": [
+        "q-technical-seo-020",
+        "q-technical-seo-021"
+      ],
+      "related_term_ids": [
+        "t-hreflang",
+        "t-x-default",
+        "t-canonical-url"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -623,9 +877,18 @@
       "interview_question": "Как вы поставите задачу копирайтеру?",
       "short_answer": "Опишу целевую страницу и основной запрос, объясню интент и кто читатель, дам структуру по заголовкам и перечислю смысловые блоки, которые обязаны быть. Приложу две-три страницы из топа с пометкой, чем нужно быть полезнее. Ключевые слова передам как смысл, а не как обязательные точные вхождения, и зафиксирую проверяемые критерии приёмки.",
       "practice_task": "Напишите ТЗ на одну страницу услуги по этой структуре и дайте его прочитать человеку не из SEO — понятно ли, что делать.",
-      "source_refs": ["google-helpful-content", "google-seo-starter-guide"],
-      "related_question_ids": ["q-reporting-005"],
-      "related_term_ids": ["t-content-brief", "t-search-intent", "t-eeat"],
+      "source_refs": [
+        "google-helpful-content",
+        "google-seo-starter-guide"
+      ],
+      "related_question_ids": [
+        "q-reporting-005"
+      ],
+      "related_term_ids": [
+        "t-content-brief",
+        "t-search-intent",
+        "t-eeat"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -653,9 +916,21 @@
       "interview_question": "Как вы проводите конкурентный анализ?",
       "short_answer": "Беру целевые запросы, смотрю фактическую выдачу и выписываю, кто в топе и какого типа их страницы. Дальше сравниваю охват тем и структуру: чего у нас нет. Инструментами вроде Ahrefs смотрю, по каким ещё запросам они собирают трафик. На выходе — не таблица, а список конкретных воспроизводимых шагов с приоритетом: какие страницы создать, какие расширить, что поправить технически.",
       "practice_task": "Разберите одного конкурента по 10 своим запросам и составьте список из пяти действий, которые вы можете повторить.",
-      "source_refs": ["ahrefs-seo-basics", "semrush-kb", "google-helpful-content"],
-      "related_question_ids": ["q-seo-tools-005", "q-seo-tools-006"],
-      "related_term_ids": ["t-content-gap", "t-serp", "t-visibility", "t-share-of-voice"],
+      "source_refs": [
+        "ahrefs-seo-basics",
+        "semrush-kb",
+        "google-helpful-content"
+      ],
+      "related_question_ids": [
+        "q-seo-tools-005",
+        "q-seo-tools-006"
+      ],
+      "related_term_ids": [
+        "t-content-gap",
+        "t-serp",
+        "t-visibility",
+        "t-share-of-voice"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -683,9 +958,19 @@
       "interview_question": "Как вы объедините выгрузку краулера и данные Search Console?",
       "short_answer": "Приведу URL в обеих таблицах к одному виду: убрать параметры, привести регистр, согласовать завершающий слеш. Потом соединю по URL через ВПР или XLOOKUP, а если нужна агрегация — через QUERY или сводную таблицу. Дальше сортирую по кликам: технические проблемы на страницах с трафиком идут в работу первыми.",
       "practice_task": "Соедините две любые выгрузки по URL и посчитайте сводной таблицей число проблемных страниц по типам.",
-      "source_refs": ["sheets-query-function"],
-      "related_question_ids": ["q-reporting-001", "q-reporting-002"],
-      "related_term_ids": ["t-vlookup", "t-pivot-table", "t-query-function", "t-data-cleaning"],
+      "source_refs": [
+        "sheets-query-function"
+      ],
+      "related_question_ids": [
+        "q-reporting-001",
+        "q-reporting-002"
+      ],
+      "related_term_ids": [
+        "t-vlookup",
+        "t-pivot-table",
+        "t-query-function",
+        "t-data-cleaning"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -713,9 +998,21 @@
       "interview_question": "Как вы отчитываетесь о работе перед заказчиком?",
       "short_answer": "Тремя блоками: что сделано, что изменилось в цифрах, что планируется дальше. Цифры даю в сравнении периодов с учётом сезонности и отдельно поясняю, что уже дало эффект, а что ещё зреет. Данные Search Console и GA4 не смешиваю. Если есть просадка, показываю её и называю причину, а не убираю из отчёта.",
       "practice_task": "Составьте одностраничный шаблон месячного отчёта: три блока, не более пяти метрик, один вывод и план.",
-      "source_refs": ["gsc-performance-report", "ga4-dimensions-metrics", "google-traffic-drops"],
-      "related_question_ids": ["q-reporting-003", "q-reporting-004"],
-      "related_term_ids": ["t-kpi", "t-seasonality", "t-organic-traffic", "t-attribution"],
+      "source_refs": [
+        "gsc-performance-report",
+        "ga4-dimensions-metrics",
+        "google-traffic-drops"
+      ],
+      "related_question_ids": [
+        "q-reporting-003",
+        "q-reporting-004"
+      ],
+      "related_term_ids": [
+        "t-kpi",
+        "t-seasonality",
+        "t-organic-traffic",
+        "t-attribution"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -743,9 +1040,18 @@
       "interview_question": "Как вы объясните разработчику техническую SEO-задачу?",
       "short_answer": "Описываю текущее поведение и требуемое, обязательно с конкретными примерами URL. Формулирую задачу через результат, а не через реализацию — как именно сделать, решает разработчик. Даю проверяемый критерий приёмки и одну фразу о том, зачем это нужно бизнесу. После выката проверяю сам и подтверждаю, что задача закрыта.",
       "practice_task": "Переформулируйте задачу «убрать дубли на сайте» в постановку с примерами URL, ожидаемым поведением и критерием приёмки.",
-      "source_refs": ["google-301-redirects", "google-http-status-codes"],
-      "related_question_ids": ["q-reporting-006"],
-      "related_term_ids": ["t-acceptance-criteria", "t-staging", "t-301-redirect"],
+      "source_refs": [
+        "google-301-redirects",
+        "google-http-status-codes"
+      ],
+      "related_question_ids": [
+        "q-reporting-006"
+      ],
+      "related_term_ids": [
+        "t-acceptance-criteria",
+        "t-staging",
+        "t-301-redirect"
+      ],
       "estimated_minutes": 15
     },
     {
@@ -773,9 +1079,19 @@
       "interview_question": "Есть ли у вас вопросы к нам?",
       "short_answer": "Да. Какие сайты я буду вести и в какой нише. Кто ставит задачи и как расставляются приоритеты. Есть ли доступ к разработке и насколько быстро выкатываются технические правки. По каким метрикам будет оцениваться моя работа в первые три месяца. Кто в команде сможет подсказать, если я застряну.",
       "practice_task": "Запишите на диктофон ответы на пять базовых вопросов, послушайте и сократите каждый до 40–60 секунд.",
-      "source_refs": ["google-seo-starter-guide", "google-search-essentials"],
-      "related_question_ids": ["q-search-basics-011", "q-search-basics-012"],
-      "related_term_ids": ["t-star-method", "t-red-flag", "t-elevator-pitch"],
+      "source_refs": [
+        "google-seo-starter-guide",
+        "google-search-essentials"
+      ],
+      "related_question_ids": [
+        "q-search-basics-011",
+        "q-search-basics-012"
+      ],
+      "related_term_ids": [
+        "t-star-method",
+        "t-red-flag",
+        "t-elevator-pitch"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -805,7 +1121,11 @@
       "practice_task": "Запишите три свои истории по схеме STAR: одна про результат, одна про ошибку, одна про конфликт требований. Уложите каждую в 90 секунд.",
       "source_refs": [],
       "related_question_ids": [],
-      "related_term_ids": ["t-star-method", "t-behavioral-interview", "t-red-flag"],
+      "related_term_ids": [
+        "t-star-method",
+        "t-behavioral-interview",
+        "t-red-flag"
+      ],
       "estimated_minutes": 20
     },
     {
@@ -833,10 +1153,896 @@
       "interview_question": "Что даёт микроразметка?",
       "short_answer": "Она объясняет поисковику структуру содержимого страницы и открывает возможность расширенного результата в выдаче: хлебные крошки, часто задаваемые вопросы, карточка товара. Прямым фактором ранжирования разметка не является, и расширенный вид не гарантирован. Размечать можно только то, что реально есть на странице, иначе это нарушение правил.",
       "practice_task": "Проверьте три страницы в Rich Results Test и выпишите, какая разметка найдена и какие ошибки показаны.",
-      "source_refs": ["google-structured-data-intro", "schema-org-getting-started", "google-rich-results-test"],
-      "related_question_ids": ["q-on-page-016", "q-on-page-017"],
-      "related_term_ids": ["t-structured-data", "t-json-ld", "t-rich-result", "t-breadcrumbs"],
+      "source_refs": [
+        "google-structured-data-intro",
+        "schema-org-getting-started",
+        "google-rich-results-test"
+      ],
+      "related_question_ids": [
+        "q-on-page-016",
+        "q-on-page-017"
+      ],
+      "related_term_ids": [
+        "t-structured-data",
+        "t-json-ld",
+        "t-rich-result",
+        "t-breadcrumbs"
+      ],
       "estimated_minutes": 15
+    },
+    {
+      "id": "lesson-linux-processes-services",
+      "track_id": "devops-platform",
+      "topic_id": "linux-basics",
+      "title": "Процессы, службы и журнал",
+      "summary": "Почти любая диагностика на Linux начинается одинаково: понять, что процесс делает, кто его запустил и что он написал в журнал. Три команды — systemctl status, journalctl -u и ps — закрывают большинство вопросов на собеседовании.",
+      "why_it_matters": "Junior-инженера почти наверняка попросят вслух разобрать ситуацию «служба не поднимается». Ответ проверяют не на знание флагов, а на порядок действий.",
+      "key_points": [
+        "systemd запускает службы по юнит-файлам: Type, ExecStart, Restart, EnvironmentFile — минимум, который нужно уметь прочитать вслух.",
+        "systemctl status показывает состояние и последние строки лога, journalctl -u <служба> -n 100 — полную картину.",
+        "Restart=always маскирует падения: служба показывается активной, хотя перезапускается по кругу. Смотреть надо на NRestarts и на журнал, а не только на слово active.",
+        "SIGTERM просит процесс завершиться и даёт время закрыть соединения, SIGKILL убивает мгновенно и без шанса на уборку.",
+        "Права на файлы — частая причина отказа: служба под своим пользователем не может писать в каталог, принадлежащий другому.",
+        "Выход процесса с ненулевым кодом — это сигнал, а не мелочь: systemd и CI принимают решения именно по коду возврата."
+      ],
+      "common_mistakes": [
+        "Считать, что active в systemctl означает работающую службу: с Restart=always она может падать и подниматься каждые пять секунд",
+        "Читать только последние строки лога и не смотреть, что было до первой ошибки",
+        "Чинить права рекурсивным chmod 777 вместо смены владельца",
+        "Останавливать процесс сразу kill -9, не дав ему завершиться корректно"
+      ],
+      "example": "Служба показывает active, но приложение недоступно. journalctl -u app -n 50 даёт повторяющийся Traceback и «Read-only file system». Причина не в коде: в юните включена песочница ProtectSystem=strict, а каталог для записи не внесён в ReadWritePaths. Служба падает, systemd поднимает её заново, и статус всё это время выглядит здоровым.",
+      "interview_question": "Служба не поднимается после выката. Ваши действия?",
+      "short_answer": "Сначала смотрю systemctl status: что за код выхода и сколько было перезапусков. Потом journalctl по этой службе и ищу не последнюю ошибку, а первую — обычно дальше идут следствия. Дальше сверяю три вещи: что изменилось в выкате, доступны ли зависимости вроде базы, и хватает ли прав на каталоги, куда служба пишет. Если статус active, но приложение не отвечает, проверяю счётчик перезапусков: с Restart=always служба может падать по кругу и при этом выглядеть здоровой.",
+      "practice_task": "Возьмите любую службу на своей машине и напишите её юнит-файл с нуля: с отдельным пользователем, EnvironmentFile и ограничением записи. Проверьте, что она стартует, и намеренно сломайте права, чтобы увидеть текст ошибки в журнале.",
+      "source_refs": [
+        "systemd-unit",
+        "systemctl-man",
+        "journalctl-man",
+        "man-signal",
+        "man-chmod"
+      ],
+      "related_question_ids": [
+        "q-devops-linux-001",
+        "q-devops-linux-002",
+        "q-devops-linux-003",
+        "q-devops-linux-004",
+        "q-devops-linux-005",
+        "q-devops-linux-006"
+      ],
+      "related_term_ids": [
+        "t-systemd-unit",
+        "t-sigterm-sigkill",
+        "t-exit-code",
+        "t-journald",
+        "t-file-permissions"
+      ],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-networking-diagnostics",
+      "track_id": "devops-platform",
+      "topic_id": "networking",
+      "title": "Сеть: от домена до ответа приложения",
+      "summary": "Запрос проходит цепочку: DNS, TCP-соединение, TLS-рукопожатие, HTTP-ответ. Диагностика — это определить, на каком звене всё сломалось, а не гадать.",
+      "why_it_matters": "Вопрос «сайт не открывается, что проверите» задают почти на каждом интервью. Он проверяет не знание команд, а наличие порядка в голове.",
+      "key_points": [
+        "DNS отдаёт адрес, и у записи есть TTL: после изменения старый ответ живёт в кэшах ещё какое-то время — поэтому правка «не доехала» мгновенно.",
+        "Соединение устанавливается по TCP на конкретный порт: отказ в соединении и таймаут — разные симптомы. Отказ означает, что никто не слушает, таймаут — что пакеты теряются, обычно на файрволе.",
+        "TLS — отдельный этап: истёкший сертификат ломает соединение до того, как приложение увидит запрос.",
+        "Коды 5xx приходят от сервера: 502 — прокси не смог получить ответ от приложения, 503 — сервис сознательно отвечает «сейчас не могу», 504 — истекло время ожидания.",
+        "4xx означает проблему на стороне запроса, и это не авария сервиса: 404 на несуществующий адрес — нормальное поведение.",
+        "Порядок проверки: dig или nslookup, затем telnet или nc на порт, затем curl -v — он показывает и TLS, и заголовки, и код ответа."
+      ],
+      "common_mistakes": [
+        "Путать 502 и 503: первое — приложение не ответило прокси, второе — сервис сам сообщил о недоступности",
+        "Считать, что изменение DNS действует мгновенно, и не учитывать TTL",
+        "Начинать диагностику с логов приложения, когда запрос до него вообще не доходит",
+        "Проверять доступность через браузер с его кэшем вместо curl"
+      ],
+      "example": "Приложение отвечает 502 после выката. Логи приложения пустые — значит, запрос до него не дошёл. curl с самого сервера на localhost:8080 даёт отказ в соединении: процесс не поднялся и порт никто не слушает. Прокси при этом исправен, и искать проблему надо было в приложении, а не в сети.",
+      "interview_question": "Пользователи говорят, что сайт недоступен. С чего начнёте?",
+      "short_answer": "Иду по цепочке запроса сверху вниз. Сначала проверяю, резолвится ли домен и в тот ли адрес. Потом — открывается ли TCP-соединение на нужный порт: отказ и таймаут означают разные вещи. Дальше curl -v, чтобы увидеть TLS и код ответа. Код подсказывает, где смотреть: 502 и 504 уводят к приложению за прокси, 503 — к самому сервису, а 4xx означает, что сервис жив и отвечает осмысленно. Параллельно уточняю, у всех ли недоступно или у части пользователей: это сразу отделяет общую аварию от проблемы одного региона или провайдера.",
+      "practice_task": "Возьмите любой публичный сайт и пройдите цепочку руками: dig, потом проверка порта, потом curl -v. Выпишите, что именно вы узнали на каждом шаге и какой вывод сделали бы, если бы шаг не прошёл.",
+      "source_refs": [
+        "cloudflare-dns-intro",
+        "rfc-1035-dns",
+        "mdn-http-status",
+        "rfc-9110-http",
+        "mdn-tls"
+      ],
+      "related_question_ids": [
+        "q-devops-net-001",
+        "q-devops-net-002",
+        "q-devops-net-003",
+        "q-devops-net-004",
+        "q-devops-net-005",
+        "q-devops-net-006"
+      ],
+      "related_term_ids": [
+        "t-dns-ttl",
+        "t-http-502-503-504",
+        "t-tcp-refused-timeout",
+        "t-tls-cert",
+        "t-service-k8s"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-git-branching-review",
+      "track_id": "devops-platform",
+      "topic_id": "git-vcs",
+      "title": "Ветки, слияние и rebase",
+      "summary": "Git на позиции инженера эксплуатации нужен не для красивой истории, а чтобы было понятно, что именно уехало в продакшен и как это откатить.",
+      "why_it_matters": "Вопрос «merge или rebase» — проверка на понимание последствий, а не на предпочтения. Правильный ответ всегда содержит слово «общая ветка».",
+      "key_points": [
+        "merge сохраняет историю как она была и добавляет коммит слияния, rebase переписывает коммиты поверх новой основы и делает историю линейной.",
+        "rebase нельзя делать в ветке, которую уже забрали другие: переписанная история заставит их разбирать конфликты заново.",
+        "Конфликт — это не поломка, а вопрос: две ветки изменили одно место, и Git не берётся решать за человека.",
+        "Тег помечает конкретный коммит и служит границей релиза: по нему собирают образ и к нему возвращаются при откате.",
+        "История нужна для расследования: осмысленное сообщение коммита экономит часы во время аварии."
+      ],
+      "common_mistakes": [
+        "Делать rebase уже опубликованной общей ветки",
+        "Решать конфликт, выбрав «свою» сторону целиком, не читая чужие изменения",
+        "Собирать образ из плавающей ветки вместо тега или конкретного коммита"
+      ],
+      "example": "Релиз собрали из ветки main без тега. Через день понадобился откат, но main уже ушла вперёд на четыре коммита, и какой именно код работал в продакшене — неизвестно. С тегом это был бы один git checkout.",
+      "interview_question": "Чем merge отличается от rebase и что выберете вы?",
+      "short_answer": "merge сохраняет историю как она была и добавляет коммит слияния, rebase переписывает коммиты поверх свежей основы — история становится линейной и её проще читать. Выбираю по тому, публичная ветка или нет. В своей ветке до review спокойно делаю rebase, чтобы убрать шум. В общую ветку иду через merge: rebase там переписал бы историю, которую другие уже забрали себе, и создал бы им конфликты на ровном месте.",
+      "practice_task": "Создайте две ветки, измените в них одну строку и разрешите конфликт руками — сначала через merge, потом через rebase. Сравните, как выглядит итоговая история в git log --graph.",
+      "source_refs": [
+        "git-branching",
+        "git-rebase",
+        "git-tag"
+      ],
+      "related_question_ids": [
+        "q-devops-git-001",
+        "q-devops-git-002",
+        "q-devops-git-003"
+      ],
+      "related_term_ids": [
+        "t-merge-vs-rebase",
+        "t-git-tag"
+      ],
+      "estimated_minutes": 30
+    },
+    {
+      "id": "lesson-ci-cd-pipeline",
+      "track_id": "devops-platform",
+      "topic_id": "ci-cd",
+      "title": "Как устроен конвейер",
+      "summary": "Конвейер — это последовательность стадий от коммита до выката. Задача инженера — чтобы он был быстрым, повторяемым и честным: красный конвейер обязан означать реальную проблему.",
+      "why_it_matters": "Это ежедневная работа на позиции. Спрашивают и про устройство, и про то, как вы чините упавшую сборку.",
+      "key_points": [
+        "Стадии обычно такие: сборка, тесты, публикация артефакта, выкат. Каждая следующая запускается, только если предыдущая прошла.",
+        "Артефакт собирается один раз и дальше едет по средам неизменным. Пересборка под каждую среду означает, что в продакшене окажется не то, что тестировали.",
+        "Кэш ускоряет сборку, но он же источник загадочных различий: сборка проходит локально и падает в CI именно из-за разного состояния кэша.",
+        "Секреты приходят из хранилища CI и не должны попадать в лог: любая отладочная печать окружения — это утечка.",
+        "Нестабильные тесты опаснее отсутствующих: когда красный конвейер стал нормой, его перестают читать.",
+        "Конвейер должен быть воспроизводимым: одна и та же ревизия даёт один и тот же результат независимо от того, кто и когда его запустил."
+      ],
+      "common_mistakes": [
+        "Собирать образ заново на каждой среде вместо продвижения одного артефакта",
+        "Печатать переменные окружения в лог для отладки и вместе с ними — секреты",
+        "Перезапускать упавшую сборку до победы вместо разбора причины",
+        "Держать в конвейере тесты, которые падают через раз"
+      ],
+      "example": "Сборка падает только в CI. Локально всё зелёное. Причина оказалась в кэше зависимостей: в CI он остался с прошлой недели и содержал старую версию библиотеки. Очистка кэша чинит симптом, но правильное решение — фиксировать версии зависимостей, чтобы результат не зависел от состояния кэша.",
+      "interview_question": "Сборка упала. Как будете разбираться?",
+      "short_answer": "Сначала смотрю, на какой стадии и что именно упало — читаю лог с первой ошибки, а не с конца. Дальше проверяю, воспроизводится ли это локально на той же ревизии. Если локально зелено, а в CI красно, ищу различия среды: версия языка, кэш, переменные окружения, доступ к сети. Если тест падает через раз, отношусь к нему как к дефекту, а не как к помехе: нестабильный тест быстро приводит к тому, что красный конвейер перестают читать. Перезапуск ради зелёного статуса — последнее, что стоит делать.",
+      "practice_task": "Соберите конвейер из трёх стадий для любого своего проекта: сборка, тесты, публикация артефакта. Намеренно сломайте тест и убедитесь, что выкат не запустился.",
+      "source_refs": [
+        "github-actions-workflow",
+        "gitlab-ci-yaml",
+        "github-actions-secrets",
+        "docker-build-cache"
+      ],
+      "related_question_ids": [
+        "q-devops-cicd-001",
+        "q-devops-cicd-002",
+        "q-devops-cicd-003",
+        "q-devops-cicd-004",
+        "q-devops-cicd-005"
+      ],
+      "related_term_ids": [
+        "t-exit-code",
+        "t-git-tag",
+        "t-layer-cache",
+        "t-artifact-promotion"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-containers-basics",
+      "track_id": "devops-platform",
+      "topic_id": "containers",
+      "title": "Что такое контейнер на самом деле",
+      "summary": "Контейнер — это обычный процесс на хосте, которому ядро ограничило видимость и ресурсы. Не маленькая виртуальная машина: своего ядра у него нет.",
+      "why_it_matters": "Вопрос «чем контейнер отличается от виртуальной машины» — самый частый на входе. Ответ про «это как лёгкая виртуалка» считается слабым.",
+      "key_points": [
+        "Изоляция строится средствами ядра хоста: пространства имён ограничивают видимость, cgroups — потребление процессора и памяти.",
+        "У контейнера нет собственного ядра — поэтому он стартует за доли секунды и поэтому же на Linux-хосте нельзя запустить контейнер с другим ядром.",
+        "Файловая система контейнера эфемерна: всё, что записано внутрь, исчезает при пересоздании. Данные хранят в томах.",
+        "В контейнере обычно один главный процесс, и именно ему приходит сигнал остановки. Если приложение запущено через обёртку, сигнал может до него не дойти.",
+        "Контейнер должен корректно завершаться по SIGTERM: иначе при каждом выкате обрываются живые запросы.",
+        "Образ неизменяем, контейнер — его запущенный экземпляр. Изменения «внутри» живого контейнера теряются и не воспроизводятся."
+      ],
+      "common_mistakes": [
+        "Называть контейнер лёгкой виртуальной машиной",
+        "Хранить данные внутри контейнера и терять их при пересоздании",
+        "Чинить проблему командами внутри живого контейнера вместо правки образа",
+        "Игнорировать обработку SIGTERM и обрывать запросы при каждом выкате"
+      ],
+      "example": "После выката пользователи периодически получают обрыв соединения. Причина: приложение запускается через shell-обёртку, SIGTERM приходит оболочке, а не процессу приложения. Через десять секунд ожидания приходит SIGKILL и рвёт живые запросы. Лечится запуском приложения главным процессом.",
+      "interview_question": "Чем контейнер отличается от виртуальной машины?",
+      "short_answer": "Виртуальная машина эмулирует железо и несёт собственное ядро и операционную систему. Контейнер — это процесс на хосте, которому ядро ограничило видимость через пространства имён и ресурсы через cgroups. Отсюда практическая разница: контейнер стартует мгновенно и почти не тратит память на накладные расходы, но делит ядро с хостом, а значит изоляция слабее — для недоверенного кода это существенно. И ещё одно следствие: файловая система контейнера эфемерна, данные надо выносить в тома.",
+      "practice_task": "Запустите контейнер, создайте в нём файл, пересоздайте контейнер и убедитесь, что файла нет. Повторите с примонтированным томом.",
+      "source_refs": [
+        "docker-storage-volumes",
+        "docker-networking",
+        "man-signal",
+        "twelve-factor"
+      ],
+      "related_question_ids": [
+        "q-devops-cont-001",
+        "q-devops-cont-002",
+        "q-devops-cont-003",
+        "q-devops-cont-004"
+      ],
+      "related_term_ids": [
+        "t-sigterm-sigkill",
+        "t-container",
+        "t-image-vs-container"
+      ],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-images-layers",
+      "track_id": "devops-platform",
+      "topic_id": "images-registry",
+      "title": "Образы, слои и кэш сборки",
+      "summary": "Образ состоит из слоёв, и каждая инструкция Dockerfile добавляет слой. Порядок инструкций определяет, будет ли сборка занимать десять секунд или десять минут.",
+      "why_it_matters": "«Как уменьшить образ» и «почему сборка долгая» — вопросы, которые отделяют человека, писавшего Dockerfile, от человека, копировавшего его из интернета.",
+      "key_points": [
+        "Слои кэшируются по порядку: изменение одной инструкции обесценивает её слой и все последующие.",
+        "Поэтому зависимости ставят до копирования исходников: код меняется каждый коммит, а список зависимостей — редко.",
+        "Многостадийная сборка отделяет компиляцию от результата: в финальный образ попадает только собранное приложение, без компилятора и исходников.",
+        "Тег подвижен и может указывать на разные образы в разное время, дайджест — нет. Для воспроизводимого выката фиксируют дайджест.",
+        "Удаление файла в следующем слое не уменьшает образ: данные остаются в предыдущем слое.",
+        "Тег latest в продакшене означает, что вы не знаете, что именно у вас запущено."
+      ],
+      "common_mistakes": [
+        "Копировать весь исходный код до установки зависимостей и терять кэш на каждом коммите",
+        "Считать, что rm в отдельном слое уменьшит итоговый размер образа",
+        "Выкатывать по тегу latest",
+        "Класть секреты в образ: они остаются в слоях и извлекаются оттуда"
+      ],
+      "example": "Образ приложения весит 1,2 ГБ, потому что собран в одну стадию: внутри остались компилятор, кэш пакетного менеджера и исходники. Многостадийная сборка с копированием только готового бинарника в финальную стадию уменьшает его до 80 МБ — при том же приложении.",
+      "interview_question": "Образ весит больше гигабайта. Что будете делать?",
+      "short_answer": "Сначала смотрю, из чего он состоит: обычно вес дают инструменты сборки, кэш пакетного менеджера и исходники, которые в готовом образе не нужны. Первое, что делаю, — многостадийная сборка: собираю в одной стадии, а в финальную копирую только результат. Второе — базовый образ поменьше. Третье — порядок инструкций: зависимости ставлю до копирования кода, иначе кэш слетает на каждом коммите. Важная деталь: удалять лишнее отдельной инструкцией бессмысленно, данные останутся в предыдущем слое.",
+      "practice_task": "Возьмите свой Dockerfile и переставьте копирование исходников после установки зависимостей. Замерьте время повторной сборки до и после.",
+      "source_refs": [
+        "dockerfile-reference",
+        "docker-multistage",
+        "docker-build-cache",
+        "oci-image-spec"
+      ],
+      "related_question_ids": [
+        "q-devops-img-001",
+        "q-devops-img-002",
+        "q-devops-img-003",
+        "q-devops-img-004"
+      ],
+      "related_term_ids": [
+        "t-image-vs-container",
+        "t-layer-cache",
+        "t-multistage",
+        "t-tag-vs-digest"
+      ],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-kubernetes-objects",
+      "track_id": "devops-platform",
+      "topic_id": "kubernetes",
+      "title": "Pod, Deployment, Service",
+      "summary": "Kubernetes работает от желаемого состояния: вы описываете, что должно быть, а контроллеры приводят систему к описанию. Три объекта закрывают базовый разговор: Pod, Deployment, Service.",
+      "why_it_matters": "Без внятного определения этих трёх сущностей дальше собеседование по Kubernetes не идёт.",
+      "key_points": [
+        "Pod — минимальная единица запуска: один или несколько контейнеров с общей сетью и общим жизненным циклом. Поды одноразовые, их адрес меняется при пересоздании.",
+        "Deployment описывает желаемое число реплик и версию образа, а сам выкат идёт через ReplicaSet: создаётся новый, старый постепенно сворачивается.",
+        "Service даёт стабильный адрес и балансирует трафик по подам, отобранным по меткам. Именно поэтому поды могут пересоздаваться незаметно для клиентов.",
+        "Метки — это способ связи объектов: Service находит поды не по именам, а по совпадению меток.",
+        "Модель декларативная: ручное изменение живого объекта будет отменено контроллером, который приводит состояние к описанию.",
+        "ConfigMap отделяет конфигурацию от образа, чтобы один и тот же образ работал в разных средах."
+      ],
+      "common_mistakes": [
+        "Считать Pod аналогом контейнера, а не единицей запуска, которая может содержать несколько контейнеров",
+        "Рассчитывать на постоянный адрес пода вместо обращения через Service",
+        "Править живой объект руками и удивляться, что изменения откатились",
+        "Запускать несколько приложений в одном поде без общего жизненного цикла"
+      ],
+      "example": "Разработчик прописал в конфигурации адрес пода напрямую. Всё работало до первого выката: поды пересоздались с новыми адресами, и связь отвалилась. Обращение через Service решает это, потому что его адрес стабилен.",
+      "interview_question": "Что такое Pod, Deployment и Service и как они связаны?",
+      "short_answer": "Pod — минимальная единица запуска, один или несколько контейнеров с общей сетью и общей судьбой. Поды одноразовые: их пересоздают, и адрес меняется. Deployment описывает, сколько реплик и какой версии должно работать, и сам управляет выкатом — создаёт новый набор подов и постепенно убирает старый. Service даёт стабильную точку входа и балансирует трафик по подам, которые подходят по меткам. Связка получается такая: Deployment следит за тем, чтобы поды были, а Service — за тем, чтобы до них можно было достучаться независимо от их адресов.",
+      "practice_task": "Разверните любое приложение через Deployment, откройте его через Service и удалите один под руками. Проследите, что реплика восстановилась, а доступ через Service не прерывался.",
+      "source_refs": [
+        "k8s-pods",
+        "k8s-deployment",
+        "k8s-service",
+        "k8s-configmap"
+      ],
+      "related_question_ids": [
+        "q-devops-k8s-001",
+        "q-devops-k8s-002",
+        "q-devops-k8s-003",
+        "q-devops-k8s-004",
+        "q-devops-k8s-005",
+        "q-devops-k8s-006"
+      ],
+      "related_term_ids": [
+        "t-pod",
+        "t-deployment",
+        "t-service-k8s",
+        "t-declarative"
+      ],
+      "estimated_minutes": 45
+    },
+    {
+      "id": "lesson-k8s-troubleshooting",
+      "track_id": "devops-platform",
+      "topic_id": "k8s-operations",
+      "title": "Под не поднимается: разбор",
+      "summary": "Состояния Pending, CrashLoopBackOff и OOMKilled означают три разные причины. Умение отличать их по симптому — практический навык, который проверяют почти всегда.",
+      "why_it_matters": "Это самая частая практическая задача на интервью по Kubernetes и самая частая задача на дежурстве.",
+      "key_points": [
+        "Pending означает, что под некуда поставить: не хватает ресурсов под запросы, не подходит узел или не примонтировался том. Смотреть надо в события объекта.",
+        "CrashLoopBackOff — контейнер стартует и падает, планировщик повторяет с растущей паузой. Причина в логах предыдущего запуска, а не текущего.",
+        "OOMKilled — контейнер превысил лимит памяти и был убит ядром. Это лимит, а не утечка сама по себе: цифру надо сверить с реальным потреблением.",
+        "requests влияет на планирование, limits — на убийство контейнера. Занижен requests — под встанет на перегруженный узел; занижен limits — его убьют под нагрузкой.",
+        "liveness перезапускает контейнер, readiness убирает его из балансировки. Ошибочно настроенный liveness превращает медленный старт в бесконечный перезапуск.",
+        "Порядок разбора: describe для событий, logs --previous для причины падения, затем ресурсы и probes."
+      ],
+      "common_mistakes": [
+        "Смотреть логи текущего запуска вместо предыдущего при CrashLoopBackOff",
+        "Путать liveness и readiness и выбивать из балансировки живые поды",
+        "Поднимать лимит памяти, не разобравшись, куда она уходит",
+        "Игнорировать раздел событий, где написана прямая причина"
+      ],
+      "example": "Под в CrashLoopBackOff. kubectl logs показывает пустой вывод — контейнер не успевает ничего написать. kubectl logs --previous даёт строку о недоступности базы: приложение падает на старте, потому что стартовало раньше базы. Лечится не перезапуском, а корректной проверкой готовности зависимости.",
+      "interview_question": "Под в CrashLoopBackOff. Ваши действия?",
+      "short_answer": "Сначала kubectl describe — там события, и часто причина написана прямым текстом: не скачался образ, не смонтировался том, не хватило ресурсов. Потом логи, причём именно предыдущего запуска, потому что текущий контейнер живёт секунды и ничего сказать не успевает. Дальше сверяю три вещи: хватает ли памяти по лимиту, не убивает ли контейнер liveness из-за слишком короткого времени старта, и доступны ли зависимости. Само по себе состояние CrashLoopBackOff — это не диагноз, а сообщение о том, что контейнер падает повторно.",
+      "practice_task": "Намеренно поставьте лимит памяти заведомо ниже потребления приложения и доведите под до OOMKilled. Найдите подтверждение в describe.",
+      "source_refs": [
+        "k8s-debug-pods",
+        "k8s-resources",
+        "k8s-probes",
+        "k8s-pods"
+      ],
+      "related_question_ids": [
+        "q-devops-k8sops-001",
+        "q-devops-k8sops-002",
+        "q-devops-k8sops-003",
+        "q-devops-k8sops-004",
+        "q-devops-k8sops-005"
+      ],
+      "related_term_ids": [
+        "t-liveness-readiness",
+        "t-requests-limits",
+        "t-oomkilled",
+        "t-crashloopbackoff"
+      ],
+      "estimated_minutes": 45
+    },
+    {
+      "id": "lesson-iac-terraform",
+      "track_id": "devops-platform",
+      "topic_id": "iac",
+      "title": "Инфраструктура как код и состояние",
+      "summary": "Terraform хранит представление о созданных ресурсах в файле состояния и сравнивает его с описанием. Почти все сложности в работе — вокруг состояния, а не вокруг синтаксиса.",
+      "why_it_matters": "Про plan и apply знают все. Про состояние, дрейф и блокировку — заметно меньше, и именно эти вопросы отделяют практика.",
+      "key_points": [
+        "plan показывает разницу между описанием и состоянием и ничего не меняет. apply применяет ровно этот план.",
+        "Состояние — источник знания о том, какие ресурсы уже созданы. Без него Terraform попытается создать всё заново.",
+        "Состояние хранят удалённо и с блокировкой: иначе два одновременных apply приведут систему в неопределённое состояние.",
+        "Дрейф — расхождение между реальностью и состоянием, обычно из-за ручных правок в консоли облака. plan его показывает как неожиданные изменения.",
+        "Идемпотентность: повторный apply без изменений в описании не должен ничего менять. Если меняет — в описании есть недетерминированность.",
+        "В состоянии могут оказаться секреты в открытом виде, поэтому доступ к нему ограничивают как к секрету."
+      ],
+      "common_mistakes": [
+        "Хранить файл состояния локально или в git",
+        "Править ресурсы руками в консоли облака и получать дрейф",
+        "Запускать apply без чтения плана",
+        "Считать, что удаление ресурса из описания оставит его в облаке"
+      ],
+      "example": "Коллега поправил размер виртуальной машины руками через консоль облака. Следующий plan показал намерение вернуть прежний размер: описание не знает о ручной правке. Выбор простой — либо внести изменение в код, либо потерять его при ближайшем apply.",
+      "interview_question": "Зачем нужен файл состояния и что будет, если его потерять?",
+      "short_answer": "Состояние — это связь между описанием и реально созданными ресурсами: по нему Terraform понимает, что уже есть, а что надо создать или изменить. Если состояние потеряно, Terraform считает, что ничего не создано, и на apply попытается сделать всё заново — а часть ресурсов уже существует, и получатся либо ошибки, либо дубли. Поэтому состояние хранят удалённо, с блокировкой на время выполнения и с версионированием. И относятся к нему как к секрету: там могут лежать чувствительные значения в открытом виде.",
+      "practice_task": "Создайте что-нибудь простое через Terraform, измените ресурс руками вне кода и запустите plan. Прочитайте, как именно он показывает дрейф.",
+      "source_refs": [
+        "terraform-state",
+        "terraform-plan",
+        "terraform-modules",
+        "terraform-import"
+      ],
+      "related_question_ids": [
+        "q-devops-iac-001",
+        "q-devops-iac-002",
+        "q-devops-iac-003",
+        "q-devops-iac-004"
+      ],
+      "related_term_ids": [
+        "t-tf-state",
+        "t-idempotency",
+        "t-drift",
+        "t-declarative"
+      ],
+      "estimated_minutes": 45
+    },
+    {
+      "id": "lesson-config-and-secrets",
+      "track_id": "devops-platform",
+      "topic_id": "config-secrets",
+      "title": "Конфигурация и секреты",
+      "summary": "Один и тот же артефакт должен работать в любой среде — различия задаются конфигурацией снаружи. Секреты при этом не хранятся в репозитории и не печатаются в логи.",
+      "why_it_matters": "Секрет, попавший в git, — типовой инцидент. Спрашивают и про правильное хранение, и про то, что делать после утечки.",
+      "key_points": [
+        "Конфигурация живёт в окружении, а не в коде: одна сборка работает и в тестовой среде, и в продакшене.",
+        "Секрет в git остаётся в истории навсегда: удаление файла следующим коммитом ничего не решает. После утечки секрет считается скомпрометированным и подлежит ротации.",
+        "Secret в Kubernetes по умолчанию только закодирован base64, а не зашифрован: без шифрования хранилища и ограничения прав это не защита.",
+        "Права выдаются по минимуму: у процесса должно быть ровно столько доступа, сколько нужно для его работы.",
+        "Секреты в логах — частая утечка: отладочная печать окружения выносит их в общий журнал, откуда их уже не убрать.",
+        "Ротация должна быть возможна без простоя: если смена пароля требует остановки сервиса, её не будут делать."
+      ],
+      "common_mistakes": [
+        "Класть .env в репозиторий",
+        "Считать base64 в Kubernetes Secret шифрованием",
+        "Удалять секрет новым коммитом и считать инцидент закрытым без ротации",
+        "Собирать отдельный образ под каждую среду вместо внешней конфигурации"
+      ],
+      "example": "В репозиторий случайно попал токен. Его удалили следующим коммитом, но он остался в истории и был доступен всем, у кого есть клон. Правильный порядок другой: сначала отозвать и выпустить новый токен, и только потом чистить историю.",
+      "interview_question": "Токен попал в публичный репозиторий. Ваши действия?",
+      "short_answer": "Считаю его скомпрометированным с этой минуты — независимо от того, как быстро я его удалю. Первым делом отзываю токен и выпускаю новый: пока старый действует, всё остальное неважно. Потом смотрю по логам, использовали ли его, и оцениваю ущерб. Дальше — чистка истории репозитория, но это уже уборка, а не защита: клоны могли уйти куда угодно. И в конце разбираюсь, как он туда попал, и закрываю саму возможность: проверка секретов до коммита и хранилище секретов вместо файла рядом с кодом.",
+      "practice_task": "Настройте проверку на секреты до коммита в любом своём репозитории и убедитесь, что она останавливает коммит с ключом.",
+      "source_refs": [
+        "twelve-factor-config",
+        "k8s-secrets",
+        "owasp-secrets-cheatsheet",
+        "github-actions-secrets",
+        "nist-least-privilege"
+      ],
+      "related_question_ids": [
+        "q-devops-cfg-001",
+        "q-devops-cfg-002",
+        "q-devops-cfg-003"
+      ],
+      "related_term_ids": [
+        "t-configmap",
+        "t-k8s-secret",
+        "t-secret-rotation"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-observability-signals",
+      "track_id": "devops-platform",
+      "topic_id": "observability",
+      "title": "Логи, метрики, трассировки",
+      "summary": "Три сигнала отвечают на разные вопросы: метрики говорят, что что-то не так, трассировки — где именно, логи — почему. Ни один не заменяет остальные.",
+      "why_it_matters": "Вопрос «чем логи отличаются от метрик» звучит просто, но ответ сразу показывает, работал человек с наблюдаемостью или читал о ней.",
+      "key_points": [
+        "Метрика — число во времени, дешёвое в хранении и удобное для тревог. По ней видно отклонение, но не видно причины.",
+        "Лог — событие с подробностями. Отвечает на вопрос «почему», но дорог в хранении и бесполезен без структуры.",
+        "Трассировка связывает части одного запроса между сервисами и показывает, какое звено медленное.",
+        "Counter только растёт, gauge может меняться в обе стороны, histogram нужен для распределения — например, времени ответа.",
+        "Среднее время ответа скрывает проблему: половина пользователей может ждать вдвое дольше среднего. Смотреть надо перцентили.",
+        "Четыре золотых сигнала — задержка, трафик, ошибки, насыщение — дают готовый каркас для ответа о том, что мониторить."
+      ],
+      "common_mistakes": [
+        "Считать среднее время ответа достаточной метрикой",
+        "Логировать всё подряд и потом не мочь ничего найти",
+        "Ставить тревогу на каждое отклонение и получить шум, который перестают читать",
+        "Писать секреты и персональные данные в логи"
+      ],
+      "example": "Среднее время ответа 200 мс, все довольны. Перцентиль 99 показывает 8 секунд: каждый сотый запрос почти отваливается по таймауту. Именно эти пользователи и пишут в поддержку, а средняя метрика их не видит.",
+      "interview_question": "Чем метрики отличаются от логов и что вы будете смотреть первым?",
+      "short_answer": "Метрики — это числа во времени: дёшево хранить, удобно строить тревоги, но по ним видно только что что-то не так. Логи — события с подробностями: отвечают на вопрос почему, но дороже и без структуры в них тонешь. Трассировки показывают, какое звено в цепочке медленное. Первым смотрю метрики: они дают форму проблемы — когда началось, всех задело или часть, растёт или стабильно. И только потом иду в логи за причиной, уже зная, в каком окне времени и в каком сервисе искать. И смотрю перцентили, а не среднее: среднее прячет хвост.",
+      "practice_task": "Возьмите любой свой сервис и добавьте три метрики: счётчик запросов, счётчик ошибок и гистограмму времени ответа. Постройте по ним перцентиль 95 и сравните со средним.",
+      "source_refs": [
+        "otel-observability",
+        "prometheus-metric-types",
+        "prometheus-histograms",
+        "sre-monitoring",
+        "otel-traces"
+      ],
+      "related_question_ids": [
+        "q-devops-obs-001",
+        "q-devops-obs-002",
+        "q-devops-obs-003",
+        "q-devops-obs-004",
+        "q-devops-obs-005"
+      ],
+      "related_term_ids": [
+        "t-journald",
+        "t-metric-types",
+        "t-percentile",
+        "t-golden-signals",
+        "t-trace-span"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-slo-error-budget",
+      "track_id": "devops-platform",
+      "topic_id": "reliability-slo",
+      "title": "SLI, SLO и бюджет ошибок",
+      "summary": "SLO — это осознанно выбранная цель по надёжности, а не обещание безотказности. Бюджет ошибок превращает спор «релизить или чинить» в цифру.",
+      "why_it_matters": "Понимание SLO отличает инженера эксплуатации от администратора: разговор идёт про цели бизнеса, а не про аптайм сервера.",
+      "key_points": [
+        "SLI — измеряемый показатель, например доля успешных запросов. SLO — целевое значение этого показателя за период.",
+        "100% не бывает целью: стоимость каждой следующей девятки растёт, а выигрыш для пользователя падает.",
+        "Бюджет ошибок — это разрешённая доля неуспеха: при SLO 99,9% за 30 дней накапливается около 43 минут допустимого простоя.",
+        "Пока бюджет не израсходован, команда катит новое. Когда израсходован — приоритет переходит к надёжности. Это правило, а не настроение.",
+        "Измерять надо то, что чувствует пользователь: доступность с точки зрения клиента, а не загрузка процессора.",
+        "SLO без последствий бесполезен: если превышение ни на что не влияет, это просто красивая цифра на дашборде."
+      ],
+      "common_mistakes": [
+        "Обещать 100% доступности",
+        "Ставить SLO по техническим метрикам вместо пользовательских",
+        "Считать простоем только полное падение, игнорируя частичные отказы",
+        "Иметь SLO, нарушение которого ни к чему не приводит"
+      ],
+      "example": "Сервис держит 99,95% при цели 99,9%. Бюджет ошибок израсходован на треть, и команда спокойно катит изменения. После неудачного релиза бюджет выработан полностью — по договорённости выкаты новых функций приостанавливаются, пока команда не вернёт показатель.",
+      "interview_question": "Что такое SLO и зачем нужен бюджет ошибок?",
+      "short_answer": "SLI — это то, что мы измеряем, например доля успешных запросов. SLO — цель по этому показателю за период, скажем 99,9% за месяц. Бюджет ошибок — обратная сторона цели: те самые 0,1%, которые нам разрешено потратить. Смысл в том, что он переводит вечный спор между скоростью и надёжностью в цифру. Пока бюджет есть — катим новое смело. Бюджет кончился — значит, по договорённости переключаемся на надёжность. И ставить 100% нельзя: это не цель, а обещание, которое невозможно выполнить, и любая мелкая авария сразу делает его нарушенным.",
+      "practice_task": "Посчитайте для своего сервиса, сколько минут простоя в месяц допускает SLO 99,9% и сколько — 99,99%. Оцените, сколько будет стоить переход между ними.",
+      "source_refs": [
+        "sre-slo",
+        "sre-error-budget",
+        "sre-monitoring",
+        "prometheus-histograms"
+      ],
+      "related_question_ids": [
+        "q-devops-slo-001",
+        "q-devops-slo-002",
+        "q-devops-slo-003",
+        "q-devops-slo-004"
+      ],
+      "related_term_ids": [
+        "t-percentile",
+        "t-golden-signals",
+        "t-sli-slo",
+        "t-error-budget"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-incident-response",
+      "track_id": "devops-platform",
+      "topic_id": "incidents",
+      "title": "Авария: порядок действий и постмортем",
+      "summary": "Во время аварии сначала восстанавливают работу, потом ищут причину. Постмортем пишут без поиска виноватых — иначе в следующий раз о проблеме просто промолчат.",
+      "why_it_matters": "«Расскажите про аварию, в которой участвовали» — почти обязательный вопрос. Проверяют выдержку и порядок, а не героизм.",
+      "key_points": [
+        "Первый приоритет — вернуть сервис, а не понять причину. Откат почти всегда быстрее починки на живой системе.",
+        "Роли разделяют: кто-то чинит, кто-то общается с бизнесом и пользователями. Один человек не тянет обе задачи.",
+        "Гипотезы проверяют по одной и записывают, что уже исключено: иначе через час никто не помнит, что проверяли.",
+        "Постмортем без поиска виноватых: разбирают систему и процесс, а не человека. Наказание за ошибку приводит к сокрытию следующей.",
+        "Хороший постмортем заканчивается конкретными действиями с ответственными и сроками, а не выводом «будем внимательнее».",
+        "Хронология по времени — обязательная часть: когда началось, когда заметили, когда восстановили. Разрыв между первым и вторым — отдельная проблема."
+      ],
+      "common_mistakes": [
+        "Искать причину, пока пользователи не обслуживаются, вместо отката",
+        "Молчать во время аварии: отсутствие новостей воспринимается хуже плохих новостей",
+        "Писать в постмортеме «человеческий фактор» и на этом останавливаться",
+        "Закрывать постмортем без назначенных действий"
+      ],
+      "example": "Выкат в 14:10, первые ошибки в 14:12, тревога сработала в 14:40, откат в 14:47. Главная находка постмортема не в причине сбоя, а в этих 28 минутах между поломкой и тревогой: мониторинг не покрывал именно этот сценарий.",
+      "interview_question": "Расскажите, как вы действовали во время аварии.",
+      "short_answer": "Порядок такой: сначала восстановление, потом расследование. Первым делом смотрю, что менялось последним — в подавляющем большинстве случаев причина в свежем изменении, и откат быстрее, чем починка на живой системе. Параллельно сообщаю остальным: что сломано, что уже делаю, когда следующее обновление. Гипотезы проверяю по одной и записываю, что исключил. Когда сервис вернулся — пишу постмортем с хронологией и разбором, причём отдельно смотрю не только на причину, но и на то, сколько прошло от поломки до момента, когда мы её заметили. И без поиска виноватых: если за ошибку наказывают, следующую просто скроют.",
+      "practice_task": "Возьмите любой прошлый сбой и напишите по нему постмортем: хронология, влияние, причина, что сработало, что нет, три конкретных действия.",
+      "source_refs": [
+        "sre-postmortem",
+        "sre-oncall",
+        "prometheus-alerting-rules"
+      ],
+      "related_question_ids": [
+        "q-devops-inc-001",
+        "q-devops-inc-002",
+        "q-devops-inc-003"
+      ],
+      "related_term_ids": [
+        "t-postmortem"
+      ],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-deployment-strategies",
+      "track_id": "devops-platform",
+      "topic_id": "deployment-strategies",
+      "title": "Стратегии выката и откат",
+      "summary": "Rolling, blue-green и канареечный выкат отличаются тем, сколько пользователей увидит проблему до того, как её заметят. Отдельно живёт вопрос миграций базы, который ломает откат чаще всего.",
+      "why_it_matters": "Вопрос «как выкатываете и как откатываете» практический. Ответ без упоминания базы данных считается неполным.",
+      "key_points": [
+        "Rolling заменяет экземпляры постепенно: не нужен двойной запас мощности, но какое-то время работают обе версии одновременно.",
+        "Blue-green держит две полные среды и переключает трафик разом: мгновенный откат, но двойная стоимость инфраструктуры.",
+        "Канареечный выкат отдаёт новой версии небольшую долю трафика и наблюдает за метриками: проблему видит малая часть пользователей.",
+        "Любая стратегия бесполезна без метрик: если после переключения никто не смотрит на ошибки, откат случится по жалобам пользователей.",
+        "Миграции базы ломают откат: код откатили, а схема осталась новой. Поэтому изменения схемы делают обратно совместимыми и в два шага.",
+        "Откат должен быть отрепетирован. Кнопка, которой ни разу не пользовались, во время аварии не работает."
+      ],
+      "common_mistakes": [
+        "Считать, что откат кода автоматически откатывает изменения схемы базы",
+        "Делать канареечный выкат без наблюдения за метриками",
+        "Удалять старую колонку в том же релизе, где перестали её использовать",
+        "Ни разу не проверять процедуру отката до реальной аварии"
+      ],
+      "example": "Релиз переименовал колонку в базе. Код выкатили, нашли ошибку, откатили — но старый код ищет колонку под прежним именем, которой уже нет. Сервис лежит уже из-за отката. Правильный путь: сначала добавить новую колонку и писать в обе, потом переключить чтение, и только следующим релизом удалить старую.",
+      "interview_question": "Как вы выкатываете и как откатываете изменения?",
+      "short_answer": "Выбираю по цене ошибки. Rolling — по умолчанию, не требует запаса мощности. Если изменение рискованное, беру канареечный выкат: пускаю малую долю трафика и смотрю на ошибки и задержку. Blue-green — когда нужен мгновенный откат и есть бюджет на две среды. Но главное не стратегия, а то, что откат должен быть проверен заранее и что база данных откатывается не так, как код. Поэтому миграции делаю обратно совместимыми: сначала добавить, потом переключить, и только отдельным релизом удалить старое. Иначе откат кода упирается в схему, которую уже поменяли.",
+      "practice_task": "Опишите для своего сервиса план выката с миграцией схемы в три релиза так, чтобы откат был возможен на каждом шаге.",
+      "source_refs": [
+        "martin-fowler-bluegreen",
+        "martin-fowler-canary",
+        "k8s-deployment",
+        "postgres-explicit-locking"
+      ],
+      "related_question_ids": [
+        "q-devops-dep-001",
+        "q-devops-dep-002",
+        "q-devops-dep-003",
+        "q-devops-dep-004"
+      ],
+      "related_term_ids": [
+        "t-deployment",
+        "t-blue-green",
+        "t-canary",
+        "t-backward-compatible-migration"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-cloud-basics",
+      "track_id": "devops-platform",
+      "topic_id": "cloud-basics",
+      "title": "Облако: регионы, ресурсы, доступы",
+      "summary": "Облако — это чужие машины с программным управлением. Практически важны три вещи: где физически живёт сервис, как он платит за ресурсы и кто имеет к нему доступ.",
+      "why_it_matters": "Даже без глубокого знания конкретного провайдера нужно уверенно говорить про зоны доступности, права и то, откуда берётся счёт.",
+      "key_points": [
+        "Регион — географическая область, зона доступности — независимый сегмент внутри него. Отказоустойчивость строится размещением в разных зонах.",
+        "Управляемый сервис снимает часть работы, но не снимает ответственности: резервные копии и права всё равно ваши.",
+        "Права выдаются ролями и по минимуму. Учётная запись с полным доступом «чтобы работало» — типовая находка любого аудита.",
+        "Счёт растёт не только от вычислений: исходящий трафик, хранение снимков и простаивающие ресурсы дают заметную долю.",
+        "Инфраструктуру описывают кодом, а не создают руками: иначе среду невозможно воспроизвести и никто не знает, кто что создал."
+      ],
+      "common_mistakes": [
+        "Размещать все экземпляры в одной зоне доступности и называть это отказоустойчивостью",
+        "Выдавать полный доступ вместо роли с нужным набором прав",
+        "Забывать про удаление старых снимков и дисков",
+        "Создавать ресурсы вручную в консоли в обход кода"
+      ],
+      "example": "Сервис развёрнут в трёх экземплярах, но все три оказались в одной зоне доступности. Плановые работы провайдера в этой зоне положили сервис целиком, хотя формально резервирование было.",
+      "interview_question": "Что такое зона доступности и зачем разносить сервис по зонам?",
+      "short_answer": "Регион — это география, а зона доступности — независимый сегмент внутри региона со своим питанием и сетью. Смысл разнесения в том, что отказ одной зоны не должен забирать сервис целиком. Частая ошибка — поднять три реплики и не проверить, что все три встали в одну зону: формально резервирование есть, фактически это одна точка отказа. Разнесение по регионам решает более крупные сценарии, но там уже появляется задержка между регионами и вопрос, как реплицировать данные.",
+      "practice_task": "Проверьте в своей инфраструктуре, в скольких зонах реально находятся экземпляры сервиса, и посчитайте, что произойдёт при отказе самой нагруженной зоны.",
+      "source_refs": [
+        "terraform-state",
+        "nist-least-privilege",
+        "k8s-hpa"
+      ],
+      "related_question_ids": [
+        "q-devops-cloud-001",
+        "q-devops-cloud-002"
+      ],
+      "related_term_ids": [
+        "t-least-privilege",
+        "t-availability-zone"
+      ],
+      "estimated_minutes": 30
+    },
+    {
+      "id": "lesson-pipeline-security",
+      "track_id": "devops-platform",
+      "topic_id": "security-pipeline",
+      "title": "Безопасность конвейера",
+      "summary": "Конвейер имеет доступ к коду, секретам и продакшену одновременно. Поэтому он же — привлекательная цель, и права в нём раздают по минимуму.",
+      "why_it_matters": "Вопросы про сканирование образов, зависимости и права появляются даже на junior-позициях: это то, что легко проверить.",
+      "key_points": [
+        "Права по минимуму: у задачи конвейера должен быть доступ только к тому, что нужно именно ей, и только на время выполнения.",
+        "Зависимости — основной путь заражения: фиксируйте версии и проверяйте их на известные уязвимости.",
+        "Образы сканируют на уязвимости регулярно, а не один раз: уязвимость в базовом образе появляется уже после сборки.",
+        "Секреты не печатают в лог и не передают через аргументы командной строки: аргументы видны в списке процессов.",
+        "Сборка из внешнего вклада не должна получать доступ к боевым секретам.",
+        "Базовый образ фиксируют по дайджесту: плавающий тег означает, что содержимое меняется без вашего ведома."
+      ],
+      "common_mistakes": [
+        "Один общий токен с полными правами на все задачи конвейера",
+        "Сканирование образа только в момент сборки и никогда после",
+        "Передача пароля аргументом командной строки",
+        "Запуск конвейера с боевыми секретами на pull request извне"
+      ],
+      "example": "Задача конвейера использовала один токен с правами на запись во все репозитории — так было проще. После утечки лога с этим токеном скомпрометированной оказалась вся организация, а не один проект.",
+      "interview_question": "Какие права вы дадите задаче конвейера, которая выкатывает сервис?",
+      "short_answer": "Ровно те, что нужны для выката именно этого сервиса, и не более. Отдельная учётная запись под задачу, а не общий токен на всё. Права выдаю на конкретное окружение и по возможности на время выполнения, а не бессрочно. Секреты беру из хранилища CI и слежу, чтобы они не попадали ни в лог, ни в аргументы команд — аргументы видно в списке процессов. Отдельно проверяю, что сборки из внешних вкладов не получают боевые секреты вообще: иначе любой присланный пул-реквест может их вынести.",
+      "practice_task": "Просмотрите свой конвейер и выпишите, к чему он имеет доступ. Для каждого доступа ответьте, нужен ли он на самом деле.",
+      "source_refs": [
+        "owasp-cicd-top10",
+        "owasp-secrets-cheatsheet",
+        "github-actions-secrets",
+        "k8s-rbac",
+        "nist-least-privilege"
+      ],
+      "related_question_ids": [
+        "q-devops-sec-001",
+        "q-devops-sec-002",
+        "q-devops-sec-003"
+      ],
+      "related_term_ids": [
+        "t-file-permissions",
+        "t-tls-cert",
+        "t-k8s-secret",
+        "t-least-privilege",
+        "t-secret-rotation"
+      ],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-databases-operations",
+      "track_id": "devops-platform",
+      "topic_id": "databases-ops",
+      "title": "База данных в эксплуатации",
+      "summary": "От инженера эксплуатации не ждут глубокого знания оптимизатора. Ждут понимания трёх вещей: как восстановиться, как выкатить миграцию без простоя и почему реплика отстаёт.",
+      "why_it_matters": "Потеря данных — авария, из которой нельзя выйти откатом. Поэтому вопросы про резервные копии задают почти всегда.",
+      "key_points": [
+        "Резервная копия, которую ни разу не восстанавливали, копией не является: неработоспособность обнаруживается ровно в тот момент, когда она нужна.",
+        "Проверять надо восстановление целиком, а не наличие файла: целостность, открываемость, ожидаемые данные.",
+        "Миграции схемы делают обратно совместимыми и в несколько шагов, иначе откат кода невозможен.",
+        "Изменение схемы на большой таблице может взять блокировку и остановить запись: проверять поведение надо заранее, а не в продакшене.",
+        "Реплика отстаёт под нагрузкой, поэтому чтение с неё может вернуть устаревшие данные — это нормальное свойство, а не поломка.",
+        "Точка восстановления и допустимое время простоя — это решение бизнеса, и оно должно быть записано, а не подразумеваться."
+      ],
+      "common_mistakes": [
+        "Настроить резервное копирование и ни разу не проверить восстановление",
+        "Выкатывать переименование колонки одним релизом",
+        "Читать с реплики там, где нужны строго свежие данные",
+        "Делать копию простым копированием файлов работающей базы"
+      ],
+      "example": "Резервные копии делались год, каждый раз успешно. При первой реальной необходимости выяснилось, что копировался файл работающей базы без остановки записи: получался несогласованный снимок, который не открывается. Проверка восстановления обнаружила бы это в первый же день.",
+      "interview_question": "Как вы проверяете, что резервные копии рабочие?",
+      "short_answer": "Только восстановлением. Наличие файла и успешный код возврата ничего не доказывают. Регулярно поднимаю копию в отдельном месте, проверяю целостность и смотрю, что данные на месте — хотя бы количество записей в ключевых таблицах и свежесть последней. Отдельно замеряю, сколько занимает восстановление: это и есть реальное время простоя при аварии, и оно часто оказывается сильно больше, чем все ожидали. И проверяю, что копия лежит не там же, где сама база: копия на том же диске не переживёт отказ этого диска.",
+      "practice_task": "Восстановите свою резервную копию в отдельное окружение и засеките время. Сравните с тем, что вы обещали бы бизнесу.",
+      "source_refs": [
+        "postgres-backup",
+        "postgres-explicit-locking",
+        "postgres-hot-standby"
+      ],
+      "related_question_ids": [
+        "q-devops-db-001",
+        "q-devops-db-002",
+        "q-devops-db-003"
+      ],
+      "related_term_ids": [
+        "t-backward-compatible-migration",
+        "t-restore-test",
+        "t-replication-lag"
+      ],
+      "estimated_minutes": 40
+    },
+    {
+      "id": "lesson-scripting-automation",
+      "track_id": "devops-platform",
+      "topic_id": "scripting",
+      "title": "Скрипты, которым можно доверять",
+      "summary": "Скрипт эксплуатации отличается от скрипта на коленке тем, что его безопасно запустить второй раз и что по коду возврата видно, сработал он или нет.",
+      "why_it_matters": "Автоматизацию пишут все, но вопрос про идемпотентность и обработку ошибок отсеивает тех, кто не думал о повторном запуске.",
+      "key_points": [
+        "Код возврата — основной способ сообщить о результате: по нему принимают решения systemd, CI и планировщик.",
+        "По умолчанию bash продолжает выполнение после ошибки. Без set -e скрипт спокойно дойдёт до удаления данных, не сумев их сначала скопировать.",
+        "Идемпотентность: повторный запуск не должен ломать результат. Это то, что делает скрипт безопасным при перезапуске после сбоя.",
+        "Переменные в кавычках: путь с пробелом без кавычек превращается в два аргумента и приводит к неожиданным удалениям.",
+        "Опасные операции требуют проверки перед выполнением: существует ли цель, тот ли это каталог, есть ли свежая копия.",
+        "Скрипт, который печатает, что он делает, экономит часы при разборе последствий."
+      ],
+      "common_mistakes": [
+        "Не проверять код возврата предыдущей команды перед разрушительным действием",
+        "Забыть кавычки вокруг переменной с путём",
+        "Писать скрипт, который нельзя запустить дважды",
+        "Прятать вывод команд полностью, оставляя аварию без следов"
+      ],
+      "example": "Скрипт бэкапа сначала создавал архив, потом удалял старые файлы. Диск кончился, архив не создался, но без проверки кода возврата скрипт перешёл к удалению — и снёс единственную рабочую копию.",
+      "interview_question": "Что делает скрипт эксплуатации безопасным?",
+      "short_answer": "Три вещи. Первое — он останавливается на ошибке, а не идёт дальше: без этого скрипт бэкапа спокойно удалит старую копию, не создав новую. Второе — его можно запустить повторно и ничего не сломается: после сбоя посреди работы это единственный способ безопасно продолжить. Третье — он честно возвращает код и пишет, что делает, чтобы и автоматика, и человек понимали результат. Плюс мелочи, которые дорого стоят: кавычки вокруг переменных и проверка, что цель разрушительной операции — действительно то, что вы думаете.",
+      "practice_task": "Возьмите свой скрипт и добавьте остановку на ошибке и проверку перед разрушительной операцией. Прогоните его через ShellCheck и исправьте замечания.",
+      "source_refs": [
+        "bash-manual",
+        "shellcheck",
+        "man-signal"
+      ],
+      "related_question_ids": [
+        "q-devops-scr-001",
+        "q-devops-scr-002",
+        "q-devops-scr-003"
+      ],
+      "related_term_ids": [
+        "t-exit-code",
+        "t-idempotency"
+      ],
+      "estimated_minutes": 30
+    },
+    {
+      "id": "lesson-behavioral-devops",
+      "track_id": "devops-platform",
+      "topic_id": "behavioral-devops",
+      "title": "Разговор о себе и о работе",
+      "summary": "На behavioral-части проверяют не знания, а предсказуемость: как вы ведёте себя в аварии, что делаете при разногласиях и умеете ли признавать ошибки.",
+      "why_it_matters": "Технически сильных кандидатов отсеивают именно здесь — за рассказ, из которого непонятно, что делал лично он.",
+      "key_points": [
+        "Схема STAR: ситуация, задача, действия, результат. Большая часть ответа — действия, а не описание обстановки.",
+        "Говорить «я», когда речь о своих действиях, и «мы» — когда о командных. Сплошное «мы» вызывает вопрос, что делали лично вы.",
+        "Результат по возможности в цифрах: время восстановления, доля ошибок, длительность сборки до и после.",
+        "Про свою ошибку рассказывать можно и нужно: важно, что вы поняли и что изменили в процессе, а не то, что были неправы.",
+        "Про разногласия с разработчиками отвечают через интересы, а не через правоту: какая была задача у каждой стороны и как пришли к решению.",
+        "Вопросы работодателю в конце — часть оценки. Спросить про дежурства, процесс выката и постмортемы уместно и показывает опыт."
+      ],
+      "common_mistakes": [
+        "Рассказывать только про обстановку и не дойти до собственных действий",
+        "Говорить «мы» на протяжении всего ответа",
+        "На вопрос об ошибке отвечать «серьёзных ошибок не было»",
+        "Критиковать прошлых коллег или работодателя"
+      ],
+      "example": "Ответ «у нас была авария, мы всё починили» ничего не сообщает. Сильная версия: «сервис отвечал ошибкой у части пользователей. Я взял на себя диагностику, откатил последний релиз через семь минут, потом нашёл причину в миграции и добавил проверку, которая её ловит. Похожая авария больше не повторялась».",
+      "interview_question": "Расскажите о ситуации, когда вы ошиблись.",
+      "short_answer": "Называю конкретный случай без попытки его смягчить, потом коротко — что именно я сделал не так, потом главное: что изменил, чтобы это не повторилось. Например, я выкатил изменение в конце дня без проверки отката, и когда понадобилось откатиться, оказалось, что миграция это не позволяет. Восстановление заняло сильно дольше, чем должно было. После этого я стал делать миграции обратно совместимыми и проверять откат до выката, а не после. Мне важно показать не то, что я не ошибаюсь, а то, что после ошибки меняется процесс, а не только настроение.",
+      "practice_task": "Напишите три своих истории по схеме STAR: авария, разногласие, собственная ошибка. В каждой проверьте, что действия занимают больше места, чем описание ситуации.",
+      "source_refs": [
+        "sre-postmortem",
+        "sre-oncall"
+      ],
+      "related_question_ids": [
+        "q-devops-beh-001",
+        "q-devops-beh-002",
+        "q-devops-beh-003"
+      ],
+      "related_term_ids": [],
+      "estimated_minutes": 35
+    },
+    {
+      "id": "lesson-cost-capacity",
+      "track_id": "devops-platform",
+      "topic_id": "cost-capacity",
+      "title": "Стоимость и запас мощности",
+      "summary": "Инженер платформы отвечает не только за то, чтобы работало, но и за то, сколько это стоит. Запас мощности и счёт за облако — две стороны одного решения.",
+      "why_it_matters": "Вопрос про оптимизацию затрат встречается всё чаще, и ответ «взять машину поменьше» считается поверхностным.",
+      "key_points": [
+        "Основные источники счёта: вычисления, хранение, исходящий трафик и забытые ресурсы вроде старых снимков и неподключённых дисков.",
+        "Завышенные requests резервируют ресурсы, которые никто не использует: кластер выглядит переполненным при низкой реальной нагрузке.",
+        "Автомасштабирование помогает при неравномерной нагрузке, но требует корректных метрик и запаса на время запуска новых экземпляров.",
+        "Экономия не должна съедать запас на пик: сервис, работающий на пределе, не переживёт всплеск.",
+        "Прежде чем оптимизировать, надо измерить: без разбивки затрат оптимизация идёт наугад."
+      ],
+      "common_mistakes": [
+        "Оптимизировать затраты без разбивки по сервисам",
+        "Ставить requests «с запасом» и терять ёмкость кластера",
+        "Полагаться на автомасштабирование при резких всплесках, не учитывая время запуска",
+        "Забывать про хранение снимков и логов, которое растёт незаметно"
+      ],
+      "example": "Кластер показывал 85% занятости и требовал новых узлов. Реальное потребление было втрое ниже: половина сервисов просила по гигабайту памяти «на всякий случай». После приведения запросов к реальному потреблению узлы не понадобились.",
+      "interview_question": "Счёт за облако вырос вдвое. Что будете делать?",
+      "short_answer": "Сначала разбираю счёт по составляющим: что именно выросло — вычисления, хранение или трафик. Без этого оптимизация идёт наугад. Дальше сравниваю запрошенные ресурсы с реально потребляемыми: очень часто разница в разы, потому что запросы ставили с запасом. Смотрю забытое: старые снимки, неподключённые диски, окружения, которые подняли для теста и не убрали. И только потом думаю про типы машин и автомасштабирование. При этом слежу, чтобы экономия не съела запас на пик: сервис, который работает на пределе, не переживёт всплеск.",
+      "practice_task": "Сравните для одного своего сервиса запрошенные ресурсы с фактическим потреблением за неделю и посчитайте разницу.",
+      "source_refs": [
+        "k8s-resources",
+        "k8s-hpa"
+      ],
+      "related_question_ids": [
+        "q-devops-cost-001",
+        "q-devops-cost-002"
+      ],
+      "related_term_ids": [
+        "t-requests-limits"
+      ],
+      "estimated_minutes": 25
     }
   ]
 }

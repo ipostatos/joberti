@@ -41,24 +41,522 @@
         "behavioral"
       ],
       "requirements": [
-        { "id": "req-search-fundamentals", "requirement": "Понимание, как работает поисковая система", "importance": "required", "topic_ids": ["search-basics"], "status": "not_started", "evidence": "", "evidence_hint": "Можете вслух объяснить разницу между обходом, индексацией и ранжированием на примере конкретной страницы", "gap": "", "next_action": "Пройти урок «Crawling, indexing и ranking» и тест по теме" },
-        { "id": "req-search-intent", "requirement": "Умение определять поисковый интент запроса", "importance": "required", "topic_ids": ["search-intent"], "status": "not_started", "evidence": "", "evidence_hint": "Разбор 10 запросов с обоснованием типа страницы под каждый", "gap": "", "next_action": "Собрать мини-разбор выдачи по 10 запросам" },
-        { "id": "req-onpage", "requirement": "Базовая on-page оптимизация: title, description, заголовки", "importance": "required", "topic_ids": ["on-page"], "status": "not_started", "evidence": "", "evidence_hint": "Страницы, где вы меняли метаданные, и что было до/после", "gap": "", "next_action": "Подготовить пример правки метаданных с обоснованием" },
-        { "id": "req-html", "requirement": "Чтение HTML: структура документа, заголовки, ссылки, атрибуты", "importance": "required", "topic_ids": ["html-http"], "status": "not_started", "evidence": "", "evidence_hint": "Умеете открыть исходный код страницы и найти нужные теги без подсказки", "gap": "", "next_action": "Пройти урок по HTML-структуре и тест html-http" },
-        { "id": "req-http-codes", "requirement": "Понимание кодов ответа сервера и редиректов", "importance": "required", "topic_ids": ["html-http", "technical-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Случай, когда вы находили 404 или цепочку редиректов и что предложили", "gap": "", "next_action": "Разобрать кейс с цепочками редиректов" },
-        { "id": "req-technical-seo", "requirement": "Технический SEO: robots.txt, sitemap.xml, canonical", "importance": "required", "topic_ids": ["technical-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Файлы, которые вы правили или проверяли, и зачем", "gap": "", "next_action": "Пройти блок технического SEO целиком" },
-        { "id": "req-gsc", "requirement": "Google Search Console: отчёты, индексация, проверка URL", "importance": "required", "topic_ids": ["indexing-gsc"], "status": "not_started", "evidence": "", "evidence_hint": "Скриншот или описание отчёта, который вы регулярно смотрели", "gap": "", "next_action": "Подготовить мини-кейс по GSC с динамикой показов и кликов" },
-        { "id": "req-keyword-research", "requirement": "Сбор семантического ядра", "importance": "required", "topic_ids": ["keyword-research", "clustering-mapping"], "status": "not_started", "evidence": "", "evidence_hint": "Готовая таблица с запросами, частотностью и группировкой", "gap": "", "next_action": "Собрать семантику для одной услуги и оформить таблицей" },
-        { "id": "req-sheets", "requirement": "Google Sheets на уровне обработки выгрузок", "importance": "required", "topic_ids": ["sheets"], "status": "not_started", "evidence": "", "evidence_hint": "Таблица, где вы использовали фильтры, сводные или ВПР/QUERY", "gap": "", "next_action": "Сделать шаблон обработки выгрузки Screaming Frog" },
-        { "id": "req-analytics", "requirement": "Google Analytics 4: базовые отчёты по органическому трафику", "importance": "required", "topic_ids": ["analytics-ga4"], "status": "not_started", "evidence": "", "evidence_hint": "Какие отчёты вы открывали и какие выводы делали", "gap": "", "next_action": "Пройти уроки по GA4 и тест по теме" },
-        { "id": "req-screaming-frog", "requirement": "Screaming Frog: краул сайта и разбор находок", "importance": "desirable", "topic_ids": ["seo-tools"], "status": "not_started", "evidence": "", "evidence_hint": "Отчёт краула с описанием найденных проблем", "gap": "", "next_action": "Прокраулить учебный сайт и выписать топ-5 проблем" },
-        { "id": "req-ahrefs-semrush", "requirement": "Ahrefs или Semrush: анализ конкурентов и видимости", "importance": "desirable", "topic_ids": ["seo-tools", "competitor-analysis"], "status": "not_started", "evidence": "", "evidence_hint": "Сравнение своего сайта с конкурентом по видимости", "gap": "", "next_action": "Сделать разбор одного конкурента" },
-        { "id": "req-cwv", "requirement": "Core Web Vitals: что измеряют и на что влияют", "importance": "desirable", "topic_ids": ["performance-cwv"], "status": "not_started", "evidence": "", "evidence_hint": "Разбор отчёта PageSpeed Insights по реальной странице", "gap": "", "next_action": "Прогнать страницу через PageSpeed Insights и объяснить метрики" },
-        { "id": "req-content-brief", "requirement": "Подготовка технических заданий на контент", "importance": "desirable", "topic_ids": ["content-briefs"], "status": "not_started", "evidence": "", "evidence_hint": "Готовое ТЗ копирайтеру", "gap": "", "next_action": "Написать ТЗ по шаблону из кейса case-content-brief-010" },
-        { "id": "req-reporting", "requirement": "Отчётность: показать результат заказчику", "importance": "desirable", "topic_ids": ["reporting"], "status": "not_started", "evidence": "", "evidence_hint": "Пример отчёта или его структуры", "gap": "", "next_action": "Собрать шаблон месячного отчёта" },
-        { "id": "req-dev-communication", "requirement": "Постановка технических задач разработчикам", "importance": "desirable", "topic_ids": ["dev-communication"], "status": "not_started", "evidence": "", "evidence_hint": "Задача в трекере, которую по вашему описанию сделали без уточнений", "gap": "", "next_action": "Пройти кейс case-dev-task-012" },
-        { "id": "req-english", "requirement": "Английский для чтения документации", "importance": "desirable", "topic_ids": ["interview-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Регулярно читаете Google Search Central в оригинале", "gap": "", "next_action": "Разобрать блок Interview English в словаре" },
-        { "id": "req-international", "requirement": "Международное и мультиязычное SEO", "importance": "nice_to_have", "topic_ids": ["international-seo"], "status": "not_started", "evidence": "", "evidence_hint": "Работа с hreflang или языковыми версиями", "gap": "", "next_action": "Пройти урок по hreflang" }
+        {
+          "id": "req-search-fundamentals",
+          "requirement": "Понимание, как работает поисковая система",
+          "importance": "required",
+          "topic_ids": [
+            "search-basics"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Можете вслух объяснить разницу между обходом, индексацией и ранжированием на примере конкретной страницы",
+          "gap": "",
+          "next_action": "Пройти урок «Crawling, indexing и ranking» и тест по теме"
+        },
+        {
+          "id": "req-search-intent",
+          "requirement": "Умение определять поисковый интент запроса",
+          "importance": "required",
+          "topic_ids": [
+            "search-intent"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор 10 запросов с обоснованием типа страницы под каждый",
+          "gap": "",
+          "next_action": "Собрать мини-разбор выдачи по 10 запросам"
+        },
+        {
+          "id": "req-onpage",
+          "requirement": "Базовая on-page оптимизация: title, description, заголовки",
+          "importance": "required",
+          "topic_ids": [
+            "on-page"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Страницы, где вы меняли метаданные, и что было до/после",
+          "gap": "",
+          "next_action": "Подготовить пример правки метаданных с обоснованием"
+        },
+        {
+          "id": "req-html",
+          "requirement": "Чтение HTML: структура документа, заголовки, ссылки, атрибуты",
+          "importance": "required",
+          "topic_ids": [
+            "html-http"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Умеете открыть исходный код страницы и найти нужные теги без подсказки",
+          "gap": "",
+          "next_action": "Пройти урок по HTML-структуре и тест html-http"
+        },
+        {
+          "id": "req-http-codes",
+          "requirement": "Понимание кодов ответа сервера и редиректов",
+          "importance": "required",
+          "topic_ids": [
+            "html-http",
+            "technical-seo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы находили 404 или цепочку редиректов и что предложили",
+          "gap": "",
+          "next_action": "Разобрать кейс с цепочками редиректов"
+        },
+        {
+          "id": "req-technical-seo",
+          "requirement": "Технический SEO: robots.txt, sitemap.xml, canonical",
+          "importance": "required",
+          "topic_ids": [
+            "technical-seo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Файлы, которые вы правили или проверяли, и зачем",
+          "gap": "",
+          "next_action": "Пройти блок технического SEO целиком"
+        },
+        {
+          "id": "req-gsc",
+          "requirement": "Google Search Console: отчёты, индексация, проверка URL",
+          "importance": "required",
+          "topic_ids": [
+            "indexing-gsc"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Скриншот или описание отчёта, который вы регулярно смотрели",
+          "gap": "",
+          "next_action": "Подготовить мини-кейс по GSC с динамикой показов и кликов"
+        },
+        {
+          "id": "req-keyword-research",
+          "requirement": "Сбор семантического ядра",
+          "importance": "required",
+          "topic_ids": [
+            "keyword-research",
+            "clustering-mapping"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Готовая таблица с запросами, частотностью и группировкой",
+          "gap": "",
+          "next_action": "Собрать семантику для одной услуги и оформить таблицей"
+        },
+        {
+          "id": "req-sheets",
+          "requirement": "Google Sheets на уровне обработки выгрузок",
+          "importance": "required",
+          "topic_ids": [
+            "sheets"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Таблица, где вы использовали фильтры, сводные или ВПР/QUERY",
+          "gap": "",
+          "next_action": "Сделать шаблон обработки выгрузки Screaming Frog"
+        },
+        {
+          "id": "req-analytics",
+          "requirement": "Google Analytics 4: базовые отчёты по органическому трафику",
+          "importance": "required",
+          "topic_ids": [
+            "analytics-ga4"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Какие отчёты вы открывали и какие выводы делали",
+          "gap": "",
+          "next_action": "Пройти уроки по GA4 и тест по теме"
+        },
+        {
+          "id": "req-screaming-frog",
+          "requirement": "Screaming Frog: краул сайта и разбор находок",
+          "importance": "desirable",
+          "topic_ids": [
+            "seo-tools"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Отчёт краула с описанием найденных проблем",
+          "gap": "",
+          "next_action": "Прокраулить учебный сайт и выписать топ-5 проблем"
+        },
+        {
+          "id": "req-ahrefs-semrush",
+          "requirement": "Ahrefs или Semrush: анализ конкурентов и видимости",
+          "importance": "desirable",
+          "topic_ids": [
+            "seo-tools",
+            "competitor-analysis"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Сравнение своего сайта с конкурентом по видимости",
+          "gap": "",
+          "next_action": "Сделать разбор одного конкурента"
+        },
+        {
+          "id": "req-cwv",
+          "requirement": "Core Web Vitals: что измеряют и на что влияют",
+          "importance": "desirable",
+          "topic_ids": [
+            "performance-cwv"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор отчёта PageSpeed Insights по реальной странице",
+          "gap": "",
+          "next_action": "Прогнать страницу через PageSpeed Insights и объяснить метрики"
+        },
+        {
+          "id": "req-content-brief",
+          "requirement": "Подготовка технических заданий на контент",
+          "importance": "desirable",
+          "topic_ids": [
+            "content-briefs"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Готовое ТЗ копирайтеру",
+          "gap": "",
+          "next_action": "Написать ТЗ по шаблону из кейса case-content-brief-010"
+        },
+        {
+          "id": "req-reporting",
+          "requirement": "Отчётность: показать результат заказчику",
+          "importance": "desirable",
+          "topic_ids": [
+            "reporting"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Пример отчёта или его структуры",
+          "gap": "",
+          "next_action": "Собрать шаблон месячного отчёта"
+        },
+        {
+          "id": "req-dev-communication",
+          "requirement": "Постановка технических задач разработчикам",
+          "importance": "desirable",
+          "topic_ids": [
+            "dev-communication"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Задача в трекере, которую по вашему описанию сделали без уточнений",
+          "gap": "",
+          "next_action": "Пройти кейс case-dev-task-012"
+        },
+        {
+          "id": "req-english",
+          "requirement": "Английский для чтения документации",
+          "importance": "desirable",
+          "topic_ids": [
+            "interview-seo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Регулярно читаете Google Search Central в оригинале",
+          "gap": "",
+          "next_action": "Разобрать блок Interview English в словаре"
+        },
+        {
+          "id": "req-international",
+          "requirement": "Международное и мультиязычное SEO",
+          "importance": "nice_to_have",
+          "topic_ids": [
+            "international-seo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Работа с hreflang или языковыми версиями",
+          "gap": "",
+          "next_action": "Пройти урок по hreflang"
+        }
+      ]
+    },
+    {
+      "id": "devops-platform-generic",
+      "track_id": "devops-platform",
+      "title": "DevOps / Platform Engineer",
+      "company": "Профиль рынка",
+      "level": "Junior-Middle",
+      "work_format": "Обобщённый профиль по типовым объявлениям рынка",
+      "summary": "Собирательный портрет требований к инженеру эксплуатации уровня junior-middle. Составлен по типовым объявлениям, а не под конкретного работодателя: когда появится реальная вакансия, требования стоит сверить с её текстом и дополнить.",
+      "main_tasks": [
+        "Поддержка и развитие конвейеров сборки и выката",
+        "Эксплуатация приложений в контейнерах и Kubernetes",
+        "Описание инфраструктуры кодом и поддержка её в актуальном состоянии",
+        "Настройка мониторинга, тревог и сбора логов",
+        "Участие в дежурствах и разборах аварий",
+        "Автоматизация рутинных операций скриптами",
+        "Работа с разработчиками по вопросам эксплуатации их сервисов"
+      ],
+      "tools": [
+        "Linux",
+        "Docker",
+        "Kubernetes",
+        "Git",
+        "Terraform",
+        "GitHub Actions или GitLab CI",
+        "Prometheus и Grafana",
+        "Bash или Python"
+      ],
+      "interview_topics": [
+        "linux-basics",
+        "networking",
+        "containers",
+        "kubernetes",
+        "k8s-operations",
+        "ci-cd",
+        "iac",
+        "observability",
+        "reliability-slo",
+        "deployment-strategies"
+      ],
+      "requirements": [
+        {
+          "id": "req-devops-linux",
+          "requirement": "Уверенная работа в Linux: процессы, службы, права, журнал",
+          "importance": "required",
+          "topic_ids": [
+            "linux-basics"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Свой сервер или стенд, где вы поднимали службы и разбирали их сбои",
+          "gap": "",
+          "next_action": "Поднимите службу через systemd со своим пользователем и разберите её падение по журналу"
+        },
+        {
+          "id": "req-devops-networking",
+          "requirement": "Понимание сети: DNS, TCP, HTTP, TLS и диагностика доступности",
+          "importance": "required",
+          "topic_ids": [
+            "networking"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы находили причину недоступности по цепочке запроса",
+          "gap": "",
+          "next_action": "Пройдите цепочку диагностики на живом сервисе и выпишите вывод по каждому шагу"
+        },
+        {
+          "id": "req-devops-docker",
+          "requirement": "Docker: сборка образов, работа с контейнерами, тома и сети",
+          "importance": "required",
+          "topic_ids": [
+            "containers",
+            "images-registry"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Свой Dockerfile, который вы писали и оптимизировали, а не копировали",
+          "gap": "",
+          "next_action": "Переведите один свой проект на многостадийную сборку и замерьте размер до и после"
+        },
+        {
+          "id": "req-devops-k8s",
+          "requirement": "Kubernetes: основные объекты и диагностика проблем с подами",
+          "importance": "required",
+          "topic_ids": [
+            "kubernetes",
+            "k8s-operations"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Опыт развёртывания приложения и разбора состояний Pending, CrashLoopBackOff, OOMKilled",
+          "gap": "",
+          "next_action": "Разверните приложение в учебном кластере и доведите под до каждого из этих состояний"
+        },
+        {
+          "id": "req-devops-cicd",
+          "requirement": "CI/CD: настройка конвейеров сборки, тестов и выката",
+          "importance": "required",
+          "topic_ids": [
+            "ci-cd"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Конвейер, который вы настраивали сами, с объяснением принятых решений",
+          "gap": "",
+          "next_action": "Соберите конвейер из трёх стадий и добейтесь, чтобы выкат не шёл при красных тестах"
+        },
+        {
+          "id": "req-devops-git",
+          "requirement": "Git: ветвление, слияние, разрешение конфликтов, теги релизов",
+          "importance": "required",
+          "topic_ids": [
+            "git-vcs"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Работа в общем репозитории с review и релизными тегами",
+          "gap": "",
+          "next_action": "Настройте сборку релиза по тегу вместо ветки в любом своём проекте"
+        },
+        {
+          "id": "req-devops-iac",
+          "requirement": "Инфраструктура как код: Terraform или аналог",
+          "importance": "required",
+          "topic_ids": [
+            "iac"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Описанная кодом инфраструктура с удалённым состоянием",
+          "gap": "",
+          "next_action": "Опишите кодом небольшую инфраструктуру и намеренно создайте дрейф, чтобы увидеть план"
+        },
+        {
+          "id": "req-devops-monitoring",
+          "requirement": "Мониторинг и логирование: метрики, тревоги, разбор по логам",
+          "importance": "required",
+          "topic_ids": [
+            "observability"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Метрики и правила тревог, которые вы заводили сами",
+          "gap": "",
+          "next_action": "Добавьте в свой сервис счётчики и гистограмму времени ответа и постройте перцентиль 95"
+        },
+        {
+          "id": "req-devops-scripting",
+          "requirement": "Скрипты автоматизации на Bash или Python",
+          "importance": "required",
+          "topic_ids": [
+            "scripting"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Скрипт эксплуатации, безопасный при повторном запуске",
+          "gap": "",
+          "next_action": "Возьмите свой скрипт, добавьте остановку на ошибке и прогоните через ShellCheck"
+        },
+        {
+          "id": "req-devops-cloud",
+          "requirement": "Опыт работы с облачным провайдером",
+          "importance": "desirable",
+          "topic_ids": [
+            "cloud-basics"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Ресурсы, которые вы создавали и эксплуатировали в облаке",
+          "gap": "",
+          "next_action": "Разверните учебный стенд в облаке и разнесите экземпляры по зонам доступности"
+        },
+        {
+          "id": "req-devops-reliability",
+          "requirement": "Понимание надёжности: SLI, SLO, бюджет ошибок",
+          "importance": "desirable",
+          "topic_ids": [
+            "reliability-slo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Участие в постановке целей по надёжности или работа с ними",
+          "gap": "",
+          "next_action": "Посчитайте для знакомого сервиса, сколько простоя допускают 99,9% и 99,99%"
+        },
+        {
+          "id": "req-devops-incidents",
+          "requirement": "Участие в дежурствах и разборах аварий",
+          "importance": "desirable",
+          "topic_ids": [
+            "incidents"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Авария, в разборе которой вы участвовали, и что изменилось после",
+          "gap": "",
+          "next_action": "Напишите постмортем по любому прошлому сбою: хронология, влияние, три действия"
+        },
+        {
+          "id": "req-devops-deployment",
+          "requirement": "Стратегии выката и откат без простоя",
+          "importance": "desirable",
+          "topic_ids": [
+            "deployment-strategies"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Выкат, где вы отвечали за процедуру и проверяли откат",
+          "gap": "",
+          "next_action": "Опишите план выката с миграцией схемы в три релиза с возможностью отката"
+        },
+        {
+          "id": "req-devops-databases",
+          "requirement": "Базовая эксплуатация баз данных: копии, миграции, реплики",
+          "importance": "desirable",
+          "topic_ids": [
+            "databases-ops"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Проверка восстановления копии с замером времени",
+          "gap": "",
+          "next_action": "Восстановите свою резервную копию в отдельное окружение и засеките время"
+        },
+        {
+          "id": "req-devops-security",
+          "requirement": "Безопасность конвейера: секреты, права, сканирование",
+          "importance": "desirable",
+          "topic_ids": [
+            "security-pipeline",
+            "config-secrets"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Настроенное хранение секретов и разграничение прав в конвейере",
+          "gap": "",
+          "next_action": "Просмотрите свой конвейер и уберите из него всё, что не нужно ему для работы"
+        },
+        {
+          "id": "req-devops-english",
+          "requirement": "Английский язык на уровне чтения документации",
+          "importance": "desirable",
+          "topic_ids": [
+            "behavioral-devops"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Регулярное чтение официальной документации в оригинале",
+          "gap": "",
+          "next_action": "Прочитайте один раздел документации Kubernetes и перескажите его вслух по-русски"
+        },
+        {
+          "id": "req-devops-communication",
+          "requirement": "Умение объяснять технические решения разработчикам",
+          "importance": "desirable",
+          "topic_ids": [
+            "behavioral-devops"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы согласовывали техническое решение с другой командой",
+          "gap": "",
+          "next_action": "Подготовьте историю по схеме STAR о разногласии с разработчиками и его решении"
+        },
+        {
+          "id": "req-devops-cost",
+          "requirement": "Понимание стоимости инфраструктуры",
+          "importance": "nice_to_have",
+          "topic_ids": [
+            "cost-capacity"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы сокращали расходы или приводили запросы к реальному потреблению",
+          "gap": "",
+          "next_action": "Сравните запрошенные и фактические ресурсы одного сервиса за неделю"
+        }
       ]
     }
   ]
