@@ -99,8 +99,11 @@ a{ color:var(--link) }
   font:inherit; cursor:pointer }
 .row-card:active{ transform:scale(.99) }
 .row-card .body{ flex:1; min-width:0 }
-.row-card .t{ font-size:var(--fs-body); font-weight:700 }
-.row-card .d{ color:var(--hint); font-size:var(--fs-sm); margin-top:2px; line-height:1.4 }
+/* display:block по той же причине, что и у .step: .body — обычный блок, и без
+   этого <span class="t"> и <span class="d"> идут одной строкой. */
+.row-card .t{ display:block; font-size:var(--fs-body); font-weight:700 }
+.row-card .d{ display:block; color:var(--hint); font-size:var(--fs-sm);
+  margin-top:2px; line-height:1.4 }
 .row-card .chev{ color:var(--hint); flex:0 0 auto; display:flex }
 .row-card[aria-disabled="true"]{ opacity:.5; pointer-events:none }
 
@@ -237,8 +240,12 @@ button.chip{ cursor:pointer; font-family:inherit }
 .step.current .num{ background:var(--accent); color:var(--accent-text); border-color:transparent }
 .step.locked{ opacity:.55 }
 .step .body{ flex:1; min-width:0 }
-.step .t{ font-weight:700; font-size:var(--fs-body) }
-.step .d{ color:var(--hint); font-size:var(--fs-sm); margin-top:2px; line-height:1.4 }
+/* display:block обязателен: .t и .d размечены <span>, а .step .body — обычный
+   блок, а не флекс-колонка. Без этого заголовок, цель и прогресс шага
+   слипаются в одну строку: «Linux и службыУверенно читать…теория 0/1». */
+.step .t{ display:block; font-weight:700; font-size:var(--fs-body) }
+.step .d{ display:block; color:var(--hint); font-size:var(--fs-sm);
+  margin-top:2px; line-height:1.4 }
 
 /* ── тест ───────────────────────────────────────────────────────────────── */
 .opt{ display:block; width:100%; text-align:left; font:inherit; color:var(--text);

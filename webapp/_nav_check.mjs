@@ -79,19 +79,47 @@ pages.forEach((page) => {
   });
 });
 
-// ── .t/.d лежат внутри контейнера, для которого есть правила ──
-// Классы .t (заголовок) и .d (пояснение) — инлайновые <span>. Оформление им
-// даёт только правило вида «.контейнер .t», и в theme.css таких контейнеров
-// три. В своём контейнере без собственных правил спаны остаются инлайновыми
-// и текст склеивается: «Junior SEO Specialist · RedCoreПодготовка к…».
-// Ошибка чисто визуальная, тестами логики не ловится.
-const scopeRe = /\.([a-z][\w-]*)\s+\.[td]\b/g;
-const scopesIn = (css) => new Set([...css.matchAll(scopeRe)].map((m) => m[1]));
-const themeScopes = scopesIn(readFileSync(join(DIR, "theme.css"), "utf8"));
+// ── .t/.d обязаны быть блочными ──
+// Классы .t (заголовок) и .d (пояснение) размечены как <span>, то есть по
+// умолчанию строчные. Чтобы они встали отдельными строками, нужно ЛИБО
+// правило «.контейнер .t{ display:block }», ЛИБО контейнер-флекс-колонка.
+// Иначе текст слипается: «Linux и службыУверенно читать…теория 0/1».
+// Наличия правила недостаточно — оно может задавать только шрифт и цвет,
+// и ровно на этом проверка уже один раз промахнулась.
+const themeCss = readFileSync(join(DIR, "theme.css"), "utf8");
+
+// Правила вида «.X .t{…}» / «.X .d{…}» и сами контейнеры «.X{…}».
+const ruleRe = /\.([a-z][\w-]*)\s+\.([td])\s*\{([^}]*)\}/g;
+const containerRe = /\.([a-z][\w-]*)\s*\{([^}]*)\}/g;
+
+// Собираем ОТДЕЛЬНО по .t и по .d: блочность одного не спасает второй.
+// И возвращаем новый результат на каждый вызов — иначе локальные правила
+// одной страницы протекли бы на другие, и проверка молча ослабла бы.
+function collectRules(css) {
+  const block = { t: new Set(), d: new Set() };
+  for (const m of css.matchAll(ruleRe)) {
+    if (/display\s*:\s*(block|flex|grid)/.test(m[3])) block[m[2]].add(m[1]);
+  }
+  for (const m of css.matchAll(containerRe)) {
+    const body = m[2];
+    const isColumn = /display\s*:\s*flex/.test(body) && /flex-direction\s*:\s*column/.test(body);
+    if (isColumn || /display\s*:\s*grid/.test(body)) {
+      block.t.add(m[1]);
+      block.d.add(m[1]);
+    }
+  }
+  return block;
+}
+
+const themeBlock = collectRules(themeCss);
 
 pages.forEach((page) => {
   const html = readFileSync(join(DIR, page), "utf8");
-  const known = new Set([...themeScopes, ...scopesIn(html)]);
+  const local = collectRules(html);
+  // Контейнер годится, только если блочны ОБА класса: и заголовок, и пояснение.
+  const known = new Set(
+    [...themeBlock.t, ...local.t].filter(
+      (cls) => themeBlock.d.has(cls) || local.d.has(cls)));
   // Контейнер строки — ближайший предшествующий блочный тег, а НЕ соседний
   // <span class="ic-tile">, который идёт прямо перед .body. Класс бывает
   // литералом и началом склейки: class="step ' + st + '".
@@ -100,8 +128,9 @@ pages.forEach((page) => {
     const before = html.slice(0, m.index);
     const open = [...before.matchAll(rowRe)].pop();
     ok(open && known.has(open[1]),
-      `${page}: <span class="t"> внутри «${open ? open[1] : "?"}», ` +
-      `для которого нет правил .t/.d — заголовок склеится с описанием`);
+      `${page}: <span class="t"> внутри «${open ? open[1] : "?"}» остаётся строчным — ` +
+      `нужен display:block у .${open ? open[1] : "?"} .t/.d, иначе заголовок ` +
+      `склеится с описанием`);
   }
 });
 
