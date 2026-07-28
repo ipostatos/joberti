@@ -106,19 +106,27 @@ pages.forEach((page) => {
 // и ровно на этом проверка уже один раз промахнулась.
 const themeCss = readFileSync(join(DIR, "theme.css"), "utf8");
 
-// Правила вида «.X .t{…}» / «.X .d{…}» и сами контейнеры «.X{…}».
-const ruleRe = /\.([a-z][\w-]*)\s+\.([td])\s*\{([^}]*)\}/g;
-const containerRe = /\.([a-z][\w-]*)\s*\{([^}]*)\}/g;
+// Правила вида «.X .t{…}» / «.X .d{…}» и «.X .body{…}».
+const ruleRe = /\.([a-z][\w-]*)(?:\.[\w-]+)*\s+\.([td])\s*\{([^}]*)\}/g;
+const bodyRe = /\.([a-z][\w-]*)(?:\.[\w-]+)*\s+\.body\s*\{([^}]*)\}/g;
 
 // Собираем ОТДЕЛЬНО по .t и по .d: блочность одного не спасает второй.
 // И возвращаем новый результат на каждый вызов — иначе локальные правила
 // одной страницы протекли бы на другие, и проверка молча ослабла бы.
+//
+// Колоночный flex САМОГО контейнера здесь не считается, и это стоило живого
+// бага: у «.cell{display:flex;flex-direction:column}» блочными становятся
+// только ПРЯМЫЕ дети, а в широкой плашке .t и .d лежат внутри .body —
+// обычного блока. Проверка засчитывала контейнер, а на экране заголовок
+// склеивался с описанием на всех широких плашках главной. Поэтому годится
+// только правило-потомок «.X .t{display:block}» либо колоночный flex у самого
+// .body, через который эти спаны и лежат.
 function collectRules(css) {
   const block = { t: new Set(), d: new Set() };
   for (const m of css.matchAll(ruleRe)) {
     if (/display\s*:\s*(block|flex|grid)/.test(m[3])) block[m[2]].add(m[1]);
   }
-  for (const m of css.matchAll(containerRe)) {
+  for (const m of css.matchAll(bodyRe)) {
     const body = m[2];
     const isColumn = /display\s*:\s*flex/.test(body) && /flex-direction\s*:\s*column/.test(body);
     if (isColumn || /display\s*:\s*grid/.test(body)) {
@@ -142,7 +150,10 @@ pages.forEach((page) => {
   // <span class="ic-tile">, который идёт прямо перед .body. Класс бывает
   // литералом и началом склейки: class="step ' + st + '".
   const rowRe = /<(?:button|div|a|li|label)\b[^>]*?class="([a-z][\w-]*)/g;
-  for (const m of html.matchAll(/<span class="body"><span class="t"/g)) {
+  // \s* обязателен: в разметке главной .body и .t стоят на разных строках, и
+  // проверка «в одну строку» их просто не видела — ровно там и жил живой баг
+  // со склеенными заголовком и описанием.
+  for (const m of html.matchAll(/<span class="body">\s*<span class="t"/g)) {
     const before = html.slice(0, m.index);
     const open = [...before.matchAll(rowRe)].pop();
     ok(open && known.has(open[1]),

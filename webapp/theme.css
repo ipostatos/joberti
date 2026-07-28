@@ -114,8 +114,12 @@ a{ color:var(--link) }
   border:1px solid var(--border); border-radius:var(--r-md);
   padding:var(--sp-3) var(--sp-4); min-height:88px; transition:transform .12s }
 .cell:active{ transform:scale(.98) }
-.cell .t{ font-size:var(--fs-body); font-weight:700 }
-.cell .d{ color:var(--hint); font-size:var(--fs-xs); line-height:1.4 }
+/* display:block обязателен. В обычной плашке .t и .d — прямые дети .cell,
+   и колоночный flex делает их блочными сам. В широкой они лежат внутри
+   .body — обычного блока, — и без этого правила заголовок склеивается с
+   описанием в одну строку: «Библиотека 166 материалов · 80 обязательных». */
+.cell .t{ display:block; font-size:var(--fs-body); font-weight:700 }
+.cell .d{ display:block; color:var(--hint); font-size:var(--fs-xs); line-height:1.4 }
 .cell.wide{ grid-column:1 / -1; flex-direction:row; align-items:center;
   gap:var(--sp-3); min-height:0 }
 .cell.wide .body{ flex:1; min-width:0 }
