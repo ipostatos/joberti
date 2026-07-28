@@ -236,6 +236,70 @@
     return out;
   }
 
+  // ── merge: прочитанные уроки и лучшие результаты тестов ──
+  // Эти два раздела профиля долго отсутствовали в правилах слияния, а
+  // applyState заменяет профиль целиком тем, что вернул merge. Из-за этого
+  // после первого же обмена отметки «урок прочитан» и лучший процент по теме
+  // обнулялись, а вместе с ними откатывались шаги плана с правилами
+  // lesson_read и quiz_score_min: план «разъезжался» сам собой.
+  function mergeLessons(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (k) {
+      var x = a[k] || {}, y = b[k] || {};
+      out[k] = { read: orFlag(x, y, "read"), ts: Math.max(num(x, "ts"), num(y, "ts")) };
+    });
+    return out;
+  }
+
+  function mergeQuizBest(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (k) {
+      var best = Math.max(num(a, k), num(b, k));
+      out[k] = Math.max(0, Math.min(100, best));
+    });
+    return out;
+  }
+
+  // Множество «эта тема была слабой» — только по ИЛИ: забытый флаг выдал бы
+  // достижение за восстановление темы второй раз.
+  function mergeSeen(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (k) {
+      if (a[k] || b[k]) out[k] = true;
+    });
+    return out;
+  }
+
+  // ── merge: английский ──
+  // Раздел сквозной, но правила те же, что у соседей: отметки складываются по
+  // «или», счётчики по максимуму, самооценка задания — как у mock interview.
+  // Без этого блока прогресс по английскому молча терялся бы при первом обмене:
+  // applyState заменяет профиль целиком тем, что вернул merge.
+  function mergeEnglish(a, b) {
+    a = a || {}; b = b || {};
+    var wordsOut = {};
+    keysOf(a.words, b.words).forEach(function (k) {
+      var x = (a.words || {})[k] || {}, y = (b.words || {})[k] || {};
+      wordsOut[k] = {
+        favorite: orFlag(x, y, "favorite"),
+        checked: Math.max(num(x, "checked"), num(y, "checked")),
+      };
+    });
+    var phrasesOut = {};
+    keysOf(a.phrases, b.phrases).forEach(function (k) {
+      var x = (a.phrases || {})[k] || {}, y = (b.phrases || {})[k] || {};
+      phrasesOut[k] = { learned: orFlag(x, y, "learned") };
+    });
+    return {
+      words: wordsOut,
+      drills: mergeRated(a.drills, b.drills),
+      phrases: phrasesOut,
+    };
+  }
+
   // ── merge: профиль ──
   function mergeProfile(a, b) {
     a = a || {}; b = b || {};
@@ -266,6 +330,10 @@
       cases: mergeRated(a.cases, b.cases),
       library: mergeLibrary(a.library, b.library),
       stories: mergeStories(a.stories, b.stories),
+      lessons: mergeLessons(a.lessons, b.lessons),
+      quizBest: mergeQuizBest(a.quizBest, b.quizBest),
+      weakTopicsSeen: mergeSeen(a.weakTopicsSeen, b.weakTopicsSeen),
+      english: mergeEnglish(a.english, b.english),
     };
     if (out.trackId === null) delete out.trackId;
     return out;
@@ -469,6 +537,9 @@
     mergeRequirements: mergeRequirements,
     mergeLibrary: mergeLibrary,
     mergeStories: mergeStories,
+    mergeEnglish: mergeEnglish,
+    mergeLessons: mergeLessons,
+    mergeQuizBest: mergeQuizBest,
     mergeExamDate: mergeExamDate,
     mergeHistory: mergeHistory,
     mergeState: mergeState,

@@ -46,7 +46,11 @@
   // Начиная с этой коробки элемент считается закреплённым.
   var LEARNED_BOX = 4;
 
-  var TYPES = { question: "q", term: "t", mock: "m", "case": "c" };
+  // Английский живёт в тех же коробках, но под своими префиксами: расчёт
+  // готовности к профессии перечисляет идентификаторы сам и английских не
+  // берёт, поэтому раздел не подмешивается в процент.
+  var TYPES = { question: "q", term: "t", mock: "m", "case": "c",
+    eword: "ew", edrill: "ed" };
 
   function load() {
     try { return JSON.parse(global.localStorage.getItem(KEY)) || {}; }

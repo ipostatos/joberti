@@ -20,6 +20,10 @@
 | roadmap_steps | 68 |
 | story_templates | 24 |
 | achievements | 24 |
+| english_phrases | 64 |
+| english_vocab | 68 |
+| english_drills | 19 |
+| english_writing | 40 |
 
 ## Трек: Junior SEO Specialist (`redcore-junior-seo`) — статус `active`
 
@@ -198,6 +202,15 @@ behavioral-devops      #########...............   3
 - тема `cloud-basics` без материалов библиотеки
 - тема `behavioral-devops` без терминов словаря
 - тема `behavioral-devops` без материалов библиотеки
+
+## Английский для IT
+
+| Трек | Фразы | Слова | Задания | Письмо | Своих записей |
+|---|---:|---:|---:|---:|---:|
+| Junior SEO Specialist `redcore-junior-seo` | 64 | 46 | 13 | 38 | 14 |
+| QA Engineer — платежи `qa-payments` | 64 | 49 | 13 | 38 | 17 |
+| Technical Engineer `technical-engineer` | 64 | 36 | 10 | 37 | 0 |
+| DevOps / Platform Engineer `devops-platform` | 64 | 46 | 13 | 38 | 14 |
 
 ## Распределение по сложности
 

@@ -28,7 +28,23 @@ MIN_COUNTS = {
     "mock_questions": 40,
     "cases": 12,
     "roadmap_steps": 24,
+    "english_phrases": 40,
+    "english_vocab": 50,
+    "english_drills": 12,
+    "english_writing": 25,
 }
+
+# Сколько записей английского обязан видеть КАЖДЫЙ активный трек — сквозные
+# плюс свои. Раздел общий, поэтому пробел появляется не в нём, а в трековой
+# части: у нового трека может не оказаться ни одного своего слова.
+ENGLISH_MIN_PER_TRACK = {
+    "english_phrases": 40,
+    "english_vocab": 45,
+    "english_drills": 10,
+    "english_writing": 25,
+}
+# Свои, не сквозные записи: без них трек получает только общий английский.
+ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
 REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
@@ -543,6 +559,135 @@ def validate_achievements(rep: Report, c) -> None:
             rep.check(rule["topic_id"] in topic_ids, f"{where}: неизвестный topic_id в rule")
 
 
+# ── английский для IT ──────────────────────────────────────────────────────
+
+# Кириллица в поле, которое обязано быть английским, — почти всегда следствие
+# копипаста из соседней строки. Глазами это не ловится: строки похожи.
+CYRILLIC = set("абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ")
+
+
+def _check_english_text(rep: Report, value, where: str, field: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        rep.err(f"{where}: поле '{field}' пустое")
+        return
+    if CYRILLIC & set(value):
+        rep.err(f"{where}: в поле '{field}' есть кириллица — это поле на английском")
+
+
+def _check_english_common(rep: Report, x: dict, where: str, categories: set,
+                          track_ids: set) -> None:
+    rep.check(x.get("category") in categories,
+              f"{where}: категория '{x.get('category')}' не объявлена в categories")
+    rep.check(isinstance(x.get("level"), int) and 1 <= x["level"] <= 3,
+              f"{where}: level должен быть 1..3")
+    tids = x.get("track_ids")
+    if not isinstance(tids, list):
+        rep.err(f"{where}: track_ids должен быть списком (пустой = во всех треках)")
+    else:
+        check_refs(rep, tids, track_ids, where, "track_ids")
+
+
+def validate_english(rep: Report, c) -> None:
+    track_ids = set(c.tracks_by_id)
+
+    # ── фразы ──
+    check_unique_ids(rep, c.english_phrases, "english_phrases")
+    cats = set(c.raw["english_phrases"].get("categories", []))
+    seen: dict[str, str] = {}
+    for x in c.english_phrases:
+        where = f"phrase '{x.get('id')}'"
+        require_fields(rep, x, ["id", "category", "en", "ru", "when"], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        _check_english_text(rep, x.get("en"), where, "en")
+        for v in x.get("variants") or []:
+            _check_english_text(rep, v, where, "variants[]")
+        key = normalize_text(x.get("en", ""))
+        if key in seen:
+            rep.err(f"{where}: фраза дублирует '{seen[key]}'")
+        seen[key] = x.get("id")
+
+    # ── слова ──
+    check_unique_ids(rep, c.english_vocab, "english_vocab")
+    cats = set(c.raw["english_vocab"].get("categories", []))
+    seen = {}
+    for x in c.english_vocab:
+        where = f"word '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "category", "term", "ipa", "ru_hint", "meaning", "wrong",
+            "example_en", "example_ru",
+        ], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        _check_english_text(rep, x.get("term"), where, "term")
+        _check_english_text(rep, x.get("example_en"), where, "example_en")
+        # Транскрипция без косых черт — почти наверняка не транскрипция.
+        rep.check("/" in str(x.get("ipa", "")),
+                  f"{where}: ipa должен быть транскрипцией в косых чертах")
+        url = x.get("dict_url")
+        if url:
+            rep.check(str(url).startswith("https://dictionary.cambridge.org/"),
+                      f"{where}: dict_url должен вести на dictionary.cambridge.org")
+        key = normalize_text(x.get("term", ""))
+        if key in seen:
+            rep.err(f"{where}: слово дублирует '{seen[key]}'")
+        seen[key] = x.get("id")
+
+    # ── тренажёр ответов ──
+    check_unique_ids(rep, c.english_drills, "english_drills")
+    cats = set(c.raw["english_drills"].get("categories", []))
+    seen = {}
+    for x in c.english_drills:
+        where = f"drill '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "category", "prompt_en", "prompt_ru", "hint",
+            "model_answer_en", "model_answer_ru",
+        ], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        _check_english_text(rep, x.get("prompt_en"), where, "prompt_en")
+        _check_english_text(rep, x.get("model_answer_en"), where, "model_answer_en")
+        rep.check(len(x.get("keywords") or []) >= 2, f"{where}: меньше 2 keywords")
+        rubric = x.get("rubric") or {}
+        rep.check(set(rubric.keys()) == {"0", "1", "2", "3", "4"},
+                  f"{where}: rubric должен содержать уровни 0..4")
+        rep.check(isinstance(x.get("seconds"), int) and 15 <= x["seconds"] <= 300,
+                  f"{where}: seconds должен быть 15..300")
+        key = normalize_text(x.get("prompt_en", ""))
+        if key in seen:
+            rep.err(f"{where}: задание дублирует '{seen[key]}'")
+        seen[key] = x.get("id")
+
+    # ── документация и переписка ──
+    check_unique_ids(rep, c.english_writing, "english_writing")
+    cats = set(c.raw["english_writing"].get("categories", []))
+    seen = {}
+    for x in c.english_writing:
+        where = f"writing '{x.get('id')}'"
+        require_fields(rep, x, ["id", "category", "kind", "title", "en", "ru"], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        rep.check(x.get("kind") in {"pattern", "template"},
+                  f"{where}: kind должен быть pattern или template")
+        _check_english_text(rep, x.get("en"), where, "en")
+        key = normalize_text(x.get("title", ""))
+        if key in seen:
+            rep.err(f"{where}: заголовок дублирует '{seen[key]}'")
+        seen[key] = x.get("id")
+
+    # ── что видит каждый активный трек ──
+    # Раздел сквозной, поэтому общего количества мало: у нового трека может не
+    # оказаться ни одной своей записи, и человек увидит английский без единого
+    # слова своей профессии.
+    for t in c.active_tracks():
+        for key, minimum in ENGLISH_MIN_PER_TRACK.items():
+            got = len(c.english_of(key, t["id"]))
+            rep.check(got >= minimum,
+                      f"track '{t['id']}': английский, раздел '{key}' — видно {got} "
+                      f"записей, требуется минимум {minimum}")
+        for key, minimum in ENGLISH_MIN_TRACK_OWN.items():
+            own = [x for x in getattr(c, key) if t["id"] in (x.get("track_ids") or [])]
+            rep.check(len(own) >= minimum,
+                      f"track '{t['id']}': своих записей в '{key}' — {len(own)}, "
+                      f"требуется минимум {minimum}: без них раздел одинаков для всех профессий")
+
+
 def validate_counts(rep: Report, c) -> None:
     counts = c.counts()
     for key, minimum in MIN_COUNTS.items():
@@ -596,6 +741,7 @@ def run() -> Report:
     validate_vacancies(rep, c)
     validate_stories(rep, c)
     validate_achievements(rep, c)
+    validate_english(rep, c)
     validate_counts(rep, c)
     validate_no_reference_leftovers(rep, c)
     return rep

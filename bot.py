@@ -103,6 +103,7 @@ WEBAPP_HOME_URL = webapp_url("WEBAPP_HOME_URL", "/index.html")
 WEBAPP_QUIZ_URL = webapp_url("WEBAPP_QUIZ_URL", "/quiz.html")
 WEBAPP_MOCK_URL = webapp_url("WEBAPP_MOCK_URL", "/mock.html")
 WEBAPP_ROADMAP_URL = webapp_url("WEBAPP_ROADMAP_URL", "/roadmap.html")
+WEBAPP_ENGLISH_URL = webapp_url("WEBAPP_ENGLISH_URL", "/english.html")
 
 HAS_WEBAPP = bool(WEBAPP_HOME_URL.startswith("https://"))
 
@@ -215,6 +216,8 @@ def main_keyboard() -> InlineKeyboardMarkup:
             ],
             [InlineKeyboardButton(text=t("btn_mock"),
                                   web_app=WebAppInfo(url=WEBAPP_MOCK_URL))],
+            [InlineKeyboardButton(text=t("btn_english"),
+                                  web_app=WebAppInfo(url=WEBAPP_ENGLISH_URL))],
         ]
         return kb(rows)
     return fallback_keyboard()

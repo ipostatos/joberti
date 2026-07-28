@@ -124,6 +124,14 @@
     <span class="t">Словарь</span>
     <span class="d" id="termCount">—</span>
   </a>
+  <a class="cell wide" href="english.html">
+    <span class="ic-tile blue" data-icon="globe"></span>
+    <span class="body">
+      <span class="t">Английский для IT</span>
+      <span class="d" id="engCount">—</span>
+    </span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </a>
   <a class="cell wide" href="vacancy.html">
     <span class="ic-tile red" data-icon="target"></span>
     <span class="body">
@@ -178,7 +186,8 @@
   <div class="box">
     <div class="h2">Дневная цель</div>
     <p class="muted small">Действием считается ответ на тест, проверенный термин,
-      отвеченный вопрос mock interview или пройденный кейс.</p>
+      отвеченный вопрос mock interview, пройденный кейс, а также проверенное
+      слово или задание из английского.</p>
     <div class="chip-row" id="goalChips" style="margin-bottom:var(--sp-4)"></div>
     <button class="btn ghost" id="goalClose">Закрыть</button>
   </div>
@@ -330,6 +339,10 @@
   document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
   var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
   document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
+  var eng = App.englishStats();
+  document.getElementById("engCount").textContent =
+    eng.wordsLearned + " из " + eng.words + " слов освоено · " +
+    eng.drillsDone + " из " + eng.drills + " заданий пройдено";
   document.getElementById("libCount").textContent =
     CONTENT.library.length + " материалов · " +
     CONTENT.library.filter(function (x) { return x.read_before_interview; }).length +

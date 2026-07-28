@@ -4,7 +4,8 @@
 // Разделение хранилищ (важно для sync — см. sync.js и api/merge.py):
 //   interview_progress_v1   { goal, days, streak, best, lastDay, frozenUsed, flags }
 //   interview_profile_v1    { trackId, onboarded, selfAssessment, requirements,
-//                             roadmap, glossary, mock, cases, library, stories }
+//                             roadmap, glossary, mock, cases, library, stories,
+//                             english }
 //   interview_history_v1    { attempts: [...] }
 //   interview_exam_date_v1  "YYYY-MM-DD"
 //
@@ -160,6 +161,12 @@
       p.cases = p.cases || {};
       p.library = p.library || {};
       p.stories = p.stories || {};
+      // Английский — сквозной раздел, поэтому его прогресс лежит отдельно от
+      // трековых коллекций и не смешивается с готовностью к профессии.
+      p.english = p.english || {};
+      p.english.words = p.english.words || {};
+      p.english.drills = p.english.drills || {};
+      p.english.phrases = p.english.phrases || {};
       return p;
     },
     saveProfile: function (p) { write(K_PROFILE, p); return p; },

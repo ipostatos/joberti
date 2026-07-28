@@ -255,6 +255,58 @@ def merge_stories(a, b) -> dict:
     return out
 
 
+# ── прочитанные уроки и лучшие результаты тестов ───────────────────────────
+# Эти разделы профиля долго отсутствовали в белом списке слияния, а клиент
+# заменяет профиль целиком тем, что вернул сервер. После первого же обмена
+# отметки «урок прочитан» и лучший процент по теме обнулялись, а шаги плана с
+# правилами lesson_read и quiz_score_min откатывались в невыполненные.
+
+def merge_lessons(a, b) -> dict:
+    a, b = _d(a), _d(b)
+    out = {}
+    for k in _keys(a, b):
+        x, y = _d(a.get(k)), _d(b.get(k))
+        out[k] = {"read": _or(x, y, "read"), "ts": max(_num(x, "ts"), _num(y, "ts"))}
+    return out
+
+
+def merge_quiz_best(a, b) -> dict:
+    a, b = _d(a), _d(b)
+    out = {}
+    for k in _keys(a, b):
+        out[k] = _clamp(max(_num(a, k), _num(b, k)), 0, 100)
+    return out
+
+
+def merge_seen(a, b) -> dict:
+    """Множество «тема была слабой» — только по ИЛИ."""
+    a, b = _d(a), _d(b)
+    return {k: True for k in _keys(a, b) if a.get(k) or b.get(k)}
+
+
+# ── английский для IT ──────────────────────────────────────────────────────
+
+def merge_english(a, b) -> dict:
+    """Зеркало mergeEnglish из webapp/sync.js — паритет ловит tests/test_sync.py."""
+    a, b = _d(a), _d(b)
+    words = {}
+    for k in _keys(a.get("words"), b.get("words")):
+        x, y = _d(_d(a.get("words")).get(k)), _d(_d(b.get("words")).get(k))
+        words[k] = {
+            "favorite": _or(x, y, "favorite"),
+            "checked": max(_num(x, "checked"), _num(y, "checked")),
+        }
+    phrases = {}
+    for k in _keys(a.get("phrases"), b.get("phrases")):
+        x, y = _d(_d(a.get("phrases")).get(k)), _d(_d(b.get("phrases")).get(k))
+        phrases[k] = {"learned": _or(x, y, "learned")}
+    return {
+        "words": words,
+        "drills": merge_rated(a.get("drills"), b.get("drills")),
+        "phrases": phrases,
+    }
+
+
 # ── профиль ────────────────────────────────────────────────────────────────
 
 def merge_profile(a, b) -> dict:
@@ -291,6 +343,10 @@ def merge_profile(a, b) -> dict:
         "cases": merge_rated(a.get("cases"), b.get("cases")),
         "library": merge_library(a.get("library"), b.get("library")),
         "stories": merge_stories(a.get("stories"), b.get("stories")),
+        "lessons": merge_lessons(a.get("lessons"), b.get("lessons")),
+        "quizBest": merge_quiz_best(a.get("quizBest"), b.get("quizBest")),
+        "weakTopicsSeen": merge_seen(a.get("weakTopicsSeen"), b.get("weakTopicsSeen")),
+        "english": merge_english(a.get("english"), b.get("english")),
     }
     if out["trackId"] is None:
         del out["trackId"]

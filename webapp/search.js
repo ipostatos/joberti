@@ -21,6 +21,10 @@
     mock: { title: "Mock", icon: "message-square", href: "mock.html?id=" },
     "case": { title: "Кейс", icon: "briefcase", href: "cases.html?id=" },
     step: { title: "Шаг плана", icon: "map", href: "roadmap.html?id=" },
+    phrase: { title: "Фраза", icon: "message-square", href: "english.html?tab=phrases&id=" },
+    eword: { title: "Слово", icon: "globe", href: "english.html?tab=words&id=" },
+    edrill: { title: "Ответ вслух", icon: "mic", href: "english.html?tab=drills&id=" },
+    ewriting: { title: "Письмо", icon: "file-text", href: "english.html?tab=writing&id=" },
   };
 
   // Нормализация: регистр, ё→е (пользователи печатают и так, и так),
@@ -92,6 +96,33 @@
     (content.roadmap || []).filter(inTrack).forEach(function (s) {
       add("step", s.id, s.title, "Шаг " + s.order, [s.title],
         s.goal, (s.topic_ids || [])[0]);
+    });
+
+    // Английский сквозной: пустой track_ids значит «во всех треках», поэтому
+    // фильтр здесь не такой, как у остального контента.
+    var inEnglish = function (x) {
+      return !trackId || !x.track_ids || !x.track_ids.length ||
+        x.track_ids.indexOf(trackId) !== -1;
+    };
+
+    (content.englishPhrases || []).filter(inEnglish).forEach(function (p) {
+      add("phrase", p.id, p.en, p.ru, [p.en].concat(p.variants || []),
+        [p.ru, p.when, p.note, p.category].join(" "));
+    });
+
+    (content.englishVocab || []).filter(inEnglish).forEach(function (w) {
+      add("eword", w.id, w.term, w.meaning, [w.term, w.ru_hint],
+        [w.meaning, w.wrong, w.example_en, w.example_ru, w.category].join(" "));
+    });
+
+    (content.englishDrills || []).filter(inEnglish).forEach(function (d) {
+      add("edrill", d.id, d.prompt_en, d.prompt_ru, [d.prompt_en, d.prompt_ru],
+        [d.hint, (d.keywords || []).join(" "), d.model_answer_en].join(" "));
+    });
+
+    (content.englishWriting || []).filter(inEnglish).forEach(function (s) {
+      add("ewriting", s.id, s.title, s.category, [s.title],
+        [s.en, s.ru, s.note].join(" "));
     });
 
     return idx;

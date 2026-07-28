@@ -117,6 +117,21 @@ def build(track_id: str | None = None) -> str:
             w("Пробелов не обнаружено.")
         w("")
 
+    # ── английский ──
+    # Раздел сквозной, поэтому важна не сумма, а то, что видит каждый трек:
+    # общая часть плюс своя лексика.
+    w("## Английский для IT\n")
+    w("| Трек | Фразы | Слова | Задания | Письмо | Своих записей |")
+    w("|---|---:|---:|---:|---:|---:|")
+    keys = ("english_phrases", "english_vocab", "english_drills", "english_writing")
+    for t in c.tracks:
+        seen = [len(c.english_of(k, t["id"])) for k in keys]
+        own = sum(1 for k in keys for x in getattr(c, k)
+                  if t["id"] in (x.get("track_ids") or []))
+        w(f"| {t['title']} `{t['id']}` | " + " | ".join(str(n) for n in seen) +
+          f" | {own} |")
+    w("")
+
     # ── сложность ──
     w("## Распределение по сложности\n")
     w("| Коллекция | 1 | 2 | 3 |")

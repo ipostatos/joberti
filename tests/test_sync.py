@@ -125,6 +125,14 @@ FIXTURES = {
                 "cases": {"c1": {"rating": 1, "count": 1, "ts": 1}},
                 "library": {"l1": {"read": True, "note": ""}},
                 "stories": {"st1": {"situation": "A", "updatedAt": 5}},
+                "lessons": {"les1": {"read": True, "ts": 100}},
+                "quizBest": {"on-page": 80},
+                "weakTopicsSeen": {"on-page": True},
+                "english": {
+                    "words": {"ev-queue": {"favorite": True, "checked": 2}},
+                    "drills": {"ed-self-001": {"rating": 2, "count": 1, "ts": 10}},
+                    "phrases": {"ph-open-001": {"learned": True}},
+                },
             },
             {
                 "onboarded": False,
@@ -136,6 +144,15 @@ FIXTURES = {
                 "cases": {"c1": {"rating": 3, "count": 2, "ts": 9}},
                 "library": {"l1": {"read": False, "note": "заметка"}},
                 "stories": {"st1": {"situation": "B", "updatedAt": 9}},
+                "lessons": {"les2": {"read": True, "ts": 50}},
+                "quizBest": {"on-page": 45, "technical-seo": 70},
+                "weakTopicsSeen": {},
+                "english": {
+                    "words": {"ev-queue": {"favorite": False, "checked": 5}},
+                    "drills": {"ed-self-001": {"rating": 4, "count": 2, "ts": 20}},
+                    "phrases": {"ph-open-001": {"learned": False},
+                                "ph-self-001": {"learned": True}},
+                },
             },
         ),
         ({}, {}),
@@ -263,6 +280,36 @@ class TestMergeRules(unittest.TestCase):
     def test_profile_self_assessment_range(self):
         r = merge.merge_profile({}, {"selfAssessment": {"a": 3, "b": 99, "c": "x"}})
         self.assertEqual(r["selfAssessment"], {"a": 3})
+
+    def test_profile_keeps_lessons_and_quiz_best(self):
+        """Разделы, которых раньше не было в белом списке слияния.
+
+        Их отсутствие означало тихую потерю: клиент заменяет профиль целиком
+        ответом сервера, поэтому «урок прочитан» и лучший процент по теме
+        обнулялись при первом же обмене, а шаги плана откатывались.
+        """
+        r = merge.merge_profile(
+            {"lessons": {"les1": {"read": True, "ts": 5}}, "quizBest": {"on-page": 90},
+             "weakTopicsSeen": {"on-page": True}},
+            {"quizBest": {"on-page": 40, "html-http": 55}},
+        )
+        self.assertTrue(r["lessons"]["les1"]["read"])
+        self.assertEqual(r["quizBest"], {"on-page": 90, "html-http": 55})
+        self.assertEqual(r["weakTopicsSeen"], {"on-page": True})
+
+    def test_profile_keeps_english_progress(self):
+        r = merge.merge_profile(
+            {"english": {"words": {"ev-queue": {"checked": 3, "favorite": True}},
+                         "drills": {"ed-self-001": {"rating": 4, "count": 1, "ts": 7}},
+                         "phrases": {"ph-open-001": {"learned": True}}}},
+            {"english": {"words": {"ev-queue": {"checked": 1}},
+                         "drills": {"ed-self-001": {"rating": 2, "count": 3, "ts": 9}},
+                         "phrases": {"ph-open-001": {"learned": False}}}},
+        )
+        eng = r["english"]
+        self.assertEqual(eng["words"]["ev-queue"], {"favorite": True, "checked": 3})
+        self.assertEqual(eng["drills"]["ed-self-001"], {"rating": 4, "count": 3, "ts": 9})
+        self.assertEqual(eng["phrases"], {"ph-open-001": {"learned": True}})
 
     def test_merge_is_idempotent(self):
         """Повторный обмен не должен менять состояние: иначе оно «дрейфует»

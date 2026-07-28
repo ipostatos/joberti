@@ -1,11 +1,11 @@
 // ===========================================================================
 // APP — общий слой между экранами Mini App.
 //
-// Зачем отдельный модуль: шестнадцать HTML-страниц не должны каждая по-своему
+// Зачем отдельный модуль: семнадцать HTML-страниц не должны каждая по-своему
 // понимать, что такое «выполненный шаг плана» или «засчитанное действие».
 // Вся логика состояния живёт здесь, страницы занимаются только отрисовкой.
 //
-// Подключать ПОСЛЕ: generated/content_data.js, srs.js, progress.js,
+// Подключать ПОСЛЕ: generated/content_core.js, content-loader.js, srs.js, progress.js,
 // readiness.js, sync.js.
 // ===========================================================================
 (function (global) {
@@ -132,10 +132,30 @@
   }
   function sourceById(id) { return byId(C.sources || [], id); }
 
+  // ── английский для IT ────────────────────────────────────────────────────
+  //
+  // Раздел сквозной: пустой track_ids означает «во всех треках», непустой —
+  // лексика конкретной профессии. Правило отбора то же, что у глоссария, и
+  // живёт в одном месте, чтобы четыре экрана не разошлись в трактовке.
+
+  function englishOf(key) {
+    var id = trackId();
+    return (C[key] || []).filter(function (x) {
+      var t = x.track_ids;
+      return !t || !t.length || t.indexOf(id) !== -1;
+    });
+  }
+  function phrases() { return englishOf("englishPhrases"); }
+  function words() { return englishOf("englishVocab"); }
+  function drills() { return englishOf("englishDrills"); }
+  function writings() { return englishOf("englishWriting"); }
+
   // ── идентификаторы SRS ───────────────────────────────────────────────────
 
   function qid(id) { return "q:" + id; }
   function tid(id) { return "t:" + id; }
+  function ewid(id) { return "ew:" + id; }
+  function edid(id) { return "ed:" + id; }
 
   // ── запись действий ──────────────────────────────────────────────────────
   //
@@ -210,6 +230,93 @@
     SRS.grade("c:" + caseId, (parseInt(rating, 10) || 0) >= 3);
     Progress.recordAction(1);
     afterChange();
+  }
+
+  // ── английский: запись прогресса ─────────────────────────────────────────
+  //
+  // Английский НЕ участвует в расчёте готовности к профессии: процент отражает
+  // знание предметной области, и подмешивать в него язык значило бы выдавать
+  // выученные слова за понимание работы. В дневную цель и серию он идёт: это
+  // такая же учебная работа, как повторение терминов.
+
+  function recordWordCheck(wordId, correct) {
+    SRS.grade(ewid(wordId), !!correct);
+    Progress.patchProfile(function (p) {
+      var e = p.english.words[wordId] || {};
+      e.checked = (e.checked || 0) + 1;
+      p.english.words[wordId] = e;
+    });
+    Progress.recordAction(1);
+    if (Sync) Sync.schedulePush();
+  }
+
+  function toggleWordFavorite(wordId) {
+    var on = false;
+    Progress.patchProfile(function (p) {
+      var e = p.english.words[wordId] || {};
+      e.favorite = !e.favorite;
+      on = e.favorite;
+      p.english.words[wordId] = e;
+    });
+    if (Sync) Sync.schedulePush();
+    return on;
+  }
+
+  function togglePhraseLearned(phraseId) {
+    var on = false;
+    Progress.patchProfile(function (p) {
+      var e = p.english.phrases[phraseId] || {};
+      e.learned = !e.learned;
+      on = e.learned;
+      p.english.phrases[phraseId] = e;
+    });
+    if (Sync) Sync.schedulePush();
+    return on;
+  }
+
+  // rating: 0..4 по рубрике самооценки, как в mock interview
+  function recordDrill(drillId, rating) {
+    var r = Math.max(0, Math.min(4, parseInt(rating, 10) || 0));
+    Progress.patchProfile(function (p) {
+      var e = p.english.drills[drillId] || { count: 0 };
+      e.rating = Math.max(r, typeof e.rating === "number" ? e.rating : 0);
+      e.count = (e.count || 0) + 1;
+      e.ts = Date.now();
+      p.english.drills[drillId] = e;
+    });
+    SRS.grade(edid(drillId), r >= 3);
+    Progress.recordAction(1);
+    if (Sync) Sync.schedulePush();
+  }
+
+  // Сводка для плашки на главной и заголовка экрана.
+  function englishStats() {
+    var p = Progress.profile();
+    var map = SRS.stateMap();
+    var w = words(), d = drills(), ph = phrases();
+    var started = 0, learned = 0, due = 0;
+    var now = Date.now();
+    w.forEach(function (x) {
+      var s = map[ewid(x.id)];
+      if (!s) return;
+      started++;
+      if (s.box >= SRS.LEARNED_BOX) learned++;
+      if (s.due <= now) due++;
+    });
+    var drillsDone = d.filter(function (x) {
+      var e = (p.english.drills || {})[x.id];
+      return e && typeof e.rating === "number";
+    }).length;
+    var phrasesLearned = ph.filter(function (x) {
+      var e = (p.english.phrases || {})[x.id];
+      return e && e.learned;
+    }).length;
+    return {
+      words: w.length, wordsStarted: started, wordsLearned: learned, wordsDue: due,
+      drills: d.length, drillsDone: drillsDone,
+      phrases: ph.length, phrasesLearned: phrasesLearned,
+      writing: writings().length,
+    };
   }
 
   function markLessonRead(lessonId) {
@@ -636,7 +743,11 @@
     questions: questions, questionsOfTopic: questionsOfTopic,
     lessons: lessons, mocks: mocks, cases: cases, steps: steps, terms: terms,
     sourceById: sourceById,
-    qid: qid, tid: tid,
+    phrases: phrases, words: words, drills: drills, writings: writings,
+    qid: qid, tid: tid, ewid: ewid, edid: edid,
+    recordWordCheck: recordWordCheck, toggleWordFavorite: toggleWordFavorite,
+    togglePhraseLearned: togglePhraseLearned, recordDrill: recordDrill,
+    englishStats: englishStats,
     recordQuizAnswers: recordQuizAnswers, recordQuizResult: recordQuizResult,
     recordTermCheck: recordTermCheck, toggleTermFavorite: toggleTermFavorite,
     recordMock: recordMock, recordCase: recordCase,

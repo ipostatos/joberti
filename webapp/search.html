@@ -49,6 +49,7 @@
   <button class="chip" data-t="mock">Mock</button>
   <button class="chip" data-t="case">Кейсы</button>
   <button class="chip" data-t="step">План</button>
+  <button class="chip" data-t="english">Английский</button>
 </div>
 
 <div id="results"></div>
@@ -83,10 +84,12 @@
     clear.classList.toggle("hidden", !q);
     if (q.length < 2) { emptyState(); return; }
 
-    var hits = Search.query(index, q, {
-      types: typeFilter ? [typeFilter] : null,
-      limit: 60,
-    });
+    // Английский — не один тип, а четыре: одна кнопка фильтра включает все.
+    var types = null;
+    if (typeFilter === "english") types = ["eword", "phrase", "edrill", "ewriting"];
+    else if (typeFilter) types = [typeFilter];
+
+    var hits = Search.query(index, q, { types: types, limit: 60 });
 
     if (!hits.length) {
       results.innerHTML = '<div class="state">Ничего не найдено по запросу «' +
@@ -98,7 +101,8 @@
     var byType = {};
     hits.forEach(function (h) { (byType[h.entry.type] = byType[h.entry.type] || []).push(h); });
 
-    var order = ["term", "lesson", "case", "mock", "question", "library", "step"];
+    var order = ["term", "lesson", "case", "mock", "question", "library", "step",
+      "eword", "phrase", "edrill", "ewriting"];
     results.innerHTML = order.filter(function (t) { return byType[t]; }).map(function (t) {
       var meta = Search.TYPE_META[t];
       return '<div class="group-title">' + App.esc(meta.title) +

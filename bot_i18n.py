@@ -34,6 +34,7 @@ RU: dict[str, str] = {
     "btn_quiz": "Тест",
     "btn_mock": "Mock interview",
     "btn_plan": "План подготовки",
+    "btn_english": "Английский для IT",
 
     "menu_title": "<b>Что можно делать в чате</b>",
     "menu_body": (

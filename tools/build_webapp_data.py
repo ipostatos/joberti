@@ -54,6 +54,14 @@ TRACK_SECTIONS = {
     "cases": "track_id",
     "roadmap": "track_id",
     "stories": "track_id",
+    # Английский сквозной: пустой track_ids значит «во всех треках», поэтому он
+    # режется тем же правилом, что и глоссарий, и общая часть попадает в каждый
+    # трековый файл. Класть его в core было бы дороже: тогда каждый скачивал бы
+    # ещё и лексику чужих профессий.
+    "englishPhrases": "track_ids",
+    "englishVocab": "track_ids",
+    "englishDrills": "track_ids",
+    "englishWriting": "track_ids",
 }
 
 # Разделы, общие для всех треков. Источники — общий реестр цитирования, на него
@@ -61,6 +69,8 @@ TRACK_SECTIONS = {
 CORE_SECTIONS = (
     "tracks", "sources", "library", "achievements",
     "glossaryCategories", "mockCategories", "mockSessionFlow", "storyFramework",
+    "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
+    "englishWritingCategories",
     "counts",
 )
 
@@ -124,6 +134,14 @@ def build_sections(c) -> dict:
         "stories": c.stories,
         "storyFramework": c.raw["stories"].get("framework", {}),
         "achievements": c.achievements,
+        "englishPhrases": c.english_phrases,
+        "englishPhraseCategories": c.raw["english_phrases"].get("categories", []),
+        "englishVocab": c.english_vocab,
+        "englishVocabCategories": c.raw["english_vocab"].get("categories", []),
+        "englishDrills": c.english_drills,
+        "englishDrillCategories": c.raw["english_drills"].get("categories", []),
+        "englishWriting": c.english_writing,
+        "englishWritingCategories": c.raw["english_writing"].get("categories", []),
         "counts": c.counts(),
     }
 

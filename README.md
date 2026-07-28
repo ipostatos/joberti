@@ -92,7 +92,7 @@ Sync API (FastAPI + SQLite)  ← необязателен
 ```
 
 Источник правды контента — читаемые JSON в `data/`. Из них генерируется
-`webapp/generated/content_data.js`. CI падает, если сгенерированное отстало
+`webapp/generated/content_core.js` и трековые файлы. CI падает, если сгенерированное отстало
 от источника.
 
 Подробнее: [ARCHITECTURE.md](ARCHITECTURE.md).

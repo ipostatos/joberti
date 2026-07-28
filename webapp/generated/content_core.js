@@ -280,6 +280,10 @@
   "achievements":24,
   "active_tracks":3,
   "cases":28,
+  "english_drills":19,
+  "english_phrases":64,
+  "english_vocab":68,
+  "english_writing":40,
   "glossary_terms":205,
   "lessons":68,
   "library_resources":166,
@@ -292,6 +296,43 @@
   "tracks":4,
   "vacancies":3
  },
+ "englishDrillCategories":[
+  "О себе",
+  "Опыт и проекты",
+  "Технический вопрос",
+  "Ситуация на работе",
+  "Вопросы работодателю"
+ ],
+ "englishDrills":[],
+ "englishPhraseCategories":[
+  "Начало разговора",
+  "Рассказ о себе",
+  "Опыт и проекты",
+  "Технические объяснения",
+  "Если не понял или нужно время",
+  "Когда не знаешь ответа",
+  "Вопросы работодателю",
+  "Условия и финал"
+ ],
+ "englishPhrases":[],
+ "englishVocab":[],
+ "englishVocabCategories":[
+  "Базовая лексика",
+  "Процесс и команда",
+  "Данные и API",
+  "Инфраструктура",
+  "SEO",
+  "DevOps",
+  "QA и платежи"
+ ],
+ "englishWriting":[],
+ "englishWritingCategories":[
+  "Документация",
+  "Письма",
+  "Тикеты и баг-репорты",
+  "Код-ревью и чат",
+  "Созвоны и статусы"
+ ],
  "glossary":[],
  "glossaryCategories":[
   "Search basics",

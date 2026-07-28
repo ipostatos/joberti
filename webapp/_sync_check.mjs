@@ -120,6 +120,14 @@ export const FIXTURES = {
         cases: { c1: { rating: 1, count: 1, ts: 1 } },
         library: { l1: { read: true, note: "" } },
         stories: { st1: { situation: "A", updatedAt: 5 } },
+        lessons: { les1: { read: true, ts: 100 } },
+        quizBest: { "on-page": 80 },
+        weakTopicsSeen: { "on-page": true },
+        english: {
+          words: { "ev-queue": { favorite: true, checked: 2 } },
+          drills: { "ed-self-001": { rating: 2, count: 1, ts: 10 } },
+          phrases: { "ph-open-001": { learned: true } },
+        },
       },
       {
         onboarded: false,
@@ -131,6 +139,14 @@ export const FIXTURES = {
         cases: { c1: { rating: 3, count: 2, ts: 9 } },
         library: { l1: { read: false, note: "заметка" } },
         stories: { st1: { situation: "B", updatedAt: 9 } },
+        lessons: { les2: { read: true, ts: 50 } },
+        quizBest: { "on-page": 45, "technical-seo": 70 },
+        weakTopicsSeen: {},
+        english: {
+          words: { "ev-queue": { favorite: false, checked: 5 } },
+          drills: { "ed-self-001": { rating: 4, count: 2, ts: 20 } },
+          phrases: { "ph-open-001": { learned: false }, "ph-self-001": { learned: true } },
+        },
       },
     ],
     [{}, {}],
@@ -239,6 +255,24 @@ if (process.argv.includes("--dump")) {
   eq(p.library.l1, { read: true, note: "заметка" }, "профиль: библиотека слита");
   eq(p.stories.st1.situation, "B", "профиль: история — более свежая версия");
   ok(!("trackId" in r.profile[1]), "профиль: пустой трек не появляется в результате");
+
+  // ── прочитанные уроки и лучшие результаты тестов ──
+  // Раньше эти разделы выпадали из слияния целиком, и вместе с ними
+  // откатывались шаги плана. Проверяем, что они переживают обмен.
+  eq(p.lessons, { les1: { read: true, ts: 100 }, les2: { read: true, ts: 50 } },
+    "профиль: прочитанные уроки объединяются, ничего не теряется");
+  eq(p.quizBest, { "on-page": 80, "technical-seo": 70 },
+    "профиль: по каждой теме остаётся лучший результат теста");
+  eq(p.weakTopicsSeen, { "on-page": true },
+    "профиль: отметка «тема была слабой» не теряется");
+
+  // ── английский ──
+  eq(p.english.words["ev-queue"], { favorite: true, checked: 5 },
+    "английский: избранное по ИЛИ, число проверок — максимум");
+  eq(p.english.drills["ed-self-001"], { rating: 4, count: 2, ts: 20 },
+    "английский: самооценка задания — лучшая, счётчик заходов — максимум");
+  eq(p.english.phrases, { "ph-open-001": { learned: true }, "ph-self-001": { learned: true } },
+    "английский: отметка «выучил» не снимается слиянием");
 
   // ── идемпотентность ──
   // Повторное слияние результата с самим собой ничего не меняет: иначе

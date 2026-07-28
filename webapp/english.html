@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Английский для IT · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_core.js"></script>
+<script src="content-loader.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="search.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .eng-row{ display:flex; align-items:center; gap:var(--sp-3); width:100%;
+    text-align:left; font:inherit; color:var(--text); background:var(--card);
+    border:1px solid var(--border); border-radius:var(--r-md);
+    padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2); cursor:pointer }
+  .eng-row .body{ flex:1; min-width:0 }
+  .eng-row .t{ display:block; font-weight:700; font-size:var(--fs-body) }
+  .eng-row .d{ display:block; color:var(--hint); font-size:var(--fs-sm); margin-top:2px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+  .eng-row .box{ font-size:var(--fs-xs); color:var(--hint); flex:0 0 auto }
+  .cat-title{ font-size:var(--fs-xs); font-weight:700; color:var(--hint);
+    text-transform:uppercase; letter-spacing:.05em; margin:var(--sp-4) 0 var(--sp-2) }
+  .en-line{ font-size:var(--fs-body); font-weight:600; line-height:1.5 }
+  .ru-line{ color:var(--hint); font-size:var(--fs-sm); line-height:1.55; margin-top:4px }
+  .ipa{ color:var(--accent); font-size:var(--fs-sm) }
+  .snippet{ white-space:pre-wrap; word-break:break-word; font-size:var(--fs-sm);
+    line-height:1.6; background:var(--muted-fill); border:1px solid var(--border);
+    border-radius:var(--r-sm); padding:var(--sp-3); margin:var(--sp-2) 0 }
+  .fav{ color:var(--warn) }
+  .timer{ font-size:var(--fs-h1); font-weight:800; font-variant-numeric:tabular-nums }
+  .rate-row{ display:flex; gap:6px; margin-top:var(--sp-3) }
+  .rate-row button{ flex:1 }
+</style>
+</head>
+<body>
+
+<!-- ── СПИСОК ── -->
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile blue" data-icon="globe"></span>
+    <div class="body">
+      <h1>Английский для IT</h1>
+      <div class="muted small" id="sub"></div>
+    </div>
+  </div>
+
+  <div class="chip-row" id="tabs" style="margin-bottom:var(--sp-3)">
+    <button class="chip on" data-tab="phrases">Фразы</button>
+    <button class="chip" data-tab="words">Слова</button>
+    <button class="chip" data-tab="drills">Тренажёр</button>
+    <button class="chip" data-tab="writing">Письмо</button>
+  </div>
+
+  <div class="search-box">
+    <span class="emi plain" data-icon="search"></span>
+    <input type="text" id="q" placeholder="Слово, фраза или ситуация" autocomplete="off">
+    <button id="clear" class="hidden"><span class="emi plain" data-icon="x"></span></button>
+  </div>
+
+  <div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)"></div>
+  <div class="chip-row" id="cats" style="margin-bottom:var(--sp-3)"></div>
+
+  <button class="btn hidden" id="studyBtn" style="margin-bottom:var(--sp-4)">Учить карточками</button>
+
+  <div id="items"></div>
+</section>
+
+<!-- ── КАРТОЧКА ЗАПИСИ ── -->
+<section id="detail" class="hidden"></section>
+
+<!-- ── КАРТОЧКИ СЛОВ ── -->
+<section id="study" class="hidden">
+  <div style="display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3)">
+    <div style="flex:1"><div class="meter"><i id="studyBar" style="width:0%"></i></div></div>
+    <div class="small muted" id="studyCounter">0/0</div>
+  </div>
+  <div class="card">
+    <div class="muted xs" id="studyCat"></div>
+    <div style="font-size:var(--fs-h1); font-weight:800; margin:6px 0 2px" id="studyTerm"></div>
+    <div class="ipa" id="studyIpa"></div>
+
+    <div id="studyFront" style="margin-top:var(--sp-3)">
+      <p class="small muted">Произнесите вслух и вспомните значение, потом проверьте себя.</p>
+      <button class="btn" id="flipBtn">Показать разбор</button>
+    </div>
+
+    <div id="studyBack" class="hidden">
+      <p class="small" id="studyMeaning" style="line-height:1.65; margin-top:var(--sp-3)"></p>
+      <div class="explain">
+        <div class="h">Как звучит</div>
+        <div class="small" id="studyHint"></div>
+      </div>
+      <p class="small muted" id="studyWrong" style="margin-top:var(--sp-2)"></p>
+      <p class="small" id="studyExample" style="margin-top:var(--sp-2); line-height:1.6"></p>
+      <div class="btn-row" style="margin-top:var(--sp-3)">
+        <button class="btn ghost" id="studyFail">Не знал</button>
+        <button class="btn" id="studyOk">Знал</button>
+      </div>
+    </div>
+  </div>
+  <button class="btn ghost" id="studyExit">Выйти из карточек</button>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  var TABS = {
+    phrases: { title: "Фразы", empty: "Фраз пока нет" },
+    words: { title: "Слова", empty: "Слов пока нет" },
+    drills: { title: "Тренажёр", empty: "Заданий пока нет" },
+    writing: { title: "Письмо", empty: "Материалов пока нет" },
+  };
+
+  var data = {
+    phrases: App.phrases(),
+    words: App.words(),
+    drills: App.drills(),
+    writing: App.writings(),
+  };
+  var cats = {
+    phrases: CONTENT.englishPhraseCategories || [],
+    words: CONTENT.englishVocabCategories || [],
+    drills: CONTENT.englishDrillCategories || [],
+    writing: CONTENT.englishWritingCategories || [],
+  };
+
+  var tab = "phrases";
+  var filter = "all";
+  var cat = null;
+  var query = "";
+  var openId = null;
+  var study = null;
+  var timer = null;
+
+  var elList = document.getElementById("list");
+  var elDetail = document.getElementById("detail");
+  var elStudy = document.getElementById("study");
+
+  // ── состояние записи ──
+  function wordState(w) {
+    var s = SRS.state(App.ewid(w.id));
+    var prof = (Progress.profile().english.words || {})[w.id] || {};
+    return {
+      box: s ? s.box : null,
+      seen: !!s,
+      due: s ? s.due <= Date.now() : true,
+      known: !!(s && s.box >= SRS.LEARNED_BOX),
+      favorite: !!prof.favorite,
+    };
+  }
+  function phraseLearned(p) {
+    var e = (Progress.profile().english.phrases || {})[p.id] || {};
+    return !!e.learned;
+  }
+  function drillState(d) {
+    var e = (Progress.profile().english.drills || {})[d.id] || {};
+    return { done: typeof e.rating === "number", rating: e.rating, count: e.count || 0 };
+  }
+
+  // ── шапка и фильтры ──
+  function renderHead() {
+    var st = App.englishStats();
+    document.getElementById("sub").textContent =
+      st.phrases + " фраз · " + st.words + " слов · " + st.drills + " заданий · " +
+      st.writing + " шаблонов";
+
+    var f = document.getElementById("filters");
+    var opts;
+    if (tab === "words") {
+      opts = [["all", "Все"], ["new", "Не изучены"], ["due", "К повтору"],
+        ["fav", "Избранное"], ["known", "Освоено"]];
+    } else if (tab === "phrases") {
+      opts = [["all", "Все"], ["new", "Не отмечены"], ["learned", "Выучено"]];
+    } else if (tab === "drills") {
+      opts = [["all", "Все"], ["new", "Не пройдены"], ["weak", "Оценка ниже 3"]];
+    } else {
+      opts = [["all", "Все"], ["template", "Шаблоны"], ["pattern", "Конструкции"]];
+    }
+    f.innerHTML = opts.map(function (o) {
+      return '<button class="chip' + (filter === o[0] ? " on" : "") +
+        '" data-f="' + o[0] + '">' + App.esc(o[1]) + "</button>";
+    }).join("");
+
+    var list = data[tab];
+    document.getElementById("cats").innerHTML =
+      '<button class="chip' + (cat ? "" : " on") + '" data-cat="">Все разделы</button>' +
+      (cats[tab] || []).map(function (c) {
+        var n = list.filter(function (x) { return x.category === c; }).length;
+        if (!n) return "";
+        return '<button class="chip' + (cat === c ? " on" : "") + '" data-cat="' +
+          App.esc(c) + '">' + App.esc(c) + " · " + n + "</button>";
+      }).join("");
+
+    document.getElementById("studyBtn").classList.toggle("hidden", tab !== "words");
+  }
+
+  // Поиск идёт по видимым полям записи: человек ищет и по-английски, и по-русски.
+  function matches(x) {
+    if (!query) return true;
+    var q = Search.norm(query);
+    var hay = Search.norm([
+      x.en, x.ru, x.when, x.note, x.term, x.meaning, x.ru_hint, x.wrong,
+      x.example_en, x.example_ru, x.prompt_en, x.prompt_ru, x.hint, x.title,
+      (x.variants || []).join(" "), (x.keywords || []).join(" "),
+    ].filter(Boolean).join(" "));
+    return hay.indexOf(q) !== -1;
+  }
+
+  function filtered() {
+    var list = data[tab].filter(matches);
+    if (cat) list = list.filter(function (x) { return x.category === cat; });
+    if (tab === "words") {
+      if (filter === "new") list = list.filter(function (x) { return !wordState(x).seen; });
+      else if (filter === "due") list = list.filter(function (x) {
+        var s = wordState(x); return s.seen && s.due;
+      });
+      else if (filter === "fav") list = list.filter(function (x) { return wordState(x).favorite; });
+      else if (filter === "known") list = list.filter(function (x) { return wordState(x).known; });
+    } else if (tab === "phrases") {
+      if (filter === "new") list = list.filter(function (x) { return !phraseLearned(x); });
+      else if (filter === "learned") list = list.filter(phraseLearned);
+    } else if (tab === "drills") {
+      if (filter === "new") list = list.filter(function (x) { return !drillState(x).done; });
+      else if (filter === "weak") list = list.filter(function (x) {
+        var s = drillState(x); return s.done && s.rating < 3;
+      });
+    } else if (filter === "template" || filter === "pattern") {
+      list = list.filter(function (x) { return x.kind === filter; });
+    }
+    return list;
+  }
+
+  // titleHtml собирается уже экранированным: у слова к названию добавляется
+  // значок избранного, и «экранировать в конце» здесь молча съело бы разметку.
+  function row(x) {
+    var titleHtml, sub, mark;
+    if (tab === "phrases") {
+      titleHtml = App.esc(x.en); sub = x.ru;
+      mark = phraseLearned(x) ? "выучено" : "";
+    } else if (tab === "words") {
+      var s = wordState(x);
+      titleHtml = App.esc(x.term) +
+        (s.favorite ? ' <span class="emi plain fav" data-icon="star"></span>' : "");
+      sub = x.ipa + " · " + x.meaning;
+      mark = s.known ? "освоено" : s.seen ? "коробка " + s.box : "новое";
+    } else if (tab === "drills") {
+      var d = drillState(x);
+      titleHtml = App.esc(x.prompt_en); sub = x.prompt_ru;
+      mark = d.done ? "оценка " + d.rating : x.seconds + " с";
+    } else {
+      titleHtml = App.esc(x.title); sub = x.ru;
+      mark = x.kind === "template" ? "шаблон" : "конструкция";
+    }
+    return '<button class="eng-row" data-id="' + App.esc(x.id) + '">' +
+      '<span class="body"><span class="t">' + titleHtml +
+      '</span><span class="d">' + App.esc(sub) + "</span></span>" +
+      '<span class="box">' + App.esc(mark) + "</span></button>";
+  }
+
+  function renderList() {
+    renderHead();
+    var list = filtered();
+    var box = document.getElementById("items");
+    if (!list.length) {
+      box.innerHTML = '<div class="state">' +
+        App.esc(query ? "Ничего не найдено" : TABS[tab].empty) + "</div>";
+      return;
+    }
+    var html;
+    if (query) {
+      html = list.map(row).join("");
+    } else {
+      var byCat = {};
+      list.forEach(function (x) { (byCat[x.category] = byCat[x.category] || []).push(x); });
+      html = (cats[tab] || []).filter(function (c) { return byCat[c]; })
+        .map(function (c) {
+          return '<div class="cat-title">' + App.esc(c) + "</div>" +
+            byCat[c].map(row).join("");
+        }).join("");
+    }
+    box.innerHTML = html;
+    Icons.hydrate(box);
+  }
+
+  // ── карточка записи ──
+  function open(id) {
+    var x = App.byId(data[tab], id);
+    if (!x) {
+      // Ссылка из поиска может вести на другую вкладку — ищем по всем.
+      var keys = Object.keys(data);
+      for (var i = 0; i < keys.length; i++) {
+        var found = App.byId(data[keys[i]], id);
+        if (found) { tab = keys[i]; x = found; break; }
+      }
+      if (!x) return;
+      syncTabChips();
+    }
+    openId = id;
+    var parts = [];
+
+    if (tab === "phrases") parts = phraseCard(x);
+    else if (tab === "words") parts = wordCard(x);
+    else if (tab === "drills") parts = drillCard(x);
+    else parts = writingCard(x);
+
+    parts.push('<button class="btn ghost" id="dBack" style="margin-top:var(--sp-3)">Назад к списку</button>');
+
+    elDetail.innerHTML = parts.join("");
+    elList.classList.add("hidden");
+    elDetail.classList.remove("hidden");
+    Icons.hydrate(elDetail);
+    window.scrollTo(0, 0);
+    bindDetail(x);
+    document.getElementById("dBack").addEventListener("click", close);
+  }
+
+  function phraseCard(x) {
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile blue" data-icon="message-square"></span>' +
+      '<div class="body"><h1>' + App.esc(x.category) + "</h1>" +
+      '<div class="muted small">Фраза · уровень ' + x.level + "</div></div></div>");
+    parts.push('<div class="card"><div class="en-line">' + App.esc(x.en) + "</div>" +
+      '<div class="ru-line">' + App.esc(x.ru) + "</div></div>");
+    parts.push('<div class="card"><div class="h3">Когда говорить</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.when) + "</p></div>");
+    if (x.note) {
+      parts.push('<div class="explain"><div class="h">На что смотрят</div>' +
+        '<div class="small">' + App.esc(x.note) + "</div></div>");
+    }
+    if ((x.variants || []).length) {
+      parts.push('<div class="card"><div class="h3">Ещё варианты</div>' +
+        x.variants.map(function (v) {
+          return '<div class="small" style="margin-bottom:6px; line-height:1.55">' +
+            App.esc(v) + "</div>";
+        }).join("") + "</div>");
+    }
+    parts.push('<div class="btn-row"><button class="btn" id="pLearn">' +
+      (phraseLearned(x) ? "Убрать отметку" : "Выучил(а)") + "</button>" +
+      '<button class="btn ghost" id="pCopy">Скопировать</button></div>');
+    return parts;
+  }
+
+  function wordCard(x) {
+    var s = wordState(x);
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile ' + (s.known ? "green" : "blue") +
+      '" data-icon="globe"></span><div class="body"><h1>' + App.esc(x.term) + "</h1>" +
+      '<div class="muted small">' + App.esc(x.category) +
+      (s.seen ? " · коробка " + s.box : " · не изучено") + "</div></div></div>");
+    parts.push('<div class="card"><div class="ipa" style="font-size:var(--fs-body)">' +
+      App.esc(x.ipa) + "</div>" +
+      '<div class="ru-line">Примерно так: ' + App.esc(x.ru_hint) + "</div></div>");
+    parts.push('<div class="card"><div class="h3">Значение</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.meaning) + "</p></div>");
+    parts.push('<div class="explain"><div class="h">Как говорят неверно</div>' +
+      '<div class="small">' + App.esc(x.wrong) + "</div></div>");
+    parts.push('<div class="card"><div class="h3">Пример</div>' +
+      '<div class="en-line">' + App.esc(x.example_en) + "</div>" +
+      '<div class="ru-line">' + App.esc(x.example_ru) + "</div></div>");
+    if (x.dict_url) {
+      parts.push('<div class="card"><div class="h3">Послушать произношение</div>' +
+        '<div class="small"><a href="' + App.esc(x.dict_url) +
+        '" target="_blank" rel="noopener noreferrer">Cambridge Dictionary</a></div></div>');
+    }
+    parts.push('<p class="xs muted">Слово засчитывается после проверки, а не после ' +
+      "открытия карточки.</p>" +
+      '<div class="btn-row"><button class="btn ghost" id="wFail">Не знал</button>' +
+      '<button class="btn" id="wOk">Знал</button></div>' +
+      '<button class="btn ghost" id="wFav" style="margin-top:var(--sp-2)">' +
+      (s.favorite ? "Убрать из избранного" : "В избранное") + "</button>");
+    return parts;
+  }
+
+  function drillCard(x) {
+    var st = drillState(x);
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile violet" data-icon="mic"></span>' +
+      '<div class="body"><h1>' + App.esc(x.category) + "</h1>" +
+      '<div class="muted small">Ответ вслух · ' + x.seconds + " с" +
+      (st.done ? " · последняя оценка " + st.rating : "") + "</div></div></div>");
+    parts.push('<div class="card"><div class="en-line">' + App.esc(x.prompt_en) + "</div>" +
+      '<div class="ru-line">' + App.esc(x.prompt_ru) + "</div></div>");
+    parts.push('<div class="card"><div class="h3">Как строить ответ</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.hint) + "</p>" +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible; margin-top:var(--sp-2)">' +
+      (x.keywords || []).map(function (k) {
+        return '<span class="chip">' + App.esc(k) + "</span>";
+      }).join("") + "</div></div>");
+    parts.push('<div class="card" style="text-align:center">' +
+      '<div class="timer" id="dTimer">' + x.seconds + "</div>" +
+      '<p class="xs muted" id="dTimerHint">Запустите таймер и говорите вслух, не читая эталон.</p>' +
+      '<button class="btn" id="dStart">Начать</button></div>');
+    parts.push('<div id="dModelBox"><button class="btn ghost" id="dShow">Показать эталон</button></div>');
+    parts.push('<div id="dModel" class="hidden"><div class="card">' +
+      '<div class="h3">Эталонный ответ</div>' +
+      '<div class="en-line" style="font-weight:500">' + App.esc(x.model_answer_en) + "</div>" +
+      '<div class="ru-line">' + App.esc(x.model_answer_ru) + "</div></div>" +
+      '<div class="card"><div class="h3">Оцените свой ответ</div>' +
+      Object.keys(x.rubric).sort().map(function (k) {
+        return '<div class="small" style="margin-bottom:4px"><b>' + App.esc(k) + "</b> — " +
+          App.esc(x.rubric[k]) + "</div>";
+      }).join("") +
+      '<div class="rate-row">' + [0, 1, 2, 3, 4].map(function (n) {
+        return '<button class="btn ghost" data-rate="' + n + '">' + n + "</button>";
+      }).join("") + "</div></div></div>");
+    return parts;
+  }
+
+  function writingCard(x) {
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile cyan" data-icon="file-text"></span>' +
+      '<div class="body"><h1>' + App.esc(x.title) + "</h1>" +
+      '<div class="muted small">' + App.esc(x.category) + " · " +
+      (x.kind === "template" ? "шаблон" : "конструкция") + "</div></div></div>");
+    parts.push('<div class="card"><div class="snippet">' + App.esc(x.en) + "</div>" +
+      '<button class="btn ghost" id="sCopy">Скопировать</button></div>');
+    parts.push('<div class="card"><div class="h3">По-русски</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.ru) + "</p></div>");
+    if (x.note) {
+      parts.push('<div class="explain"><div class="h">Грабли</div>' +
+        '<div class="small">' + App.esc(x.note) + "</div></div>");
+    }
+    return parts;
+  }
+
+  // Копирование через API буфера обмена, с запасным вариантом: в некоторых
+  // клиентах Telegram navigator.clipboard недоступен.
+  function copyText(text) {
+    var done = function (ok) {
+      if (window.haptic) haptic(ok ? "success" : "warning");
+      toast(ok ? "Скопировано" : "Не удалось скопировать");
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); },
+          function () { done(false); });
+        return;
+      }
+    } catch (e) {}
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      done(ok);
+    } catch (e2) { done(false); }
+  }
+
+  function bindDetail(x) {
+    if (tab === "phrases") {
+      document.getElementById("pLearn").addEventListener("click", function () {
+        var on = App.togglePhraseLearned(x.id);
+        this.textContent = on ? "Убрать отметку" : "Выучил(а)";
+        if (window.haptic) haptic("select");
+      });
+      document.getElementById("pCopy").addEventListener("click", function () {
+        copyText(x.en);
+      });
+      return;
+    }
+    if (tab === "words") {
+      document.getElementById("wOk").addEventListener("click", function () {
+        checkWord(x.id, true);
+      });
+      document.getElementById("wFail").addEventListener("click", function () {
+        checkWord(x.id, false);
+      });
+      document.getElementById("wFav").addEventListener("click", function () {
+        var on = App.toggleWordFavorite(x.id);
+        this.textContent = on ? "Убрать из избранного" : "В избранное";
+        if (window.haptic) haptic("select");
+      });
+      return;
+    }
+    if (tab === "drills") {
+      var left = x.seconds;
+      var elT = document.getElementById("dTimer");
+      document.getElementById("dStart").addEventListener("click", function () {
+        stopTimer();
+        left = x.seconds;
+        elT.textContent = left;
+        this.textContent = "Заново";
+        document.getElementById("dTimerHint").textContent = "Говорите. Эталон — после ответа.";
+        timer = setInterval(function () {
+          left--;
+          elT.textContent = left > 0 ? left : "0";
+          if (left <= 0) {
+            stopTimer();
+            if (window.haptic) haptic("success");
+            document.getElementById("dTimerHint").textContent = "Время вышло — сверьтесь с эталоном.";
+          }
+        }, 1000);
+      });
+      document.getElementById("dShow").addEventListener("click", function () {
+        stopTimer();
+        document.getElementById("dModelBox").classList.add("hidden");
+        document.getElementById("dModel").classList.remove("hidden");
+      });
+      document.getElementById("dModel").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-rate]");
+        if (!b) return;
+        App.recordDrill(x.id, b.getAttribute("data-rate"));
+        if (window.haptic) haptic("success");
+        toast("Оценка сохранена");
+        close();
+      });
+      return;
+    }
+    document.getElementById("sCopy").addEventListener("click", function () {
+      copyText(x.en);
+    });
+  }
+
+  function checkWord(id, ok) {
+    App.recordWordCheck(id, ok);
+    if (window.haptic) haptic(ok ? "success" : "warning");
+    toast(ok ? "Засчитано" : "Вернём на повтор скоро");
+    close();
+  }
+
+  function stopTimer() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  function close() {
+    openId = null;
+    stopTimer();
+    elDetail.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  // ── карточки слов ──
+  function startStudy() {
+    var pool = filtered();
+    if (!pool.length) pool = data.words;
+    var ids = SRS.pickDue(pool.map(function (w) { return App.ewid(w.id); }), 20);
+    var list = ids.map(function (id) {
+      return App.byId(data.words, id.slice(3));
+    }).filter(Boolean);
+    if (!list.length) { toast("Нечего повторять"); return; }
+
+    study = { list: list, i: 0, ok: 0 };
+    if (window.setBusy) setBusy(true);
+    elList.classList.add("hidden");
+    elDetail.classList.add("hidden");
+    elStudy.classList.remove("hidden");
+    renderStudy();
+  }
+
+  function renderStudy() {
+    var w = study.list[study.i];
+    document.getElementById("studyCounter").textContent =
+      (study.i + 1) + "/" + study.list.length;
+    document.getElementById("studyBar").style.width =
+      Math.round(study.i / study.list.length * 100) + "%";
+    document.getElementById("studyCat").textContent = w.category;
+    document.getElementById("studyTerm").textContent = w.term;
+    document.getElementById("studyIpa").textContent = w.ipa;
+    document.getElementById("studyMeaning").textContent = w.meaning;
+    document.getElementById("studyHint").textContent = "Примерно так: " + w.ru_hint;
+    document.getElementById("studyWrong").textContent = "Неверно: " + w.wrong;
+    document.getElementById("studyExample").textContent = w.example_en;
+    document.getElementById("studyFront").classList.remove("hidden");
+    document.getElementById("studyBack").classList.add("hidden");
+    window.scrollTo(0, 0);
+  }
+
+  function studyAnswer(ok) {
+    var w = study.list[study.i];
+    App.recordWordCheck(w.id, ok);
+    if (ok) study.ok++;
+    if (window.haptic) haptic(ok ? "success" : "warning");
+    study.i++;
+    if (study.i >= study.list.length) {
+      var n = study.list.length, good = study.ok;
+      exitStudy();
+      toast("Карточки: " + good + " из " + n + " верно");
+    } else {
+      renderStudy();
+    }
+  }
+
+  function exitStudy() {
+    study = null;
+    if (window.setBusy) setBusy(false);
+    elStudy.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById("flipBtn").addEventListener("click", function () {
+    document.getElementById("studyFront").classList.add("hidden");
+    document.getElementById("studyBack").classList.remove("hidden");
+  });
+  document.getElementById("studyOk").addEventListener("click", function () { studyAnswer(true); });
+  document.getElementById("studyFail").addEventListener("click", function () { studyAnswer(false); });
+  document.getElementById("studyExit").addEventListener("click", exitStudy);
+  document.getElementById("studyBtn").addEventListener("click", startStudy);
+
+  // ── вкладки, фильтры, поиск ──
+  function syncTabChips() {
+    Array.prototype.forEach.call(document.getElementById("tabs").children, function (c) {
+      c.classList.toggle("on", c.getAttribute("data-tab") === tab);
+    });
+  }
+
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tab]");
+    if (!b) return;
+    tab = b.getAttribute("data-tab");
+    filter = "all";
+    cat = null;
+    syncTabChips();
+    renderList();
+    window.scrollTo(0, 0);
+  });
+
+  document.getElementById("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b) return;
+    filter = b.getAttribute("data-f");
+    renderList();
+  });
+
+  document.getElementById("cats").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cat]");
+    if (!b) return;
+    cat = b.getAttribute("data-cat") || null;
+    renderList();
+  });
+
+  document.getElementById("items").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-id]");
+    if (b) open(b.getAttribute("data-id"));
+  });
+
+  var input = document.getElementById("q");
+  var clearBtn = document.getElementById("clear");
+  input.addEventListener("input", function () {
+    query = input.value.trim();
+    clearBtn.classList.toggle("hidden", !query);
+    renderList();
+  });
+  clearBtn.addEventListener("click", function () {
+    input.value = ""; query = ""; clearBtn.classList.add("hidden"); renderList();
+  });
+
+  window.__navBack = function () {
+    if (study) { exitStudy(); return true; }
+    if (openId) { close(); return true; }
+    return false;
+  };
+
+  var wanted = App.param("tab");
+  if (wanted && TABS[wanted]) { tab = wanted; syncTabChips(); }
+  renderList();
+  Icons.hydrate();
+  var id = App.param("id");
+  if (id) open(id);
+})();
+</script>
+</body>
+</html>

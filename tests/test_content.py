@@ -109,6 +109,78 @@ class TestCounts(unittest.TestCase):
                 )
 
 
+class TestEnglish(unittest.TestCase):
+    """Английский для IT — сквозной раздел, видимый на каждом активном треке."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+
+    KEYS = ("english_phrases", "english_vocab", "english_drills", "english_writing")
+
+    def test_minimum_counts(self):
+        counts = self.c.counts()
+        for key, minimum in validate_content.MIN_COUNTS.items():
+            if not key.startswith("english"):
+                continue
+            with self.subTest(collection=key):
+                self.assertGreaterEqual(counts[key], minimum)
+
+    def test_every_active_track_sees_english(self):
+        """Раздел общий, но пробел появляется в трековой части.
+
+        Общего количества мало: у нового трека может не оказаться ни одного
+        своего слова, и человек увидит английский без единого термина своей
+        профессии. Это тот же класс ошибки, что уже ловился на втором и третьем
+        треках, поэтому проверка идёт по всем активным.
+        """
+        for t in self.c.active_tracks():
+            for key in self.KEYS:
+                with self.subTest(track=t["id"], collection=key):
+                    visible = self.c.english_of(key, t["id"])
+                    self.assertGreaterEqual(
+                        len(visible), validate_content.ENGLISH_MIN_PER_TRACK[key],
+                        f"трек {t['id']}: видно {len(visible)} записей в {key}",
+                    )
+            for key, minimum in validate_content.ENGLISH_MIN_TRACK_OWN.items():
+                with self.subTest(track=t["id"], own=key):
+                    own = [x for x in getattr(self.c, key)
+                           if t["id"] in (x.get("track_ids") or [])]
+                    self.assertGreaterEqual(
+                        len(own), minimum,
+                        f"трек {t['id']}: своих записей в {key} — {len(own)}",
+                    )
+
+    def test_english_fields_have_no_cyrillic(self):
+        """Кириллица в английском поле — след копипаста из соседней строки."""
+        checks = [
+            ("english_phrases", ["en"]),
+            ("english_vocab", ["term", "example_en"]),
+            ("english_drills", ["prompt_en", "model_answer_en"]),
+            ("english_writing", ["en"]),
+        ]
+        for key, fields in checks:
+            for x in getattr(self.c, key):
+                for f in fields:
+                    with self.subTest(item=x["id"], field=f):
+                        self.assertFalse(
+                            validate_content.CYRILLIC & set(x.get(f) or ""),
+                            f"{x['id']}: в поле {f} есть кириллица",
+                        )
+
+    def test_drill_rubrics_are_complete(self):
+        for d in self.c.english_drills:
+            with self.subTest(drill=d["id"]):
+                self.assertEqual(set(d["rubric"]), {"0", "1", "2", "3", "4"})
+
+    def test_track_ids_resolve(self):
+        known = set(self.c.tracks_by_id)
+        for key in self.KEYS:
+            for x in getattr(self.c, key):
+                with self.subTest(item=x["id"]):
+                    self.assertLessEqual(set(x.get("track_ids") or []), known)
+
+
 class TestQuestionQuality(unittest.TestCase):
     """Качество банка: угадываемость, дубли, ссылки."""
 

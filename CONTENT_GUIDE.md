@@ -365,6 +365,55 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 Заполнены только `title`, `prompt`, `checklist` и `for_questions` (ссылки на
 вопросы mock interview, где история пригодится).
 
+### Английский для IT: `english_phrases.json`, `english_vocab.json`, `english_drills.json`, `english_writing.json`
+
+Раздел **сквозной**: он виден на всех треках. Пустой `track_ids` означает
+«во всех треках», непустой — лексика конкретной профессии. Правило то же, что
+у глоссария, и повторено ровно в одном месте кода (`App.englishOf`).
+
+Источников у фраз и переписки нет намеренно: это речевые формулы, а не
+проверяемые факты. У слов вместо источника — `dict_url` на словарную статью.
+
+```json
+// english_phrases.json → phrases[]
+{ "id": "ph-clar-001", "category": "Если не понял или нужно время",
+  "track_ids": [], "level": 1,
+  "en": "Sorry, could you repeat that, please?",
+  "ru": "Извините, можете повторить?",
+  "when": "Когда говорить", "note": "Грабли", "variants": ["…"] }
+
+// english_vocab.json → words[]
+{ "id": "ev-queue", "term": "queue", "ipa": "/kjuː/", "ru_hint": "кью",
+  "meaning": "очередь задач или сообщений",
+  "wrong": "как произносят неверно",
+  "example_en": "…", "example_ru": "…",
+  "dict_url": "https://dictionary.cambridge.org/dictionary/english/queue" }
+
+// english_drills.json → drills[]
+{ "id": "ed-self-001", "prompt_en": "Tell me about yourself.",
+  "prompt_ru": "…", "hint": "…", "keywords": ["…", "…"],
+  "model_answer_en": "…", "model_answer_ru": "…",
+  "rubric": { "0": "…", "4": "…" }, "seconds": 90 }
+
+// english_writing.json → snippets[]
+{ "id": "ew-doc-001", "kind": "pattern", "title": "MUST, SHOULD, MAY",
+  "en": "…", "ru": "…", "note": "…" }
+```
+
+Что проверяется автоматически:
+
+* поля `en`, `term`, `prompt_en`, `model_answer_en`, `example_en` **не содержат
+  кириллицы** — она там означает копипаст из соседней строки;
+* `ipa` записан в косых чертах, `dict_url` ведёт на Cambridge Dictionary;
+* `kind` — `pattern` или `template`, `level` — 1..3, рубрика задания — уровни 0..4;
+* **каждый активный трек** видит минимум записей в каждом из четырёх разделов
+  и имеет свои, не сквозные, слова и задания. Общего количества мало: пробел
+  появляется именно в трековой части.
+
+Английский **не входит** в расчёт готовности к профессии: процент отражает
+знание предметной области. В дневную цель и серию он идёт — это такая же
+учебная работа, как повторение терминов.
+
 ### `achievements.json`
 
 ```json

@@ -26,8 +26,11 @@ eq(Search.norm(null), "", "null не ломает нормализацию");
 const index = Search.buildIndex(CONTENT, "redcore-junior-seo");
 ok(index.length > 200, `индекс должен покрывать весь контент (получено ${index.length})`);
 
+const KINDS = ["lesson", "term", "library", "question", "mock", "case", "step",
+  "phrase", "eword", "edrill", "ewriting"];
+
 const types = new Set(index.map((e) => e.type));
-["lesson", "term", "library", "question", "mock", "case", "step"].forEach((t) => {
+KINDS.forEach((t) => {
   ok(types.has(t), `в индексе нет записей типа ${t}`);
 });
 
@@ -95,6 +98,16 @@ ok(find("расскажите о себе", { types: ["mock"] }).length > 0,
 ok(find("как работает google", { types: ["step"] }).length > 0,
   "шаг плана находится по названию");
 
+// ── английский ──
+ok(find("queue", { types: ["eword"] }).some((r) => r.entry.id === "ev-queue"),
+  "слово английского находится по написанию");
+ok(find("tell me about yourself", { types: ["edrill"] }).length > 0,
+  "задание тренажёра находится по формулировке");
+ok(find("could you repeat", { types: ["phrase"] }).length > 0,
+  "фраза находится по началу");
+ok(find("баг", { types: ["ewriting"] }).length > 0,
+  "шаблон переписки находится по русскому описанию");
+
 // ── КАЖДЫЙ активный трек попадает в индекс ──
 // Проверки выше написаны на контенте SEO-трека и о пробеле в новом треке
 // молчат: индекс строится по одному треку за раз. Поэтому отдельно
@@ -107,7 +120,7 @@ const ALL = require("./_content_all.js");
     const idx = Search.buildIndex(c, t.id);
     ok(idx.length > 200, `трек ${t.id}: в индексе всего ${idx.length} записей`);
     const kinds = new Set(idx.map((e) => e.type));
-    ["lesson", "term", "library", "question", "mock", "case", "step"].forEach((k) => {
+    KINDS.forEach((k) => {
       ok(kinds.has(k), `трек ${t.id}: в индексе нет записей типа ${k}`);
     });
     // Записи чужих треков в индекс попадать не должны: человек ищет по своему.

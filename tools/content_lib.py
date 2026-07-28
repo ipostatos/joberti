@@ -34,6 +34,10 @@ FILES = {
     "roadmap": "roadmap.json",
     "stories": "stories.json",
     "achievements": "achievements.json",
+    "english_phrases": "english_phrases.json",
+    "english_vocab": "english_vocab.json",
+    "english_drills": "english_drills.json",
+    "english_writing": "english_writing.json",
 }
 
 # Ключ верхнего уровня со списком записей внутри каждого файла.
@@ -51,7 +55,14 @@ LIST_KEY = {
     "roadmap": "steps",
     "stories": "templates",
     "achievements": "achievements",
+    "english_phrases": "phrases",
+    "english_vocab": "words",
+    "english_drills": "drills",
+    "english_writing": "snippets",
 }
+
+# Разделы английского. Он сквозной: пустой track_ids означает «во всех треках».
+ENGLISH_KEYS = ("english_phrases", "english_vocab", "english_drills", "english_writing")
 
 
 @dataclass
@@ -71,6 +82,10 @@ class Content:
     roadmap: list = field(default_factory=list)
     stories: list = field(default_factory=list)
     achievements: list = field(default_factory=list)
+    english_phrases: list = field(default_factory=list)
+    english_vocab: list = field(default_factory=list)
+    english_drills: list = field(default_factory=list)
+    english_writing: list = field(default_factory=list)
 
     # ── индексы по id (строятся один раз) ──
     @property
@@ -124,6 +139,16 @@ class Content:
     def questions_of(self, track_id: str) -> list:
         return [q for q in self.questions if q.get("track_id") == track_id]
 
+    def english_of(self, key: str, track_id: str) -> list:
+        """Записи английского, видимые на треке: сквозные плюс трековые.
+
+        Пустой track_ids — сознательно «во всех треках»: общая лексика и фразы
+        нужны каждой профессии, дублировать их по трекам значило бы поддерживать
+        четыре копии одного текста.
+        """
+        return [x for x in getattr(self, key)
+                if not x.get("track_ids") or track_id in x["track_ids"]]
+
     def counts(self) -> dict:
         return {
             "tracks": len(self.tracks),
@@ -140,6 +165,10 @@ class Content:
             "roadmap_steps": len(self.roadmap),
             "story_templates": len(self.stories),
             "achievements": len(self.achievements),
+            "english_phrases": len(self.english_phrases),
+            "english_vocab": len(self.english_vocab),
+            "english_drills": len(self.english_drills),
+            "english_writing": len(self.english_writing),
         }
 
 
