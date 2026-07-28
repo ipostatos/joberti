@@ -13,6 +13,20 @@ API="${API:-http://127.0.0.1:${API_PORT:-4200}}"
 BASE="${BASE:-}"
 FAILED=0
 
+# Список наполненных треков берётся из собранных данных рядом со скриптом, а не
+# записан руками: перечисление в коде уже отставало от контента — новый трек
+# выкатывался, а смоук проверял два прежних и молчал. Пустышки незаполненных
+# треков отсекаются по размеру.
+GEN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../webapp/generated" 2>/dev/null && pwd || true)"
+FILLED_TRACKS=""
+if [ -n "$GEN_DIR" ]; then
+  for f in "$GEN_DIR"/content_track_*.js; do
+    [ -e "$f" ] || continue
+    SZ=$(wc -c <"$f")
+    [ "$SZ" -gt 200000 ] && FILLED_TRACKS="$FILLED_TRACKS $(basename "$f")"
+  done
+fi
+
 check() {
   local name="$1" expected="$2" url="$3"
   local code
@@ -55,8 +69,9 @@ if [ -n "$BASE" ]; then
   check "тема" 200 "$BASE/theme.css"
   check "данные (общая часть)" 200 "$BASE/generated/content_core.js"
   check "загрузчик трека" 200 "$BASE/content-loader.js"
-  check "данные трека SEO" 200 "$BASE/generated/content_track_redcore-junior-seo.js"
-  check "данные трека DevOps" 200 "$BASE/generated/content_track_devops-platform.js"
+  for f in $FILLED_TRACKS; do
+    check "данные трека ${f#content_track_}" 200 "$BASE/generated/$f"
+  done
   check "service worker" 200 "$BASE/service-worker.js"
   check "манифест" 200 "$BASE/manifest.webmanifest"
 
@@ -73,12 +88,13 @@ if [ -n "$BASE" ]; then
 
   echo "==> Данные не пустые"
   # Порог на каждый файл свой: общая часть — это реестры и список треков,
-  # трековый файл — весь учебный материал профессии. Оба «живых» трека проверяем
-  # отдельно: пустой файл одного из них раньше прятался за общим объёмом.
-  for pair in \
-    "generated/content_core.js:50000" \
-    "generated/content_track_redcore-junior-seo.js:200000" \
-    "generated/content_track_devops-platform.js:200000"; do
+  # трековый файл — весь учебный материал профессии. КАЖДЫЙ наполненный трек
+  # проверяется отдельно: пустой файл одного из них прячется за общим объёмом.
+  PAIRS="generated/content_core.js:50000"
+  for f in $FILLED_TRACKS; do
+    PAIRS="$PAIRS generated/$f:200000"
+  done
+  for pair in $PAIRS; do
     FILE=${pair%:*}
     MIN=${pair##*:}
     SIZE=$(curl -s -o /dev/null -w "%{size_download}" --max-time 20 "$BASE/$FILE" || echo 0)
