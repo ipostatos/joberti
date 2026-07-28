@@ -284,13 +284,13 @@
   "english_phrases":64,
   "english_vocab":68,
   "english_writing":40,
-  "glossary_terms":205,
+  "glossary_terms":214,
   "lessons":68,
-  "library_resources":166,
+  "library_resources":178,
   "mock_questions":101,
   "questions":346,
   "roadmap_steps":68,
-  "sources":169,
+  "sources":181,
   "story_templates":24,
   "topics":60,
   "tracks":4,
@@ -367,7 +367,8 @@
   "Возвраты и споры",
   "Деньги и валюты",
   "Данные карт и PCI DSS",
-  "Интеграции и API"
+  "Интеграции и API",
+  "Работа в команде"
  ],
  "lessons":[],
  "library":[
@@ -421,7 +422,8 @@
    "title":"Google Search Essentials",
    "topic_ids":[
     "search-basics",
-    "technical-seo"
+    "technical-seo",
+    "interview-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/essentials",
@@ -734,7 +736,8 @@
    "source_ref":"google-javascript-seo",
    "title":"Understand JavaScript SEO basics",
    "topic_ids":[
-    "technical-seo"
+    "technical-seo",
+    "dev-communication"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
@@ -2368,7 +2371,8 @@
    "source_ref":"sre-postmortem",
    "title":"Postmortem Culture: Learning from Failure",
    "topic_ids":[
-    "incidents"
+    "incidents",
+    "behavioral-devops"
    ],
    "type":"guide",
    "url":"https://sre.google/sre-book/postmortem-culture/",
@@ -3414,6 +3418,237 @@
    "url":"https://docs.stripe.com/payments/analytics",
    "verification_status":"verified",
    "why_read":"Какие метрики платежей смотрят на практике: доля успешных, причины отказов, влияние аутентификации, споры."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":15,
+   "id":"lib-links-crawlable",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google Search Central",
+   "read_before_interview":true,
+   "source_ref":"google-links-crawlable",
+   "title":"Make your links crawlable",
+   "topic_ids":[
+    "internal-linking",
+    "technical-seo"
+   ],
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+   "verification_status":"verified",
+   "why_read":"Отвечает на вопрос, который спрашивают почти всегда: какую ссылку робот вообще считает ссылкой. Здесь же — почему кнопка с обработчиком клика ссылкой не является."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-qualify-links",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google Search Central",
+   "read_before_interview":false,
+   "source_ref":"google-qualify-links",
+   "title":"Qualify your outbound links to Google",
+   "topic_ids":[
+    "internal-linking",
+    "on-page"
+   ],
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+   "verification_status":"verified",
+   "why_read":"Три значения rel — nofollow, sponsored, ugc — и что Google с ними делает сейчас, а не десять лет назад. Частый вопрос про рекламные и пользовательские ссылки."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-breadcrumb-structured-data",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google Search Central",
+   "read_before_interview":false,
+   "source_ref":"google-breadcrumb-structured-data",
+   "title":"Breadcrumb structured data",
+   "topic_ids":[
+    "internal-linking",
+    "technical-seo"
+   ],
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+   "verification_status":"verified",
+   "why_read":"Хлебные крошки — самый дешёвый способ показать поиску структуру сайта. Разметка простая, а в выдаче видна сразу."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-user-stories",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":false,
+   "source_ref":"atlassian-user-stories",
+   "title":"User stories with examples and a template",
+   "topic_ids":[
+    "dev-communication",
+    "qa-test-docs"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/agile/project-management/user-stories",
+   "verification_status":"verified",
+   "why_read":"Формат задачи, который разработчик берёт в спринт без переспрашивания: кто, что и зачем плюс критерии приёмки. То же самое спрашивают на собеседовании про работу с командой."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-gitlab-communication",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"GitLab",
+   "read_before_interview":false,
+   "source_ref":"gitlab-communication",
+   "title":"GitLab Communication handbook",
+   "topic_ids":[
+    "dev-communication",
+    "behavioral",
+    "behavioral-devops"
+   ],
+   "type":"guide",
+   "url":"https://handbook.gitlab.com/handbook/communication/",
+   "verification_status":"verified",
+   "why_read":"Как устроено общение в распределённой команде: письменно, асинхронно, с фиксацией решений. Полезно, когда на собеседовании спрашивают про удалённую работу и договорённости."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-bug-reports",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Simon Tatham",
+   "read_before_interview":true,
+   "source_ref":"sgtatham-bug-reports",
+   "title":"How to Report Bugs Effectively",
+   "topic_ids":[
+    "qa-behavioral",
+    "qa-test-docs",
+    "dev-communication"
+   ],
+   "type":"guide",
+   "url":"https://www.chiark.greenend.org.uk/~sgtatham/bugs.html",
+   "verification_status":"verified",
+   "why_read":"Классический текст о том, почему баг-репорт — это факты и шаги, а не выводы и эмоции. Прямо ложится на вопрос «как вы сообщаете о найденной проблеме»."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-structured-interviewing",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google re:Work",
+   "read_before_interview":true,
+   "source_ref":"rework-structured-interviewing",
+   "title":"Guide: Use structured interviewing",
+   "topic_ids":[
+    "interview-seo",
+    "behavioral",
+    "qa-behavioral",
+    "behavioral-devops"
+   ],
+   "type":"guide",
+   "url":"https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/introduction/",
+   "verification_status":"verified",
+   "why_read":"Взгляд с другой стороны стола: как компании строят интервью и по какой шкале оценивают ответы. Понимая шкалу, легче говорить то, что действительно засчитывается."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-amazon-leadership-principles",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Amazon",
+   "read_before_interview":false,
+   "source_ref":"amazon-leadership-principles",
+   "title":"Amazon Leadership Principles",
+   "topic_ids":[
+    "behavioral",
+    "qa-behavioral",
+    "behavioral-devops"
+   ],
+   "type":"documentation",
+   "url":"https://www.amazon.jobs/content/en/our-workplace/leadership-principles",
+   "verification_status":"verified",
+   "why_read":"Список принципов, по которым в крупных компаниях разбирают поведенческие ответы. Даже если вы идёте не в Amazon, формулировки историй по этим принципам сильнее обычных."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-blameless-postmortem",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Atlassian",
+   "read_before_interview":true,
+   "source_ref":"atlassian-blameless-postmortem",
+   "title":"Blameless postmortems: how to run them",
+   "topic_ids":[
+    "behavioral-devops",
+    "incidents"
+   ],
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/postmortem/blameless",
+   "verification_status":"verified",
+   "why_read":"Практическая инструкция к разбору без поиска виноватых. На собеседовании про инциденты именно это отличает зрелый ответ от рассказа «кто нажал не туда»."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-aws-what-is-cloud",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Amazon Web Services",
+   "read_before_interview":true,
+   "source_ref":"aws-what-is-cloud-computing",
+   "title":"What is cloud computing?",
+   "topic_ids":[
+    "cloud-basics"
+   ],
+   "type":"official_documentation",
+   "url":"https://aws.amazon.com/what-is-cloud-computing/",
+   "verification_status":"verified",
+   "why_read":"База: модели обслуживания и развёртывания своими словами, без маркетинга. С неё удобно начинать, если облако для вас пока набор слов."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-azure-shared-responsibility",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Microsoft Learn",
+   "read_before_interview":true,
+   "source_ref":"azure-shared-responsibility",
+   "title":"Shared responsibility in the cloud",
+   "topic_ids":[
+    "cloud-basics",
+    "security-pipeline"
+   ],
+   "type":"official_documentation",
+   "url":"https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility",
+   "verification_status":"verified",
+   "why_read":"Кто за что отвечает — провайдер или вы. Вопрос «а кто отвечает за резервные копии в облаке» задают часто, и ошибка здесь стоит дорого не только на собеседовании."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":15,
+   "id":"lib-gcp-what-is-cloud",
+   "language":"en",
+   "last_verified":"2026-07-28",
+   "publisher":"Google Cloud",
+   "read_before_interview":false,
+   "source_ref":"gcp-what-is-cloud-computing",
+   "title":"What is cloud computing? (Google Cloud)",
+   "topic_ids":[
+    "cloud-basics"
+   ],
+   "type":"official_documentation",
+   "url":"https://cloud.google.com/learn/what-is-cloud-computing",
+   "verification_status":"verified",
+   "why_read":"Второй взгляд на ту же базу: полезно увидеть, что модели одинаковы, а названия сервисов у провайдеров разные."
   }
  ],
  "mockCategories":[
@@ -4962,6 +5197,114 @@
    "title":"Payments analytics",
    "type":"documentation",
    "url":"https://docs.stripe.com/payments/analytics",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"google-links-crawlable",
+   "publisher":"Google Search Central",
+   "title":"Make your links crawlable",
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"google-qualify-links",
+   "publisher":"Google Search Central",
+   "title":"Qualify your outbound links to Google",
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"google-breadcrumb-structured-data",
+   "publisher":"Google Search Central",
+   "title":"Breadcrumb (BreadcrumbList) structured data",
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-user-stories",
+   "publisher":"Atlassian",
+   "title":"User stories with examples and a template",
+   "type":"guide",
+   "url":"https://www.atlassian.com/agile/project-management/user-stories",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"gitlab-communication",
+   "publisher":"GitLab",
+   "title":"GitLab Communication handbook",
+   "type":"guide",
+   "url":"https://handbook.gitlab.com/handbook/communication/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"sgtatham-bug-reports",
+   "publisher":"Simon Tatham",
+   "title":"How to Report Bugs Effectively",
+   "type":"guide",
+   "url":"https://www.chiark.greenend.org.uk/~sgtatham/bugs.html",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"rework-structured-interviewing",
+   "publisher":"Google re:Work",
+   "title":"Guide: Use structured interviewing",
+   "type":"guide",
+   "url":"https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/introduction/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"amazon-leadership-principles",
+   "publisher":"Amazon",
+   "title":"Amazon Leadership Principles",
+   "type":"documentation",
+   "url":"https://www.amazon.jobs/content/en/our-workplace/leadership-principles",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"atlassian-blameless-postmortem",
+   "publisher":"Atlassian",
+   "title":"Blameless postmortems: how to run them",
+   "type":"guide",
+   "url":"https://www.atlassian.com/incident-management/postmortem/blameless",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"aws-what-is-cloud-computing",
+   "publisher":"Amazon Web Services",
+   "title":"What is cloud computing?",
+   "type":"official_documentation",
+   "url":"https://aws.amazon.com/what-is-cloud-computing/",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"azure-shared-responsibility",
+   "publisher":"Microsoft Learn",
+   "title":"Shared responsibility in the cloud",
+   "type":"official_documentation",
+   "url":"https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility",
+   "verified":true,
+   "verified_at":"2026-07-28"
+  },
+  {
+   "id":"gcp-what-is-cloud-computing",
+   "publisher":"Google Cloud",
+   "title":"What is cloud computing?",
+   "type":"official_documentation",
+   "url":"https://cloud.google.com/learn/what-is-cloud-computing",
    "verified":true,
    "verified_at":"2026-07-28"
   }

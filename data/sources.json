@@ -1522,6 +1522,114 @@
       "type": "documentation",
       "verified": true,
       "verified_at": "2026-07-28"
+    },
+    {
+      "id": "google-links-crawlable",
+      "title": "Make your links crawlable",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "google-qualify-links",
+      "title": "Qualify your outbound links to Google",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "google-breadcrumb-structured-data",
+      "title": "Breadcrumb (BreadcrumbList) structured data",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-user-stories",
+      "title": "User stories with examples and a template",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/agile/project-management/user-stories",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "gitlab-communication",
+      "title": "GitLab Communication handbook",
+      "publisher": "GitLab",
+      "url": "https://handbook.gitlab.com/handbook/communication/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "sgtatham-bug-reports",
+      "title": "How to Report Bugs Effectively",
+      "publisher": "Simon Tatham",
+      "url": "https://www.chiark.greenend.org.uk/~sgtatham/bugs.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "rework-structured-interviewing",
+      "title": "Guide: Use structured interviewing",
+      "publisher": "Google re:Work",
+      "url": "https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/introduction/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "amazon-leadership-principles",
+      "title": "Amazon Leadership Principles",
+      "publisher": "Amazon",
+      "url": "https://www.amazon.jobs/content/en/our-workplace/leadership-principles",
+      "type": "documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "atlassian-blameless-postmortem",
+      "title": "Blameless postmortems: how to run them",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/postmortem/blameless",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "aws-what-is-cloud-computing",
+      "title": "What is cloud computing?",
+      "publisher": "Amazon Web Services",
+      "url": "https://aws.amazon.com/what-is-cloud-computing/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "azure-shared-responsibility",
+      "title": "Shared responsibility in the cloud",
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
+    },
+    {
+      "id": "gcp-what-is-cloud-computing",
+      "title": "What is cloud computing?",
+      "publisher": "Google Cloud",
+      "url": "https://cloud.google.com/learn/what-is-cloud-computing",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-07-28"
     }
   ]
 }

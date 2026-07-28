@@ -50,7 +50,8 @@
       "language": "en",
       "topic_ids": [
         "search-basics",
-        "technical-seo"
+        "technical-seo",
+        "interview-seo"
       ],
       "difficulty": 1,
       "estimated_minutes": 20,
@@ -363,7 +364,8 @@
       "type": "official_documentation",
       "language": "en",
       "topic_ids": [
-        "technical-seo"
+        "technical-seo",
+        "dev-communication"
       ],
       "difficulty": 3,
       "estimated_minutes": 35,
@@ -1997,7 +1999,8 @@
       "type": "guide",
       "language": "en",
       "topic_ids": [
-        "incidents"
+        "incidents",
+        "behavioral-devops"
       ],
       "difficulty": 2,
       "estimated_minutes": 30,
@@ -3043,6 +3046,237 @@
       "estimated_minutes": 20,
       "read_before_interview": false,
       "why_read": "Какие метрики платежей смотрят на практике: доля успешных, причины отказов, влияние аутентификации, споры.",
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-links-crawlable",
+      "source_ref": "google-links-crawlable",
+      "title": "Make your links crawlable",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "internal-linking",
+        "technical-seo"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Отвечает на вопрос, который спрашивают почти всегда: какую ссылку робот вообще считает ссылкой. Здесь же — почему кнопка с обработчиком клика ссылкой не является.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-qualify-links",
+      "source_ref": "google-qualify-links",
+      "title": "Qualify your outbound links to Google",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "internal-linking",
+        "on-page"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "Три значения rel — nofollow, sponsored, ugc — и что Google с ними делает сейчас, а не десять лет назад. Частый вопрос про рекламные и пользовательские ссылки.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-breadcrumb-structured-data",
+      "source_ref": "google-breadcrumb-structured-data",
+      "title": "Breadcrumb structured data",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/breadcrumb",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "internal-linking",
+        "technical-seo"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Хлебные крошки — самый дешёвый способ показать поиску структуру сайта. Разметка простая, а в выдаче видна сразу.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-user-stories",
+      "source_ref": "atlassian-user-stories",
+      "title": "User stories with examples and a template",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/agile/project-management/user-stories",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "dev-communication",
+        "qa-test-docs"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Формат задачи, который разработчик берёт в спринт без переспрашивания: кто, что и зачем плюс критерии приёмки. То же самое спрашивают на собеседовании про работу с командой.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-gitlab-communication",
+      "source_ref": "gitlab-communication",
+      "title": "GitLab Communication handbook",
+      "publisher": "GitLab",
+      "url": "https://handbook.gitlab.com/handbook/communication/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "dev-communication",
+        "behavioral",
+        "behavioral-devops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Как устроено общение в распределённой команде: письменно, асинхронно, с фиксацией решений. Полезно, когда на собеседовании спрашивают про удалённую работу и договорённости.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-bug-reports",
+      "source_ref": "sgtatham-bug-reports",
+      "title": "How to Report Bugs Effectively",
+      "publisher": "Simon Tatham",
+      "url": "https://www.chiark.greenend.org.uk/~sgtatham/bugs.html",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "qa-behavioral",
+        "qa-test-docs",
+        "dev-communication"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Классический текст о том, почему баг-репорт — это факты и шаги, а не выводы и эмоции. Прямо ложится на вопрос «как вы сообщаете о найденной проблеме».",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-structured-interviewing",
+      "source_ref": "rework-structured-interviewing",
+      "title": "Guide: Use structured interviewing",
+      "publisher": "Google re:Work",
+      "url": "https://rework.withgoogle.com/guides/hiring-use-structured-interviewing/steps/introduction/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "interview-seo",
+        "behavioral",
+        "qa-behavioral",
+        "behavioral-devops"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Взгляд с другой стороны стола: как компании строят интервью и по какой шкале оценивают ответы. Понимая шкалу, легче говорить то, что действительно засчитывается.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-amazon-leadership-principles",
+      "source_ref": "amazon-leadership-principles",
+      "title": "Amazon Leadership Principles",
+      "publisher": "Amazon",
+      "url": "https://www.amazon.jobs/content/en/our-workplace/leadership-principles",
+      "type": "documentation",
+      "language": "en",
+      "topic_ids": [
+        "behavioral",
+        "qa-behavioral",
+        "behavioral-devops"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Список принципов, по которым в крупных компаниях разбирают поведенческие ответы. Даже если вы идёте не в Amazon, формулировки историй по этим принципам сильнее обычных.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-blameless-postmortem",
+      "source_ref": "atlassian-blameless-postmortem",
+      "title": "Blameless postmortems: how to run them",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/incident-management/postmortem/blameless",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "behavioral-devops",
+        "incidents"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Практическая инструкция к разбору без поиска виноватых. На собеседовании про инциденты именно это отличает зрелый ответ от рассказа «кто нажал не туда».",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-aws-what-is-cloud",
+      "source_ref": "aws-what-is-cloud-computing",
+      "title": "What is cloud computing?",
+      "publisher": "Amazon Web Services",
+      "url": "https://aws.amazon.com/what-is-cloud-computing/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "cloud-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "База: модели обслуживания и развёртывания своими словами, без маркетинга. С неё удобно начинать, если облако для вас пока набор слов.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-azure-shared-responsibility",
+      "source_ref": "azure-shared-responsibility",
+      "title": "Shared responsibility in the cloud",
+      "publisher": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/azure/security/fundamentals/shared-responsibility",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "cloud-basics",
+        "security-pipeline"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Кто за что отвечает — провайдер или вы. Вопрос «а кто отвечает за резервные копии в облаке» задают часто, и ошибка здесь стоит дорого не только на собеседовании.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-gcp-what-is-cloud",
+      "source_ref": "gcp-what-is-cloud-computing",
+      "title": "What is cloud computing? (Google Cloud)",
+      "publisher": "Google Cloud",
+      "url": "https://cloud.google.com/learn/what-is-cloud-computing",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "cloud-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Второй взгляд на ту же базу: полезно увидеть, что модели одинаковы, а названия сервисов у провайдеров разные.",
+      "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-07-28"
     }
