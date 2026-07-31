@@ -111,7 +111,10 @@ class TestProgress(unittest.TestCase):
 
     def test_empty_progress_for_new_user(self):
         p = self.bot.load_progress(1)
-        self.assertEqual(p, {"answered": 0, "correct": 0, "wrong": [], "seen": []})
+        self.assertEqual(
+            p,
+            {"answered": 0, "correct": 0, "wrong": [], "seen": [], "track": None},
+        )
 
     def test_correct_answer_recorded(self):
         qid = self.bot.QUESTIONS[0]["id"]
@@ -193,6 +196,38 @@ class TestQuestionSelection(unittest.TestCase):
             self.bot.record_answer(4, q["id"], True)
         self.assertIsNotNone(self.bot.pick_question(4, "random"),
                              "когда всё просмотрено, бот всё равно должен дать вопрос")
+
+    def test_track_filters_questions(self):
+        """С выбранным треком случайный вопрос приходит только из него:
+        SEO-пользователь не должен получать вопрос про Kubernetes."""
+        for t_ in self.bot.TRACKS:
+            data = self.bot.load_progress(5)
+            data["track"] = t_["id"]
+            self.bot.save_progress(5, data)
+            for _ in range(20):
+                q = self.bot.pick_question(5, "random")
+                self.assertEqual(q["track_id"], t_["id"])
+
+    def test_track_filters_mocks(self):
+        for t_ in self.bot.TRACKS:
+            pool = self.bot.mocks_for(t_["id"])
+            self.assertTrue(pool, f"у трека {t_['id']} нет mock-вопросов")
+            self.assertTrue(all(m["track_id"] == t_["id"] for m in pool))
+
+    def test_unknown_track_in_file_is_reset(self):
+        """Трек, исчезнувший из контента, не должен ронять выборку."""
+        data = self.bot.load_progress(6)
+        data["track"] = "deleted-track"
+        self.bot.save_progress(6, data)
+        self.assertIsNone(self.bot.load_progress(6)["track"])
+        self.assertIsNotNone(self.bot.pick_question(6, "random"))
+
+    def test_track_callback_data_within_64_bytes(self):
+        """Кнопки выбора трека тоже ограничены 64 байтами callback_data."""
+        for t_ in self.bot.TRACKS:
+            for mode in ("random", "mistakes", "mock", ""):
+                data = f"tr:{t_['id']}:{mode}"
+                self.assertLessEqual(len(data.encode("utf-8")), 64, data)
 
 
 class TestKeyboards(unittest.TestCase):

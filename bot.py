@@ -11,7 +11,7 @@ Fallback без Mini App (не задан WEBAPP_BASE) даёт минимум, 
 работает в чате: случайный вопрос с разбором, работа над ошибками, вопрос для
 mock interview и статистика.
 
-Команды: /start /menu /help /stats /privacy
+Команды: /start /menu /track /help /stats /privacy
 
 Запуск:  python bot.py     (нужен BOT_TOKEN в .env или в окружении)
 """
@@ -126,9 +126,19 @@ CASES: list[dict] = load_json("cases.json")["cases"]
 QUESTIONS_BY_ID = {q["id"]: q for q in QUESTIONS}
 MOCKS_BY_ID = {m["id"]: m for m in MOCKS}
 
+# Треки нужны и чату: без них случайный вопрос приходит из ЧУЖОЙ профессии —
+# SEO-специалист получает вопрос про CrashLoopBackOff.
+TRACKS: list[dict] = [
+    t_ for t_ in load_json("tracks.json")["tracks"] if t_.get("status") == "active"
+]
+TRACKS_BY_ID: dict[str, dict] = {t_["id"]: t_ for t_ in TRACKS}
+
+# Категории mock общие для всех треков, поэтому названия — нейтральные:
+# «Основы SEO» на треке QA выглядели бы ошибкой.
 MOCK_CATEGORY_TITLES = {
-    "intro": "Рассказ о себе", "motivation": "Мотивация", "fundamentals": "Основы SEO",
-    "technical": "Технический SEO", "tools": "Инструменты", "practical": "Практика",
+    "intro": "Рассказ о себе", "motivation": "Мотивация",
+    "fundamentals": "Основы профессии", "technical": "Технический блок",
+    "tools": "Инструменты", "practical": "Практика",
     "portfolio": "Портфолио", "communication": "Коммуникация",
     "behavioral": "Behavioral", "english": "English",
 }
@@ -152,16 +162,20 @@ def _progress_path(user_id: int) -> Path:
 def load_progress(user_id: int) -> dict:
     path = _progress_path(user_id)
     if not path.exists():
-        return {"answered": 0, "correct": 0, "wrong": [], "seen": []}
+        return {"answered": 0, "correct": 0, "wrong": [], "seen": [], "track": None}
     try:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
     except (OSError, json.JSONDecodeError):
-        return {"answered": 0, "correct": 0, "wrong": [], "seen": []}
+        return {"answered": 0, "correct": 0, "wrong": [], "seen": [], "track": None}
     data.setdefault("answered", 0)
     data.setdefault("correct", 0)
     data.setdefault("wrong", [])
     data.setdefault("seen", [])
+    data.setdefault("track", None)
+    # Трек мог исчезнуть из контента между релизами — тогда спросим заново.
+    if data["track"] not in TRACKS_BY_ID:
+        data["track"] = None
     return data
 
 
@@ -228,7 +242,16 @@ def fallback_keyboard() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text=t("btn_random"), callback_data="q:random")],
         [InlineKeyboardButton(text=t("btn_mistakes"), callback_data="q:mistakes")],
         [InlineKeyboardButton(text=t("btn_mock_q"), callback_data="m:random")],
+        [InlineKeyboardButton(text=t("btn_track"), callback_data="tr")],
         [InlineKeyboardButton(text=t("btn_stats"), callback_data="stats")],
+    ])
+
+
+def track_keyboard(mode: str) -> InlineKeyboardMarkup:
+    """Выбор трека. mode — что сделать после выбора: q-режим, mock или ничего."""
+    return kb([
+        [InlineKeyboardButton(text=t_["title"], callback_data=f"tr:{t_['id']}:{mode}")]
+        for t_ in TRACKS
     ])
 
 
@@ -284,6 +307,17 @@ async def cmd_privacy(message: Message) -> None:
     await message.answer(f"{t('privacy_title')}\n\n{t('privacy_body')}")
 
 
+@dp.message(Command("track"))
+async def cmd_track(message: Message) -> None:
+    if not private_only(message):
+        await message.answer(t("group_notice"))
+        return
+    p = load_progress(message.from_user.id)
+    current = TRACKS_BY_ID.get(p["track"])
+    head = t("track_current", track=current["title"]) if current else t("track_choose")
+    await message.answer(head, reply_markup=track_keyboard(""))
+
+
 @dp.message(Command("stats"))
 async def cmd_stats(message: Message) -> None:
     if not private_only(message):
@@ -311,15 +345,29 @@ async def send_stats(user_id: int, sender) -> None:
 
 # ── тест в чате ────────────────────────────────────────────────────────────
 
+def questions_for(track_id: str | None) -> list[dict]:
+    """Вопросы трека пользователя; без выбранного трека — весь банк."""
+    if track_id in TRACKS_BY_ID:
+        return [q for q in QUESTIONS if q.get("track_id") == track_id]
+    return QUESTIONS
+
+
+def mocks_for(track_id: str | None) -> list[dict]:
+    if track_id in TRACKS_BY_ID:
+        return [m for m in MOCKS if m.get("track_id") == track_id]
+    return MOCKS
+
+
 def pick_question(user_id: int, mode: str) -> dict | None:
     p = load_progress(user_id)
     if mode == "mistakes":
         pool = [QUESTIONS_BY_ID[q] for q in p["wrong"] if q in QUESTIONS_BY_ID]
         return random.choice(pool) if pool else None
+    bank = questions_for(p["track"])
     # Сначала показываем невиданные: повторять одно и то же в чате бессмысленно.
-    unseen = [q for q in QUESTIONS if q["id"] not in p["seen"]]
-    pool = unseen or QUESTIONS
-    return random.choice(pool)
+    unseen = [q for q in bank if q["id"] not in p["seen"]]
+    pool = unseen or bank
+    return random.choice(pool) if pool else None
 
 
 def question_keyboard(q: dict, order: list[int], mode: str) -> InlineKeyboardMarkup:
@@ -334,6 +382,11 @@ def question_keyboard(q: dict, order: list[int], mode: str) -> InlineKeyboardMar
 
 
 async def send_question(user_id: int, mode: str, sender) -> None:
+    # Без выбранного трека случайный вопрос пришёл бы из чужой профессии —
+    # сначала спрашиваем трек, потом продолжаем тот же режим.
+    if mode != "mistakes" and load_progress(user_id)["track"] is None:
+        await sender(t("track_choose"), reply_markup=track_keyboard(mode))
+        return
     q = pick_question(user_id, mode)
     if not q:
         if mode == "mistakes":
@@ -423,10 +476,13 @@ async def cb_answer(call: CallbackQuery) -> None:
 
 # ── mock в чате ────────────────────────────────────────────────────────────
 
-@dp.callback_query(F.data.startswith("m:"))
-async def cb_mock(call: CallbackQuery) -> None:
-    await call.answer()
-    m = random.choice(MOCKS)
+async def send_mock(user_id: int, sender) -> None:
+    p = load_progress(user_id)
+    if p["track"] is None:
+        await sender(t("track_choose"), reply_markup=track_keyboard("mock"))
+        return
+    pool = mocks_for(p["track"]) or MOCKS
+    m = random.choice(pool)
     cat = MOCK_CATEGORY_TITLES.get(m["category"], m["category"])
     text = (
         t("mock_q", category=cat, question=m["question"]) + "\n\n" +
@@ -437,7 +493,13 @@ async def cb_mock(call: CallbackQuery) -> None:
     if HAS_WEBAPP:
         rows.append([InlineKeyboardButton(
             text=t("btn_mock"), web_app=WebAppInfo(url=WEBAPP_MOCK_URL))])
-    await call.message.answer(cut(text, TG_MSG_LIMIT), reply_markup=kb(rows))
+    await sender(cut(text, TG_MSG_LIMIT), reply_markup=kb(rows))
+
+
+@dp.callback_query(F.data.startswith("m:"))
+async def cb_mock(call: CallbackQuery) -> None:
+    await call.answer()
+    await send_mock(call.from_user.id, call.message.answer)
 
 
 @dp.callback_query(F.data.startswith("mr:"))
@@ -467,6 +529,34 @@ async def cb_mock_reveal(call: CallbackQuery) -> None:
 async def cb_stats(call: CallbackQuery) -> None:
     await call.answer()
     await send_stats(call.from_user.id, call.message.answer)
+
+
+# ── выбор трека ────────────────────────────────────────────────────────────
+
+@dp.callback_query(F.data == "tr")
+async def cb_track_menu(call: CallbackQuery) -> None:
+    await call.answer()
+    await call.message.answer(t("track_choose"), reply_markup=track_keyboard(""))
+
+
+@dp.callback_query(F.data.startswith("tr:"))
+async def cb_track_set(call: CallbackQuery) -> None:
+    parts = call.data.split(":")
+    if len(parts) != 3 or parts[1] not in TRACKS_BY_ID:
+        await call.answer(t("err_stale"), show_alert=True)
+        return
+    _, track_id, mode = parts
+    data = load_progress(call.from_user.id)
+    data["track"] = track_id
+    save_progress(call.from_user.id, data)
+    await call.answer()
+    await call.message.answer(
+        t("track_set", track=TRACKS_BY_ID[track_id]["title"]))
+    # Продолжаем то, ради чего спрашивали трек.
+    if mode == "mock":
+        await send_mock(call.from_user.id, call.message.answer)
+    elif mode:
+        await send_question(call.from_user.id, mode, call.message.answer)
 
 
 @dp.callback_query()
