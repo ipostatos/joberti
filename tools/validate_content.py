@@ -34,6 +34,19 @@ MIN_COUNTS = {
     "english_writing": 25,
 }
 
+# Минимумы на КАЖДЫЙ активный трек. Глобальные MIN_COUNTS суммируют банк
+# целиком: пятый трек с 15 вопросами прошёл бы валидацию за счёт четырёх
+# старых — последний крупный представитель класса «проверка молчит о новом
+# треке». Значения чуть ниже фактических минимумов существующих треков:
+# ловим пустоту, а не мешаем реструктуризации.
+MIN_COUNTS_PER_TRACK = {
+    "questions": 100,
+    "mock_questions": 25,
+    "cases": 8,
+    "roadmap_steps": 20,
+    "lessons": 18,
+}
+
 # Сколько записей английского обязан видеть КАЖДЫЙ активный трек — сквозные
 # плюс свои. Раздел общий, поэтому пробел появляется не в нём, а в трековой
 # части: у нового трека может не оказаться ни одного своего слова.
@@ -713,6 +726,23 @@ def validate_counts(rep: Report, c) -> None:
         got = counts.get(key, 0)
         rep.check(got >= minimum,
                   f"количество '{key}' = {got}, требуется минимум {minimum}")
+
+    # Минимумы КАЖДОГО активного трека: глобальная сумма прячет пустой трек
+    # за объёмом остальных.
+    per_track_sources = {
+        "questions": c.questions,
+        "mock_questions": c.mock_questions,
+        "cases": c.cases,
+        "roadmap_steps": c.roadmap,
+        "lessons": c.lessons,
+    }
+    for t in c.active_tracks():
+        for key, minimum in MIN_COUNTS_PER_TRACK.items():
+            got = sum(1 for x in per_track_sources[key]
+                      if x.get("track_id") == t["id"])
+            rep.check(got >= minimum,
+                      f"track '{t['id']}': '{key}' = {got}, "
+                      f"требуется минимум {minimum} на активный трек")
 
     # Покрытие тем активного трека.
     for t in c.active_tracks():

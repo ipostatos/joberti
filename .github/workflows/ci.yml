@@ -32,30 +32,31 @@ jobs:
       - name: Content validation
         run: python tools/validate_content.py
 
-      - name: Content tests
-        run: python tests/test_content.py
-
       - name: Duplicate detection
         run: python tools/deduplicate_questions.py --strict
 
-      - name: Sync merge tests + JS/Python parity
-        run: python tests/test_sync.py
+      - name: Sources metadata audit (offline)
+        run: python tools/audit_sources.py --offline
 
-      - name: API tests
-        run: python tests/test_api.py
-
-      - name: Bot tests
-        run: python tests/test_bot.py
-
-      - name: Security tests
-        run: python tests/test_security.py
-
-      - name: Load test (10 parallel users)
-        run: python tests/test_load.py
+      # По каталогу, а не списком: перечисленный руками тест-файл уже отставал
+      # от реальности в других местах проекта (страницы в смоуке, треки в
+      # проверках). Новый tests/test_*.py попадает в CI автоматически.
+      - name: All Python tests (tests/test_*.py)
+        run: |
+          set -e
+          for f in tests/test_*.py; do
+            echo "==> $f"
+            python "$f"
+          done
 
       - name: Generated data is up to date with data/
         run: |
           python tools/build_webapp_data.py --check
+
+      - name: Dependency vulnerability audit (pip-audit)
+        run: |
+          pip install -q pip-audit
+          pip-audit -r requirements.txt -r api/requirements.txt
 
   javascript:
     name: JavaScript — Mini App
@@ -82,26 +83,15 @@ jobs:
         run: |
           for f in webapp/*.js; do node --check "$f"; done
 
-      - name: SRS core
-        run: node webapp/_srs_check.mjs
-
-      - name: Progress and streak
-        run: node webapp/_progress_check.mjs
-
-      - name: Readiness (weights, caps, reproducibility)
-        run: node webapp/_readiness_check.mjs
-
-      - name: Sync merge rules
-        run: node webapp/_sync_check.mjs
-
-      - name: Search
-        run: node webapp/_search_check.mjs
-
-      - name: Service worker asset completeness
-        run: node webapp/_sw_check.mjs
-
-      - name: Navigation and link integrity
-        run: node webapp/_nav_check.mjs
+      # По каталогу, а не списком: новый webapp/_*_check.mjs попадает в CI
+      # автоматически, ничего не нужно вписывать руками.
+      - name: All Mini App checks (webapp/_*.mjs)
+        run: |
+          set -e
+          for f in webapp/_*.mjs; do
+            echo "==> $f"
+            node "$f"
+          done
 
   hygiene:
     name: Гигиена репозитория

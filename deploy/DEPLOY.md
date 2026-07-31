@@ -15,8 +15,15 @@ sudo useradd --system --create-home --home-dir /opt/interview-trainer \
 
 ## 2. Код и окружение
 
+**На сервере НЕТ git-репозитория** — код попадает туда архивом с рабочей
+машины (см. раздел «Обновление»). Первичная установка:
+
 ```bash
-sudo -u interview git clone <адрес-репозитория> /opt/interview-trainer
+# на рабочей машине, из корня репозитория:
+git archive --format=tar HEAD | ssh root@сервер \
+  "tar -x -C /opt/interview-trainer && chown -R interview:interview /opt/interview-trainer"
+
+# дальше на сервере:
 cd /opt/interview-trainer
 
 sudo -u interview python3.12 -m venv .venv
@@ -50,15 +57,16 @@ DATABASE_PATH=api/state.db
 Если адрес не https, бот сам уходит в упрощённый чат-режим и пишет об этом
 в лог — это защита от нерабочей кнопки, а не ошибка.
 
-## 4. Сборка данных Mini App
+## 4. Данные Mini App
+
+Сгенерированные данные (`webapp/generated/content_core.js` и
+`content_track_<id>.js`) лежат в репозитории и приезжают вместе с архивом.
+На сервере достаточно сверить их с data/:
 
 ```bash
-sudo -u interview .venv/bin/python tools/build_webapp_data.py
+sudo -u interview .venv/bin/python tools/build_webapp_data.py --check
 sudo -u interview .venv/bin/python tools/validate_content.py
 ```
-
-Без этого шага `webapp/generated/content_data.js` отсутствует, и приложение
-открывается пустым.
 
 ## 5. systemd
 
@@ -96,6 +104,7 @@ sudo systemctl reload caddy
 ```
 start - Начать и открыть тренажёр
 menu - Что доступно в чате
+track - Выбрать трек подготовки
 help - Справка
 stats - Статистика ответов в чате
 privacy - Данные и приватность
@@ -104,25 +113,35 @@ privacy - Данные и приватность
 ## 8. Проверка после выката
 
 ```bash
-BASE=https://ваш-домен bash deploy/smoke.sh
+# API_PORT обязателен, если в .env он не 4200 (на проде — 4500):
+API_PORT=$(grep ^API_PORT= .env | cut -d= -f2) \
+  BASE=https://ваш-домен bash deploy/smoke.sh
 ```
 
-Скрипт проверяет: API отвечает, доступ без initData закрыт, страницы Mini App
-отдаются, заголовки безопасности на месте, данные не пустые.
+Скрипт проверяет: API отвечает (локально И через reverse-proxy), доступ без
+initData закрыт (включая POST и DELETE), бот-сервис активен, бэкап не старше
+48 часов, страницы Mini App отдаются, заголовки безопасности и кэша на месте,
+данные не пустые.
 
 ## Обновление
 
+С рабочей машины, из корня репозитория:
+
 ```bash
-sudo -u interview bash deploy/update.sh
+HOST=root@сервер BASE=https://ваш-домен bash deploy/release.sh
 ```
 
-Скрипт сначала прогоняет тесты и делает бэкап базы и только потом
-перезапускает сервисы.
+`release.sh` делает всё сам: архивирует HEAD, распаковывает на сервере с
+правильным владельцем, **удаляет файлы, исчезнувшие из репозитория** (tar -x
+сам этого не делает — переименованная страница продолжала бы отдаваться со
+старым содержимым), затем запускает на сервере `deploy/update.sh`: зависимости,
+валидация, тесты, бэкап базы, перезапуск сервисов и смоук.
 
-Только контент или интерфейс, без рестарта сервисов:
+Если код уже доставлен на сервер другим способом, пост-деплойную часть можно
+запустить отдельно (на сервере):
 
 ```bash
-sudo -u interview bash deploy/update_webapp.sh
+bash deploy/update.sh
 ```
 
 ### ⚠️ Права на файлы
@@ -139,14 +158,13 @@ sudo chown -R interview:interview /opt/interview-trainer
 
 ## Откат
 
+Откат — это выкат старого коммита с рабочей машины (на сервере git нет):
+
 ```bash
-cd /opt/interview-trainer
-sudo -u interview git log --oneline -10
-sudo -u interview git reset --hard <нужный-коммит>
-sudo -u interview .venv/bin/python tools/build_webapp_data.py
-sudo chown -R interview:interview /opt/interview-trainer
-sudo systemctl restart interview-trainer-api interview-trainer-bot
-bash deploy/smoke.sh
+git log --oneline -10                # найти нужный коммит
+git checkout <нужный-коммит>
+HOST=root@сервер BASE=https://ваш-домен bash deploy/release.sh
+git checkout main                    # вернуть рабочую копию
 ```
 
 Данные пользователей при откате кода не страдают: они в `api/state.db`,
@@ -159,8 +177,8 @@ bash deploy/smoke.sh
 |---|---|
 | Бот не отвечает | `journalctl -u interview-trainer-bot -n 100` |
 | Кнопка Mini App не появилась | `WEBAPP_BASE` в `.env`, обязательно https; перезапуск бота |
-| Приложение открывается пустым | не собран `webapp/generated/content_data.js` |
-| Прогресс не синхронизируется | `journalctl -u interview-trainer-api`, затем `curl -s localhost:4200/api/health` |
+| Приложение открывается пустым | `webapp/generated/` отстал от data/: `build_webapp_data.py --check` |
+| Прогресс не синхронизируется | `journalctl -u interview-trainer-api`, затем `curl -s localhost:$API_PORT/api/health` (порт в `.env`, НЕ 4200 по умолчанию) |
 | «server misconfigured» от API | `BOT_TOKEN` не попал в окружение сервиса: проверьте `EnvironmentFile` |
 | Сервис не стартует, код 226/NAMESPACE | каталог из `ReadWritePaths` не существует или принадлежит другому пользователю |
 | После выката видна старая версия | проверьте заголовки кэша Caddy для `service-worker.js` |

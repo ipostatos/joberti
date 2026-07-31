@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Обновление бота и API на сервере.
+# Пост-деплойная проверка и перезапуск НА СЕРВЕРЕ.
 #
-# Порядок важен: сначала проверяем, что новая версия вообще собирается и
-# проходит тесты, и только потом перезапускаем сервисы. Иначе выкат ломает
-# работающий бот, а откатываться приходится под нагрузкой.
+# ВАЖНО: на сервере НЕТ git-репозитория — код туда попадает архивом с рабочей
+# машины (см. deploy/release.sh). Этот скрипт выполняет всё, что должно
+# происходить ПОСЛЕ распаковки: зависимости, валидация, тесты, бэкап,
+# перезапуск, смоук. Порядок важен: сначала убеждаемся, что новая версия
+# собирается и проходит тесты, и только потом трогаем работающие сервисы.
 #
-# Запуск (от пользователя сервиса, НЕ от root):
+# Запуск (на сервере, от root или от пользователя сервиса):
 #   bash deploy/update.sh
 set -euo pipefail
 
@@ -23,26 +25,24 @@ if [ "$(id -un)" != "$SERVICE_USER" ] && [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-echo "==> Забираем изменения"
-git fetch --all
-git reset --hard origin/main
-
 echo "==> Зависимости"
 "$VENV/bin/pip" install -q -r requirements.txt
 "$VENV/bin/pip" install -q -r api/requirements.txt
 
-echo "==> Пересборка данных Mini App"
-"$VENV/bin/python" tools/build_webapp_data.py
+echo "==> Данные Mini App актуальны"
+# Сгенерированные файлы лежат в репозитории и приезжают архивом; здесь только
+# сверяем, что они не отстали от data/ (и что лишние файлы не остались).
+"$VENV/bin/python" tools/build_webapp_data.py --check
 
 echo "==> Валидация контента"
 "$VENV/bin/python" tools/validate_content.py --quiet
 
 echo "==> Тесты"
-"$VENV/bin/python" tests/test_content.py
-"$VENV/bin/python" tests/test_sync.py
-"$VENV/bin/python" tests/test_api.py
-"$VENV/bin/python" tests/test_bot.py
-"$VENV/bin/python" tests/test_security.py
+# По каталогу, а не списком: перечисление руками уже отставало от реальности
+# в других местах этого проекта (страницы в смоуке, треки в проверках).
+for f in tests/test_*.py; do
+  "$VENV/bin/python" "$f"
+done
 
 if command -v node >/dev/null 2>&1; then
   echo "==> Проверки Mini App"
@@ -62,12 +62,18 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 
 echo "==> Перезапуск сервисов"
-sudo systemctl restart interview-trainer-api
-sudo systemctl restart interview-trainer-bot
+if [ "$(id -u)" -eq 0 ]; then
+  systemctl restart interview-trainer-api
+  systemctl restart interview-trainer-bot
+else
+  sudo systemctl restart interview-trainer-api
+  sudo systemctl restart interview-trainer-bot
+fi
 
 sleep 2
 echo "==> Проверка после выката"
-bash deploy/smoke.sh
+API_PORT="$(grep -s '^API_PORT=' .env | cut -d= -f2 || true)"
+API_PORT="${API_PORT:-4200}" BASE="${BASE:-}" bash deploy/smoke.sh
 
 echo "==> Готово"
 systemctl --no-pager --lines=5 status interview-trainer-api || true
