@@ -671,6 +671,25 @@ def validate_english(rep: Report, c) -> None:
             rep.err(f"{where}: заголовок дублирует '{seen[key]}'")
         seen[key] = x.get("id")
 
+    # ── внешние ресурсы практики ──
+    # Правила те же, что у библиотеки: каждый ресурс обязан ссылаться на
+    # источник с тем же URL — иначе аудит ссылок проверяет не то, что видит
+    # пользователь. Поля why/how — на русском: это методика, а не материал.
+    check_unique_ids(rep, c.english_resources, "english_resources")
+    cats = set(c.raw["english_resources"].get("categories", []))
+    for x in c.english_resources:
+        where = f"eng resource '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "category", "title", "publisher", "url", "source_ref",
+            "why", "how",
+        ], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        rep.check(x.get("source_ref") in c.sources_by_id,
+                  f"{where}: неизвестный source_ref")
+        src = c.sources_by_id.get(x.get("source_ref"))
+        if src and src.get("url") != x.get("url"):
+            rep.err(f"{where}: url не совпадает с source '{x.get('source_ref')}'")
+
     # ── что видит каждый активный трек ──
     # Раздел сквозной, поэтому общего количества мало: у нового трека может не
     # оказаться ни одной своей записи, и человек увидит английский без единого

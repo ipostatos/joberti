@@ -3595,6 +3595,197 @@
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-07-28"
+    },
+    {
+      "id": "lib-overapi-linux",
+      "source_ref": "overapi-linux",
+      "title": "Linux Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/linux",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Все базовые команды Linux на одной странице: файлы, права, процессы, поиск, перенаправление ввода-вывода. Открыть за день до собеседования и пробежать глазами вместо перечитывания учебника.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-git",
+      "source_ref": "overapi-git",
+      "title": "Git Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/git",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Сводка команд Git по сценариям: ветки, слияния, откат изменений, работа с удалённым репозиторием. Удобна, чтобы быстро восстановить в памяти редкие команды перед техническим интервью.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-docker",
+      "source_ref": "overapi-docker",
+      "title": "Docker Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/docker",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "containers",
+        "images-registry"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Команды Docker одной страницей: жизненный цикл контейнера, образы, тома, сети. Помогает отвечать на вопросы «какой командой вы бы…» без запинки.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-mysql",
+      "source_ref": "overapi-mysql",
+      "title": "MySQL Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/mysql",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "qa-sql-data",
+        "ts-sql",
+        "databases-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Полный справочник SQL-синтаксиса MySQL: SELECT и JOIN, агрегаты, работа со строками и датами. Пригодится перед практической частью с запросами к данным.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-regex",
+      "source_ref": "overapi-regex",
+      "title": "Regular Expressions Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/regex",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "scripting",
+        "qa-automation",
+        "ts-logs",
+        "seo-tools"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Синтаксис регулярных выражений одной страницей: классы символов, квантификаторы, группы, якоря. Регулярки нужны везде — от grep по логам до фильтров в Search Console.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-python",
+      "source_ref": "overapi-python",
+      "title": "Python Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/python",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "scripting",
+        "qa-automation"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Справочник стандартной библиотеки Python: строки, списки, словари, файлы, встроенные функции. Быстрое повторение синтаксиса перед задачей на скрипт.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-html",
+      "source_ref": "overapi-html",
+      "title": "HTML Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/html",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "html-http",
+        "on-page"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Все теги HTML со сжатым описанием и атрибутами. Для SEO-собеседования достаточно уверенно ориентироваться в семантике — эта страница закрывает вопрос повторения.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-css",
+      "source_ref": "overapi-css",
+      "title": "CSS Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/css",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "html-http",
+        "performance-cwv"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Свойства CSS одной страницей: селекторы, box model, типографика, позиционирование. Помогает понимать разговоры о render-blocking стилях и устройстве страницы.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-javascript",
+      "source_ref": "overapi-javascript",
+      "title": "JavaScript Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/javascript",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "technical-seo",
+        "ts-devtools"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Справочник JavaScript: объекты, массивы, строки, DOM, события. Полезен, чтобы понимать, что именно делает скрипт на странице, — от JS-рендеринга в SEO до отладки в DevTools.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-overapi-mod-rewrite",
+      "source_ref": "overapi-mod-rewrite",
+      "title": "mod_rewrite Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/mod_rewrite",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "technical-seo"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "Флаги и переменные mod_rewrite одной страницей: как читать и писать правила редиректов в .htaccess. Частая практическая задача SEO-специалиста при переездах сайта.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
     }
   ]
 }

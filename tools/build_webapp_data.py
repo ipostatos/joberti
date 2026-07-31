@@ -62,6 +62,7 @@ TRACK_SECTIONS = {
     "englishVocab": "track_ids",
     "englishDrills": "track_ids",
     "englishWriting": "track_ids",
+    "englishResources": "track_ids",
 }
 
 # Разделы, общие для всех треков. Источники — общий реестр цитирования, на него
@@ -70,7 +71,7 @@ CORE_SECTIONS = (
     "tracks", "sources", "library", "achievements",
     "glossaryCategories", "mockCategories", "mockSessionFlow", "storyFramework",
     "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
-    "englishWritingCategories",
+    "englishWritingCategories", "englishResourceCategories",
     "counts",
 )
 
@@ -142,6 +143,8 @@ def build_sections(c) -> dict:
         "englishDrillCategories": c.raw["english_drills"].get("categories", []),
         "englishWriting": c.english_writing,
         "englishWritingCategories": c.raw["english_writing"].get("categories", []),
+        "englishResources": c.english_resources,
+        "englishResourceCategories": c.raw["english_resources"].get("categories", []),
         "counts": c.counts(),
     }
 

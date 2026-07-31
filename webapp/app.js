@@ -149,6 +149,7 @@
   function words() { return englishOf("englishVocab"); }
   function drills() { return englishOf("englishDrills"); }
   function writings() { return englishOf("englishWriting"); }
+  function engResources() { return englishOf("englishResources"); }
 
   // ── идентификаторы SRS ───────────────────────────────────────────────────
 
@@ -744,6 +745,7 @@
     lessons: lessons, mocks: mocks, cases: cases, steps: steps, terms: terms,
     sourceById: sourceById,
     phrases: phrases, words: words, drills: drills, writings: writings,
+    engResources: engResources,
     qid: qid, tid: tid, ewid: ewid, edid: edid,
     recordWordCheck: recordWordCheck, toggleWordFavorite: toggleWordFavorite,
     togglePhraseLearned: togglePhraseLearned, recordDrill: recordDrill,

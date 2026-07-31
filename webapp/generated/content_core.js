@@ -282,15 +282,16 @@
   "cases":36,
   "english_drills":23,
   "english_phrases":64,
+  "english_resources":9,
   "english_vocab":76,
   "english_writing":40,
   "glossary_terms":254,
   "lessons":88,
-  "library_resources":194,
+  "library_resources":204,
   "mock_questions":134,
   "questions":470,
   "roadmap_steps":90,
-  "sources":197,
+  "sources":216,
   "story_templates":30,
   "topics":80,
   "tracks":4,
@@ -315,6 +316,14 @@
   "Условия и финал"
  ],
  "englishPhrases":[],
+ "englishResourceCategories":[
+  "Курс с нуля",
+  "Речь и рассказ о работе",
+  "Чтение и практика",
+  "Произношение",
+  "Письмо"
+ ],
+ "englishResources":[],
  "englishVocab":[],
  "englishVocabCategories":[
   "Базовая лексика",
@@ -3967,6 +3976,197 @@
    "url":"https://man7.org/linux/man-pages/man1/df.1.html",
    "verification_status":"verified",
    "why_read":"Переполненный диск выглядит как случайные ошибки в самых разных местах. Проверка занимает одну команду."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":25,
+   "id":"lib-overapi-linux",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-linux",
+   "title":"Linux Cheat Sheet",
+   "topic_ids":[
+    "linux-basics",
+    "ts-linux"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/linux",
+   "verification_status":"verified",
+   "why_read":"Все базовые команды Linux на одной странице: файлы, права, процессы, поиск, перенаправление ввода-вывода. Открыть за день до собеседования и пробежать глазами вместо перечитывания учебника."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-overapi-git",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-git",
+   "title":"Git Cheat Sheet",
+   "topic_ids":[
+    "git-vcs"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/git",
+   "verification_status":"verified",
+   "why_read":"Сводка команд Git по сценариям: ветки, слияния, откат изменений, работа с удалённым репозиторием. Удобна, чтобы быстро восстановить в памяти редкие команды перед техническим интервью."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":15,
+   "id":"lib-overapi-docker",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-docker",
+   "title":"Docker Cheat Sheet",
+   "topic_ids":[
+    "containers",
+    "images-registry"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/docker",
+   "verification_status":"verified",
+   "why_read":"Команды Docker одной страницей: жизненный цикл контейнера, образы, тома, сети. Помогает отвечать на вопросы «какой командой вы бы…» без запинки."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-overapi-mysql",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-mysql",
+   "title":"MySQL Cheat Sheet",
+   "topic_ids":[
+    "qa-sql-data",
+    "ts-sql",
+    "databases-ops"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/mysql",
+   "verification_status":"verified",
+   "why_read":"Полный справочник SQL-синтаксиса MySQL: SELECT и JOIN, агрегаты, работа со строками и датами. Пригодится перед практической частью с запросами к данным."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-overapi-regex",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-regex",
+   "title":"Regular Expressions Cheat Sheet",
+   "topic_ids":[
+    "scripting",
+    "qa-automation",
+    "ts-logs",
+    "seo-tools"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/regex",
+   "verification_status":"verified",
+   "why_read":"Синтаксис регулярных выражений одной страницей: классы символов, квантификаторы, группы, якоря. Регулярки нужны везде — от grep по логам до фильтров в Search Console."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-overapi-python",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-python",
+   "title":"Python Cheat Sheet",
+   "topic_ids":[
+    "scripting",
+    "qa-automation"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/python",
+   "verification_status":"verified",
+   "why_read":"Справочник стандартной библиотеки Python: строки, списки, словари, файлы, встроенные функции. Быстрое повторение синтаксиса перед задачей на скрипт."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":20,
+   "id":"lib-overapi-html",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-html",
+   "title":"HTML Cheat Sheet",
+   "topic_ids":[
+    "html-http",
+    "on-page"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/html",
+   "verification_status":"verified",
+   "why_read":"Все теги HTML со сжатым описанием и атрибутами. Для SEO-собеседования достаточно уверенно ориентироваться в семантике — эта страница закрывает вопрос повторения."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":20,
+   "id":"lib-overapi-css",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-css",
+   "title":"CSS Cheat Sheet",
+   "topic_ids":[
+    "html-http",
+    "performance-cwv"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/css",
+   "verification_status":"verified",
+   "why_read":"Свойства CSS одной страницей: селекторы, box model, типографика, позиционирование. Помогает понимать разговоры о render-blocking стилях и устройстве страницы."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":30,
+   "id":"lib-overapi-javascript",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-javascript",
+   "title":"JavaScript Cheat Sheet",
+   "topic_ids":[
+    "technical-seo",
+    "ts-devtools"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/javascript",
+   "verification_status":"verified",
+   "why_read":"Справочник JavaScript: объекты, массивы, строки, DOM, события. Полезен, чтобы понимать, что именно делает скрипт на странице, — от JS-рендеринга в SEO до отладки в DevTools."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-overapi-mod-rewrite",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"OverAPI.com",
+   "read_before_interview":false,
+   "source_ref":"overapi-mod-rewrite",
+   "title":"mod_rewrite Cheat Sheet",
+   "topic_ids":[
+    "technical-seo"
+   ],
+   "type":"cheatsheet",
+   "url":"https://overapi.com/mod_rewrite",
+   "verification_status":"verified",
+   "why_read":"Флаги и переменные mod_rewrite одной страницей: как читать и писать правила редиректов в .htaccess. Частая практическая задача SEO-специалиста при переездах сайта."
   }
  ],
  "mockCategories":[
@@ -5769,6 +5969,177 @@
    "url":"https://man7.org/linux/man-pages/man1/df.1.html",
    "verified":true,
    "verified_at":"2026-07-28"
+  },
+  {
+   "id":"cisco-english-for-it1",
+   "publisher":"Cisco Networking Academy",
+   "title":"English for IT 1",
+   "type":"course",
+   "url":"https://www.netacad.com/courses/english-for-it1",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"cisco-english-for-it2",
+   "publisher":"Cisco Networking Academy",
+   "title":"English for IT 2",
+   "type":"course",
+   "url":"https://www.netacad.com/courses/english-for-it2",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"github-english-it-professionals",
+   "publisher":"GitHub · LucianoMoliterno",
+   "title":"English for IT Professionals",
+   "type":"course",
+   "url":"https://github.com/LucianoMoliterno/English-for-IT-Professionals",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"github-english-it-unhan",
+   "publisher":"GitHub · informatikaunhan",
+   "title":"English for IT (EIT-201)",
+   "type":"course",
+   "url":"https://github.com/informatikaunhan/english-it",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"speak-tech-english",
+   "publisher":"speaktechenglish.com",
+   "title":"Speak Tech English",
+   "type":"practice",
+   "url":"https://speaktechenglish.com/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"mdn-home",
+   "publisher":"Mozilla",
+   "title":"MDN Web Docs",
+   "type":"official_documentation",
+   "url":"https://developer.mozilla.org/en-US/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"github-skills",
+   "publisher":"GitHub",
+   "title":"GitHub Skills",
+   "type":"practice",
+   "url":"https://learn.github.com/skills",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"youglish",
+   "publisher":"youglish.com",
+   "title":"YouGlish",
+   "type":"tool",
+   "url":"https://youglish.com/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"cambridge-write-improve",
+   "publisher":"Cambridge",
+   "title":"Write & Improve",
+   "type":"tool",
+   "url":"https://writeandimprove.com/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-linux",
+   "publisher":"OverAPI.com",
+   "title":"Linux Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/linux",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-git",
+   "publisher":"OverAPI.com",
+   "title":"Git Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/git",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-docker",
+   "publisher":"OverAPI.com",
+   "title":"Docker Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/docker",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-mysql",
+   "publisher":"OverAPI.com",
+   "title":"MySQL Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/mysql",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-regex",
+   "publisher":"OverAPI.com",
+   "title":"Regular Expressions Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/regex",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-python",
+   "publisher":"OverAPI.com",
+   "title":"Python Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/python",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-html",
+   "publisher":"OverAPI.com",
+   "title":"HTML Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/html",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-css",
+   "publisher":"OverAPI.com",
+   "title":"CSS Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/css",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-javascript",
+   "publisher":"OverAPI.com",
+   "title":"JavaScript Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/javascript",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"overapi-mod-rewrite",
+   "publisher":"OverAPI.com",
+   "title":"mod_rewrite Cheat Sheet",
+   "type":"cheatsheet",
+   "url":"https://overapi.com/mod_rewrite",
+   "verified":true,
+   "verified_at":"2026-08-01"
   }
  ],
  "stories":[],

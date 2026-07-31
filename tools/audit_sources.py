@@ -60,7 +60,9 @@ def main() -> int:
     used_by_questions = {r for q in c.questions for r in (q.get("source_refs") or [])}
     used_by_terms = {r for t in c.glossary for r in (t.get("source_refs") or [])}
     used_by_library = {x.get("source_ref") for x in c.library}
-    used = used_by_lessons | used_by_questions | used_by_terms | used_by_library
+    used_by_english = {x.get("source_ref") for x in c.english_resources}
+    used = (used_by_lessons | used_by_questions | used_by_terms
+            | used_by_library | used_by_english)
 
     for s in c.sources:
         if s["id"] not in used:

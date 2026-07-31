@@ -59,6 +59,7 @@
     <button class="chip" data-tab="words">Слова</button>
     <button class="chip" data-tab="drills">Тренажёр</button>
     <button class="chip" data-tab="writing">Письмо</button>
+    <button class="chip" data-tab="resources">Ресурсы</button>
   </div>
 
   <div class="search-box">
@@ -120,6 +121,7 @@
     words: { title: "Слова", empty: "Слов пока нет" },
     drills: { title: "Тренажёр", empty: "Заданий пока нет" },
     writing: { title: "Письмо", empty: "Материалов пока нет" },
+    resources: { title: "Ресурсы", empty: "Ресурсов пока нет" },
   };
 
   var data = {
@@ -127,12 +129,14 @@
     words: App.words(),
     drills: App.drills(),
     writing: App.writings(),
+    resources: App.engResources(),
   };
   var cats = {
     phrases: CONTENT.englishPhraseCategories || [],
     words: CONTENT.englishVocabCategories || [],
     drills: CONTENT.englishDrillCategories || [],
     writing: CONTENT.englishWritingCategories || [],
+    resources: CONTENT.englishResourceCategories || [],
   };
 
   var tab = "phrases";
@@ -173,7 +177,7 @@
     var st = App.englishStats();
     document.getElementById("sub").textContent =
       st.phrases + " фраз · " + st.words + " слов · " + st.drills + " заданий · " +
-      st.writing + " шаблонов";
+      st.writing + " шаблонов · " + data.resources.length + " ресурсов";
 
     var f = document.getElementById("filters");
     var opts;
@@ -184,8 +188,11 @@
       opts = [["all", "Все"], ["new", "Не отмечены"], ["learned", "Выучено"]];
     } else if (tab === "drills") {
       opts = [["all", "Все"], ["new", "Не пройдены"], ["weak", "Оценка ниже 3"]];
-    } else {
+    } else if (tab === "writing") {
       opts = [["all", "Все"], ["template", "Шаблоны"], ["pattern", "Конструкции"]];
+    } else {
+      // Ресурсы — внешние ссылки без состояния, фильтровать нечего.
+      opts = [["all", "Все"]];
     }
     f.innerHTML = opts.map(function (o) {
       return '<button class="chip' + (filter === o[0] ? " on" : "") +
@@ -212,6 +219,7 @@
     var hay = Search.norm([
       x.en, x.ru, x.when, x.note, x.term, x.meaning, x.ru_hint, x.wrong,
       x.example_en, x.example_ru, x.prompt_en, x.prompt_ru, x.hint, x.title,
+      x.why, x.how, x.publisher,
       (x.variants || []).join(" "), (x.keywords || []).join(" "),
     ].filter(Boolean).join(" "));
     return hay.indexOf(q) !== -1;
@@ -258,9 +266,12 @@
       var d = drillState(x);
       titleHtml = App.esc(x.prompt_en); sub = x.prompt_ru;
       mark = d.done ? "оценка " + d.rating : x.seconds + " с";
-    } else {
+    } else if (tab === "writing") {
       titleHtml = App.esc(x.title); sub = x.ru;
       mark = x.kind === "template" ? "шаблон" : "конструкция";
+    } else {
+      titleHtml = App.esc(x.title); sub = x.why;
+      mark = "уровень " + x.level;
     }
     return '<button class="eng-row" data-id="' + App.esc(x.id) + '">' +
       '<span class="body"><span class="t">' + titleHtml +
@@ -312,6 +323,7 @@
     if (tab === "phrases") parts = phraseCard(x);
     else if (tab === "words") parts = wordCard(x);
     else if (tab === "drills") parts = drillCard(x);
+    else if (tab === "resources") parts = resourceCard(x);
     else parts = writingCard(x);
 
     parts.push('<button class="btn ghost" id="dBack" style="margin-top:var(--sp-3)">Назад к списку</button>');
@@ -417,6 +429,25 @@
     return parts;
   }
 
+  function resourceCard(x) {
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile green" data-icon="external-link"></span>' +
+      '<div class="body"><h1>' + App.esc(x.title) + "</h1>" +
+      '<div class="muted small">' + App.esc(x.publisher) + " · " +
+      App.esc(x.category) + " · уровень " + x.level + "</div></div></div>");
+    parts.push('<div class="card"><div class="h3">Что это</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.why) + "</p></div>");
+    parts.push('<div class="card"><div class="h3">Как использовать</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.how) + "</p></div>");
+    if (x.note) {
+      parts.push('<div class="explain"><div class="h">Обратите внимание</div>' +
+        '<div class="small">' + App.esc(x.note) + "</div></div>");
+    }
+    parts.push('<a class="btn" style="margin-top:var(--sp-2)" href="' + App.esc(x.url) +
+      '" target="_blank" rel="noopener noreferrer">Открыть ресурс</a>');
+    return parts;
+  }
+
   function writingCard(x) {
     var parts = [];
     parts.push('<div class="hero"><span class="ic-tile cyan" data-icon="file-text"></span>' +
@@ -463,6 +494,7 @@
   }
 
   function bindDetail(x) {
+    if (tab === "resources") return;
     if (tab === "phrases") {
       document.getElementById("pLearn").addEventListener("click", function () {
         var on = App.togglePhraseLearned(x.id);

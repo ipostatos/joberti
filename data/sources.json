@@ -1774,6 +1774,177 @@
       "type": "documentation",
       "verified": true,
       "verified_at": "2026-07-28"
+    },
+    {
+      "id": "cisco-english-for-it1",
+      "title": "English for IT 1",
+      "publisher": "Cisco Networking Academy",
+      "url": "https://www.netacad.com/courses/english-for-it1",
+      "type": "course",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "cisco-english-for-it2",
+      "title": "English for IT 2",
+      "publisher": "Cisco Networking Academy",
+      "url": "https://www.netacad.com/courses/english-for-it2",
+      "type": "course",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "github-english-it-professionals",
+      "title": "English for IT Professionals",
+      "publisher": "GitHub · LucianoMoliterno",
+      "url": "https://github.com/LucianoMoliterno/English-for-IT-Professionals",
+      "type": "course",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "github-english-it-unhan",
+      "title": "English for IT (EIT-201)",
+      "publisher": "GitHub · informatikaunhan",
+      "url": "https://github.com/informatikaunhan/english-it",
+      "type": "course",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "speak-tech-english",
+      "title": "Speak Tech English",
+      "publisher": "speaktechenglish.com",
+      "url": "https://speaktechenglish.com/",
+      "type": "practice",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "mdn-home",
+      "title": "MDN Web Docs",
+      "publisher": "Mozilla",
+      "url": "https://developer.mozilla.org/en-US/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "github-skills",
+      "title": "GitHub Skills",
+      "publisher": "GitHub",
+      "url": "https://learn.github.com/skills",
+      "type": "practice",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "youglish",
+      "title": "YouGlish",
+      "publisher": "youglish.com",
+      "url": "https://youglish.com/",
+      "type": "tool",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "cambridge-write-improve",
+      "title": "Write & Improve",
+      "publisher": "Cambridge",
+      "url": "https://writeandimprove.com/",
+      "type": "tool",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-linux",
+      "title": "Linux Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/linux",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-git",
+      "title": "Git Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/git",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-docker",
+      "title": "Docker Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/docker",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-mysql",
+      "title": "MySQL Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/mysql",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-regex",
+      "title": "Regular Expressions Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/regex",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-python",
+      "title": "Python Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/python",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-html",
+      "title": "HTML Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/html",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-css",
+      "title": "CSS Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/css",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-javascript",
+      "title": "JavaScript Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/javascript",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "overapi-mod-rewrite",
+      "title": "mod_rewrite Cheat Sheet",
+      "publisher": "OverAPI.com",
+      "url": "https://overapi.com/mod_rewrite",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-08-01"
     }
   ]
 }

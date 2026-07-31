@@ -38,6 +38,7 @@ FILES = {
     "english_vocab": "english_vocab.json",
     "english_drills": "english_drills.json",
     "english_writing": "english_writing.json",
+    "english_resources": "english_resources.json",
 }
 
 # Ключ верхнего уровня со списком записей внутри каждого файла.
@@ -59,9 +60,12 @@ LIST_KEY = {
     "english_vocab": "words",
     "english_drills": "drills",
     "english_writing": "snippets",
+    "english_resources": "resources",
 }
 
 # Разделы английского. Он сквозной: пустой track_ids означает «во всех треках».
+# Внешние ресурсы (english_resources) сюда не входят: это ссылки, а не учебные
+# записи, и пер-трековые минимумы на них не распространяются.
 ENGLISH_KEYS = ("english_phrases", "english_vocab", "english_drills", "english_writing")
 
 
@@ -86,6 +90,7 @@ class Content:
     english_vocab: list = field(default_factory=list)
     english_drills: list = field(default_factory=list)
     english_writing: list = field(default_factory=list)
+    english_resources: list = field(default_factory=list)
 
     # ── индексы по id (строятся один раз) ──
     @property
@@ -169,6 +174,7 @@ class Content:
             "english_vocab": len(self.english_vocab),
             "english_drills": len(self.english_drills),
             "english_writing": len(self.english_writing),
+            "english_resources": len(self.english_resources),
         }
 
 

@@ -1592,6 +1592,117 @@
    "when":"Ответ на отказ. Обратная связь после отказа — самый дешёвый источник роста."
   }
  ],
+ "englishResources":[
+  {
+   "category":"Курс с нуля",
+   "how":"Пройдите базу последовательно: модули по порядку, без перескакиваний. Один модуль в неделю — реальный темп при подготовке к собеседованию. После него переходите к English for IT 2.",
+   "id":"eres-cisco-english-it1",
+   "level":1,
+   "publisher":"Cisco Networking Academy",
+   "source_ref":"cisco-english-for-it1",
+   "title":"English for IT 1",
+   "track_ids":[],
+   "url":"https://www.netacad.com/courses/english-for-it1",
+   "why":"Бесплатный базовый курс технического английского от Cisco с сертификатом: лексика IT-индустрии, устройств, сайтов и баз данных, выстроенная по уровням."
+  },
+  {
+   "category":"Курс с нуля",
+   "how":"Начинайте только после English for IT 1: курсы задуманы как одна последовательность. Фразы из модулей сразу примеряйте к своим ответам во вкладке «Тренажёр».",
+   "id":"eres-cisco-english-it2",
+   "level":2,
+   "publisher":"Cisco Networking Academy",
+   "source_ref":"cisco-english-for-it2",
+   "title":"English for IT 2",
+   "track_ids":[],
+   "url":"https://www.netacad.com/courses/english-for-it2",
+   "why":"Продолжение первого курса: прошедшее и будущее время, пассив, условные конструкции — грамматика, на которой строится рассказ об опыте и инцидентах."
+  },
+  {
+   "category":"Курс с нуля",
+   "how":"Держите как справочник рядом с курсом Cisco: прошли модуль — повторите ту же грамматику по конспекту. Удобен для быстрого повторения перед собеседованием.",
+   "id":"eres-english-it-professionals",
+   "level":2,
+   "publisher":"GitHub · LucianoMoliterno",
+   "source_ref":"github-english-it-professionals",
+   "title":"English for IT Professionals",
+   "track_ids":[],
+   "url":"https://github.com/LucianoMoliterno/English-for-IT-Professionals",
+   "why":"Структурированный конспект трёх курсов технического английского до уровня B2: грамматика по юнитам, техники чтения и техническая лексика — всё в одном репозитории."
+  },
+  {
+   "category":"Курс с нуля",
+   "how":"Берите по одному занятию (p01…p15) в неделю и выполняйте задания self-study письменно — это готовые упражнения на рабочую переписку и описание систем.",
+   "id":"eres-english-it-unhan",
+   "level":2,
+   "note":"Навигация репозитория на индонезийском, сами учебные материалы занятий — на английском.",
+   "publisher":"GitHub · informatikaunhan",
+   "source_ref":"github-english-it-unhan",
+   "title":"English for IT (EIT-201)",
+   "track_ids":[],
+   "url":"https://github.com/informatikaunhan/english-it",
+   "why":"Вузовский курс уровня B2: technical writing, документация к софту, презентации и профессиональная коммуникация, 14 занятий с материалами для самостоятельной работы."
+  },
+  {
+   "category":"Речь и рассказ о работе",
+   "how":"Учитесь рассказывать о своей работе: берите их разборы и повторяйте структуру на материале собственных задач вслух. Затем закрепляйте тот же рассказ во вкладке «Тренажёр» с таймером.",
+   "id":"eres-speak-tech-english",
+   "level":2,
+   "publisher":"speaktechenglish.com",
+   "source_ref":"speak-tech-english",
+   "title":"Speak Tech English",
+   "track_ids":[],
+   "url":"https://speaktechenglish.com/",
+   "why":"Проект именно про устную речь IT-специалистов: как рассказывать о своей работе, проектах и решениях так, чтобы вас понимали на интервью и в команде."
+  },
+  {
+   "category":"Чтение и практика",
+   "how":"Читайте только на английском, не переключаясь на перевод: одна статья в день по теме, которую сейчас готовите. Каждый новый термин добавляйте себе в повторение через вкладку «Слова».",
+   "id":"eres-mdn",
+   "level":1,
+   "publisher":"Mozilla",
+   "source_ref":"mdn-home",
+   "title":"MDN Web Docs",
+   "track_ids":[],
+   "url":"https://developer.mozilla.org/en-US/",
+   "why":"Эталонная техническая документация: короткие статьи, единая структура, живой словарь терминов. Лучший материал для привычки читать документацию в оригинале."
+  },
+  {
+   "category":"Чтение и практика",
+   "how":"Выполняйте задания только на английском: и инструкции, и свои commit-сообщения, и pull request. Один курс — одна неделя; начните с Introduction to GitHub.",
+   "id":"eres-github-skills",
+   "level":1,
+   "publisher":"GitHub",
+   "source_ref":"github-skills",
+   "title":"GitHub Skills",
+   "track_ids":[],
+   "url":"https://learn.github.com/skills",
+   "why":"Интерактивные курсы GitHub: инструкции, задания и проверка — всё в реальном репозитории. Английский здесь не предмет, а рабочий язык задачи."
+  },
+  {
+   "category":"Произношение",
+   "how":"Проверяйте произношение каждого нового технического термина: прослушайте 3–5 живых примеров, повторите вслух вслед за говорящим. Особенно полезно для слов из вкладки «Слова» с пометкой «не изучено».",
+   "id":"eres-youglish",
+   "level":1,
+   "publisher":"youglish.com",
+   "source_ref":"youglish",
+   "title":"YouGlish",
+   "track_ids":[],
+   "url":"https://youglish.com/",
+   "why":"Поиск слова по миллионам видео: слышно, как термин произносят живые носители в реальных докладах и интервью, а не диктор словаря."
+  },
+  {
+   "category":"Письмо",
+   "how":"Пишите краткие описания своих проектов: один текст в неделю, 100–150 слов. Переписывайте, пока оценка не вырастет, — эти же описания станут ответом на «tell me about your project».",
+   "id":"eres-write-improve",
+   "level":1,
+   "publisher":"Cambridge",
+   "source_ref":"cambridge-write-improve",
+   "title":"Write & Improve",
+   "track_ids":[],
+   "url":"https://writeandimprove.com/",
+   "why":"Бесплатный сервис Cambridge: пишете текст — сразу получаете оценку уровня CEFR и подсказки, что исправить. Единственный способ тренировать письмо с обратной связью без преподавателя."
+  }
+ ],
  "englishVocab":[
   {
    "category":"Базовая лексика",
