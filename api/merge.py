@@ -110,13 +110,21 @@ def merge_progress(a, b) -> dict:
     while len(ks) > MAX_HISTORY_DAYS:
         del days[ks.pop(0)]
 
-    streak = max(_num(a, "streak"), _num(b, "streak"))
-    best = max(_num(a, "best"), _num(b, "best"), streak)
     goal = _num(b, "goal") or _num(a, "goal") or 15
 
     last_a = a.get("lastDay") or ""
     last_b = b.get("lastDay") or ""
     last = (last_a if last_a > last_b else last_b) or None
+
+    # Серию берём у источника с более свежим lastDay (как frozenUsed): max
+    # воскрешал бы мёртвую серию с заброшенного устройства — она показывалась
+    # бы живой, потому что lastDay при этом берётся самый поздний. При равной
+    # свежести серии считались через один и тот же день — берём максимум.
+    if last_a == last_b:
+        streak = max(_num(a, "streak"), _num(b, "streak"))
+    else:
+        streak = _num(b if last_b > last_a else a, "streak")
+    best = max(_num(a, "best"), _num(b, "best"), streak)
 
     out = {
         "goal": _clamp(goal, 5, 100),
@@ -166,10 +174,15 @@ def _norm_rated(e) -> dict:
 
 
 def merge_rated(a, b) -> dict:
-    """Лучшая оценка и максимальное число заходов.
+    """Оценка — у более свежей записи, число заходов — максимум.
 
-    Число заходов важно отдельно: расчёт готовности требует ПОДТВЕРЖДЕНИЯ —
-    одна высокая самооценка без повтора даёт неполный балл (см. readiness.js).
+    Локально последняя самооценка перезаписывает предыдущую
+    (recordMock/recordCase в app.js), и слияние обязано уважать то же правило:
+    max воскрешал бы честно пониженную оценку со старого устройства, и
+    готовность завышалась бы навсегда. При равном ts свежести нет — берём
+    лучшую. Число заходов важно отдельно: расчёт готовности требует
+    ПОДТВЕРЖДЕНИЯ — одна высокая самооценка без повтора даёт неполный балл
+    (см. readiness.js).
     """
     a, b = _d(a), _d(b)
     out = {}
@@ -183,8 +196,12 @@ def merge_rated(a, b) -> dict:
             out[k] = _norm_rated(x)
         else:
             nx, ny = _norm_rated(x), _norm_rated(y)
+            if nx["ts"] == ny["ts"]:
+                winner = nx if nx["rating"] >= ny["rating"] else ny
+            else:
+                winner = nx if nx["ts"] > ny["ts"] else ny
             out[k] = {
-                "rating": max(nx["rating"], ny["rating"]),
+                "rating": winner["rating"],
                 "count": max(nx["count"], ny["count"]),
                 "ts": max(nx["ts"], ny["ts"]),
             }

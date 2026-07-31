@@ -308,13 +308,28 @@
     rsOverlay.classList.add("hidden");
   });
   rsGo.addEventListener("click", function () {
-    Progress.reset();
-    SRS.reset();
-    try {
-      localStorage.removeItem("interview_sync_v1");
-    } catch (e) {}
-    if (window.haptic) haptic("warning");
-    location.replace("onboarding.html");
+    // Сначала сервер, потом устройство: сброс только в localStorage не имел бы
+    // смысла — следующая синхронизация вернула бы всё обратно (PRIVACY.md
+    // обещает удаление и там, и там). Не удалось удалить на сервере — честно
+    // останавливаемся, а не притворяемся, что сбросили.
+    rsGo.disabled = true;
+    rsGo.textContent = "Сбрасываю…";
+    Sync.wipe().then(function (ok) {
+      if (!ok) {
+        rsGo.disabled = false;
+        rsGo.textContent = "Сбросить";
+        if (window.haptic) haptic("warning");
+        toast("Нет связи с сервером — данные там не удалены. Попробуйте ещё раз.");
+        return;
+      }
+      Progress.reset();
+      SRS.reset();
+      try {
+        localStorage.removeItem("interview_sync_v1");
+      } catch (e) {}
+      if (window.haptic) haptic("warning");
+      location.replace("onboarding.html");
+    });
   });
 
   Icons.hydrate();

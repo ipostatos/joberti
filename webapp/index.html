@@ -198,7 +198,23 @@
   "use strict";
 
   // Не выбран трек или не пройден onboarding — отправляем на настройку.
+  // Но пустое устройство ≠ новый пользователь: на втором устройстве прогресс
+  // уже может лежать на сервере. Сначала спрашиваем сервер и, если он знает
+  // пользователя, применяем состояние и открываем главную, а не онбординг.
+  // Сервер молчит дольше 4 секунд — идём в онбординг: данные не потеряются,
+  // merge аддитивен и подтянет их при первой же синхронизации.
   if (!Progress.isOnboarded()) {
+    if (window.Sync && Sync.enabled) {
+      var fallback = setTimeout(function () {
+        location.replace("onboarding.html");
+      }, 4000);
+      Sync.pull().then(function () {
+        clearTimeout(fallback);
+        if (Progress.isOnboarded()) location.reload();
+        else location.replace("onboarding.html");
+      });
+      return;
+    }
     location.replace("onboarding.html");
     return;
   }

@@ -198,6 +198,12 @@
     var size = MODE_SIZES[mode] || 10;
     var pool;
 
+    if (mode === "single") {
+      // Переход из поиска: один конкретный вопрос. Без этой ветки ссылка
+      // quiz.html?id=… открывала бы просто меню тестов — тупик.
+      var one = App.byId(all, topicId);
+      return one ? [one] : [];
+    }
     if (mode === "topic") {
       pool = App.questionsOfTopic(topicId);
     } else if (mode === "review") {
@@ -380,6 +386,10 @@
     if (window.Sync) { Sync.push(); Sync.pushHistory(); }
 
     if (total >= 25 && correct === total) Progress.setFlag("flawless", true);
+    // Фиксируем только что заработанные достижения флагами сразу: история
+    // обрезается до 100 записей, и достижение, увиденное лишь на экране
+    // достижений, могло бы «отозваться», не будучи зафиксированным.
+    App.achievements();
 
     elPlay.classList.add("hidden");
     elResult.classList.remove("hidden");
@@ -471,9 +481,11 @@
 
   // ── запуск по параметрам URL ──
   renderMenu();
+  var qid = App.param("id");
   var mode = App.param("mode");
   var topic = App.param("topic");
-  if (topic) start("topic", topic);
+  if (qid) start("single", qid);
+  else if (topic) start("topic", topic);
   else if (mode) start(mode);
 })();
 </script>

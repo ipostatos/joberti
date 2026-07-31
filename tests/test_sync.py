@@ -51,6 +51,16 @@ FIXTURES = {
         ({"flags": {"flawless": True}}, {"flags": {"weakTopicRecovered": True}}),
         ({"days": {"2026-07-01": "abc", "2026-07-02": -5}}, {"days": {"2026-07-01": 3}}),
         ({}, {}),
+        # мёртвая серия с заброшенного устройства не воскресает
+        (
+            {"days": {}, "streak": 10, "best": 10, "lastDay": "2026-07-01", "frozenUsed": False},
+            {"days": {}, "streak": 2, "best": 2, "lastDay": "2026-07-08", "frozenUsed": False},
+        ),
+        # при равном lastDay серии считались через один день — берём максимум
+        (
+            {"days": {}, "streak": 4, "best": 4, "lastDay": "2026-07-05", "frozenUsed": False},
+            {"days": {}, "streak": 2, "best": 2, "lastDay": "2026-07-05", "frozenUsed": False},
+        ),
     ],
     "rated": [
         ({"m1": {"rating": 2, "count": 1, "ts": 10}}, {"m1": {"rating": 4, "count": 3, "ts": 20}}),
@@ -58,6 +68,8 @@ FIXTURES = {
         ({"m1": {"rating": 3, "count": 2, "ts": 5}}, {"m2": {"rating": 1, "count": 1, "ts": 7}}),
         ({"m1": {"rating": "abc", "count": None}}, {"m1": {"rating": 9, "count": -3}}),
         ({}, {}),
+        # при равном ts свежести нет — побеждает лучшая оценка
+        ({"m1": {"rating": 1, "count": 1, "ts": 50}}, {"m1": {"rating": 3, "count": 2, "ts": 50}}),
     ],
     "roadmap": [
         (
@@ -156,6 +168,34 @@ FIXTURES = {
             },
         ),
         ({}, {}),
+        # Полный профиль: по одному представителю КАЖДОГО раздела, который
+        # пишет клиент. Раздел, выпавший из whitelist одной из реализаций
+        # слияния, здесь ломает паритет — класс бага, который уже терял
+        # lessons и quizBest.
+        (
+            {
+                "trackId": "t1", "onboarded": True,
+                "selfAssessment": {"a": 3},
+                "requirements": {"r": {"status": "learning", "evidence": "e"}},
+                "roadmap": {"s": {"lessonRead": True, "quizBest": 10, "casesDone": 0,
+                                  "mocksAnswered": 0, "done": False}},
+                "glossary": {"g": {"favorite": True, "checked": 1}},
+                "mock": {"m": {"rating": 1, "count": 1, "ts": 1}},
+                "cases": {"c": {"rating": 1, "count": 1, "ts": 1}},
+                "library": {"l": {"read": True, "note": "n"}},
+                "stories": {"st": {"situation": "x", "task": "x", "action": "x",
+                                   "result": "x", "reflection": "x", "updatedAt": 1}},
+                "lessons": {"le": {"read": True, "ts": 1}},
+                "quizBest": {"top": 50},
+                "weakTopicsSeen": {"top": True},
+                "english": {
+                    "words": {"w": {"favorite": True, "checked": 1}},
+                    "drills": {"d": {"rating": 1, "count": 1, "ts": 1}},
+                    "phrases": {"ph": {"learned": True}},
+                },
+            },
+            {},
+        ),
     ],
 }
 
@@ -222,10 +262,22 @@ class TestMergeRules(unittest.TestCase):
         r = merge.merge_progress({"days": {**days, **big}}, {})
         self.assertLessEqual(len(r["days"]), merge.MAX_HISTORY_DAYS)
 
-    def test_rated_best_wins_and_count_grows(self):
+    def test_rated_fresher_wins_and_count_grows(self):
+        """Честное понижение самооценки не откатывается старым максимумом:
+        оценка берётся у более свежей записи, как и при локальной перезаписи."""
         r = merge.merge_rated({"m": {"rating": 4, "count": 3, "ts": 1}},
                               {"m": {"rating": 1, "count": 1, "ts": 9}})
-        self.assertEqual(r["m"], {"rating": 4, "count": 3, "ts": 9})
+        self.assertEqual(r["m"], {"rating": 1, "count": 3, "ts": 9})
+
+    def test_progress_dead_streak_not_resurrected(self):
+        """Серия берётся у источника с более свежим lastDay: max показывал бы
+        мёртвую серию заброшенного устройства как живую."""
+        stale = {"streak": 10, "best": 10, "lastDay": "2026-07-01"}
+        fresh = {"streak": 2, "best": 2, "lastDay": "2026-07-08"}
+        for a, b in ((stale, fresh), (fresh, stale)):
+            r = merge.merge_progress(a, b)
+            self.assertEqual(r["streak"], 2)
+            self.assertEqual(r["best"], 10, "рекорд серии при этом сохраняется")
 
     def test_rated_clamps_values(self):
         r = merge.merge_rated({"m": {"rating": 99, "count": -5, "ts": -1}}, {})
@@ -308,7 +360,9 @@ class TestMergeRules(unittest.TestCase):
         )
         eng = r["english"]
         self.assertEqual(eng["words"]["ev-queue"], {"favorite": True, "checked": 3})
-        self.assertEqual(eng["drills"]["ed-self-001"], {"rating": 4, "count": 3, "ts": 9})
+        # Оценка задания — у более свежей записи (ts 9 > 7): честное понижение
+        # не откатывается, правило то же, что у mock и кейсов.
+        self.assertEqual(eng["drills"]["ed-self-001"], {"rating": 2, "count": 3, "ts": 9})
         self.assertEqual(eng["phrases"], {"ph-open-001": {"learned": True}})
 
     def test_merge_is_idempotent(self):
@@ -351,6 +405,13 @@ class TestParityWithClient(unittest.TestCase):
         self.assertEqual(set(js), set(py), "наборы проверяемых правил разошлись")
 
         for name in sorted(py):
+            # zip молча усекает: случай, добавленный только в один из файлов
+            # фикстур, иначе никогда бы не сравнивался.
+            self.assertEqual(
+                len(py[name]), len(js[name]),
+                f"правило '{name}': число фикстур в tests/test_sync.py и "
+                f"webapp/_sync_check.mjs разошлось",
+            )
             for i, (a, b) in enumerate(zip(py[name], js[name])):
                 with self.subTest(rule=name, case=i):
                     self.assertEqual(

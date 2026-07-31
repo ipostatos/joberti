@@ -111,12 +111,19 @@
     var ks = Object.keys(days).sort();
     while (ks.length > MAX_HISTORY_DAYS) { delete days[ks.shift()]; }
 
-    var streak = Math.max(num(a, "streak"), num(b, "streak"));
-    var best = Math.max(num(a, "best"), num(b, "best"), streak);
     var goal = num(b, "goal") || num(a, "goal") || 15;
 
     var lastA = a.lastDay || "", lastB = b.lastDay || "";
     var last = (lastA > lastB ? lastA : lastB) || null;
+
+    // Серию берём у источника с более свежим lastDay (как frozenUsed): max
+    // воскрешал бы мёртвую серию с заброшенного устройства — она показывалась
+    // бы живой, потому что lastDay при этом берётся самый поздний. При равной
+    // свежести серии считались через один и тот же день — берём максимум.
+    var streak = lastA === lastB
+      ? Math.max(num(a, "streak"), num(b, "streak"))
+      : num(lastB > lastA ? b : a, "streak");
+    var best = Math.max(num(a, "best"), num(b, "best"), streak);
 
     var out = {
       goal: Math.max(5, Math.min(100, goal)),
@@ -140,9 +147,12 @@
   }
 
   // ── merge: элементы с самооценкой (mock, кейсы) ──
-  // Побеждает лучшая оценка; число заходов — максимум, чтобы «подтверждённость»
-  // не терялась. Оценка не «залипает» при откате: если на другом устройстве
-  // ответ был хуже, счётчик заходов всё равно растёт и требует подтверждения.
+  // Оценка — у более свежей записи по ts: локально последняя самооценка
+  // перезаписывает предыдущую (recordMock/recordCase), и слияние обязано
+  // уважать то же правило — иначе честное понижение оценки воскресало бы со
+  // старого устройства через max и готовность завышалась бы навсегда.
+  // Число заходов — максимум: «подтверждённость» не теряется. При равном ts
+  // свежести нет — берём лучшую оценку.
   function mergeRated(a, b) {
     a = a || {}; b = b || {};
     var out = {};
@@ -152,8 +162,11 @@
       if (!x) { out[id] = normRated(y); return; }
       if (!y) { out[id] = normRated(x); return; }
       var nx = normRated(x), ny = normRated(y);
+      var winner = nx.ts === ny.ts
+        ? (nx.rating >= ny.rating ? nx : ny)
+        : (nx.ts > ny.ts ? nx : ny);
       out[id] = {
-        rating: Math.max(nx.rating, ny.rating),
+        rating: winner.rating,
         count: Math.max(nx.count, ny.count),
         ts: Math.max(nx.ts, ny.ts),
       };
@@ -509,6 +522,21 @@
         if (!j || !j.attempts) return false;
         applyHistory(mergeHistory(localHistory(), j.attempts));
         return true;
+      }).catch(function () { return false; });
+    },
+
+    // Удалить все данные пользователя на сервере. Нужно кнопке «Сбросить
+    // прогресс»: сброс только на устройстве не имел бы смысла — следующий
+    // merge вернул бы всё обратно (обещание PRIVACY.md). Возвращает true,
+    // когда на сервере данных гарантированно нет: успех, или sync выключен.
+    wipe: function () {
+      if (!Sync.enabled) return Promise.resolve(true);
+      clearTimeout(Sync._timer);          // отложенный push воскресил бы данные
+      return global.fetch("/api/me", {
+        method: "DELETE",
+        headers: { "X-Init-Data": initData },
+      }).then(function (r) {
+        return r.ok;
       }).catch(function () { return false; });
     },
 

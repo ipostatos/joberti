@@ -51,6 +51,16 @@ export const FIXTURES = {
     // мусор в днях игнорируется
     [{ days: { "2026-07-01": "abc", "2026-07-02": -5 } }, { days: { "2026-07-01": 3 } }],
     [{}, {}],
+    // мёртвая серия с заброшенного устройства не воскресает
+    [
+      { days: {}, streak: 10, best: 10, lastDay: "2026-07-01", frozenUsed: false },
+      { days: {}, streak: 2, best: 2, lastDay: "2026-07-08", frozenUsed: false },
+    ],
+    // при равном lastDay серии считались через один день — берём максимум
+    [
+      { days: {}, streak: 4, best: 4, lastDay: "2026-07-05", frozenUsed: false },
+      { days: {}, streak: 2, best: 2, lastDay: "2026-07-05", frozenUsed: false },
+    ],
   ],
   rated: [
     [{ m1: { rating: 2, count: 1, ts: 10 } }, { m1: { rating: 4, count: 3, ts: 20 } }],
@@ -58,6 +68,8 @@ export const FIXTURES = {
     [{ m1: { rating: 3, count: 2, ts: 5 } }, { m2: { rating: 1, count: 1, ts: 7 } }],
     [{ m1: { rating: "abc", count: null } }, { m1: { rating: 9, count: -3 } }],
     [{}, {}],
+    // при равном ts свежести нет — побеждает лучшая оценка
+    [{ m1: { rating: 1, count: 1, ts: 50 } }, { m1: { rating: 3, count: 2, ts: 50 } }],
   ],
   roadmap: [
     [
@@ -150,8 +162,42 @@ export const FIXTURES = {
       },
     ],
     [{}, {}],
+    // Полный профиль: по одному представителю КАЖДОГО раздела, который пишет
+    // клиент. Раздел, выпавший из whitelist одной из реализаций слияния,
+    // здесь ломает паритет — класс бага, который уже терял lessons и quizBest.
+    [
+      {
+        trackId: "t1", onboarded: true,
+        selfAssessment: { a: 3 },
+        requirements: { r: { status: "learning", evidence: "e" } },
+        roadmap: { s: { lessonRead: true, quizBest: 10, casesDone: 0, mocksAnswered: 0, done: false } },
+        glossary: { g: { favorite: true, checked: 1 } },
+        mock: { m: { rating: 1, count: 1, ts: 1 } },
+        cases: { c: { rating: 1, count: 1, ts: 1 } },
+        library: { l: { read: true, note: "n" } },
+        stories: { st: { situation: "x", task: "x", action: "x", result: "x", reflection: "x", updatedAt: 1 } },
+        lessons: { le: { read: true, ts: 1 } },
+        quizBest: { top: 50 },
+        weakTopicsSeen: { top: true },
+        english: {
+          words: { w: { favorite: true, checked: 1 } },
+          drills: { d: { rating: 1, count: 1, ts: 1 } },
+          phrases: { ph: { learned: true } },
+        },
+      },
+      {},
+    ],
   ],
 };
+
+// Ключи профиля, которые обязаны переживать слияние. Обновляется вместе с
+// mergeProfile (sync.js) и merge_profile (api/merge.py); страж ниже сверяет
+// этот список с тем, что реально пишет код приложения.
+export const PROFILE_KEYS = [
+  "trackId", "onboarded", "selfAssessment", "requirements", "roadmap",
+  "glossary", "mock", "cases", "library", "stories", "lessons", "quizBest",
+  "weakTopicsSeen", "english",
+];
 
 function run() {
   const out = {};
@@ -193,8 +239,14 @@ if (process.argv.includes("--dump")) {
   // ── прогресс ──
   eq(r.progress[0].days, { "2026-07-01": 10, "2026-07-02": 8 },
     "прогресс: по дням берётся максимум");
-  eq(r.progress[0].streak, 3, "прогресс: серия — максимум");
+  eq(r.progress[0].streak, 1,
+    "прогресс: серия — у источника с более свежим lastDay, а не максимум");
   eq(r.progress[0].best, 5, "прогресс: лучшая серия — максимум");
+  eq(r.progress[1].streak, 9, "прогресс: серия свежего источника не теряется");
+  eq(r.progress[5].streak, 2,
+    "прогресс: мёртвая серия с заброшенного устройства не воскресает");
+  eq(r.progress[5].best, 10, "прогресс: рекорд серии при этом сохраняется");
+  eq(r.progress[6].streak, 4, "прогресс: при равном lastDay серия — максимум");
   eq(r.progress[0].goal, 25, "прогресс: цель берётся у клиента");
   eq(r.progress[0].lastDay, "2026-07-02", "прогресс: последний день — самый поздний");
   eq(r.progress[0].frozenUsed, true, "прогресс: страховка берётся у более свежего источника");
@@ -204,10 +256,12 @@ if (process.argv.includes("--dump")) {
   eq(r.progress[3].days, { "2026-07-01": 3 }, "прогресс: мусор в днях игнорируется");
 
   // ── самооценки ──
-  eq(r.rated[0].m1, { rating: 4, count: 3, ts: 20 }, "оценки: побеждает лучшая");
-  eq(r.rated[1].m1, { rating: 4, count: 3, ts: 40 },
-    "оценки: худшая оценка не понижает результат, но счётчик заходов растёт");
+  eq(r.rated[0].m1, { rating: 4, count: 3, ts: 20 }, "оценки: побеждает более свежая");
+  eq(r.rated[1].m1, { rating: 1, count: 3, ts: 40 },
+    "оценки: честное понижение не откатывается старым максимумом");
   eq(r.rated[3].m1, { rating: 4, count: 1, ts: 0 }, "оценки: мусор нормализуется в границы");
+  eq(r.rated[5].m1, { rating: 3, count: 2, ts: 50 },
+    "оценки: при равном ts побеждает лучшая");
 
   // ── план ──
   eq(r.roadmap[0].s1, { lessonRead: true, quizBest: 85, casesDone: 1,
@@ -270,7 +324,7 @@ if (process.argv.includes("--dump")) {
   eq(p.english.words["ev-queue"], { favorite: true, checked: 5 },
     "английский: избранное по ИЛИ, число проверок — максимум");
   eq(p.english.drills["ed-self-001"], { rating: 4, count: 2, ts: 20 },
-    "английский: самооценка задания — лучшая, счётчик заходов — максимум");
+    "английский: самооценка задания — у более свежей записи, счётчик — максимум");
   eq(p.english.phrases, { "ph-open-001": { learned: true }, "ph-self-001": { learned: true } },
     "английский: отметка «выучил» не снимается слиянием");
 
@@ -288,6 +342,72 @@ if (process.argv.includes("--dump")) {
   // ── лимиты совпадают с серверными ──
   eq(Sync.MAX_HISTORY_DAYS, 365, "лимит дней активности совпадает с api/merge.py");
   eq(Sync.MAX_ATTEMPTS, 100, "лимит истории совпадает с api/merge.py");
+
+  // ── страж whitelist профиля ──
+  // Класс бага: клиент пишет новый раздел профиля, слияние о нём не знает —
+  // после первого обмена раздел молча обнуляется (так терялись lessons и
+  // quizBest). Ловим на дальних подступах: каждый ключ p.<...>, который код
+  // приложения пишет внутри patchProfile/profile, обязан быть в PROFILE_KEYS,
+  // а полный профиль — переживать mergeProfile без потерь.
+  {
+    const { readFileSync, readdirSync } = await import("node:fs");
+    const { fileURLToPath } = await import("node:url");
+    const dir = fileURLToPath(new URL(".", import.meta.url));
+    const written = new Set();
+    for (const name of readdirSync(dir)) {
+      if (!/\.(js|html)$/.test(name) || name.startsWith("_")) continue;
+      const text = readFileSync(dir + "/" + name, "utf-8");
+      const re = /(?:patchProfile\(function \(p\) \{|profile: function \(\) \{)/g;
+      let m;
+      while ((m = re.exec(text))) {
+        // Окно режем по последнему переводу строки: обрезка посреди
+        // идентификатора давала бы ложные ключи вроде 'p.s'.
+        let win = text.slice(m.index, m.index + 700);
+        win = win.slice(0, win.lastIndexOf("\n") + 1 || win.length);
+        for (const km of win.matchAll(/\bp\.([a-zA-Z_$][\w$]*)/g)) written.add(km[1]);
+      }
+    }
+    // examDateSetAt — осознанный обход: это носитель метки времени даты
+    // собеседования; localState поднимает его в exam_date.setAt, слияние идёт
+    // через mergeExamDate, а applyState кладёт метку обратно.
+    const OUTSIDE_MERGE = new Set(["examDateSetAt"]);
+    ok(written.size >= 10, "страж профиля: скан нашёл подозрительно мало ключей");
+    for (const k of written) {
+      ok(PROFILE_KEYS.includes(k) || OUTSIDE_MERGE.has(k),
+        `профиль: ключ '${k}' пишется приложением, но не объявлен в PROFILE_KEYS — ` +
+        "добавьте его в mergeProfile (sync.js), merge_profile (api/merge.py) и в этот список");
+    }
+    const fullMerged = r.profile[FIXTURES.profile.length - 1];
+    for (const k of PROFILE_KEYS) {
+      ok(k in fullMerged, `профиль: раздел '${k}' не переживает mergeProfile`);
+    }
+  }
+
+  // ── удаление на сервере (кнопка «Сбросить прогресс») ──
+  // Сброс обязан удалять данные и на сервере: иначе следующая синхронизация
+  // вернёт всё обратно, а PRIVACY.md обещает удаление в обоих местах.
+  ok(typeof Sync.wipe === "function", "wipe: у Sync есть метод wipe");
+  Sync.enabled = true;
+  const calls = [];
+  globalThis.fetch = (url, opts) => {
+    calls.push([url, (opts || {}).method]);
+    return Promise.resolve({ ok: true });
+  };
+  ok((await Sync.wipe()) === true, "wipe: успех сервера даёт true");
+  eq(calls, [["/api/me", "DELETE"]], "wipe: зовёт ровно DELETE /api/me");
+  globalThis.fetch = () => Promise.reject(new Error("offline"));
+  ok((await Sync.wipe()) === false, "wipe: без сети честно возвращает false");
+  globalThis.fetch = () => Promise.resolve({ ok: false, status: 500 });
+  ok((await Sync.wipe()) === false, "wipe: ошибка сервера — false, сброс не продолжается");
+  Sync.enabled = false;
+  ok((await Sync.wipe()) === true, "wipe: синк выключен — удалять нечего, true");
+
+  // Кнопка сброса обязана звать wipe ДО локальной очистки: проверяем статикой,
+  // чтобы рефакторинг profile.html не вернул сброс «только на устройстве».
+  const { readFileSync } = await import("node:fs");
+  const profileHtml = readFileSync(new URL("./profile.html", import.meta.url), "utf-8");
+  ok(/Sync\.wipe\(\)\.then/.test(profileHtml),
+    "wipe: profile.html дожидается удаления на сервере перед локальным сбросом");
 
   if (failed) { console.error(`\n_sync_check: провалено проверок ${failed}`); process.exit(1); }
   console.log("_sync_check: OK");

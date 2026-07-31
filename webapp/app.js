@@ -275,12 +275,14 @@
     return on;
   }
 
-  // rating: 0..4 по рубрике самооценки, как в mock interview
+  // rating: 0..4 по рубрике самооценки, как в mock interview: последняя
+  // оценка перезаписывает предыдущую — честное понижение не должно
+  // блокироваться старым максимумом (то же правило в mergeRated).
   function recordDrill(drillId, rating) {
     var r = Math.max(0, Math.min(4, parseInt(rating, 10) || 0));
     Progress.patchProfile(function (p) {
       var e = p.english.drills[drillId] || { count: 0 };
-      e.rating = Math.max(r, typeof e.rating === "number" ? e.rating : 0);
+      e.rating = r;
       e.count = (e.count || 0) + 1;
       e.ts = Date.now();
       p.english.drills[drillId] = e;
@@ -691,17 +693,29 @@
 
   function achievements(r) {
     var rr = r || readiness();
-    return (C.achievements || []).map(function (a) {
+    // Полученное достижение фиксируется флагом и не отзывается: часть правил
+    // считается из истории, которая обрезана до MAX_ATTEMPTS записей, — без
+    // флага «Без ошибок» гасло бы, когда идеальный тест вытесняется из
+    // истории. Флаги сливаются по ИЛИ и переживают смену устройства.
+    var flags = Progress.flags();
+    var changed = false;
+    var out = (C.achievements || []).map(function (a) {
       var got = achievementProgress(a.rule, rr);
       var target = a.rule.value || 1;
+      var key = "ach:" + a.id;
+      var unlocked = got >= target || !!flags[key];
+      if (got >= target && !flags[key]) { changed = true; Progress.setFlag(key, true); }
       return {
         def: a,
         value: got,
         target: target,
-        unlocked: got >= target,
-        pct: Math.max(0, Math.min(100, Math.round(got / target * 100))),
+        unlocked: unlocked,
+        pct: unlocked ? 100
+          : Math.max(0, Math.min(100, Math.round(got / target * 100))),
       };
     });
+    if (changed && Sync) Sync.schedulePush();
+    return out;
   }
 
   // Слабая тема, доведённая до 70%, помечается флагом один раз — иначе после
