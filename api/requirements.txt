@@ -1,5 +1,9 @@
 # Зависимости сервиса синхронизации (FastAPI + uvicorn + pydantic).
-fastapi==0.115.6
-uvicorn==0.34.0
-pydantic==2.10.4
+# Подняты 2026-08-01: транзитивный starlette 0.41.x нёс 9 известных
+# уязвимостей (PYSEC-2026-*); fastapi 0.141 тянет starlette 1.3.1 — чисто
+# по pip-audit, весь тестовый набор зелёный. CI гоняет pip-audit на каждом
+# пуше — новые advisories покраснеют сами.
+fastapi==0.141.1
+uvicorn==0.52.0
+pydantic==2.13.4
 httpx==0.28.1

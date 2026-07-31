@@ -36,6 +36,7 @@ from auth import InitDataError, verify_init_data
 from models import AttemptsIn, StateIn
 from storage import (
     SCHEMA_VERSION,
+    StateTooLarge,
     delete_user,
     init_db,
     list_attempts,
@@ -147,9 +148,21 @@ def _auth(init_data: str | None) -> int:
 
 
 async def _json_body(request: Request) -> dict:
-    raw = await request.body()
-    if len(raw) > MAX_BODY:
+    # Отказ ДО чтения: request.body() буферизует всё тело в память, и проверка
+    # длины после него не защищает от гигабайтного POST. Сначала смотрим
+    # Content-Length, затем читаем потоком со счётчиком — заголовку верить
+    # нельзя (chunked или ложь), а поток рвётся на первом лишнем байте.
+    cl = request.headers.get("content-length", "")
+    if cl.isdigit() and int(cl) > MAX_BODY:
         raise HTTPException(413, "payload too large")
+    chunks: list[bytes] = []
+    size = 0
+    async for chunk in request.stream():
+        size += len(chunk)
+        if size > MAX_BODY:
+            raise HTTPException(413, "payload too large")
+        chunks.append(chunk)
+    raw = b"".join(chunks)
     if not raw:
         return {}
     try:
@@ -186,12 +199,16 @@ async def post_state(
     except ValidationError as e:
         raise HTTPException(422, e.errors()[0]["msg"] if e.errors() else "invalid payload")
 
-    merged = merge_and_save_state(user_id, {
-        "srs": payload.srs,
-        "progress": payload.progress,
-        "profile": payload.profile,
-        "exam_date": payload.exam_date,
-    })
+    try:
+        merged = merge_and_save_state(user_id, {
+            "srs": payload.srs,
+            "progress": payload.progress,
+            "profile": payload.profile,
+            "exam_date": payload.exam_date,
+        })
+    except StateTooLarge as e:
+        log.warning("state too large: user=%s %s", user_id, e)
+        raise HTTPException(413, "state too large")
     return {"ok": True, "state": merged}
 
 

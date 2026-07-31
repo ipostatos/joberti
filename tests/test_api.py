@@ -35,8 +35,12 @@ def fresh_app(**env):
     tmp = tempfile.mkdtemp(prefix="itb-api-")
     os.environ["DATABASE_PATH"] = str(Path(tmp) / "state.db")
     os.environ["BOT_TOKEN"] = BOT_TOKEN
-    os.environ.setdefault("API_RATE_MAX", "1000")
-    os.environ.setdefault("API_RATE_WINDOW", "60")
+    # Именно присваивание, а не setdefault: предыдущий тест мог оставить в
+    # окружении свой лимит (fresh_app(API_RATE_MAX=5)), и «свежее» приложение
+    # молча наследовало бы его. Под unittest классы идут по алфавиту и это не
+    # проявлялось; pytest идёт по порядку файла — и ловил 429 в тесте гонок.
+    os.environ["API_RATE_MAX"] = "1000"
+    os.environ["API_RATE_WINDOW"] = "60"
     for k, v in env.items():
         os.environ[k] = str(v)
 
@@ -109,6 +113,22 @@ class TestAuth(unittest.TestCase):
         from auth import InitDataError, verify_init_data
         with self.assertRaises(InitDataError):
             verify_init_data("x" * 100000, BOT_TOKEN)
+
+    def test_init_data_without_auth_date_rejected(self):
+        """Правильно подписанный initData БЕЗ auth_date жил бы вечно: TTL
+        не от чего отсчитывать. Telegram шлёт поле всегда — отсутствие
+        означает ручную сборку строки."""
+        import hashlib
+        import hmac as hmac_mod
+        from urllib.parse import urlencode
+
+        from auth import InitDataError, verify_init_data
+        data = {"user": json.dumps({"id": 7})}
+        dcs = "\n".join(f"{k}={v}" for k, v in sorted(data.items()))
+        secret = hmac_mod.new(b"WebAppData", BOT_TOKEN.encode(), hashlib.sha256).digest()
+        good_hash = hmac_mod.new(secret, dcs.encode(), hashlib.sha256).hexdigest()
+        with self.assertRaises(InitDataError):
+            verify_init_data(urlencode({**data, "hash": good_hash}), BOT_TOKEN)
 
     def test_empty_rejected(self):
         from auth import InitDataError, verify_init_data
@@ -212,6 +232,25 @@ class TestEndpoints(unittest.TestCase):
         r = self.c.post("/api/state", content=b"",
                         headers={**hdr(8), "Content-Type": "application/json"})
         self.assertEqual(r.status_code, 200)
+
+    def test_state_total_size_capped(self):
+        """Лимит тела ограничивает один запрос, но merge объединяет ключи —
+        серией запросов состояние можно наращивать до заполнения диска.
+        Превышение потолка отвергается, состояние на сервере не меняется."""
+        import storage
+        from unittest.mock import patch
+
+        r = self.c.post("/api/state", json={"progress": {"goal": 20}}, headers=hdr(9))
+        self.assertEqual(r.status_code, 200)
+        with patch.object(storage, "MAX_STATE_BYTES", 60):
+            days = {f"2026-06-{i:02d}": 1 for i in range(1, 28)}
+            r = self.c.post("/api/state", json={"progress": {"days": days}},
+                            headers=hdr(9))
+            self.assertEqual(r.status_code, 413)
+        r = self.c.get("/api/state", headers=hdr(9))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.json()["state"]["progress"].get("goal"), 20,
+                         "отвергнутая запись не должна портить прежнее состояние")
 
 
 class TestAttempts(unittest.TestCase):

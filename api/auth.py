@@ -63,11 +63,15 @@ def verify_init_data(init_data: str, bot_token: str, max_age_sec: int = 86400) -
         raise InitDataError("hash mismatch")
 
     # Защита от повторного использования перехваченного initData.
+    # auth_date обязателен: Telegram шлёт его всегда, а подписанный initData
+    # без него жил бы вечно — TTL было бы не от чего отсчитывать.
     try:
         auth_date = int(data.get("auth_date", "0") or "0")
     except ValueError:
         raise InitDataError("bad auth_date")
-    if max_age_sec and auth_date and (time.time() - auth_date) > max_age_sec:
+    if auth_date <= 0:
+        raise InitDataError("missing auth_date")
+    if max_age_sec and (time.time() - auth_date) > max_age_sec:
         raise InitDataError("init_data expired")
 
     user_raw = data.get("user")

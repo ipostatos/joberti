@@ -30,6 +30,16 @@ SCHEMA_VERSION = 1
 HISTORY_LIMIT = MAX_ATTEMPTS
 BUSY_TIMEOUT_MS = 3000
 
+# Потолок суммарного размера состояния одного пользователя. Лимит тела запроса
+# (MAX_BODY) ограничивает один POST, но merge объединяет ключи клиента и
+# сервера, и серией запросов состояние можно наращивать без предела — до
+# заполнения диска. Реальный профиль на порядки меньше потолка.
+MAX_STATE_BYTES = 1024 * 1024
+
+
+class StateTooLarge(Exception):
+    """Слитое состояние превысило MAX_STATE_BYTES — запись отвергнута."""
+
 _BASE = Path(__file__).resolve().parent
 
 
@@ -152,6 +162,14 @@ def merge_and_save_state(user_id: int, incoming: dict) -> dict:
         ).fetchone()
         server = _row_to_state(row)
         merged = merge_state(server, incoming)
+        parts = {k: json.dumps(merged[k], ensure_ascii=False)
+                 for k in ("srs", "progress", "profile", "exam_date")}
+        total = sum(len(v.encode("utf-8")) for v in parts.values())
+        if total > MAX_STATE_BYTES:
+            # Отвергаем запись целиком: состояние на сервере остаётся прежним,
+            # клиент продолжает жить на localStorage. Придумывать политику
+            # вытеснения хуже: молча выброшенные ключи — потеря данных.
+            raise StateTooLarge(f"{total} байт (потолок {MAX_STATE_BYTES})")
         conn.execute(
             """INSERT INTO state(user_id, srs, progress, profile, exam_date,
                                  schema_version, created_at, updated_at)
@@ -162,10 +180,10 @@ def merge_and_save_state(user_id: int, incoming: dict) -> dict:
                  schema_version=excluded.schema_version, updated_at=excluded.updated_at""",
             (
                 user_id,
-                json.dumps(merged["srs"], ensure_ascii=False),
-                json.dumps(merged["progress"], ensure_ascii=False),
-                json.dumps(merged["profile"], ensure_ascii=False),
-                json.dumps(merged["exam_date"], ensure_ascii=False),
+                parts["srs"],
+                parts["progress"],
+                parts["profile"],
+                parts["exam_date"],
                 SCHEMA_VERSION,
                 now,
                 now,
