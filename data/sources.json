@@ -1945,6 +1945,42 @@
       "type": "cheatsheet",
       "verified": true,
       "verified_at": "2026-08-01"
+    },
+    {
+      "id": "ubuntu-server-docs",
+      "title": "Ubuntu Server documentation",
+      "publisher": "Canonical",
+      "url": "https://ubuntu.com/server/docs/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "ubuntu-cli-tutorial",
+      "title": "The Linux command line for beginners",
+      "publisher": "Canonical",
+      "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "tldr-pages",
+      "title": "tldr pages",
+      "publisher": "tldr-pages community",
+      "url": "https://tldr.sh/",
+      "type": "tool",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "explainshell",
+      "title": "explainshell",
+      "publisher": "explainshell.com",
+      "url": "https://explainshell.com/",
+      "type": "tool",
+      "verified": true,
+      "verified_at": "2026-08-01"
     }
   ]
 }

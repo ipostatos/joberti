@@ -285,13 +285,13 @@
   "english_resources":9,
   "english_vocab":76,
   "english_writing":40,
-  "glossary_terms":254,
-  "lessons":88,
-  "library_resources":204,
+  "glossary_terms":264,
+  "lessons":90,
+  "library_resources":208,
   "mock_questions":134,
-  "questions":470,
+  "questions":481,
   "roadmap_steps":90,
-  "sources":216,
+  "sources":220,
   "story_templates":30,
   "topics":80,
   "tracks":4,
@@ -4167,6 +4167,83 @@
    "url":"https://overapi.com/mod_rewrite",
    "verification_status":"verified",
    "why_read":"Флаги и переменные mod_rewrite одной страницей: как читать и писать правила редиректов в .htaccess. Частая практическая задача SEO-специалиста при переездах сайта."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":120,
+   "id":"lib-ubuntu-server-docs",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"Canonical",
+   "read_before_interview":false,
+   "source_ref":"ubuntu-server-docs",
+   "title":"Ubuntu Server documentation",
+   "topic_ids":[
+    "linux-basics",
+    "ts-linux"
+   ],
+   "type":"official_documentation",
+   "url":"https://ubuntu.com/server/docs/",
+   "verification_status":"verified",
+   "why_read":"Официальная документация самого распространённого серверного дистрибутива: пакеты, службы, сеть, обновления. Отвечает на вопросы «а как это устроено именно в Ubuntu», на которых сыпятся общие ответы."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":45,
+   "id":"lib-ubuntu-cli-tutorial",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"Canonical",
+   "read_before_interview":false,
+   "source_ref":"ubuntu-cli-tutorial",
+   "title":"The Linux command line for beginners",
+   "topic_ids":[
+    "linux-basics",
+    "ts-linux"
+   ],
+   "type":"guide",
+   "url":"https://ubuntu.com/tutorials/command-line-for-beginners",
+   "verification_status":"verified",
+   "why_read":"Вводный курс Canonical по командной строке: файлы, каталоги, права, sudo. Быстрый способ закрыть пробелы в самых основах перед собеседованием."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":10,
+   "id":"lib-tldr-pages",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"tldr-pages community",
+   "read_before_interview":false,
+   "source_ref":"tldr-pages",
+   "title":"tldr pages",
+   "topic_ids":[
+    "linux-basics",
+    "ts-linux",
+    "scripting"
+   ],
+   "type":"tool",
+   "url":"https://tldr.sh/",
+   "verification_status":"verified",
+   "why_read":"Краткие примеры вместо длинных man-страниц: для каждой команды — пять типовых вызовов, которыми реально пользуются. Идеально для повторения команд накануне интервью."
+  },
+  {
+   "difficulty":1,
+   "estimated_minutes":10,
+   "id":"lib-explainshell",
+   "language":"en",
+   "last_verified":"2026-08-01",
+   "publisher":"explainshell.com",
+   "read_before_interview":false,
+   "source_ref":"explainshell",
+   "title":"explainshell",
+   "topic_ids":[
+    "scripting",
+    "ts-linux"
+   ],
+   "type":"tool",
+   "url":"https://explainshell.com/",
+   "verification_status":"verified",
+   "why_read":"Вставляете команду целиком — сервис разбирает каждый флаг по man-страницам. Лучший способ понять чужой однострочник и проверить свой перед запуском."
   }
  ],
  "mockCategories":[
@@ -6138,6 +6215,42 @@
    "title":"mod_rewrite Cheat Sheet",
    "type":"cheatsheet",
    "url":"https://overapi.com/mod_rewrite",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"ubuntu-server-docs",
+   "publisher":"Canonical",
+   "title":"Ubuntu Server documentation",
+   "type":"official_documentation",
+   "url":"https://ubuntu.com/server/docs/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"ubuntu-cli-tutorial",
+   "publisher":"Canonical",
+   "title":"The Linux command line for beginners",
+   "type":"guide",
+   "url":"https://ubuntu.com/tutorials/command-line-for-beginners",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"tldr-pages",
+   "publisher":"tldr-pages community",
+   "title":"tldr pages",
+   "type":"tool",
+   "url":"https://tldr.sh/",
+   "verified":true,
+   "verified_at":"2026-08-01"
+  },
+  {
+   "id":"explainshell",
+   "publisher":"explainshell.com",
+   "title":"explainshell",
+   "type":"tool",
+   "url":"https://explainshell.com/",
    "verified":true,
    "verified_at":"2026-08-01"
   }

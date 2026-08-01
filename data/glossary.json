@@ -6610,6 +6610,273 @@
       "answer": "Чтобы видеть реальный масштаб, обновлять всех клиентов разом и приносить разработке количество, а не ощущение.",
       "source_refs": [],
       "difficulty": 1
+    },
+    {
+      "id": "t-apt",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "apt",
+      "aliases": [
+        "apt-get",
+        "менеджер пакетов"
+      ],
+      "definition_simple": "Инструмент установки и обновления программ в Ubuntu и Debian.",
+      "definition_interview": "Менеджер пакетов: ставит программы из репозиториев, разрешает зависимости, обновляет систему. apt update обновляет списки версий, apt upgrade ставит сами обновления.",
+      "example": "apt update && apt upgrade — сначала свежие списки, потом установка обновлений.",
+      "common_confusion": "Путают update и upgrade: после одного update ничего не установится — команда лишь скачивает информацию о доступных версиях.",
+      "question": "Чем apt update отличается от apt upgrade?",
+      "answer": "update скачивает свежие списки пакетов из репозиториев и ничего не меняет в системе; upgrade устанавливает доступные обновления. Поэтому их запускают парой.",
+      "source_refs": [
+        "ubuntu-server-docs"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-sudo",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "sudo",
+      "aliases": [
+        "суперпользователь",
+        "root-доступ"
+      ],
+      "definition_simple": "Выполнить одну команду с правами администратора.",
+      "definition_interview": "Даёт право выполнить команду от root по правилам из /etc/sudoers. Каждый вызов логируется — видно, кто и что выполнял с повышенными правами.",
+      "example": "sudo systemctl restart nginx — перезапуск службы обычным пользователем.",
+      "common_confusion": "Считают sudo «режимом администратора навсегда». Это права на конкретную команду; постоянная работа под root — плохая практика и риск.",
+      "question": "Почему постоянная работа под root считается плохой практикой?",
+      "answer": "Любая опечатка выполняется с максимальными правами, а в логах не видно, кто именно действовал. sudo даёт права точечно и оставляет след в журнале.",
+      "source_refs": [
+        "ubuntu-cli-tutorial"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-cron",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "cron",
+      "aliases": [
+        "crontab",
+        "планировщик задач"
+      ],
+      "definition_simple": "Служба, которая запускает команды по расписанию.",
+      "definition_interview": "Планировщик: расписание описывается пятью полями (минута, час, день, месяц, день недели) в crontab. У задач своё окружение — не такое, как в терминале.",
+      "example": "0 3 * * * /opt/app/backup.sh — запуск каждый день в 03:00.",
+      "common_confusion": "Скрипт работает руками, но «не работает из cron». Причина почти всегда в окружении: короткий PATH, нет переменных профиля, относительные пути.",
+      "question": "Скрипт выполняется в терминале, но не срабатывает из cron. Что проверить?",
+      "answer": "Окружение: в cron короткий PATH и нет переменных вашего профиля. Прописать абсолютные пути, нужные переменные — в сам скрипт, и направить вывод в лог, чтобы увидеть настоящую ошибку.",
+      "source_refs": [
+        "linux-man-pages"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-pipe",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "Конвейер (pipe)",
+      "aliases": [
+        "пайп",
+        "|"
+      ],
+      "definition_simple": "Передать вывод одной команды на вход другой.",
+      "definition_interview": "Оператор | соединяет команды в цепочку: stdout левой становится stdin правой. Так из простых команд собираются мощные разборы логов и данных.",
+      "example": "journalctl -u app | grep ERROR | wc -l — сколько ошибок в журнале службы.",
+      "common_confusion": "Через конвейер идёт только stdout: ошибки (stderr) летят мимо grep. Чтобы искать и в них, поток ошибок объединяют: команда 2>&1 | grep …",
+      "question": "Почему grep в конвейере может «не видеть» ошибок команды?",
+      "answer": "Ошибки пишутся в stderr, а конвейер передаёт только stdout. Нужно объединить потоки (2>&1) до конвейера — тогда grep получит и ошибки.",
+      "source_refs": [
+        "ubuntu-cli-tutorial"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-grep-cmd",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "grep",
+      "aliases": [
+        "поиск по тексту"
+      ],
+      "definition_simple": "Найти строки с нужным текстом в файле или потоке.",
+      "definition_interview": "Поиск по содержимому: понимает регулярные выражения, ищет рекурсивно (-r), без учёта регистра (-i), показывает контекст вокруг совпадения (-C).",
+      "example": "grep -rn \"timeout\" /etc/nginx/ — найти настройку во всех конфигурациях.",
+      "common_confusion": "Забывают про контекст: grep -C 3 покажет три строки до и после совпадения — в логах именно окружение объясняет, что произошло.",
+      "question": "Как посмотреть не только строку с ошибкой, но и что было вокруг неё?",
+      "answer": "grep -C N добавляет N строк контекста до и после каждого совпадения (-B — только до, -A — только после). Для логов это главный приём.",
+      "source_refs": [
+        "man-grep"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-find-cmd",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "find",
+      "aliases": [
+        "поиск файлов"
+      ],
+      "definition_simple": "Найти файлы по имени, размеру, дате и другим признакам.",
+      "definition_interview": "Обходит дерево каталогов и отбирает файлы по условиям: имя, размер, время изменения, права. Умеет сразу выполнять действие над найденным (-exec, -delete).",
+      "example": "find /var/log -name \"*.gz\" -mtime +30 -delete — удалить архивы старше месяца.",
+      "common_confusion": "Путают с grep: find ищет ФАЙЛЫ по атрибутам, grep — ТЕКСТ внутри файлов. «Найти файл с этой строкой» — это связка: grep -rl по каталогу.",
+      "question": "Чем find отличается от grep?",
+      "answer": "find отбирает файлы по атрибутам (имя, размер, дата), grep ищет по содержимому. Вместе: find выбирает, где искать, grep — что именно.",
+      "source_refs": [
+        "linux-man-pages"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-tar-cmd",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "tar",
+      "aliases": [
+        "архив",
+        "tar.gz"
+      ],
+      "definition_simple": "Собрать файлы в один архив или распаковать его.",
+      "definition_interview": "Стандартный архиватор: -c создаёт, -x распаковывает, -t показывает содержимое, -z включает сжатие gzip, -f задаёт имя файла и идёт последним из флагов.",
+      "example": "tar -czf logs.tar.gz /var/log/app/ и обратно tar -xzf logs.tar.gz.",
+      "common_confusion": "Распаковывают архив, чтобы «просто посмотреть». tar -tzf показывает список содержимого без распаковки — быстрее и безопаснее.",
+      "question": "Как посмотреть содержимое tar.gz, не распаковывая его?",
+      "answer": "tar -tzf файл.tar.gz — выведет список файлов. Флаг -t означает «показать», распаковка (-x) не нужна.",
+      "source_refs": [
+        "linux-man-pages"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ss-ports",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "ss",
+      "aliases": [
+        "netstat",
+        "порты"
+      ],
+      "definition_simple": "Показать, какие порты открыты и кто их слушает.",
+      "definition_interview": "Утилита состояния сокетов: ss -tulpn показывает слушающие TCP/UDP-порты и процессы за ними. Пришла на смену netstat.",
+      "example": "ss -tulpn | grep 8080 — какой процесс занял порт 8080.",
+      "common_confusion": "«Порт занят» не значит «служба работает»: слушать может другой процесс — старая копия, отладочный сервер, чужое приложение. ss показывает, кто именно.",
+      "question": "Служба не стартует с ошибкой «address already in use». Как найти виновника?",
+      "answer": "ss -tulpn покажет PID и имя процесса, который слушает порт. Дальше решать: остановить его или поменять порт службе.",
+      "source_refs": [
+        "linux-man-pages"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-df-du",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "df и du",
+      "aliases": [
+        "место на диске"
+      ],
+      "definition_simple": "df — сколько занято на разделах, du — что именно занимает место.",
+      "definition_interview": "df смотрит на файловую систему целиком, du складывает размеры файлов в каталоге. Расходятся, когда большой файл удалили, а процесс держит его открытым.",
+      "example": "df -h — общая картина; du -sh /var/log/* — кто из каталогов растолстел.",
+      "common_confusion": "Удалили огромный лог, а df показывает те же 100%: файл открыт процессом, и место вернётся только после его перезапуска (или truncate вместо удаления).",
+      "question": "Удалили большой файл, но место на диске не освободилось. Почему?",
+      "answer": "Файл ещё открыт каким-то процессом: ссылка из каталога удалена, но данные держатся до закрытия. Найти процесс (lsof +L1) и перезапустить, либо очищать такие файлы через truncate.",
+      "source_refs": [
+        "man-df"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-stdio",
+      "track_ids": [
+        "devops-platform",
+        "technical-engineer"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "category": "Linux и системы",
+      "term": "stdout и stderr",
+      "aliases": [
+        "стандартные потоки",
+        "2>&1"
+      ],
+      "definition_simple": "Два выхода каждой команды: обычный вывод и поток ошибок.",
+      "definition_interview": "У процесса три стандартных потока: stdin (вход), stdout (вывод), stderr (ошибки). Перенаправляются независимо: > пишет stdout, 2> — stderr, 2>&1 объединяет их.",
+      "example": "cmd > out.log 2>&1 — и вывод, и ошибки уходят в один файл.",
+      "common_confusion": "Пишут cmd 2>&1 > out.log и удивляются ошибкам на экране: порядок важен — сначала указывают файл для stdout, потом присоединяют stderr.",
+      "question": "Что делает запись cmd > out.log 2>&1 и почему порядок именно такой?",
+      "answer": "Сначала stdout направляется в файл, затем stderr присоединяется к уже перенаправленному stdout — обе струи попадают в out.log. В обратном порядке stderr успел бы «прицепиться» к экрану.",
+      "source_refs": [
+        "ubuntu-cli-tutorial"
+      ],
+      "difficulty": 2
     }
   ]
 }

@@ -3786,6 +3786,83 @@
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-ubuntu-server-docs",
+      "source_ref": "ubuntu-server-docs",
+      "title": "Ubuntu Server documentation",
+      "publisher": "Canonical",
+      "url": "https://ubuntu.com/server/docs/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 120,
+      "why_read": "Официальная документация самого распространённого серверного дистрибутива: пакеты, службы, сеть, обновления. Отвечает на вопросы «а как это устроено именно в Ubuntu», на которых сыпятся общие ответы.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-ubuntu-cli-tutorial",
+      "source_ref": "ubuntu-cli-tutorial",
+      "title": "The Linux command line for beginners",
+      "publisher": "Canonical",
+      "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 45,
+      "why_read": "Вводный курс Canonical по командной строке: файлы, каталоги, права, sudo. Быстрый способ закрыть пробелы в самых основах перед собеседованием.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-tldr-pages",
+      "source_ref": "tldr-pages",
+      "title": "tldr pages",
+      "publisher": "tldr-pages community",
+      "url": "https://tldr.sh/",
+      "type": "tool",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux",
+        "scripting"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Краткие примеры вместо длинных man-страниц: для каждой команды — пять типовых вызовов, которыми реально пользуются. Идеально для повторения команд накануне интервью.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-explainshell",
+      "source_ref": "explainshell",
+      "title": "explainshell",
+      "publisher": "explainshell.com",
+      "url": "https://explainshell.com/",
+      "type": "tool",
+      "language": "en",
+      "topic_ids": [
+        "scripting",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Вставляете команду целиком — сервис разбирает каждый флаг по man-страницам. Лучший способ понять чужой однострочник и проверить свой перед запуском.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
     }
   ]
 }
