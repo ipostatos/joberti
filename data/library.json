@@ -3863,6 +3863,215 @@
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-habr-bash-21",
+      "source_ref": "habr-bash-21",
+      "title": "Bash для начинающих: 21 полезная команда",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/445270/",
+      "type": "article",
+      "language": "ru",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 30,
+      "why_read": "Компактный разбор 21 команды с примерами на русском: от навигации до перенаправления потоков. Хорош как первое повторение перед интервью — быстро возвращает в форму без чтения учебника.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-habr-cli-20-tricks",
+      "source_ref": "habr-cli-20-tricks",
+      "title": "20 приёмов работы в командной строке Linux",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/339820/",
+      "type": "article",
+      "language": "ru",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Ровно те «фишки», которые отличают уверенного пользователя: подстановки истории, горячие клавиши, работа с каталогами. Половина приёмов экономит время каждый день.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-habr-linux-oneliners",
+      "source_ref": "habr-linux-oneliners",
+      "title": "18 отборных однострочных команд Linux",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/671428/",
+      "type": "article",
+      "language": "ru",
+      "topic_ids": [
+        "linux-basics",
+        "scripting"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Готовые однострочники из конвейеров: поиск, подсчёт, массовые операции. Полезно разобрать каждый по частям — это готовые ответы на вопрос «соберите команду, которая…».",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-habr-bash-scripts",
+      "source_ref": "habr-bash-scripts",
+      "title": "Bash-скрипты: начало",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/325522/",
+      "type": "guide",
+      "language": "ru",
+      "topic_ids": [
+        "scripting"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 40,
+      "why_read": "Первая часть большой серии про Bash-скрипты на русском: переменные, условия, циклы. Если скрипты пока «по образцу» — серия выстраивает системное понимание.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-habr-payment-testing",
+      "source_ref": "habr-payment-testing",
+      "title": "Как протестировать международный платёжный сервис без боли и нервов",
+      "publisher": "Хабр",
+      "url": "https://habr.com/ru/articles/517658/",
+      "type": "article",
+      "language": "ru",
+      "topic_ids": [
+        "qa-payment-flow",
+        "qa-payment-methods"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Живой опыт тестирования платёжного сервиса: региональные методы оплаты, вспомогательные сервисы, где прячутся дефекты. Даёт фактуру для ответов «как бы вы тестировали платежи».",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-linkmeup-sdsm",
+      "source_ref": "linkmeup-sdsm",
+      "title": "Сети для самых маленьких. Часть нулевая. Планирование",
+      "publisher": "linkmeup",
+      "url": "https://linkmeup.ru/blog/1188/",
+      "type": "guide",
+      "language": "ru",
+      "topic_ids": [
+        "networking",
+        "ts-network"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 60,
+      "why_read": "Вход в легендарный цикл о сетях на русском: от планирования до маршрутизации, на живом сквозном примере. Если сети — слабое место, это самый человечный способ их закрыть.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-xakep-bash-tricks",
+      "source_ref": "xakep-bash-tricks",
+      "title": "10 простых и полезных трюков для командной строки",
+      "publisher": "Хакер",
+      "url": "https://xakep.ru/2016/09/26/faq-10-bash-tricks/",
+      "type": "article",
+      "language": "ru",
+      "topic_ids": [
+        "linux-basics",
+        "ts-linux"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Короткая бесплатная подборка трюков: пробел перед командой прячет её из истории, Alt+точка подставляет аргумент прошлой команды. Мелочи, которые запоминаются с первого раза.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-sadservers",
+      "source_ref": "sadservers",
+      "title": "SadServers",
+      "publisher": "sadservers.com",
+      "url": "https://sadservers.com/",
+      "type": "practical_task",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "incidents",
+        "ts-incidents"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 120,
+      "why_read": "«Сломанные серверы» в браузере: реальная машина, описание симптома и ограничение по времени — почините. Самая близкая к собеседованию и к работе практика диагностики; начните со сценариев уровня easy.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-otw-bandit",
+      "source_ref": "otw-bandit",
+      "title": "OverTheWire: Bandit",
+      "publisher": "OverTheWire",
+      "url": "https://overthewire.org/wargames/bandit/",
+      "type": "practical_task",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "scripting"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 180,
+      "why_read": "Игра-лестница из 30 уровней: на каждом нужно командной строкой добыть пароль к следующему. Ненавязчиво прокачивает ssh, find, grep, перенос файлов — команды запоминаются руками, а не глазами.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-dangitgit-ru",
+      "source_ref": "dangitgit-ru",
+      "title": "Чёрт побери, Git!?!",
+      "publisher": "dangitgit.com",
+      "url": "https://dangitgit.com/ru",
+      "type": "guide",
+      "language": "ru",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Шпаргалка «как выбраться» из типовых неприятностей Git простым языком и по-русски: закоммитил не туда, нужно переписать сообщение, вернуть файл. Идеальный ответ на интервью-вопросы формата «что будете делать, если…».",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-mit-missing-semester",
+      "source_ref": "mit-missing-semester",
+      "title": "The Missing Semester of Your CS Education",
+      "publisher": "MIT",
+      "url": "https://missing.csail.mit.edu/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "scripting",
+        "git-vcs"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 300,
+      "why_read": "Курс MIT о том, чему «не учат»: шелл, скрипты, редакторы, Git, отладка, профилирование. Один вечер на лекцию — и инструменты перестают быть магией. Есть видео и конспекты.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-01"
     }
   ]
 }

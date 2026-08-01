@@ -1981,6 +1981,105 @@
       "type": "tool",
       "verified": true,
       "verified_at": "2026-08-01"
+    },
+    {
+      "id": "habr-bash-21",
+      "title": "Bash для начинающих: 21 полезная команда",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/445270/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "habr-cli-20-tricks",
+      "title": "20 приёмов работы в командной строке Linux",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/339820/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "habr-linux-oneliners",
+      "title": "18 отборных однострочных команд Linux",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/671428/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "habr-bash-scripts",
+      "title": "Bash-скрипты: начало",
+      "publisher": "Хабр · RUVDS",
+      "url": "https://habr.com/ru/companies/ruvds/articles/325522/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "habr-payment-testing",
+      "title": "Как протестировать международный платёжный сервис без боли и нервов",
+      "publisher": "Хабр",
+      "url": "https://habr.com/ru/articles/517658/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "linkmeup-sdsm",
+      "title": "Сети для самых маленьких. Часть нулевая. Планирование",
+      "publisher": "linkmeup",
+      "url": "https://linkmeup.ru/blog/1188/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "xakep-bash-tricks",
+      "title": "10 простых и полезных трюков для командной строки",
+      "publisher": "Хакер",
+      "url": "https://xakep.ru/2016/09/26/faq-10-bash-tricks/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "sadservers",
+      "title": "SadServers",
+      "publisher": "sadservers.com",
+      "url": "https://sadservers.com/",
+      "type": "practice",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "otw-bandit",
+      "title": "OverTheWire: Bandit",
+      "publisher": "OverTheWire",
+      "url": "https://overthewire.org/wargames/bandit/",
+      "type": "practice",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "dangitgit-ru",
+      "title": "Чёрт побери, Git!?!",
+      "publisher": "dangitgit.com",
+      "url": "https://dangitgit.com/ru",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-08-01"
+    },
+    {
+      "id": "mit-missing-semester",
+      "title": "The Missing Semester of Your CS Education",
+      "publisher": "MIT",
+      "url": "https://missing.csail.mit.edu/",
+      "type": "course",
+      "verified": true,
+      "verified_at": "2026-08-01"
     }
   ]
 }
