@@ -219,80 +219,135 @@
     return;
   }
 
-  var r = App.readiness();
-  App.trackWeakTopicRecovery(r);
-  if (r.available) Progress.recordReadinessSnapshot(r.percent);
-
-  var t = App.track();
-  var v = App.vacancy();
-
-  document.getElementById("vacLine").innerHTML =
-    '<span class="emi plain" data-icon="building"></span> ' +
-    App.esc(v ? (v.title + " · " + v.company) : (t ? t.title : "Трек не выбран"));
-
-  // ── что дальше ──
-  var na = App.nextAction();
-  document.getElementById("nextLabel").textContent = na.label;
-  document.getElementById("nextTitle").textContent = na.title;
-  document.getElementById("nextHint").textContent = na.hint;
-  document.getElementById("nextCta").textContent = na.cta;
-  document.getElementById("nextBtn").href = na.href;
-
-  // ── готовность ──
-  var ring = document.getElementById("ring");
-  if (r.available) {
-    ring.style.setProperty("--p", r.percent);
-    ring.style.setProperty("--ring-color",
-      r.percent >= 70 ? "var(--ok)" : r.percent >= 50 ? "var(--accent)" : "var(--warn)");
-    document.getElementById("readyPct").textContent = r.percent + "%";
-    document.getElementById("readyVerdict").textContent = r.verdict;
-
-    var answered = r.blocks[0].detail.answered || 0;
-    var total = r.blocks[0].detail.total || 0;
-    document.getElementById("readySub").textContent =
-      "Изучено " + answered + " из " + total + " вопросов · " +
-      "кейсов " + r.blocks[2].detail.completed + " из " + r.blocks[2].detail.total;
-
-    if (r.appliedCap) {
-      var note = document.getElementById("capNote");
-      note.classList.remove("hidden");
-      note.textContent = "Ограничение " + r.capMax + "%: " + r.appliedCap.reason;
-    }
-  } else {
-    document.getElementById("readyPct").textContent = "—";
-    document.getElementById("readyVerdict").textContent = "Готовность недоступна";
-    document.getElementById("readySub").textContent = r.reason;
-    document.getElementById("readyCard").classList.add("flat");
-  }
-
-  // ── статистика ──
-  var goal = Progress.getGoal();
-  document.getElementById("goalToday").textContent = Progress.todayCount() + "/" + goal;
-  var st = Progress.streakInfo();
-  document.getElementById("streakVal").innerHTML =
-    st.streak + (st.streak ? ' <span class="emi plain" data-icon="flame" style="color:var(--warn)"></span>' : "");
-  document.getElementById("dueVal").textContent = App.reviewDue();
-
-  // ── слабые темы ──
-  var weak = (r.topics || []).filter(function (x) {
-    return x.questions > 0 && x.mastery != null && x.mastery < 0.6;
-  }).slice(0, 3);
-  var wl = document.getElementById("weakList");
-  if (weak.length) {
-    wl.innerHTML = '<div class="xs muted" style="margin-bottom:2px">Слабые темы</div>' +
-      weak.map(function (x) {
-        return '<a class="weak" style="text-decoration:none;color:inherit" href="quiz.html?topic=' +
-          encodeURIComponent(x.id) + '">' +
-          '<span style="flex:0 0 44%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">' +
-          App.esc(x.title) + "</span>" +
-          '<span class="bar"><i style="width:' + x.pct + '%"></i></span>' +
-          '<span class="pct">' + x.pct + "%</span></a>";
-      }).join("");
-  }
-
-  // ── дата собеседования ──
   var examInput = document.getElementById("examInput");
   var examLine = document.getElementById("examLine");
+
+  // Вся отрисовка собрана в render(): страница рисуется сразу из localStorage,
+  // а после фоновой синхронизации, если слияние что-то изменило, — ещё раз,
+  // уже без перезагрузки. Слушатели событий вешаются ОДИН раз, ниже.
+  function render() {
+    var r = App.readiness();
+    App.trackWeakTopicRecovery(r);
+    if (r.available) Progress.recordReadinessSnapshot(r.percent);
+
+    var t = App.track();
+    var v = App.vacancy();
+
+    document.getElementById("vacLine").innerHTML =
+      '<span class="emi plain" data-icon="building"></span> ' +
+      App.esc(v ? (v.title + " · " + v.company) : (t ? t.title : "Трек не выбран"));
+
+    // ── что дальше ──
+    var na = App.nextAction();
+    document.getElementById("nextLabel").textContent = na.label;
+    document.getElementById("nextTitle").textContent = na.title;
+    document.getElementById("nextHint").textContent = na.hint;
+    document.getElementById("nextCta").textContent = na.cta;
+    document.getElementById("nextBtn").href = na.href;
+
+    // ── готовность ──
+    var ring = document.getElementById("ring");
+    var note = document.getElementById("capNote");
+    document.getElementById("readyCard").classList.toggle("flat", !r.available);
+    if (r.available) {
+      ring.style.setProperty("--p", r.percent);
+      ring.style.setProperty("--ring-color",
+        r.percent >= 70 ? "var(--ok)" : r.percent >= 50 ? "var(--accent)" : "var(--warn)");
+      document.getElementById("readyPct").textContent = r.percent + "%";
+      document.getElementById("readyVerdict").textContent = r.verdict;
+
+      var answered = r.blocks[0].detail.answered || 0;
+      var total = r.blocks[0].detail.total || 0;
+      document.getElementById("readySub").textContent =
+        "Изучено " + answered + " из " + total + " вопросов · " +
+        "кейсов " + r.blocks[2].detail.completed + " из " + r.blocks[2].detail.total;
+
+      if (r.appliedCap) {
+        note.classList.remove("hidden");
+        note.textContent = "Ограничение " + r.capMax + "%: " + r.appliedCap.reason;
+      } else {
+        note.classList.add("hidden");
+      }
+    } else {
+      document.getElementById("readyPct").textContent = "—";
+      document.getElementById("readyVerdict").textContent = "Готовность недоступна";
+      document.getElementById("readySub").textContent = r.reason;
+      note.classList.add("hidden");
+    }
+
+    // ── статистика ──
+    var goal = Progress.getGoal();
+    document.getElementById("goalToday").textContent = Progress.todayCount() + "/" + goal;
+    var st = Progress.streakInfo();
+    document.getElementById("streakVal").innerHTML =
+      st.streak + (st.streak ? ' <span class="emi plain" data-icon="flame" style="color:var(--warn)"></span>' : "");
+    document.getElementById("dueVal").textContent = App.reviewDue();
+
+    // ── слабые темы ──
+    var weak = (r.topics || []).filter(function (x) {
+      return x.questions > 0 && x.mastery != null && x.mastery < 0.6;
+    }).slice(0, 3);
+    var wl = document.getElementById("weakList");
+    if (weak.length) {
+      wl.innerHTML = '<div class="xs muted" style="margin-bottom:2px">Слабые темы</div>' +
+        weak.map(function (x) {
+          return '<a class="weak" style="text-decoration:none;color:inherit" href="quiz.html?topic=' +
+            encodeURIComponent(x.id) + '">' +
+            '<span style="flex:0 0 44%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">' +
+            App.esc(x.title) + "</span>" +
+            '<span class="bar"><i style="width:' + x.pct + '%"></i></span>' +
+            '<span class="pct">' + x.pct + "%</span></a>";
+        }).join("");
+    } else {
+      wl.innerHTML = "";
+    }
+
+    renderExam();
+    // Не трогаем поле, пока пользователь выбирает в нём дату.
+    if (document.activeElement !== examInput) {
+      examInput.value = Progress.getExamDate() || "";
+    }
+
+    // ── счётчики разделов ──
+    var steps = App.steps();
+    var doneSteps = steps.filter(App.stepDone).length;
+    document.getElementById("planCount").textContent = doneSteps + " из " + steps.length + " шагов";
+    document.getElementById("learnCount").textContent = App.lessons().length + " уроков";
+    document.getElementById("quizCount").textContent = App.questions().length + " вопросов";
+    document.getElementById("mockCount").textContent = App.mocks().length + " вопросов";
+    var doneCases = r.available ? r.blocks[2].detail.completed : 0;
+    document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
+    var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
+    document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
+    var eng = App.englishStats();
+    document.getElementById("engCount").textContent =
+      eng.wordsLearned + " из " + eng.words + " слов освоено · " +
+      eng.drillsDone + " из " + eng.drills + " заданий пройдено";
+    document.getElementById("libCount").textContent =
+      CONTENT.library.length + " материалов · " +
+      CONTENT.library.filter(function (x) { return x.read_before_interview; }).length +
+      " обязательных к прочтению";
+    if (v) {
+      var reqs = v.requirements || [];
+      var closed = reqs.filter(function (x) {
+        var s = App.requirementState(x).status;
+        return s === "confirmed" || s === "partial";
+      }).length;
+      document.getElementById("gapCount").textContent =
+        closed + " из " + reqs.length + " требований закрыто";
+    }
+    document.getElementById("storyCount").textContent =
+      App.storyFilledCount() + " из " + CONTENT.stories.length + " историй заполнено";
+    document.getElementById("histCount").textContent =
+      Progress.history().length + " записей";
+
+    // ── карта активности ──
+    Heatmap.render(document.getElementById("heatmap"), {
+      weeks: 16, days: Progress.days(), goal: goal, today: Progress.dayKey(),
+    });
+
+    Icons.hydrate();
+  }
 
   function renderExam() {
     var plan = App.examPlan();
@@ -314,9 +369,6 @@
       "<span>До собеседования <b>" + d + " " + word + "</b> · норма " +
       plan.needPerDay + " в день" + (ok ? "" : " — выше цели") + "</span>";
   }
-  renderExam();
-
-  examInput.value = Progress.getExamDate() || "";
   examInput.addEventListener("change", function () {
     App.setExamDate(examInput.value || null);
     renderExam();
@@ -344,48 +396,28 @@
     if (e.target === overlay || e.target.id === "goalClose") overlay.classList.add("hidden");
   });
 
-  // ── счётчики разделов ──
-  var steps = App.steps();
-  var doneSteps = steps.filter(App.stepDone).length;
-  document.getElementById("planCount").textContent = doneSteps + " из " + steps.length + " шагов";
-  document.getElementById("learnCount").textContent = App.lessons().length + " уроков";
-  document.getElementById("quizCount").textContent = App.questions().length + " вопросов";
-  document.getElementById("mockCount").textContent = App.mocks().length + " вопросов";
-  var doneCases = r.available ? r.blocks[2].detail.completed : 0;
-  document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
-  var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
-  document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
-  var eng = App.englishStats();
-  document.getElementById("engCount").textContent =
-    eng.wordsLearned + " из " + eng.words + " слов освоено · " +
-    eng.drillsDone + " из " + eng.drills + " заданий пройдено";
-  document.getElementById("libCount").textContent =
-    CONTENT.library.length + " материалов · " +
-    CONTENT.library.filter(function (x) { return x.read_before_interview; }).length +
-    " обязательных к прочтению";
-  if (v) {
-    var reqs = v.requirements || [];
-    var closed = reqs.filter(function (x) {
-      var s = App.requirementState(x).status;
-      return s === "confirmed" || s === "partial";
-    }).length;
-    document.getElementById("gapCount").textContent =
-      closed + " из " + reqs.length + " требований закрыто";
+  render();
+
+  // Отпечаток всего локального состояния. Дешевле, чем сравнивать объекты:
+  // applyState пишет в localStorage как есть, и любое изменение слияния
+  // меняет хотя бы одну из этих строк.
+  function stateFingerprint() {
+    return ["interview_srs_v1", "interview_progress_v1", "interview_profile_v1",
+      "interview_history_v1", "interview_exam_date_v1"].map(function (k) {
+      try { return localStorage.getItem(k) || ""; } catch (e) { return ""; }
+    }).join(" ");
   }
-  document.getElementById("storyCount").textContent =
-    App.storyFilledCount() + " из " + CONTENT.stories.length + " историй заполнено";
-  document.getElementById("histCount").textContent =
-    Progress.history().length + " записей";
 
-  // ── карта активности ──
-  Heatmap.render(document.getElementById("heatmap"), {
-    weeks: 16, days: Progress.days(), goal: goal, today: Progress.dayKey(),
-  });
-
-  Icons.hydrate();
-
-  // Синхронизация в фоне: результат не блокирует отрисовку.
-  if (window.Sync && Sync.enabled) Sync.boot();
+  // Синхронизация в фоне: результат не блокирует отрисовку. Если слияние
+  // что-то изменило (другое устройство успело позаниматься), перерисовываем
+  // главную на месте — раньше свежие данные появлялись только со следующего
+  // захода. Перерисовка одна и без перезагрузки: петля исключена.
+  if (window.Sync && Sync.enabled) {
+    var beforeSync = stateFingerprint();
+    Sync.boot().then(function () {
+      if (stateFingerprint() !== beforeSync) render();
+    });
+  }
 })();
 </script>
 </body>
