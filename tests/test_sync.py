@@ -143,7 +143,8 @@ FIXTURES = {
                 "english": {
                     "words": {"ev-queue": {"favorite": True, "checked": 2}},
                     "drills": {"ed-self-001": {"rating": 2, "count": 1, "ts": 10}},
-                    "phrases": {"ph-open-001": {"learned": True}},
+                    "phrases": {"ph-open-001": {"learned": True, "checked": 4}},
+                    "writing": {"ew-mail-001": {"attempts": 2, "passed": False, "ts": 10}},
                 },
             },
             {
@@ -162,8 +163,12 @@ FIXTURES = {
                 "english": {
                     "words": {"ev-queue": {"favorite": False, "checked": 5}},
                     "drills": {"ed-self-001": {"rating": 4, "count": 2, "ts": 20}},
-                    "phrases": {"ph-open-001": {"learned": False},
+                    "phrases": {"ph-open-001": {"learned": False, "checked": 1},
                                 "ph-self-001": {"learned": True}},
+                    "writing": {
+                        "ew-mail-001": {"attempts": 1, "passed": True, "ts": 30},
+                        "ew-ticket-001": {"attempts": 1, "passed": False, "ts": 5},
+                    },
                 },
             },
         ),
@@ -191,7 +196,8 @@ FIXTURES = {
                 "english": {
                     "words": {"w": {"favorite": True, "checked": 1}},
                     "drills": {"d": {"rating": 1, "count": 1, "ts": 1}},
-                    "phrases": {"ph": {"learned": True}},
+                    "phrases": {"ph": {"learned": True, "checked": 1}},
+                    "writing": {"wr": {"attempts": 1, "passed": True, "ts": 1}},
                 },
             },
             {},
@@ -353,17 +359,25 @@ class TestMergeRules(unittest.TestCase):
         r = merge.merge_profile(
             {"english": {"words": {"ev-queue": {"checked": 3, "favorite": True}},
                          "drills": {"ed-self-001": {"rating": 4, "count": 1, "ts": 7}},
-                         "phrases": {"ph-open-001": {"learned": True}}}},
+                         "phrases": {"ph-open-001": {"learned": True, "checked": 2}},
+                         "writing": {"ew-mail-001": {"attempts": 3, "passed": False,
+                                                     "ts": 7}}}},
             {"english": {"words": {"ev-queue": {"checked": 1}},
                          "drills": {"ed-self-001": {"rating": 2, "count": 3, "ts": 9}},
-                         "phrases": {"ph-open-001": {"learned": False}}}},
+                         "phrases": {"ph-open-001": {"learned": False}},
+                         "writing": {"ew-mail-001": {"attempts": 1, "passed": True,
+                                                     "ts": 9}}}},
         )
         eng = r["english"]
         self.assertEqual(eng["words"]["ev-queue"], {"favorite": True, "checked": 3})
         # Оценка задания — у более свежей записи (ts 9 > 7): честное понижение
         # не откатывается, правило то же, что у mock и кейсов.
         self.assertEqual(eng["drills"]["ed-self-001"], {"rating": 2, "count": 3, "ts": 9})
-        self.assertEqual(eng["phrases"], {"ph-open-001": {"learned": True}})
+        self.assertEqual(eng["phrases"], {"ph-open-001": {"learned": True, "checked": 2}})
+        # Письменное задание, выполненное на одном устройстве, остаётся
+        # выполненным: passed по ИЛИ, попытки — максимум.
+        self.assertEqual(eng["writing"]["ew-mail-001"],
+                         {"attempts": 3, "passed": True, "ts": 9})
 
     def test_merge_is_idempotent(self):
         """Повторный обмен не должен менять состояние: иначе оно «дрейфует»

@@ -304,12 +304,29 @@
     var phrasesOut = {};
     keysOf(a.phrases, b.phrases).forEach(function (k) {
       var x = (a.phrases || {})[k] || {}, y = (b.phrases || {})[k] || {};
-      phrasesOut[k] = { learned: orFlag(x, y, "learned") };
+      phrasesOut[k] = {
+        learned: orFlag(x, y, "learned"),
+        checked: Math.max(num(x, "checked"), num(y, "checked")),
+      };
+    });
+    // Письменные задания: попытки — максимум, «прошло» — ИЛИ. Один раз
+    // выполненное задание не должно разучиваться обратно из-за устройства, на
+    // котором его не открывали. Сам текст письма здесь не хранится и не
+    // синхронизируется: это черновик человека.
+    var writingOut = {};
+    keysOf(a.writing, b.writing).forEach(function (k) {
+      var x = (a.writing || {})[k] || {}, y = (b.writing || {})[k] || {};
+      writingOut[k] = {
+        attempts: Math.max(num(x, "attempts"), num(y, "attempts")),
+        passed: orFlag(x, y, "passed"),
+        ts: Math.max(num(x, "ts"), num(y, "ts")),
+      };
     });
     return {
       words: wordsOut,
       drills: mergeRated(a.drills, b.drills),
       phrases: phrasesOut,
+      writing: writingOut,
     };
   }
 

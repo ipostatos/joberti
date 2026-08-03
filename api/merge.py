@@ -316,11 +316,26 @@ def merge_english(a, b) -> dict:
     phrases = {}
     for k in _keys(a.get("phrases"), b.get("phrases")):
         x, y = _d(_d(a.get("phrases")).get(k)), _d(_d(b.get("phrases")).get(k))
-        phrases[k] = {"learned": _or(x, y, "learned")}
+        phrases[k] = {
+            "learned": _or(x, y, "learned"),
+            "checked": max(_num(x, "checked"), _num(y, "checked")),
+        }
+    # Письменные задания: попытки — максимум, «прошло» — ИЛИ. Один раз
+    # выполненное задание не разучивается обратно из-за устройства, на котором
+    # его не открывали. Текст письма не хранится и не синхронизируется.
+    writing = {}
+    for k in _keys(a.get("writing"), b.get("writing")):
+        x, y = _d(_d(a.get("writing")).get(k)), _d(_d(b.get("writing")).get(k))
+        writing[k] = {
+            "attempts": max(_num(x, "attempts"), _num(y, "attempts")),
+            "passed": _or(x, y, "passed"),
+            "ts": max(_num(x, "ts"), _num(y, "ts")),
+        }
     return {
         "words": words,
         "drills": merge_rated(a.get("drills"), b.get("drills")),
         "phrases": phrases,
+        "writing": writing,
     }
 
 

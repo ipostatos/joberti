@@ -17,7 +17,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from content_lib import load_all, normalize_text  # noqa: E402
+from content_lib import (  # noqa: E402
+    load_all, normalize_text, writing_check, writing_norm,
+)
 
 # ── правила ────────────────────────────────────────────────────────────────
 
@@ -600,6 +602,104 @@ def _check_english_common(rep: Report, x: dict, where: str, categories: set,
         check_refs(rep, tids, track_ids, where, "track_ids")
 
 
+def _check_writing_task(rep: Report, x: dict, where: str) -> None:
+    """Задание к заготовке письма: чек-лист жанра плюс эталон.
+
+    Главная проверка здесь последняя: эталонный ответ обязан сам пройти
+    собственный чек-лист. Правило, под которое не подходит даже образец, —
+    сломанное задание, и глазами в тридцати конструкциях это не видно.
+    """
+    task = x.get("task")
+    if x.get("kind") == "template":
+        if not isinstance(task, dict):
+            rep.err(f"{where}: у заготовки (kind=template) должен быть блок task "
+                    f"— иначе на экране письма нечего практиковать")
+            return
+    elif task is None:
+        return
+    elif not isinstance(task, dict):
+        rep.err(f"{where}: task должен быть объектом")
+        return
+
+    require_fields(rep, task, ["brief_ru", "min_words", "must", "model_en"],
+                   f"{where} task")
+
+    brief = task.get("brief_ru")
+    if not isinstance(brief, str) or not brief.strip():
+        rep.err(f"{where}: task.brief_ru пустой")
+    elif not (CYRILLIC & set(brief)):
+        # Условие задания — на русском: это постановка, а не материал для чтения.
+        rep.err(f"{where}: task.brief_ru должен быть на русском")
+
+    mw = task.get("min_words")
+    rep.check(isinstance(mw, int) and 20 <= mw <= 200,
+              f"{where}: task.min_words должен быть 20..200")
+
+    for field in ("must", "avoid"):
+        rules = task.get(field)
+        if rules is None and field == "avoid":
+            continue
+        if not isinstance(rules, list):
+            rep.err(f"{where}: task.{field} должен быть списком")
+            continue
+        if field == "must":
+            rep.check(2 <= len(rules) <= 8,
+                      f"{where}: task.must должен содержать 2..8 правил")
+        for i, r in enumerate(rules):
+            at = f"{where} task.{field}[{i}]"
+            if not isinstance(r, dict):
+                rep.err(f"{at}: правило должно быть объектом")
+                continue
+            require_fields(rep, r, ["label", "any", "why"], at)
+            for key in ("label", "why"):
+                v = r.get(key)
+                if not isinstance(v, str) or not v.strip():
+                    rep.err(f"{at}: поле '{key}' пустое")
+                elif not (CYRILLIC & set(v)):
+                    rep.err(f"{at}: поле '{key}' должно быть на русском")
+            variants = r.get("any")
+            if not isinstance(variants, list) or not variants:
+                rep.err(f"{at}: 'any' должен быть непустым списком вариантов")
+                continue
+            for v in variants:
+                if not isinstance(v, str) or not v.strip():
+                    rep.err(f"{at}: пустой вариант в 'any'")
+                    continue
+                if CYRILLIC & set(v):
+                    rep.err(f"{at}: вариант '{v}' содержит кириллицу — "
+                            f"проверка идёт по английскому тексту")
+                if v != v.lower():
+                    rep.err(f"{at}: вариант '{v}' должен быть в нижнем регистре — "
+                            f"сравнение регистронезависимо, верхний регистр вводит в заблуждение")
+                if not writing_norm(v).strip():
+                    rep.err(f"{at}: вариант '{v}' после нормализации пуст — "
+                            f"он совпадёт с чем угодно")
+
+    model = task.get("model_en")
+    if not isinstance(model, str) or not model.strip():
+        rep.err(f"{where}: task.model_en пустой")
+        return
+    _check_english_text(rep, model, f"{where} task", "model_en")
+    if "[" in model or "]" in model:
+        rep.err(f"{where}: в task.model_en остались подстановки в скобках — "
+                f"эталон должен быть готовым текстом, а не заготовкой")
+
+    # Эталон обязан проходить собственный чек-лист.
+    res = writing_check(model, task)
+    if not res["passed"]:
+        gaps = [m["label"] for m in res["must"] if not m["ok"]]
+        hits = [a["label"] for a in res["avoid"] if not a["ok"]]
+        detail = []
+        if not res["enough"]:
+            detail.append(f"слов {res['words']} при минимуме {res['minWords']}")
+        if gaps:
+            detail.append("не найдено обязательное: " + ", ".join(gaps))
+        if hits:
+            detail.append("встретилось запрещённое: " + ", ".join(hits))
+        rep.err(f"{where}: task.model_en не проходит собственный чек-лист "
+                f"({'; '.join(detail)})")
+
+
 def validate_english(rep: Report, c) -> None:
     track_ids = set(c.tracks_by_id)
 
@@ -683,6 +783,7 @@ def validate_english(rep: Report, c) -> None:
         if key in seen:
             rep.err(f"{where}: заголовок дублирует '{seen[key]}'")
         seen[key] = x.get("id")
+        _check_writing_task(rep, x, where)
 
     # ── внешние ресурсы практики ──
     # Правила те же, что у библиотеки: каждый ресурс обязан ссылаться на

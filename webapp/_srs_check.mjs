@@ -107,6 +107,27 @@ eq(SRS.id("question", "abc"), "q:abc", "префикс вопроса");
 eq(SRS.id("term", "abc"), "t:abc", "префикс термина");
 eq(SRS.id("mock", "abc"), "m:abc", "префикс mock-вопроса");
 eq(SRS.id("case", "abc"), "c:abc", "префикс кейса");
+eq(SRS.id("eword", "abc"), "ew:abc", "префикс слова, узнавание");
+eq(SRS.id("ewordRev", "abc"), "ewr:abc", "префикс слова, производство");
+eq(SRS.id("edrill", "abc"), "ed:abc", "префикс задания вслух");
+eq(SRS.id("ephrase", "abc"), "eph:abc", "префикс фразы");
+
+// Префиксы не должны быть началом друг друга без разделителя: «ew» и «ewr»
+// живут рядом, и код, отрезающий префикс по длине, обязан считать двоеточие.
+// Иначе прогресс одного направления читался бы как прогресс другого.
+{
+  const ids = ["q", "t", "m", "c", "ew", "ewr", "ed", "eph"];
+  const seen = new Set();
+  ids.forEach((p) => {
+    ok(!seen.has(p), `префикс '${p}' объявлен дважды`);
+    seen.add(p);
+  });
+  SRS.reset();
+  SRS.grade("ew:queue", true, NOW);
+  eq(SRS.boxOf("ewr:queue"), null,
+    "обратное направление слова не наследует коробку прямого");
+}
+
 let threw = false;
 try { SRS.id("unknown", "x"); } catch (e) { threw = true; }
 ok(threw, "неизвестный тип идентификатора отвергается");

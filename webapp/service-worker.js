@@ -18,7 +18,7 @@
 // ===========================================================================
 "use strict";
 
-var CACHE = "interview-trainer-v3";
+var CACHE = "interview-trainer-v4";
 var NET_TIMEOUT_MS = 4000;
 
 // Файлы, без которых приложение не открывается офлайн.
@@ -48,6 +48,7 @@ var PRECACHE = [
   "readiness.js",
   "sync.js",
   "search.js",
+  "writing.js",
   "heatmap.js",
   "app.js",
   "content-loader.js",

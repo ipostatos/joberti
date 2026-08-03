@@ -16,6 +16,7 @@
 <script src="readiness.js"></script>
 <script src="sync.js"></script>
 <script src="search.js"></script>
+<script src="writing.js"></script>
 <script src="icons.js"></script>
 <script src="app.js"></script>
 <style>
@@ -40,6 +41,30 @@
   .timer{ font-size:var(--fs-h1); font-weight:800; font-variant-numeric:tabular-nums }
   .rate-row{ display:flex; gap:6px; margin-top:var(--sp-3) }
   .rate-row button{ flex:1 }
+
+  /* Поле для письменного задания. Моноширинный шрифт здесь не нужен: человек
+     пишет письмо, а не код, и пропорциональный текст ближе к тому, как письмо
+     увидит получатель. */
+  .compose{ width:100%; box-sizing:border-box; min-height:190px; resize:vertical;
+    font:inherit; font-size:var(--fs-sm); line-height:1.6; color:var(--text);
+    background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r-sm); padding:var(--sp-3) }
+  .compose:focus{ outline:none; border-color:var(--accent) }
+  .count-row{ display:flex; justify-content:space-between; align-items:center;
+    margin-top:6px; font-size:var(--fs-xs); color:var(--hint) }
+  .count-row .short{ color:var(--warn) }
+  .rule{ display:flex; gap:var(--sp-2); align-items:flex-start;
+    padding:var(--sp-2) 0; border-bottom:1px solid var(--border) }
+  .rule:last-child{ border-bottom:none }
+  .rule .st{ flex:0 0 auto; width:1.25em; text-align:center; font-weight:800 }
+  .rule.done .st{ color:var(--ok) }
+  .rule.miss .st{ color:var(--warn) }
+  .rule .body{ flex:1; min-width:0 }
+  .rule .t{ display:block; font-size:var(--fs-sm); font-weight:600 }
+  .rule .d{ display:block; font-size:var(--fs-xs); color:var(--hint);
+    line-height:1.5; margin-top:2px }
+  .rule .found{ display:block; font-size:var(--fs-xs); color:var(--hint); margin-top:2px }
+  .rule .found b{ color:var(--text) }
 </style>
 </head>
 <body>
@@ -68,6 +93,7 @@
     <button id="clear" class="hidden"><span class="emi plain" data-icon="x"></span></button>
   </div>
 
+  <div class="chip-row" id="dirs" style="margin-bottom:var(--sp-3)"></div>
   <div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)"></div>
   <div class="chip-row" id="cats" style="margin-bottom:var(--sp-3)"></div>
 
@@ -79,7 +105,10 @@
 <!-- ── КАРТОЧКА ЗАПИСИ ── -->
 <section id="detail" class="hidden"></section>
 
-<!-- ── КАРТОЧКИ СЛОВ ── -->
+<!-- ── КАРТОЧКИ: СЛОВА В ОБЕ СТОРОНЫ И ФРАЗЫ ── -->
+<!-- Разметка общая, содержимое лицевой и оборотной стороны собирается в JS:
+     направлений три (узнавание слова, производство слова, фраза), и держать
+     под каждое свой экран значило бы разойтись в поведении. -->
 <section id="study" class="hidden">
   <div style="display:flex; align-items:center; gap:var(--sp-3); margin-bottom:var(--sp-3)">
     <div style="flex:1"><div class="meter"><i id="studyBar" style="width:0%"></i></div></div>
@@ -87,22 +116,15 @@
   </div>
   <div class="card">
     <div class="muted xs" id="studyCat"></div>
-    <div style="font-size:var(--fs-h1); font-weight:800; margin:6px 0 2px" id="studyTerm"></div>
-    <div class="ipa" id="studyIpa"></div>
+    <div id="studyPrompt" style="margin:6px 0 2px"></div>
 
     <div id="studyFront" style="margin-top:var(--sp-3)">
-      <p class="small muted">Произнесите вслух и вспомните значение, потом проверьте себя.</p>
+      <p class="small muted" id="studyTask"></p>
       <button class="btn" id="flipBtn">Показать разбор</button>
     </div>
 
     <div id="studyBack" class="hidden">
-      <p class="small" id="studyMeaning" style="line-height:1.65; margin-top:var(--sp-3)"></p>
-      <div class="explain">
-        <div class="h">Как звучит</div>
-        <div class="small" id="studyHint"></div>
-      </div>
-      <p class="small muted" id="studyWrong" style="margin-top:var(--sp-2)"></p>
-      <p class="small" id="studyExample" style="margin-top:var(--sp-2); line-height:1.6"></p>
+      <div id="studyAnswer" style="margin-top:var(--sp-3)"></div>
       <div class="btn-row" style="margin-top:var(--sp-3)">
         <button class="btn ghost" id="studyFail">Не знал</button>
         <button class="btn" id="studyOk">Знал</button>
@@ -147,13 +169,23 @@
   var study = null;
   var timer = null;
 
+  // Направление тренировки слов. «Узнавание» — вижу английское слово, вспоминаю
+  // значение; «производство» — знаю смысл, достаю английское слово. Второе
+  // нужно, чтобы говорить, и даётся заметно позже, поэтому направления живут в
+  // разных коробках повторения и переключаются явно.
+  var DIR_RECALL = "recall", DIR_PRODUCE = "produce";
+  var dir = DIR_RECALL;
+
   var elList = document.getElementById("list");
   var elDetail = document.getElementById("detail");
   var elStudy = document.getElementById("study");
 
   // ── состояние записи ──
-  function wordState(w) {
-    var s = SRS.state(App.ewid(w.id));
+  function srsWord(w, d) {
+    return (d || dir) === DIR_PRODUCE ? App.ewrid(w.id) : App.ewid(w.id);
+  }
+  function wordState(w, d) {
+    var s = SRS.state(srsWord(w, d));
     var prof = (Progress.profile().english.words || {})[w.id] || {};
     return {
       box: s ? s.box : null,
@@ -167,17 +199,52 @@
     var e = (Progress.profile().english.phrases || {})[p.id] || {};
     return !!e.learned;
   }
+  function phraseState(p) {
+    var s = SRS.state(App.ephid(p.id));
+    return {
+      box: s ? s.box : null,
+      seen: !!s,
+      due: s ? s.due <= Date.now() : true,
+      known: !!(s && s.box >= SRS.LEARNED_BOX),
+      learned: phraseLearned(p),
+    };
+  }
   function drillState(d) {
     var e = (Progress.profile().english.drills || {})[d.id] || {};
     return { done: typeof e.rating === "number", rating: e.rating, count: e.count || 0 };
+  }
+  function writingState(x) {
+    var e = (Progress.profile().english.writing || {})[x.id] || {};
+    return {
+      hasTask: !!x.task,
+      attempts: e.attempts || 0,
+      passed: !!e.passed,
+    };
   }
 
   // ── шапка и фильтры ──
   function renderHead() {
     var st = App.englishStats();
     document.getElementById("sub").textContent =
-      st.phrases + " фраз · " + st.words + " слов · " + st.drills + " заданий · " +
-      st.writing + " шаблонов · " + data.resources.length + " ресурсов";
+      st.phrases + " фраз · " + st.words + " слов · " + st.drills + " заданий вслух · " +
+      st.writingTasks + " заданий на письмо · " + data.resources.length + " ресурсов";
+
+    // Переключатель направления есть только у слов: у остальных разделов одна
+    // сторона практики, и пустая строка чипов сбивала бы с толку.
+    var dirs = document.getElementById("dirs");
+    if (tab === "words") {
+      dirs.classList.remove("hidden");
+      dirs.innerHTML = [
+        [DIR_RECALL, "Узнавать EN → RU"],
+        [DIR_PRODUCE, "Вспоминать RU → EN"],
+      ].map(function (o) {
+        return '<button class="chip' + (dir === o[0] ? " on" : "") +
+          '" data-dir="' + o[0] + '">' + App.esc(o[1]) + "</button>";
+      }).join("");
+    } else {
+      dirs.classList.add("hidden");
+      dirs.innerHTML = "";
+    }
 
     var f = document.getElementById("filters");
     var opts;
@@ -185,11 +252,13 @@
       opts = [["all", "Все"], ["new", "Не изучены"], ["due", "К повтору"],
         ["fav", "Избранное"], ["known", "Освоено"]];
     } else if (tab === "phrases") {
-      opts = [["all", "Все"], ["new", "Не отмечены"], ["learned", "Выучено"]];
+      opts = [["all", "Все"], ["due", "К повтору"], ["new", "Не тренировали"],
+        ["learned", "Выучено"]];
     } else if (tab === "drills") {
       opts = [["all", "Все"], ["new", "Не пройдены"], ["weak", "Оценка ниже 3"]];
     } else if (tab === "writing") {
-      opts = [["all", "Все"], ["template", "Шаблоны"], ["pattern", "Конструкции"]];
+      opts = [["all", "Все"], ["todo", "Не пройдены"], ["done", "Пройдены"],
+        ["template", "С заданием"], ["pattern", "Конструкции"]];
     } else {
       // Ресурсы — внешние ссылки без состояния, фильтровать нечего.
       opts = [["all", "Все"]];
@@ -209,7 +278,10 @@
           App.esc(c) + '">' + App.esc(c) + " · " + n + "</button>";
       }).join("");
 
-    document.getElementById("studyBtn").classList.toggle("hidden", tab !== "words");
+    var sb = document.getElementById("studyBtn");
+    sb.classList.toggle("hidden", tab !== "words" && tab !== "phrases");
+    sb.textContent = tab === "phrases" ? "Тренировать фразы"
+      : dir === DIR_PRODUCE ? "Вспоминать карточками" : "Учить карточками";
   }
 
   // Поиск идёт по видимым полям записи: человек ищет и по-английски, и по-русски.
@@ -220,6 +292,8 @@
       x.en, x.ru, x.when, x.note, x.term, x.meaning, x.ru_hint, x.wrong,
       x.example_en, x.example_ru, x.prompt_en, x.prompt_ru, x.hint, x.title,
       x.why, x.how, x.publisher,
+      // Условие письменного задания — тоже текст, по которому его ищут.
+      x.task ? x.task.brief_ru : "", x.task ? x.task.model_en : "",
       (x.variants || []).join(" "), (x.keywords || []).join(" "),
     ].filter(Boolean).join(" "));
     return hay.indexOf(q) !== -1;
@@ -236,15 +310,28 @@
       else if (filter === "fav") list = list.filter(function (x) { return wordState(x).favorite; });
       else if (filter === "known") list = list.filter(function (x) { return wordState(x).known; });
     } else if (tab === "phrases") {
-      if (filter === "new") list = list.filter(function (x) { return !phraseLearned(x); });
+      if (filter === "new") list = list.filter(function (x) { return !phraseState(x).seen; });
+      else if (filter === "due") list = list.filter(function (x) {
+        var s = phraseState(x); return s.seen && s.due;
+      });
       else if (filter === "learned") list = list.filter(phraseLearned);
     } else if (tab === "drills") {
       if (filter === "new") list = list.filter(function (x) { return !drillState(x).done; });
       else if (filter === "weak") list = list.filter(function (x) {
         var s = drillState(x); return s.done && s.rating < 3;
       });
-    } else if (filter === "template" || filter === "pattern") {
-      list = list.filter(function (x) { return x.kind === filter; });
+    } else if (tab === "writing") {
+      // «С заданием» — это ровно заготовки: у конструкций задания нет, и
+      // фильтровать их по прохождению было бы обещанием, которого экран не
+      // выполняет.
+      if (filter === "template") list = list.filter(function (x) { return !!x.task; });
+      else if (filter === "pattern") list = list.filter(function (x) { return !x.task; });
+      else if (filter === "todo") list = list.filter(function (x) {
+        return x.task && !writingState(x).passed;
+      });
+      else if (filter === "done") list = list.filter(function (x) {
+        return x.task && writingState(x).passed;
+      });
     }
     return list;
   }
@@ -254,21 +341,28 @@
   function row(x) {
     var titleHtml, sub, mark;
     if (tab === "phrases") {
+      var ps = phraseState(x);
       titleHtml = App.esc(x.en); sub = x.ru;
-      mark = phraseLearned(x) ? "выучено" : "";
+      mark = ps.learned ? "выучено" : ps.known ? "освоено"
+        : ps.seen ? "коробка " + ps.box : "";
     } else if (tab === "words") {
       var s = wordState(x);
       titleHtml = App.esc(x.term) +
         (s.favorite ? ' <span class="emi plain fav" data-icon="star"></span>' : "");
-      sub = x.ipa + " · " + x.meaning;
+      // В режиме производства подсказка на месте перевода обесценила бы
+      // упражнение: в списке остаётся только транскрипция.
+      sub = dir === DIR_PRODUCE ? x.ipa : x.ipa + " · " + x.meaning;
       mark = s.known ? "освоено" : s.seen ? "коробка " + s.box : "новое";
     } else if (tab === "drills") {
       var d = drillState(x);
       titleHtml = App.esc(x.prompt_en); sub = x.prompt_ru;
       mark = d.done ? "оценка " + d.rating : x.seconds + " с";
     } else if (tab === "writing") {
-      titleHtml = App.esc(x.title); sub = x.ru;
-      mark = x.kind === "template" ? "шаблон" : "конструкция";
+      var ws = writingState(x);
+      titleHtml = App.esc(x.title);
+      sub = ws.hasTask ? x.task.brief_ru : x.ru;
+      mark = !ws.hasTask ? "конструкция" : ws.passed ? "пройдено"
+        : ws.attempts ? "попыток " + ws.attempts : "задание";
     } else {
       titleHtml = App.esc(x.title); sub = x.why;
       mark = "уровень " + x.level;
@@ -338,10 +432,13 @@
   }
 
   function phraseCard(x) {
+    var st = phraseState(x);
     var parts = [];
-    parts.push('<div class="hero"><span class="ic-tile blue" data-icon="message-square"></span>' +
+    parts.push('<div class="hero"><span class="ic-tile ' + (st.known ? "green" : "blue") +
+      '" data-icon="message-square"></span>' +
       '<div class="body"><h1>' + App.esc(x.category) + "</h1>" +
-      '<div class="muted small">Фраза · уровень ' + x.level + "</div></div></div>");
+      '<div class="muted small">Фраза · уровень ' + x.level +
+      (st.seen ? " · коробка " + st.box : "") + "</div></div></div>");
     parts.push('<div class="card"><div class="en-line">' + App.esc(x.en) + "</div>" +
       '<div class="ru-line">' + App.esc(x.ru) + "</div></div>");
     parts.push('<div class="card"><div class="h3">Когда говорить</div>' +
@@ -357,7 +454,17 @@
             App.esc(v) + "</div>";
         }).join("") + "</div>");
     }
-    parts.push('<div class="btn-row"><button class="btn" id="pLearn">' +
+    // Карточка остаётся справочной — фразу сюда приходят и просто посмотреть.
+    // Проверка себя вынесена отдельным блоком: она идёт в коробку повторения,
+    // поэтому забытая фраза вернётся сама, без ручной отметки.
+    parts.push('<div class="card"><div class="h3">Проверить себя</div>' +
+      '<p class="small muted" style="line-height:1.6">Закройте фразу, вспомните её ' +
+      'по ситуации выше и произнесите вслух. Отметьте честно: оценка решает, ' +
+      "когда фраза вернётся на повтор.</p>" +
+      '<div class="btn-row" style="margin-top:var(--sp-2)">' +
+      '<button class="btn ghost" id="pFail">Не вспомнил</button>' +
+      '<button class="btn" id="pOk">Вспомнил</button></div></div>');
+    parts.push('<div class="btn-row"><button class="btn ghost" id="pLearn">' +
       (phraseLearned(x) ? "Убрать отметку" : "Выучил(а)") + "</button>" +
       '<button class="btn ghost" id="pCopy">Скопировать</button></div>');
     return parts;
@@ -368,7 +475,8 @@
     var parts = [];
     parts.push('<div class="hero"><span class="ic-tile ' + (s.known ? "green" : "blue") +
       '" data-icon="globe"></span><div class="body"><h1>' + App.esc(x.term) + "</h1>" +
-      '<div class="muted small">' + App.esc(x.category) +
+      '<div class="muted small">' + App.esc(x.category) + " · " +
+      (dir === DIR_PRODUCE ? "RU → EN" : "EN → RU") +
       (s.seen ? " · коробка " + s.box : " · не изучено") + "</div></div></div>");
     parts.push('<div class="card"><div class="ipa" style="font-size:var(--fs-body)">' +
       App.esc(x.ipa) + "</div>" +
@@ -386,7 +494,10 @@
         '" target="_blank" rel="noopener noreferrer">Cambridge Dictionary</a></div></div>');
     }
     parts.push('<p class="xs muted">Слово засчитывается после проверки, а не после ' +
-      "открытия карточки.</p>" +
+      "открытия карточки. Отметка идёт в то направление, которое выбрано выше: " +
+      (dir === DIR_PRODUCE
+        ? "«вспоминать RU → EN»."
+        : "«узнавать EN → RU».") + "</p>" +
       '<div class="btn-row"><button class="btn ghost" id="wFail">Не знал</button>' +
       '<button class="btn" id="wOk">Знал</button></div>' +
       '<button class="btn ghost" id="wFav" style="margin-top:var(--sp-2)">' +
@@ -449,20 +560,116 @@
   }
 
   function writingCard(x) {
+    var st = writingState(x);
     var parts = [];
-    parts.push('<div class="hero"><span class="ic-tile cyan" data-icon="file-text"></span>' +
+    parts.push('<div class="hero"><span class="ic-tile ' + (st.passed ? "green" : "cyan") +
+      '" data-icon="file-text"></span>' +
       '<div class="body"><h1>' + App.esc(x.title) + "</h1>" +
       '<div class="muted small">' + App.esc(x.category) + " · " +
-      (x.kind === "template" ? "шаблон" : "конструкция") + "</div></div></div>");
-    parts.push('<div class="card"><div class="snippet">' + App.esc(x.en) + "</div>" +
-      '<button class="btn ghost" id="sCopy">Скопировать</button></div>');
-    parts.push('<div class="card"><div class="h3">По-русски</div>' +
-      '<p class="small" style="line-height:1.65">' + App.esc(x.ru) + "</p></div>");
-    if (x.note) {
-      parts.push('<div class="explain"><div class="h">Грабли</div>' +
-        '<div class="small">' + App.esc(x.note) + "</div></div>");
+      (st.hasTask ? (st.passed ? "задание пройдено" : "задание") : "конструкция") +
+      "</div></div></div>");
+
+    // Конструкция — справочная запись: её узнают в чужом тексте, а не пишут по
+    // заданию. Экран для неё остаётся прежним.
+    if (!st.hasTask) {
+      parts.push('<div class="card"><div class="snippet">' + App.esc(x.en) + "</div>" +
+        '<button class="btn ghost" id="sCopy">Скопировать</button></div>');
+      parts.push('<div class="card"><div class="h3">По-русски</div>' +
+        '<p class="small" style="line-height:1.65">' + App.esc(x.ru) + "</p></div>");
+      if (x.note) {
+        parts.push('<div class="explain"><div class="h">Грабли</div>' +
+          '<div class="small">' + App.esc(x.note) + "</div></div>");
+      }
+      return parts;
     }
+
+    var t = x.task;
+    parts.push('<div class="card"><div class="h3">Задание</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(t.brief_ru) + "</p>" +
+      '<p class="xs muted" style="margin-top:var(--sp-2)">Пишите по-английски, ' +
+      "минимум " + t.min_words + " " + App.plural(t.min_words, "слово", "слова", "слов") +
+      ". Заготовку и эталон лучше открыть уже после своей попытки.</p></div>");
+
+    // Чек-лист спрятан: сперва человек пробует сам. Открытый заранее список
+    // превращает задание в заполнение бланка.
+    parts.push('<div class="card"><button class="btn ghost" id="wRules">' +
+      "Показать, что должно быть в письме</button>" +
+      '<div id="wRulesBox" class="hidden" style="margin-top:var(--sp-2)">' +
+      t.must.map(function (r) {
+        return '<div class="rule"><span class="st">·</span><span class="body">' +
+          '<span class="t">' + App.esc(r.label) + "</span>" +
+          '<span class="d">' + App.esc(r.why) + "</span></span></div>";
+      }).join("") + "</div></div>");
+
+    parts.push('<div class="card"><div class="h3">Ваш текст</div>' +
+      '<textarea class="compose" id="wText" spellcheck="true" autocapitalize="sentences" ' +
+      'placeholder="Напишите письмо по условию выше"></textarea>' +
+      '<div class="count-row"><span id="wCount">0 слов</span>' +
+      '<span class="muted">минимум ' + t.min_words + "</span></div>" +
+      '<button class="btn" id="wCheck" style="margin-top:var(--sp-2)">Проверить</button>' +
+      '<p class="xs muted" style="margin-top:var(--sp-2)">Проверка ищет обязательные ' +
+      "конструкции жанра, а не оценивает язык целиком. Текст остаётся на этом " +
+      "устройстве и никуда не отправляется.</p></div>");
+
+    parts.push('<div id="wResult"></div>');
+    parts.push('<div id="wModelBox"><button class="btn ghost" id="wShow">' +
+      "Показать эталон и заготовку</button></div>");
+    parts.push('<div id="wModel" class="hidden">' +
+      '<div class="card"><div class="h3">Эталонный ответ</div>' +
+      '<div class="snippet">' + App.esc(t.model_en) + "</div></div>" +
+      '<div class="card"><div class="h3">Заготовка на будущее</div>' +
+      '<div class="snippet">' + App.esc(x.en) + "</div>" +
+      '<button class="btn ghost" id="sCopy">Скопировать заготовку</button></div>' +
+      '<div class="card"><div class="h3">По-русски</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.ru) + "</p></div>" +
+      (x.note ? '<div class="explain"><div class="h">Грабли</div>' +
+        '<div class="small">' + App.esc(x.note) + "</div></div>" : "") +
+      "</div>");
     return parts;
+  }
+
+  // Разбор попытки. Показываются и выполненные правила тоже: человеку важно
+  // видеть, что засчиталось, а не только чего не хватает.
+  function renderWritingResult(x, res) {
+    var t = x.task;
+    var head = res.passed
+      ? '<div class="explain"><div class="h">Задание выполнено</div><div class="small">' +
+        "Все обязательные части на месте, объём набран. Сверьтесь с эталоном: " +
+        "он показывает не единственно верный текст, а привычный для жанра тон.</div></div>"
+      : '<div class="explain"><div class="h">Ещё не всё</div><div class="small">' +
+        "Ниже видно, чего не хватает. Дополните текст и проверьте снова — " +
+        "попытки не ограничены.</div></div>";
+
+    var rows = res.must.map(function (r, i) {
+      return '<div class="rule ' + (r.ok ? "done" : "miss") + '">' +
+        '<span class="st">' + (r.ok ? "✓" : "✗") + "</span>" +
+        '<span class="body"><span class="t">' + App.esc(r.label) + "</span>" +
+        (r.ok
+          ? '<span class="found">нашлось: <b>' + App.esc(r.matched) + "</b></span>"
+          : '<span class="d">' + App.esc(t.must[i].why) + "</span>") +
+        "</span></div>";
+    }).join("");
+
+    var avoidRows = res.avoid.filter(function (r) { return !r.ok; }).map(function (r) {
+      return '<div class="rule miss"><span class="st">!</span>' +
+        '<span class="body"><span class="t">' + App.esc(r.label) +
+        " · " + App.esc(r.matched) + "</span>" +
+        '<span class="d">' + App.esc(r.why) + "</span></span></div>";
+    }).join("");
+
+    var words = '<div class="rule ' + (res.enough ? "done" : "miss") + '">' +
+      '<span class="st">' + (res.enough ? "✓" : "✗") + "</span>" +
+      '<span class="body"><span class="t">Объём: ' + res.words + " из " +
+      res.minWords + "</span>" +
+      (res.enough ? "" : '<span class="d">Короткое письмо обычно теряет либо ' +
+        "контекст, либо вежливую рамку. Разверните то, чего не хватает по " +
+        "списку выше.</span>") + "</span></div>";
+
+    return head +
+      '<div class="card"><div class="h3">Обязательные части · ' +
+      res.mustDone + " из " + res.mustTotal + "</div>" + rows + words + "</div>" +
+      (avoidRows ? '<div class="card"><div class="h3">Чего здесь быть не должно</div>' +
+        avoidRows + "</div>" : "");
   }
 
   // Копирование через API буфера обмена, с запасным вариантом: в некоторых
@@ -503,6 +710,12 @@
       });
       document.getElementById("pCopy").addEventListener("click", function () {
         copyText(x.en);
+      });
+      document.getElementById("pOk").addEventListener("click", function () {
+        checkPhrase(x.id, true);
+      });
+      document.getElementById("pFail").addEventListener("click", function () {
+        checkPhrase(x.id, false);
       });
       return;
     }
@@ -554,13 +767,60 @@
       });
       return;
     }
+    // ── письмо ──
     document.getElementById("sCopy").addEventListener("click", function () {
       copyText(x.en);
+    });
+    if (!x.task) return;
+
+    var ta = document.getElementById("wText");
+    var count = document.getElementById("wCount");
+    var result = document.getElementById("wResult");
+
+    function refreshCount() {
+      var n = Writing.countWords(ta.value);
+      count.textContent = n + " " + App.plural(n, "слово", "слова", "слов");
+      count.className = n < x.task.min_words ? "short" : "";
+    }
+    ta.addEventListener("input", refreshCount);
+    refreshCount();
+
+    document.getElementById("wRules").addEventListener("click", function () {
+      var box = document.getElementById("wRulesBox");
+      var shown = box.classList.toggle("hidden");
+      this.textContent = shown ? "Показать, что должно быть в письме" : "Скрыть список";
+    });
+
+    document.getElementById("wCheck").addEventListener("click", function () {
+      var text = ta.value;
+      // Пустое поле — это не попытка: засчитывать её в статистику значило бы
+      // показывать работу там, где её не было.
+      if (!Writing.countWords(text)) {
+        toast("Сначала напишите текст");
+        return;
+      }
+      var res = Writing.check(text, x.task);
+      result.innerHTML = renderWritingResult(x, res);
+      App.recordWritingAttempt(x.id, res.passed);
+      if (window.haptic) haptic(res.passed ? "success" : "warning");
+      result.scrollIntoView({ block: "start" });
+    });
+
+    document.getElementById("wShow").addEventListener("click", function () {
+      document.getElementById("wModelBox").classList.add("hidden");
+      document.getElementById("wModel").classList.remove("hidden");
     });
   }
 
   function checkWord(id, ok) {
-    App.recordWordCheck(id, ok);
+    App.recordWordCheck(id, ok, dir);
+    if (window.haptic) haptic(ok ? "success" : "warning");
+    toast(ok ? "Засчитано" : "Вернём на повтор скоро");
+    close();
+  }
+
+  function checkPhrase(id, ok) {
+    App.recordPhraseCheck(id, ok);
     if (window.haptic) haptic(ok ? "success" : "warning");
     toast(ok ? "Засчитано" : "Вернём на повтор скоро");
     close();
@@ -579,17 +839,27 @@
     window.scrollTo(0, 0);
   }
 
-  // ── карточки слов ──
+  // ── карточки: слова в обе стороны и фразы ──
+  //
+  // Очередь собирается из того, что уже отфильтровано на экране: человек видел
+  // список и запустил тренировку именно по нему. Идентификаторы SRS сопоставлены
+  // с записями через карту, а не отрезанием префикса по длине: префиксы «ew» и
+  // «ewr» отличаются одним символом, и арифметика по длине здесь тихо смешала
+  // бы два направления.
   function startStudy() {
+    var kind = tab === "phrases" ? "phrases" : "words";
     var pool = filtered();
-    if (!pool.length) pool = data.words;
-    var ids = SRS.pickDue(pool.map(function (w) { return App.ewid(w.id); }), 20);
-    var list = ids.map(function (id) {
-      return App.byId(data.words, id.slice(3));
-    }).filter(Boolean);
+    if (!pool.length) pool = data[kind];
+
+    var byId = {};
+    pool.forEach(function (x) {
+      byId[kind === "phrases" ? App.ephid(x.id) : srsWord(x)] = x;
+    });
+    var ids = SRS.pickDue(Object.keys(byId), 20);
+    var list = ids.map(function (id) { return byId[id]; }).filter(Boolean);
     if (!list.length) { toast("Нечего повторять"); return; }
 
-    study = { list: list, i: 0, ok: 0 };
+    study = { kind: kind, dir: dir, list: list, i: 0, ok: 0 };
     if (window.setBusy) setBusy(true);
     elList.classList.add("hidden");
     elDetail.classList.add("hidden");
@@ -598,26 +868,69 @@
   }
 
   function renderStudy() {
-    var w = study.list[study.i];
+    var x = study.list[study.i];
     document.getElementById("studyCounter").textContent =
       (study.i + 1) + "/" + study.list.length;
     document.getElementById("studyBar").style.width =
       Math.round(study.i / study.list.length * 100) + "%";
-    document.getElementById("studyCat").textContent = w.category;
-    document.getElementById("studyTerm").textContent = w.term;
-    document.getElementById("studyIpa").textContent = w.ipa;
-    document.getElementById("studyMeaning").textContent = w.meaning;
-    document.getElementById("studyHint").textContent = "Примерно так: " + w.ru_hint;
-    document.getElementById("studyWrong").textContent = "Неверно: " + w.wrong;
-    document.getElementById("studyExample").textContent = w.example_en;
+    document.getElementById("studyCat").textContent = x.category;
+
+    var prompt, task, answer;
+    if (study.kind === "phrases") {
+      // Спрашиваем ситуацией, а не переводом: на собеседовании человек
+      // вспоминает фразу по обстоятельствам, а не по русской строке.
+      prompt = '<div style="font-size:var(--fs-body); font-weight:700; line-height:1.5">' +
+        App.esc(x.when) + "</div>" +
+        '<div class="ru-line">Смысл: ' + App.esc(x.ru) + "</div>";
+      task = "Произнесите английскую фразу вслух, потом проверьте себя.";
+      answer = '<div class="en-line">' + App.esc(x.en) + "</div>" +
+        ((x.variants || []).length
+          ? '<div class="explain" style="margin-top:var(--sp-3)">' +
+            '<div class="h">Ещё варианты</div><div class="small">' +
+            x.variants.map(App.esc).join("<br>") + "</div></div>"
+          : "") +
+        (x.note ? '<p class="small muted" style="margin-top:var(--sp-2); line-height:1.6">' +
+          App.esc(x.note) + "</p>" : "");
+    } else if (study.dir === DIR_PRODUCE) {
+      prompt = '<div style="font-size:var(--fs-h2); font-weight:800; line-height:1.4">' +
+        App.esc(x.meaning) + "</div>";
+      task = "Назовите английское слово вслух, потом проверьте себя.";
+      answer = '<div style="font-size:var(--fs-h1); font-weight:800">' +
+        App.esc(x.term) + "</div>" +
+        '<div class="ipa">' + App.esc(x.ipa) + "</div>" +
+        '<div class="explain" style="margin-top:var(--sp-3)"><div class="h">Как звучит</div>' +
+        '<div class="small">Примерно так: ' + App.esc(x.ru_hint) + "</div></div>" +
+        '<p class="small muted" style="margin-top:var(--sp-2)">Неверно: ' +
+        App.esc(x.wrong) + "</p>" +
+        '<p class="small" style="margin-top:var(--sp-2); line-height:1.6">' +
+        App.esc(x.example_en) + "</p>";
+    } else {
+      prompt = '<div style="font-size:var(--fs-h1); font-weight:800">' +
+        App.esc(x.term) + "</div>" +
+        '<div class="ipa">' + App.esc(x.ipa) + "</div>";
+      task = "Произнесите вслух и вспомните значение, потом проверьте себя.";
+      answer = '<p class="small" style="line-height:1.65">' + App.esc(x.meaning) + "</p>" +
+        '<div class="explain"><div class="h">Как звучит</div>' +
+        '<div class="small">Примерно так: ' + App.esc(x.ru_hint) + "</div></div>" +
+        '<p class="small muted" style="margin-top:var(--sp-2)">Неверно: ' +
+        App.esc(x.wrong) + "</p>" +
+        '<p class="small" style="margin-top:var(--sp-2); line-height:1.6">' +
+        App.esc(x.example_en) + "</p>";
+    }
+
+    document.getElementById("studyPrompt").innerHTML = prompt;
+    document.getElementById("studyTask").textContent = task;
+    document.getElementById("studyAnswer").innerHTML = answer;
     document.getElementById("studyFront").classList.remove("hidden");
     document.getElementById("studyBack").classList.add("hidden");
+    Icons.hydrate(elStudy);
     window.scrollTo(0, 0);
   }
 
   function studyAnswer(ok) {
-    var w = study.list[study.i];
-    App.recordWordCheck(w.id, ok);
+    var x = study.list[study.i];
+    if (study.kind === "phrases") App.recordPhraseCheck(x.id, ok);
+    else App.recordWordCheck(x.id, ok, study.dir);
     if (ok) study.ok++;
     if (window.haptic) haptic(ok ? "success" : "warning");
     study.i++;
@@ -664,6 +977,15 @@
     syncTabChips();
     renderList();
     window.scrollTo(0, 0);
+  });
+
+  document.getElementById("dirs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-dir]");
+    if (!b) return;
+    dir = b.getAttribute("data-dir");
+    // Фильтры «не изучены», «к повтору» и «освоено» считаются по коробке
+    // ВЫБРАННОГО направления, поэтому список пересобирается целиком.
+    renderList();
   });
 
   document.getElementById("filters").addEventListener("click", function (e) {

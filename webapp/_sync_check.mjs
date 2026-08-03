@@ -138,7 +138,8 @@ export const FIXTURES = {
         english: {
           words: { "ev-queue": { favorite: true, checked: 2 } },
           drills: { "ed-self-001": { rating: 2, count: 1, ts: 10 } },
-          phrases: { "ph-open-001": { learned: true } },
+          phrases: { "ph-open-001": { learned: true, checked: 4 } },
+          writing: { "ew-mail-001": { attempts: 2, passed: false, ts: 10 } },
         },
       },
       {
@@ -157,7 +158,14 @@ export const FIXTURES = {
         english: {
           words: { "ev-queue": { favorite: false, checked: 5 } },
           drills: { "ed-self-001": { rating: 4, count: 2, ts: 20 } },
-          phrases: { "ph-open-001": { learned: false }, "ph-self-001": { learned: true } },
+          phrases: {
+            "ph-open-001": { learned: false, checked: 1 },
+            "ph-self-001": { learned: true },
+          },
+          writing: {
+            "ew-mail-001": { attempts: 1, passed: true, ts: 30 },
+            "ew-ticket-001": { attempts: 1, passed: false, ts: 5 },
+          },
         },
       },
     ],
@@ -182,7 +190,8 @@ export const FIXTURES = {
         english: {
           words: { w: { favorite: true, checked: 1 } },
           drills: { d: { rating: 1, count: 1, ts: 1 } },
-          phrases: { ph: { learned: true } },
+          phrases: { ph: { learned: true, checked: 1 } },
+          writing: { wr: { attempts: 1, passed: true, ts: 1 } },
         },
       },
       {},
@@ -325,8 +334,16 @@ if (process.argv.includes("--dump")) {
     "английский: избранное по ИЛИ, число проверок — максимум");
   eq(p.english.drills["ed-self-001"], { rating: 4, count: 2, ts: 20 },
     "английский: самооценка задания — у более свежей записи, счётчик — максимум");
-  eq(p.english.phrases, { "ph-open-001": { learned: true }, "ph-self-001": { learned: true } },
-    "английский: отметка «выучил» не снимается слиянием");
+  eq(p.english.phrases, {
+    "ph-open-001": { learned: true, checked: 4 },
+    "ph-self-001": { learned: true, checked: 0 },
+  }, "английский: отметка «выучил» не снимается слиянием, число практик — максимум");
+  // Выполненное задание не разучивается обратно из-за устройства, на котором
+  // его не открывали: passed по ИЛИ, попытки — максимум.
+  eq(p.english.writing, {
+    "ew-mail-001": { attempts: 2, passed: true, ts: 30 },
+    "ew-ticket-001": { attempts: 1, passed: false, ts: 5 },
+  }, "английский: пройденное письменное задание переживает слияние");
 
   // ── идемпотентность ──
   // Повторное слияние результата с самим собой ничего не меняет: иначе

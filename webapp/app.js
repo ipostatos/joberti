@@ -156,7 +156,11 @@
   function qid(id) { return "q:" + id; }
   function tid(id) { return "t:" + id; }
   function ewid(id) { return "ew:" + id; }
+  // Производство слова (знаю смысл — достаю английское) считается отдельно от
+  // узнавания: это разные навыки, и вторым владеют заметно позже первого.
+  function ewrid(id) { return "ewr:" + id; }
   function edid(id) { return "ed:" + id; }
+  function ephid(id) { return "eph:" + id; }
 
   // ── запись действий ──────────────────────────────────────────────────────
   //
@@ -240,8 +244,13 @@
   // выученные слова за понимание работы. В дневную цель и серию он идёт: это
   // такая же учебная работа, как повторение терминов.
 
-  function recordWordCheck(wordId, correct) {
-    SRS.grade(ewid(wordId), !!correct);
+  // direction: "recall" — вижу слово, вспоминаю значение (по умолчанию);
+  //            "produce" — знаю значение, достаю английское слово.
+  // Направления идут в РАЗНЫЕ коробки повторения, но в один счётчик проверок:
+  // счётчик отвечает на вопрос «сколько раз человек работал со словом», и
+  // делить его по направлениям значило бы усложнять слияние без пользы.
+  function recordWordCheck(wordId, correct, direction) {
+    SRS.grade(direction === "produce" ? ewrid(wordId) : ewid(wordId), !!correct);
     Progress.patchProfile(function (p) {
       var e = p.english.words[wordId] || {};
       e.checked = (e.checked || 0) + 1;
@@ -263,6 +272,9 @@
     return on;
   }
 
+  // Ручная отметка «выучил(а)». Осталась как закладка самого человека и живёт
+  // отдельно от коробки повторения: отметка отражает намерение, коробка —
+  // проверенный результат.
   function togglePhraseLearned(phraseId) {
     var on = false;
     Progress.patchProfile(function (p) {
@@ -273,6 +285,38 @@
     });
     if (Sync) Sync.schedulePush();
     return on;
+  }
+
+  // Практика фразы: человеку показывают ситуацию по-русски, он произносит
+  // английскую фразу и сверяется с эталоном. Оценка своя — иначе пришлось бы
+  // распознавать речь, — но она идёт в коробку повторения, поэтому забытая
+  // фраза возвращается сама.
+  function recordPhraseCheck(phraseId, correct) {
+    SRS.grade(ephid(phraseId), !!correct);
+    Progress.patchProfile(function (p) {
+      var e = p.english.phrases[phraseId] || {};
+      e.checked = (e.checked || 0) + 1;
+      p.english.phrases[phraseId] = e;
+    });
+    Progress.recordAction(1);
+    if (Sync) Sync.schedulePush();
+  }
+
+  // Письменное задание. В отличие от остального английского, здесь оценка
+  // объективная: проверка ищет обязательные конструкции жанра в тексте, который
+  // человек написал сам. Поэтому хранится не оценка, а факт — прошло или нет —
+  // и число попыток. Текст письма НЕ сохраняется и не уходит на сервер: это
+  // черновик человека, приложению он не нужен.
+  function recordWritingAttempt(writingId, passed) {
+    Progress.patchProfile(function (p) {
+      var e = p.english.writing[writingId] || { attempts: 0 };
+      e.attempts = (e.attempts || 0) + 1;
+      e.passed = !!e.passed || !!passed;
+      e.ts = Date.now();
+      p.english.writing[writingId] = e;
+    });
+    Progress.recordAction(1);
+    if (Sync) Sync.schedulePush();
   }
 
   // rating: 0..4 по рубрике самооценки, как в mock interview: последняя
@@ -296,15 +340,25 @@
   function englishStats() {
     var p = Progress.profile();
     var map = SRS.stateMap();
-    var w = words(), d = drills(), ph = phrases();
+    var w = words(), d = drills(), ph = phrases(), wr = writings();
     var started = 0, learned = 0, due = 0;
+    // Производство считается отдельно: именно оно отражает готовность говорить,
+    // и именно оно отстаёт. Складывать его с узнаванием — прятать разрыв.
+    var prodStarted = 0, prodLearned = 0, prodDue = 0;
     var now = Date.now();
     w.forEach(function (x) {
       var s = map[ewid(x.id)];
-      if (!s) return;
-      started++;
-      if (s.box >= SRS.LEARNED_BOX) learned++;
-      if (s.due <= now) due++;
+      if (s) {
+        started++;
+        if (s.box >= SRS.LEARNED_BOX) learned++;
+        if (s.due <= now) due++;
+      }
+      var r = map[ewrid(x.id)];
+      if (r) {
+        prodStarted++;
+        if (r.box >= SRS.LEARNED_BOX) prodLearned++;
+        if (r.due <= now) prodDue++;
+      }
     });
     var drillsDone = d.filter(function (x) {
       var e = (p.english.drills || {})[x.id];
@@ -314,11 +368,26 @@
       var e = (p.english.phrases || {})[x.id];
       return e && e.learned;
     }).length;
+    var phrasesPracticed = 0, phrasesDue = 0;
+    ph.forEach(function (x) {
+      var s = map[ephid(x.id)];
+      if (!s) return;
+      phrasesPracticed++;
+      if (s.due <= now) phrasesDue++;
+    });
+    var withTask = wr.filter(function (x) { return !!x.task; });
+    var writingPassed = withTask.filter(function (x) {
+      var e = (p.english.writing || {})[x.id];
+      return e && e.passed;
+    }).length;
     return {
       words: w.length, wordsStarted: started, wordsLearned: learned, wordsDue: due,
+      wordsProdStarted: prodStarted, wordsProdLearned: prodLearned, wordsProdDue: prodDue,
       drills: d.length, drillsDone: drillsDone,
       phrases: ph.length, phrasesLearned: phrasesLearned,
-      writing: writings().length,
+      phrasesPracticed: phrasesPracticed, phrasesDue: phrasesDue,
+      writing: wr.length,
+      writingTasks: withTask.length, writingPassed: writingPassed,
     };
   }
 
@@ -760,9 +829,10 @@
     sourceById: sourceById,
     phrases: phrases, words: words, drills: drills, writings: writings,
     engResources: engResources,
-    qid: qid, tid: tid, ewid: ewid, edid: edid,
+    qid: qid, tid: tid, ewid: ewid, ewrid: ewrid, edid: edid, ephid: ephid,
     recordWordCheck: recordWordCheck, toggleWordFavorite: toggleWordFavorite,
-    togglePhraseLearned: togglePhraseLearned, recordDrill: recordDrill,
+    togglePhraseLearned: togglePhraseLearned, recordPhraseCheck: recordPhraseCheck,
+    recordDrill: recordDrill, recordWritingAttempt: recordWritingAttempt,
     englishStats: englishStats,
     recordQuizAnswers: recordQuizAnswers, recordQuizResult: recordQuizResult,
     recordTermCheck: recordTermCheck, toggleTermFavorite: toggleTermFavorite,

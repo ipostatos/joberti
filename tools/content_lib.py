@@ -208,3 +208,87 @@ _PUNCT = str.maketrans({ch: " " for ch in "«»\"'`.,;:!?()[]{}—–-"})
 
 def normalize_text(s: str) -> str:
     return " ".join(str(s).lower().translate(_PUNCT).split())
+
+
+# ── проверка письменного задания ───────────────────────────────────────────
+#
+# Зеркало webapp/writing.js. Здесь оно нужно затем, чтобы валидатор мог
+# убедиться: эталонный ответ сам проходит собственный чек-лист. Правило,
+# написанное так, что под него не подходит даже образец, — сломанное задание,
+# и увидеть это глазами в тридцати конструкциях невозможно.
+#
+# Расхождение двух реализаций ловит паритет в tests/test_writing.py.
+
+_APOSTROPHES = "’ʼ´`"
+
+
+def writing_norm(text) -> str:
+    """Нормализовать текст: только a-z, 0-9 и апостроф, в обрамляющих пробелах.
+
+    Обрамление пробелами даёт границы слов без регулярных выражений: «at» не
+    найдётся в «that». Кириллица становится пробелами — письмо по-русски
+    обязано не пройти проверку английского текста.
+    """
+    if text is None:
+        return "  "
+    out = []
+    for ch in str(text).lower():
+        if ch in _APOSTROPHES:
+            out.append("'")
+        elif ("a" <= ch <= "z") or ("0" <= ch <= "9") or ch == "'":
+            out.append(ch)
+        else:
+            out.append(" ")
+    return " " + " ".join("".join(out).split()) + " "
+
+
+def writing_count_words(text) -> int:
+    s = writing_norm(text).strip()
+    return len(s.split(" ")) if s else 0
+
+
+def writing_hit(text, variants):
+    """Первый вариант из variants, найденный в тексте, иначе None."""
+    hay = writing_norm(text)
+    for v in variants or []:
+        needle = writing_norm(v)
+        if needle == "  ":
+            continue
+        if needle in hay:
+            return v
+    return None
+
+
+def writing_check(text, task) -> dict:
+    task = task or {}
+    words = writing_count_words(text)
+    min_words = task.get("min_words") if isinstance(task.get("min_words"), int) else 0
+
+    must = [
+        {"label": r.get("label"), "why": r.get("why"),
+         "ok": writing_hit(text, r.get("any")) is not None,
+         "matched": writing_hit(text, r.get("any"))}
+        for r in task.get("must") or []
+    ]
+    avoid = [
+        {"label": r.get("label"), "why": r.get("why"),
+         "ok": writing_hit(text, r.get("any")) is None,
+         "matched": writing_hit(text, r.get("any"))}
+        for r in task.get("avoid") or []
+    ]
+
+    must_left = sum(1 for r in must if not r["ok"])
+    avoid_hit = sum(1 for r in avoid if not r["ok"])
+    enough = words >= min_words
+
+    return {
+        "words": words,
+        "minWords": min_words,
+        "enough": enough,
+        "must": must,
+        "avoid": avoid,
+        "mustDone": len(must) - must_left,
+        "mustTotal": len(must),
+        "avoidHit": avoid_hit,
+        "passed": enough and must_left == 0 and avoid_hit == 0,
+    }

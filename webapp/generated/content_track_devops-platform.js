@@ -2485,6 +2485,65 @@
    "level":1,
    "note":"Отправляйте в течение суток и не переписывайте всё интервью заново: три абзаца — потолок.",
    "ru":"Короткое письмо в тот же день. Одна мысль, которую не успели сказать, и предложение прислать недостающее.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "dear sir or madam",
+       "to whom it may concern"
+      ],
+      "label":"Безличное обращение",
+      "why":"Вы разговаривали с конкретным человеком час назад — безличная формула здесь звучит как ошибка адресом."
+     }
+    ],
+    "brief_ru":"Сегодня вы прошли собеседование в компании Nordwind. Разговаривали с тимлидом Anna Kowalska, обсуждали планы команды по переезду на новую систему сборки. На вопрос про Git вы ответили скомканно и забыли сказать, что полгода вели релизные ветки в учебном проекте. Напишите письмо в тот же день.",
+    "min_words":45,
+    "model_en":"Hi Anna,\n\nThank you for the conversation today — I enjoyed hearing about the team's plans for the new build system.\n\nOne addition to my answer about Git: for six months I maintained release branches in a study project, so merges and conflict resolution are routine for me.\n\nPlease let me know if you need anything else from my side.\n\nBest regards,\nPavel",
+    "must":[
+     {
+      "any":[
+       "hi anna",
+       "hello anna",
+       "dear anna"
+      ],
+      "label":"Обращение по имени",
+      "why":"Вы знаете имя собеседника. Письмо без обращения читается как рассылка."
+     },
+     {
+      "any":[
+       "thank you for",
+       "thanks for"
+      ],
+      "label":"Благодарность за разговор",
+      "why":"С благодарности такое письмо начинается всегда: иначе оно выглядит как продолжение допроса."
+     },
+     {
+      "any":[
+       "git"
+      ],
+      "label":"Возврат к конкретному вопросу",
+      "why":"Ценность письма — в одной мысли, которую не успели сказать. Назовите тему прямо, чтобы читающий вспомнил момент разговора."
+     },
+     {
+      "any":[
+       "let me know",
+       "happy to",
+       "anything else"
+      ],
+      "label":"Предложение дослать недостающее",
+      "why":"Открытая дверь в конце письма стоит дёшево и заметно повышает шанс на ответ."
+     },
+     {
+      "any":[
+       "best regards",
+       "kind regards",
+       "best wishes"
+      ],
+      "label":"Подпись",
+      "why":"Деловое письмо заканчивается подписью, а не обрывается на последней мысли."
+     }
+    ]
+   },
    "title":"Письмо после собеседования",
    "track_ids":[]
   },
@@ -2496,6 +2555,60 @@
    "level":2,
    "note":"Один раз — нормально. Три письма подряд читаются как давление.",
    "ru":"Напоминание через неделю после обещанного срока. Вежливо, без упрёков и без второго напоминания подряд.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "you promised",
+       "as you promised",
+       "i am still waiting",
+       "i'm still waiting",
+       "i have not heard anything"
+      ],
+      "label":"Упрёк за просроченный срок",
+      "why":"Упрёк не ускоряет решение, но запоминается. Срок мог сорваться не по вине рекрутера."
+     }
+    ],
+    "brief_ru":"Двенадцатого марта вы прошли финальное собеседование на позицию QA-инженера в Baltic Software. Recruiter Marek Nowak обещал ответ в течение недели — прошло уже семь дней сверх срока. Вы всё ещё заинтересованы в позиции. Напишите одно вежливое напоминание.",
+    "min_words":40,
+    "model_en":"Hi Marek,\n\nI'm following up on my application for the QA engineer position — we spoke on 12 March.\n\nI'm still very interested in the role and happy to provide any additional information your team may need.\n\nIs there any update you can share?\n\nBest regards,\nPavel",
+    "must":[
+     {
+      "any":[
+       "following up",
+       "follow up",
+       "checking in"
+      ],
+      "label":"Прямо сказано, что это напоминание",
+      "why":"Читающий должен с первой строки понять, о чём речь: у него таких переписок десятки."
+     },
+     {
+      "any":[
+       "qa engineer",
+       "qa"
+      ],
+      "label":"Название позиции",
+      "why":"Рекрутер ведёт несколько вакансий одновременно. Без названия позиции письмо придётся расшифровывать."
+     },
+     {
+      "any":[
+       "still very interested",
+       "still interested",
+       "remain interested"
+      ],
+      "label":"Подтверждение интереса",
+      "why":"Пауза с обеих сторон читается как охлаждение. Скажите прямо, что вы всё ещё в игре."
+     },
+     {
+      "any":[
+       "any update",
+       "an update"
+      ],
+      "label":"Конкретный вопрос про статус",
+      "why":"Письмо без вопроса легко отложить. Вопрос требует ответа."
+     }
+    ]
+   },
    "title":"Напоминание о статусе заявки",
    "track_ids":[]
   },
@@ -2507,6 +2620,58 @@
    "level":2,
    "note":"Предложить конкретные слоты вежливее, чем спросить «когда вам удобно?».",
    "ru":"Причина одной строкой, сразу два варианта времени и извинение за короткий срок.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "when would be convenient",
+       "when is convenient for you",
+       "let me know when you are free",
+       "when are you free"
+      ],
+      "label":"Открытый вопрос вместо вариантов",
+      "why":"«Когда вам удобно?» перекладывает подбор времени на того, кто и так делает вам одолжение."
+     }
+    ],
+    "brief_ru":"Завтра в 10:00 у вас техническое интервью с Ewa Zielińska. Утром выяснилось, что на это же время назначен приём у врача, перенести который нельзя. Вы свободны в четверг после 14:00 и в пятницу весь день. Напишите просьбу перенести встречу.",
+    "min_words":40,
+    "model_en":"Hi Ewa,\n\nSomething came up on my side and I won't be able to join our call tomorrow at 10:00.\n\nWould Thursday after 14:00 or Friday work for you? I'm flexible on both days and happy to take whichever slot suits your calendar.\n\nSorry for the short notice.\n\nBest regards,\nPavel",
+    "must":[
+     {
+      "any":[
+       "i won't be able to",
+       "i will not be able to",
+       "i can't make it",
+       "i cannot make it"
+      ],
+      "label":"Сказано, что не сможете прийти",
+      "why":"Главную новость письма не прячут в середину: с неё начинают."
+     },
+     {
+      "any":[
+       "thursday"
+      ],
+      "label":"Первый вариант времени",
+      "why":"Конкретный слот — это работа, которую вы делаете за собеседника."
+     },
+     {
+      "any":[
+       "friday"
+      ],
+      "label":"Второй вариант времени",
+      "why":"Один вариант ставит человека перед выбором «да или заново». Два варианта почти всегда закрывают вопрос за одно письмо."
+     },
+     {
+      "any":[
+       "sorry for the short notice",
+       "apologies for the short notice",
+       "sorry for the late notice"
+      ],
+      "label":"Извинение за короткий срок",
+      "why":"Перенос накануне ломает чужой календарь. Полстроки извинения снимают неловкость."
+     }
+    ]
+   },
    "title":"Просьба перенести встречу",
    "track_ids":[]
   },
@@ -2518,6 +2683,50 @@
    "level":2,
    "note":"Рынок узкий: те же люди встретятся через год.",
    "ru":"Отказ без подробных объяснений: благодарность, решение, пожелание остаться на связи.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "higher salary",
+       "better salary",
+       "they offered me more",
+       "more money"
+      ],
+      "label":"Сравнение зарплат и чужие цифры",
+      "why":"Называть условия чужого оффера невежливо и закрывает дорогу назад."
+     }
+    ],
+    "brief_ru":"Nordwind прислал вам оффер, но вы приняли предложение другой компании: там работа ближе к инфраструктуре, куда вы и хотите расти. Откажитесь вежливо: без подробностей про вторую компанию и без сравнения зарплат. Письмо адресовано Anna Kowalska.",
+    "min_words":40,
+    "model_en":"Hi Anna,\n\nThank you for the offer and for the time your team invested in the process.\n\nAfter careful thought, I've decided to accept another opportunity that is closer to infrastructure work, which is the direction I want to grow in.\n\nI hope we can stay in touch — it was a pleasure talking to you and the team.\n\nBest regards,\nPavel",
+    "must":[
+     {
+      "any":[
+       "thank you for the offer",
+       "thanks for the offer"
+      ],
+      "label":"Благодарность за оффер",
+      "why":"Команда потратила на вас несколько часов. Благодарность — минимальная плата за это время."
+     },
+     {
+      "any":[
+       "decided to accept another",
+       "accepted another offer",
+       "decided to join another"
+      ],
+      "label":"Ясно сказано о решении",
+      "why":"Отказ, из которого непонятно, отказ ли это, заставляет писать второе письмо."
+     },
+     {
+      "any":[
+       "stay in touch",
+       "keep in touch"
+      ],
+      "label":"Пожелание остаться на связи",
+      "why":"Рынок узкий: те же люди встретятся через год, иногда по другую сторону стола."
+     }
+    ]
+   },
    "title":"Вежливый отказ от оффера",
    "track_ids":[]
   },
@@ -2529,6 +2738,59 @@
    "level":3,
    "note":"Не задавайте десять вопросов сразу: выберите те, что реально влияют на решение.",
    "ru":"Благодарность, два конкретных вопроса и срок ответа. Просить время — нормально.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "otherwise i will decline",
+       "or i will decline",
+       "final offer"
+      ],
+      "label":"Ультиматум",
+      "why":"Условие в форме ультиматума на этапе уточнений превращает разговор в торг раньше времени."
+     }
+    ],
+    "brief_ru":"Пришёл оффер на позицию DevOps-инженера от Anna Kowalska. В письме не указана вилка для этого грейда и не сказано, полностью ли удалённая работа. Вам нужно время на решение — ответ хотите дать в среду. Напишите письмо с уточнениями.",
+    "min_words":45,
+    "model_en":"Hi Anna,\n\nThank you for the offer — I'm excited about the DevOps engineer role and about the team.\n\nBefore I confirm, could you clarify two things: the salary range for this level, and whether the position is fully remote or requires office days?\n\nCould I have until Wednesday to give you my final answer?\n\nBest regards,\nPavel",
+    "must":[
+     {
+      "any":[
+       "thank you for the offer",
+       "thanks for the offer"
+      ],
+      "label":"Благодарность и интерес к роли",
+      "why":"Уточняющие вопросы после благодарности читаются как интерес, без неё — как торг."
+     },
+     {
+      "any":[
+       "salary range",
+       "salary band",
+       "compensation range"
+      ],
+      "label":"Вопрос про вилку",
+      "why":"Спрашивать про деньги до подписания нормально. После подписания — поздно."
+     },
+     {
+      "any":[
+       "fully remote",
+       "remote work",
+       "work remotely"
+      ],
+      "label":"Вопрос про удалённую работу",
+      "why":"Формат работы меняет решение целиком, поэтому это второй обязательный вопрос, а не десятый."
+     },
+     {
+      "any":[
+       "until wednesday",
+       "by wednesday",
+       "have until"
+      ],
+      "label":"Просьба о сроке ответа",
+      "why":"Названный срок снимает тревогу у обеих сторон: работодатель знает, когда ждать, вы не отвечаете второпях."
+     }
+    ]
+   },
    "title":"Уточнение условий оффера",
    "track_ids":[]
   },
@@ -2540,6 +2802,51 @@
    "level":1,
    "note":"«No rush» и конкретный срок снимают напряжение и всё равно двигают дело.",
    "ru":"Вопрос первой строкой, контекст второй, срок третьей. Так на письмо отвечают в тот же день.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "asap",
+       "as soon as possible",
+       "urgent"
+      ],
+      "label":"Ложная срочность",
+      "why":"«Срочно» в несрочном вопросе обесценивает слово: когда срочность настанет по-настоящему, её не заметят."
+     }
+    ],
+    "brief_ru":"Тестовый стенд отдаёт 502 после вчерашнего релиза. Вы уже перезапустили сервис и посмотрели логи Nginx — там таймаут до приложения. Стенд держит коллега Tomek. Дело не срочное, ответ нужен на этой неделе. Напишите короткое письмо.",
+    "min_words":35,
+    "model_en":"Hi Tomek,\n\nQuick question about the test environment: it returns 502 after yesterday's release. Do you know what changed on the host?\n\nContext: I already restarted the service and checked the Nginx logs — they show a timeout to the application, so it looks like the app side rather than the proxy.\n\nNo rush — sometime this week would be great.\n\nThanks,\nPavel",
+    "must":[
+     {
+      "any":[
+       "quick question",
+       "question about"
+      ],
+      "label":"Вопрос в первых строках",
+      "why":"Вопрос, спрятанный в конце третьего абзаца, отвечается через день. Вынесенный вперёд — в тот же час."
+     },
+     {
+      "any":[
+       "i already",
+       "i've already",
+       "i have already",
+       "i tried",
+       "what i tried"
+      ],
+      "label":"Что уже пробовали",
+      "why":"Без этого первым ответом будет «а ты перезапускал?» — и вы потеряете день на круг."
+     },
+     {
+      "any":[
+       "no rush",
+       "not urgent"
+      ],
+      "label":"Честный срок без давления",
+      "why":"Названный некороткий срок снимает напряжение и всё равно двигает дело."
+     }
+    ]
+   },
    "title":"Письмо с вопросом к коллеге",
    "track_ids":[]
   },
@@ -2573,6 +2880,68 @@
    "level":1,
    "note":"«Impact» — часть, которую чаще всего забывают, а именно по ней задачу берут в работу.",
    "ru":"Стандартная структура. Английские заголовки узнают в любой команде, даже если текст пишется на другом языке.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "doesn't work at all",
+       "does not work at all",
+       "completely broken",
+       "nothing works"
+      ],
+      "label":"Оценка вместо фактов",
+      "why":"Эмоциональная оценка не помогает воспроизвести и снижает доверие к остальному тексту."
+     }
+    ],
+    "brief_ru":"В интернет-магазине кнопка оформления заказа ничего не делает, если в корзине больше десяти товаров. Воспроизводится на стенде staging, Chrome 120, Windows 11. Ожидается переход на страницу оплаты; фактически страница остаётся на месте, в консоли ошибка. Затронуты оптовые покупатели — около 5% заказов в день. Есть скриншот и запись из консоли. Напишите баг-репорт по стандартной структуре.",
+    "min_words":45,
+    "model_en":"Summary: the Place order button does nothing when the cart contains more than ten items\nEnvironment: staging, Chrome 120, Windows 11\nSteps to reproduce:\n1. Add eleven items to the cart\n2. Open the cart page\n3. Click Place order\nExpected result: the browser opens the payment page\nActual result: the page stays on the cart and the console logs a TypeError\nImpact: wholesale customers cannot check out — about 5% of daily orders\nAttachments: screenshot, console log",
+    "must":[
+     {
+      "any":[
+       "summary"
+      ],
+      "label":"Заголовок одной строкой",
+      "why":"По этой строке задачу находят в списке из трёхсот. Она должна читаться отдельно от всего остального."
+     },
+     {
+      "any":[
+       "environment"
+      ],
+      "label":"Окружение",
+      "why":"Без версии и стенда разработчик будет воспроизводить у себя и не воспроизведёт."
+     },
+     {
+      "any":[
+       "steps to reproduce"
+      ],
+      "label":"Шаги воспроизведения",
+      "why":"Шаги — единственная часть, которая превращает жалобу в задачу."
+     },
+     {
+      "any":[
+       "expected"
+      ],
+      "label":"Ожидаемый результат",
+      "why":"То, что для вас очевидно, для разработчика — предмет спора. Ожидание нужно записать."
+     },
+     {
+      "any":[
+       "actual"
+      ],
+      "label":"Фактический результат",
+      "why":"Пара «ожидалось / получилось» показывает расхождение без единого лишнего слова."
+     },
+     {
+      "any":[
+       "impact",
+       "affected"
+      ],
+      "label":"Влияние на пользователей",
+      "why":"Часть, которую забывают чаще всего, а именно по ней задачу берут в работу."
+     }
+    ]
+   },
    "title":"Баг-репорт",
    "track_ids":[]
   },
@@ -2617,6 +2986,51 @@
    "level":2,
    "note":"Называйте, что именно вам нужно и зачем — так отвечают быстрее.",
    "ru":"Просьба прислать идентификатор запроса и точное время с часовым поясом.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "more details",
+       "more information",
+       "any details"
+      ],
+      "label":"Расплывчатая просьба",
+      "why":"Общая формулировка перекладывает на пользователя догадку о том, что вам нужно."
+     }
+    ],
+    "brief_ru":"Пользователь написал в поддержку: «платёж не прошёл, а деньги списались». Ни времени, ни номера заказа он не назвал. Чтобы найти операцию в журнале, вам нужен идентификатор запроса и точное время с часовым поясом. Напишите короткий ответ с просьбой.",
+    "min_words":30,
+    "model_en":"Hi,\n\nThanks for reporting this. Could you share the request id and the exact time when it happened, including the time zone? With that I can find the operation in the logs within a few minutes and tell you whether the money was actually captured.\n\nA screenshot of the payment screen would help too.",
+    "must":[
+     {
+      "any":[
+       "request id",
+       "order id",
+       "transaction id"
+      ],
+      "label":"Названо, какой именно идентификатор нужен",
+      "why":"«Пришлите данные» возвращает такой же расплывчатый ответ. Назовите поле, которое ищете."
+     },
+     {
+      "any":[
+       "time zone",
+       "timezone"
+      ],
+      "label":"Время с часовым поясом",
+      "why":"Время без пояса в логах бесполезно: разница в два часа — это тысячи чужих операций."
+     },
+     {
+      "any":[
+       "so i can",
+       "so that i can",
+       "with that i can",
+       "that way i can"
+      ],
+      "label":"Зачем это нужно",
+      "why":"Просьба с объяснением выполняется заметно чаще, чем просьба без него."
+     }
+    ]
+   },
    "title":"Просьба дать данные для разбора",
    "track_ids":[]
   },
@@ -2705,6 +3119,54 @@
    "level":1,
    "note":"«I'm blocked» без имени и предмета не решает проблему: назовите человека и конкретное действие.",
    "ru":"Три части: вчера, сегодня, что мешает. Про блокер говорите конкретно, кто и что должен сделать.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "same as yesterday",
+       "still working on the same"
+      ],
+      "label":"Расплывчатое «то же самое»",
+      "why":"Из такого статуса нельзя понять, застряли вы или просто задача длинная."
+     }
+    ],
+    "brief_ru":"Вчера вы закончили автотесты для формы оплаты. Сегодня разбираете падения ночной сборки. Вас блокирует отсутствие доступа к тестовой базе — нужен доступ на чтение от Kasia. Напишите статус для утреннего созвона.",
+    "min_words":30,
+    "model_en":"Yesterday I finished the automated tests for the payment form. Today I'm working on the failures from the nightly build. I'm blocked on access to the test database — I need read access from Kasia to keep going.",
+    "must":[
+     {
+      "any":[
+       "yesterday"
+      ],
+      "label":"Что было вчера",
+      "why":"Вчерашний результат — единственное подтверждение, что работа движется."
+     },
+     {
+      "any":[
+       "today"
+      ],
+      "label":"Что сегодня",
+      "why":"План на день позволяет команде заметить пересечение раньше, чем оно случится."
+     },
+     {
+      "any":[
+       "i'm blocked",
+       "i am blocked",
+       "blocked on",
+       "blocker"
+      ],
+      "label":"Блокер назван прямо",
+      "why":"Статус без блокера бесполезен: ради блокеров созвон и проводится."
+     },
+     {
+      "any":[
+       "kasia"
+      ],
+      "label":"Названо имя того, кто нужен",
+      "why":"«Меня блокируют» без имени и предмета не решает проблему — оно её только объявляет."
+     }
+    ]
+   },
    "title":"Ежедневный статус",
    "track_ids":[]
   },
@@ -2749,6 +3211,46 @@
    "level":2,
    "note":"Письмо с итогами делает вас человеком, который двигает дело, — это заметно быстро.",
    "ru":"Три пункта после встречи: решение, открытый вопрос, следующий шаг с именем и сроком.",
+   "task":{
+    "brief_ru":"После часовой встречи команда решила перенести релиз на следующий вторник. Не решили, кто дежурит в ночь релиза. Marta до пятницы соберёт список рисков. Напишите письмо с итогами встречи.",
+    "min_words":30,
+    "model_en":"Thanks everyone. Summary:\n- Decision: the release moves to next Tuesday\n- Open question: who is on call during the release night, not decided yet\n- Next step: Marta collects the list of risks by Friday",
+    "must":[
+     {
+      "any":[
+       "decision",
+       "we agreed",
+       "we decided"
+      ],
+      "label":"Принятое решение",
+      "why":"Решение, не записанное после встречи, через неделю вспоминается тремя людьми по-разному."
+     },
+     {
+      "any":[
+       "open question",
+       "still open",
+       "not decided"
+      ],
+      "label":"Открытый вопрос",
+      "why":"Честно названный нерешённый вопрос не даёт ему потеряться до следующей встречи."
+     },
+     {
+      "any":[
+       "next step",
+       "next steps"
+      ],
+      "label":"Следующий шаг",
+      "why":"Без шага письмо остаётся протоколом. С шагом оно двигает работу."
+     },
+     {
+      "any":[
+       "by friday"
+      ],
+      "label":"Срок у следующего шага",
+      "why":"Задача с именем, но без срока — это задача без срока."
+     }
+    ]
+   },
    "title":"Итоги встречи письмом",
    "track_ids":[]
   },
@@ -2760,6 +3262,61 @@
    "level":3,
    "note":"Пишите «investigating», пока причина не подтверждена: ранняя догадка в статусе живёт дольше, чем сам инцидент.",
    "ru":"Стандартная структура сообщения об инциденте. Обещанный срок следующего обновления важнее подробностей.",
+   "task":{
+    "avoid":[
+     {
+      "any":[
+       "root cause is",
+       "the reason is",
+       "caused by"
+      ],
+      "label":"Неподтверждённая причина",
+      "why":"Названная и не подтверждённая причина расходится по чатам и живёт дольше инцидента."
+     }
+    ],
+    "brief_ru":"17:40. Пользователи не могут войти в личный кабинет: сервис авторизации отвечает 500 примерно на половине запросов. Началось после выката в 17:25. Причина пока не подтверждена — вы читаете логи и готовите откат. Напишите сообщение в общий канал.",
+    "min_words":35,
+    "model_en":"Incident: users cannot sign in — the auth service returns 500 on about half of the requests\nImpact: all users of the personal account area, since 17:25 after the release\nStatus: investigating\nCurrent action: we are reading the service logs and preparing a rollback of the 17:25 release\nNext update: in 15 minutes",
+    "must":[
+     {
+      "any":[
+       "incident"
+      ],
+      "label":"Что случилось, одной строкой",
+      "why":"Сообщение об инциденте узнают по первому слову: его ищут в канале через месяц при разборе."
+     },
+     {
+      "any":[
+       "impact"
+      ],
+      "label":"Кого затронуло и с какого времени",
+      "why":"Масштаб определяет, кто присоединится к разбору. Без него подтягиваются либо все, либо никто."
+     },
+     {
+      "any":[
+       "investigating"
+      ],
+      "label":"Статус из стандартного набора",
+      "why":"Пока причина не подтверждена, статус только такой: ранняя догадка живёт дольше самого инцидента."
+     },
+     {
+      "any":[
+       "current action",
+       "we are",
+       "we're"
+      ],
+      "label":"Что делаете прямо сейчас",
+      "why":"Без этой строки в канал придут пятеро с вопросом «что делаем?» и отнимут время у тех, кто чинит."
+     },
+     {
+      "any":[
+       "next update"
+      ],
+      "label":"Когда будет следующее обновление",
+      "why":"Обещанный срок следующего сообщения важнее любых подробностей: он останавливает поток вопросов."
+     }
+    ]
+   },
    "title":"Сообщение об инциденте",
    "track_ids":[
     "devops-platform"

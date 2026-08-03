@@ -167,6 +167,7 @@
       p.english.words = p.english.words || {};
       p.english.drills = p.english.drills || {};
       p.english.phrases = p.english.phrases || {};
+      p.english.writing = p.english.writing || {};
       return p;
     },
     saveProfile: function (p) { write(K_PROFILE, p); return p; },
