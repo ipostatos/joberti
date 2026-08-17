@@ -2080,6 +2080,42 @@
       "type": "course",
       "verified": true,
       "verified_at": "2026-08-01"
+    },
+    {
+      "id": "ga4-sessions",
+      "title": "[GA4] About Analytics sessions",
+      "publisher": "Google Analytics Help",
+      "url": "https://support.google.com/analytics/answer/9191807",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-17"
+    },
+    {
+      "id": "ga4-traffic-source-scopes",
+      "title": "[GA4] Scopes of traffic-source dimensions",
+      "publisher": "Google Analytics Help",
+      "url": "https://support.google.com/analytics/answer/11080067",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-17"
+    },
+    {
+      "id": "google-remove-information",
+      "title": "Remove a page hosted on your site from Google",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/remove-information",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-17"
+    },
+    {
+      "id": "gsc-removals-tool",
+      "title": "Removals and SafeSearch reports tool",
+      "publisher": "Google Search Console Help",
+      "url": "https://support.google.com/webmasters/answer/9689846",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-17"
     }
   ]
 }

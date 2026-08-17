@@ -4072,6 +4072,81 @@
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-08-01"
+    },
+    {
+      "id": "lib-ga4-sessions",
+      "source_ref": "ga4-sessions",
+      "title": "[GA4] About Analytics sessions",
+      "publisher": "Google Analytics Help",
+      "url": "https://support.google.com/analytics/answer/9191807",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "analytics-ga4"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "Первоисточник о том, когда GA4 начинает и заканчивает сессию и что несёт событие session_start. Снимает самый живучий миф про utm-метки и «обрыв сессии».",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-08-17"
+    },
+    {
+      "id": "lib-ga4-traffic-source-scopes",
+      "source_ref": "ga4-traffic-source-scopes",
+      "title": "[GA4] Scopes of traffic-source dimensions",
+      "publisher": "Google Analytics Help",
+      "url": "https://support.google.com/analytics/answer/11080067",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "analytics-ga4",
+        "reporting"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 20,
+      "why_read": "Разводит «первый источник пользователя», источник сессии и атрибуцию события. Без этого разбор искажённой атрибуции превращается в гадание.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-17"
+    },
+    {
+      "id": "lib-remove-information",
+      "source_ref": "google-remove-information",
+      "title": "Remove a page hosted on your site from Google",
+      "publisher": "Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/remove-information",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "technical-seo",
+        "indexing-gsc"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "Разбирает не один «правильный» способ убрать страницу, а сценарии: удаление содержимого, 404 и 410, доступ по паролю, noindex. Именно этого различения ждут на собеседовании.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-08-17"
+    },
+    {
+      "id": "lib-gsc-removals-tool",
+      "source_ref": "gsc-removals-tool",
+      "title": "Removals and SafeSearch reports tool",
+      "publisher": "Google Search Console Help",
+      "url": "https://support.google.com/webmasters/answer/9689846",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "indexing-gsc",
+        "technical-seo"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 10,
+      "why_read": "Инструмент удаления даёт примерно полгода, а не навсегда. Это ровно та деталь, на которой видно, читал ли кандидат документацию.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-17"
     }
   ]
 }
