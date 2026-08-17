@@ -70,7 +70,8 @@
       "language": "en",
       "topic_ids": [
         "search-basics",
-        "content-briefs"
+        "content-briefs",
+        "off-page-seo"
       ],
       "difficulty": 2,
       "estimated_minutes": 25,
@@ -3070,7 +3071,8 @@
       "language": "en",
       "topic_ids": [
         "internal-linking",
-        "technical-seo"
+        "technical-seo",
+        "off-page-seo"
       ],
       "difficulty": 1,
       "estimated_minutes": 15,
@@ -3089,7 +3091,8 @@
       "language": "en",
       "topic_ids": [
         "internal-linking",
-        "on-page"
+        "on-page",
+        "off-page-seo"
       ],
       "difficulty": 2,
       "estimated_minutes": 15,
@@ -4144,6 +4147,24 @@
       "difficulty": 2,
       "estimated_minutes": 10,
       "why_read": "Инструмент удаления даёт примерно полгода, а не навсегда. Это ровно та деталь, на которой видно, читал ли кандидат документацию.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-08-17"
+    },
+    {
+      "id": "lib-disavow-links",
+      "source_ref": "gsc-disavow-links",
+      "title": "Disavow links to your site",
+      "publisher": "Google Search Console Help",
+      "url": "https://support.google.com/webmasters/answer/2648487",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "off-page-seo"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 15,
+      "why_read": "Google прямо пишет, что большинству сайтов инструмент не нужен и что он для случаев с ручными мерами. Хорошая прививка от совета «давайте отклоним все плохие ссылки».",
       "read_before_interview": false,
       "verification_status": "verified",
       "last_verified": "2026-08-17"

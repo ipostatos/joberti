@@ -2116,6 +2116,15 @@
       "type": "official_documentation",
       "verified": true,
       "verified_at": "2026-08-17"
+    },
+    {
+      "id": "gsc-disavow-links",
+      "title": "Disavow links to your site",
+      "publisher": "Google Search Console Help",
+      "url": "https://support.google.com/webmasters/answer/2648487",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-08-17"
     }
   ]
 }

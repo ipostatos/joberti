@@ -720,6 +720,24 @@
       "short": "сложный клиент, своя ошибка, спор с разработкой, рассказ о себе",
       "required": true,
       "critical": false
+    },
+    {
+      "id": "off-page-seo",
+      "track_id": "redcore-junior-seo",
+      "order": 21,
+      "title": "Off-page SEO и ссылки",
+      "short": "Обратные ссылки, ссылающиеся домены, анкоры, rel-атрибуты, ссылочный спам, разрыв с конкурентами и аутрич",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "igaming-context",
+      "track_id": "redcore-junior-seo",
+      "order": 22,
+      "title": "Контекст iGaming",
+      "short": "Ниша RedCore: партнёрские сайты, рынки и регулирование, YMYL, конкуренция за ссылки и вопросы про мотивацию",
+      "required": true,
+      "critical": false
     }
   ]
 }

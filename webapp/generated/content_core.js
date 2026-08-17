@@ -285,15 +285,15 @@
   "english_resources":9,
   "english_vocab":76,
   "english_writing":40,
-  "glossary_terms":264,
-  "lessons":90,
-  "library_resources":223,
+  "glossary_terms":277,
+  "lessons":93,
+  "library_resources":224,
   "mock_questions":134,
   "questions":481,
   "roadmap_steps":90,
-  "sources":235,
+  "sources":236,
   "story_templates":30,
-  "topics":80,
+  "topics":82,
   "tracks":4,
   "vacancies":4
  },
@@ -453,7 +453,8 @@
    "title":"Spam policies for Google web search",
    "topic_ids":[
     "search-basics",
-    "content-briefs"
+    "content-briefs",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/essentials/spam-policies",
@@ -3453,7 +3454,8 @@
    "title":"Make your links crawlable",
    "topic_ids":[
     "internal-linking",
-    "technical-seo"
+    "technical-seo",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
@@ -3472,7 +3474,8 @@
    "title":"Qualify your outbound links to Google",
    "topic_ids":[
     "internal-linking",
-    "on-page"
+    "on-page",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
@@ -4528,6 +4531,24 @@
    "url":"https://support.google.com/webmasters/answer/9689846",
    "verification_status":"verified",
    "why_read":"Инструмент удаления даёт примерно полгода, а не навсегда. Это ровно та деталь, на которой видно, читал ли кандидат документацию."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":15,
+   "id":"lib-disavow-links",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Search Console Help",
+   "read_before_interview":false,
+   "source_ref":"gsc-disavow-links",
+   "title":"Disavow links to your site",
+   "topic_ids":[
+    "off-page-seo"
+   ],
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/2648487",
+   "verification_status":"verified",
+   "why_read":"Google прямо пишет, что большинству сайтов инструмент не нужен и что он для случаев с ручными мерами. Хорошая прививка от совета «давайте отклоним все плохие ссылки»."
   }
  ],
  "mockCategories":[
@@ -6672,6 +6693,15 @@
    "url":"https://support.google.com/webmasters/answer/9689846",
    "verified":true,
    "verified_at":"2026-08-17"
+  },
+  {
+   "id":"gsc-disavow-links",
+   "publisher":"Google Search Console Help",
+   "title":"Disavow links to your site",
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/2648487",
+   "verified":true,
+   "verified_at":"2026-08-17"
   }
  ],
  "stories":[],
@@ -6772,6 +6802,16 @@
      "hint":"Формулы, сводные, обработка выгрузок",
      "id":"sa-sheets",
      "title":"Google Sheets"
+    },
+    {
+     "hint":"Разбор ссылочного профиля, оценка доноров, анкоры, аутрич",
+     "id":"sa-off-page",
+     "title":"Ссылки и off-page"
+    },
+    {
+     "hint":"Понимаете ли специфику партнёрских сайтов, рынков и регулирования",
+     "id":"sa-igaming",
+     "title":"Ниша iGaming"
     },
     {
      "hint":"Чтение документации и короткий устный ответ",
