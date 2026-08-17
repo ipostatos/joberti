@@ -111,7 +111,8 @@
       <ul class="points bad" id="redflags"></ul>
     </div>
     <div class="card">
-      <div class="h3">Короткий эталон</div>
+      <div class="h3" id="shortTitle">Короткий эталон</div>
+      <p class="small muted hidden" id="personalNote"></p>
       <p class="small" id="short"></p>
       <details style="margin-top:var(--sp-2)">
         <summary class="small muted" style="cursor:pointer">Развёрнутый разбор</summary>
@@ -292,6 +293,15 @@
     document.getElementById("structure").innerHTML = li(q.answer_structure);
     document.getElementById("expected").innerHTML = li(q.expected_points);
     document.getElementById("redflags").innerHTML = li(q.red_flags);
+    // Личный ответ и эталон — разные вещи. Там, где ответ строится на опыте
+    // человека, показывается каркас и подсказка, что вписать своё: выученная
+    // чужая биография разваливается на первом уточняющем вопросе.
+    var personal = q.answer_kind === "personal";
+    var note = document.getElementById("personalNote");
+    document.getElementById("shortTitle").textContent =
+      personal ? "Каркас ответа" : "Короткий эталон";
+    note.textContent = personal ? (q.personal_evidence_prompt || "") : "";
+    note.classList.toggle("hidden", !personal || !q.personal_evidence_prompt);
     document.getElementById("short").textContent = q.model_answer_short;
     document.getElementById("full").textContent = q.model_answer_full;
 

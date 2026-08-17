@@ -279,21 +279,21 @@
  "counts":{
   "achievements":24,
   "active_tracks":4,
-  "cases":36,
-  "english_drills":23,
+  "cases":37,
+  "english_drills":26,
   "english_phrases":64,
   "english_resources":9,
-  "english_vocab":76,
-  "english_writing":40,
-  "glossary_terms":264,
-  "lessons":90,
-  "library_resources":219,
-  "mock_questions":134,
-  "questions":481,
-  "roadmap_steps":90,
-  "sources":231,
-  "story_templates":30,
-  "topics":80,
+  "english_vocab":81,
+  "english_writing":41,
+  "glossary_terms":277,
+  "lessons":93,
+  "library_resources":224,
+  "mock_questions":139,
+  "questions":493,
+  "roadmap_steps":93,
+  "sources":236,
+  "story_templates":31,
+  "topics":82,
   "tracks":4,
   "vacancies":4
  },
@@ -453,7 +453,8 @@
    "title":"Spam policies for Google web search",
    "topic_ids":[
     "search-basics",
-    "content-briefs"
+    "content-briefs",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/essentials/spam-policies",
@@ -3453,7 +3454,8 @@
    "title":"Make your links crawlable",
    "topic_ids":[
     "internal-linking",
-    "technical-seo"
+    "technical-seo",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
@@ -3472,7 +3474,8 @@
    "title":"Qualify your outbound links to Google",
    "topic_ids":[
     "internal-linking",
-    "on-page"
+    "on-page",
+    "off-page-seo"
    ],
    "type":"official_documentation",
    "url":"https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
@@ -4453,6 +4456,99 @@
    "url":"https://missing.csail.mit.edu/",
    "verification_status":"verified",
    "why_read":"Курс MIT о том, чему «не учат»: шелл, скрипты, редакторы, Git, отладка, профилирование. Один вечер на лекцию — и инструменты перестают быть магией. Есть видео и конспекты."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-ga4-sessions",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Analytics Help",
+   "read_before_interview":true,
+   "source_ref":"ga4-sessions",
+   "title":"[GA4] About Analytics sessions",
+   "topic_ids":[
+    "analytics-ga4"
+   ],
+   "type":"official_documentation",
+   "url":"https://support.google.com/analytics/answer/9191807",
+   "verification_status":"verified",
+   "why_read":"Первоисточник о том, когда GA4 начинает и заканчивает сессию и что несёт событие session_start. Снимает самый живучий миф про utm-метки и «обрыв сессии»."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":20,
+   "id":"lib-ga4-traffic-source-scopes",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Analytics Help",
+   "read_before_interview":false,
+   "source_ref":"ga4-traffic-source-scopes",
+   "title":"[GA4] Scopes of traffic-source dimensions",
+   "topic_ids":[
+    "analytics-ga4",
+    "reporting"
+   ],
+   "type":"official_documentation",
+   "url":"https://support.google.com/analytics/answer/11080067",
+   "verification_status":"verified",
+   "why_read":"Разводит «первый источник пользователя», источник сессии и атрибуцию события. Без этого разбор искажённой атрибуции превращается в гадание."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":15,
+   "id":"lib-remove-information",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Search Central",
+   "read_before_interview":true,
+   "source_ref":"google-remove-information",
+   "title":"Remove a page hosted on your site from Google",
+   "topic_ids":[
+    "technical-seo",
+    "indexing-gsc"
+   ],
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/remove-information",
+   "verification_status":"verified",
+   "why_read":"Разбирает не один «правильный» способ убрать страницу, а сценарии: удаление содержимого, 404 и 410, доступ по паролю, noindex. Именно этого различения ждут на собеседовании."
+  },
+  {
+   "difficulty":2,
+   "estimated_minutes":10,
+   "id":"lib-gsc-removals-tool",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Search Console Help",
+   "read_before_interview":false,
+   "source_ref":"gsc-removals-tool",
+   "title":"Removals and SafeSearch reports tool",
+   "topic_ids":[
+    "indexing-gsc",
+    "technical-seo"
+   ],
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/9689846",
+   "verification_status":"verified",
+   "why_read":"Инструмент удаления даёт примерно полгода, а не навсегда. Это ровно та деталь, на которой видно, читал ли кандидат документацию."
+  },
+  {
+   "difficulty":3,
+   "estimated_minutes":15,
+   "id":"lib-disavow-links",
+   "language":"en",
+   "last_verified":"2026-08-17",
+   "publisher":"Google Search Console Help",
+   "read_before_interview":false,
+   "source_ref":"gsc-disavow-links",
+   "title":"Disavow links to your site",
+   "topic_ids":[
+    "off-page-seo"
+   ],
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/2648487",
+   "verification_status":"verified",
+   "why_read":"Google прямо пишет, что большинству сайтов инструмент не нужен и что он для случаев с ручными мерами. Хорошая прививка от совета «давайте отклоним все плохие ссылки»."
   }
  ],
  "mockCategories":[
@@ -6561,6 +6657,51 @@
    "url":"https://missing.csail.mit.edu/",
    "verified":true,
    "verified_at":"2026-08-01"
+  },
+  {
+   "id":"ga4-sessions",
+   "publisher":"Google Analytics Help",
+   "title":"[GA4] About Analytics sessions",
+   "type":"official_documentation",
+   "url":"https://support.google.com/analytics/answer/9191807",
+   "verified":true,
+   "verified_at":"2026-08-17"
+  },
+  {
+   "id":"ga4-traffic-source-scopes",
+   "publisher":"Google Analytics Help",
+   "title":"[GA4] Scopes of traffic-source dimensions",
+   "type":"official_documentation",
+   "url":"https://support.google.com/analytics/answer/11080067",
+   "verified":true,
+   "verified_at":"2026-08-17"
+  },
+  {
+   "id":"google-remove-information",
+   "publisher":"Google Search Central",
+   "title":"Remove a page hosted on your site from Google",
+   "type":"official_documentation",
+   "url":"https://developers.google.com/search/docs/crawling-indexing/remove-information",
+   "verified":true,
+   "verified_at":"2026-08-17"
+  },
+  {
+   "id":"gsc-removals-tool",
+   "publisher":"Google Search Console Help",
+   "title":"Removals and SafeSearch reports tool",
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/9689846",
+   "verified":true,
+   "verified_at":"2026-08-17"
+  },
+  {
+   "id":"gsc-disavow-links",
+   "publisher":"Google Search Console Help",
+   "title":"Disavow links to your site",
+   "type":"official_documentation",
+   "url":"https://support.google.com/webmasters/answer/2648487",
+   "verified":true,
+   "verified_at":"2026-08-17"
   }
  ],
  "stories":[],
@@ -6661,6 +6802,16 @@
      "hint":"Формулы, сводные, обработка выгрузок",
      "id":"sa-sheets",
      "title":"Google Sheets"
+    },
+    {
+     "hint":"Разбор ссылочного профиля, оценка доноров, анкоры, аутрич",
+     "id":"sa-off-page",
+     "title":"Ссылки и off-page"
+    },
+    {
+     "hint":"Понимаете ли специфику партнёрских сайтов, рынков и регулирования",
+     "id":"sa-igaming",
+     "title":"Ниша iGaming"
     },
     {
      "hint":"Чтение документации и короткий устный ответ",
