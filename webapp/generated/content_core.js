@@ -289,7 +289,7 @@
   "lessons":93,
   "library_resources":224,
   "mock_questions":134,
-  "questions":481,
+  "questions":493,
   "roadmap_steps":90,
   "sources":236,
   "story_templates":30,

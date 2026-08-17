@@ -68,6 +68,7 @@ class TestCounts(unittest.TestCase):
             "search-basics": 12, "search-intent": 10, "on-page": 18,
             "technical-seo": 24, "html-http": 12, "keyword-research": 12,
             "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
+            "off-page-seo": 12,
         }
         actual = {}
         seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
@@ -244,6 +245,27 @@ class TestQuestionQuality(unittest.TestCase):
             correct = {normalize_text(g["options"][g["answer"]]) for g in group}
             self.assertEqual(len(correct), 1,
                              "конфликт: " + ", ".join(g["id"] for g in group))
+
+    def test_levels_are_valid_and_reach_diagnostics(self):
+        """Уровни L1..L4 из спецификации.
+
+        Поле необязательное: старый банк размечается постепенно. Но полностью
+        размеченная тема обязана доходить до L4 — иначе разметка украшение, а
+        банк остаётся на «узнал и объяснил».
+        """
+        by_topic = {}
+        for q in self.c.questions:
+            if "level" in q:
+                with self.subTest(q=q["id"]):
+                    self.assertIn(q["level"], validate_content.QUESTION_LEVELS)
+            by_topic.setdefault(q["topic"], []).append(q)
+        for topic, pool in by_topic.items():
+            levelled = [q for q in pool if q.get("level")]
+            if not levelled or len(levelled) != len(pool):
+                continue
+            with self.subTest(topic=topic):
+                self.assertTrue(any(q["level"] == "L4" for q in levelled),
+                                f"тема {topic} размечена по уровням, но без диагностики")
 
     def test_options_are_distinct(self):
         for q in self.c.questions:

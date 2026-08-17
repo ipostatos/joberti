@@ -61,6 +61,11 @@ ENGLISH_MIN_PER_TRACK = {
 # Свои, не сквозные записи: без них трек получает только общий английский.
 ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
+# Уровни владения темой (docs/REDCORE_CONTENT_SPEC.md §3). Поле необязательное:
+# старый банк размечается постепенно, но размеченная тема обязана доходить до
+# диагностики — ради неё уровни и вводились.
+QUESTION_LEVELS = {"L1", "L2", "L3", "L4"}
+
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
 REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
 IMPORTANCE = {"required", "desirable", "nice_to_have"}
@@ -309,6 +314,10 @@ def validate_questions(rep: Report, c) -> None:
                   f"{where}: difficulty должен быть 1..3")
         rep.check(x.get("verification_status") in VERIFICATION,
                   f"{where}: недопустимый verification_status")
+        if "level" in x:
+            rep.check(x["level"] in QUESTION_LEVELS,
+                      f"{where}: недопустимый level '{x.get('level')}' "
+                      f"(допустимы {', '.join(sorted(QUESTION_LEVELS))})")
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
         check_refs(rep, x.get("related_lesson_ids"), l_ids, where, "related_lesson_ids")
@@ -344,6 +353,20 @@ def validate_questions(rep: Report, c) -> None:
                 rep.err(f"индекс правильного ответа {i} встречается в {share:.0%} вопросов")
             elif share < 0.10:
                 rep.warn(f"индекс правильного ответа {i} встречается лишь в {share:.0%} вопросов")
+
+    # Тема, размеченная по уровням, обязана доходить до диагностики. Без L4
+    # разметка превращается в украшение: банк остаётся «узнал — объяснил», а
+    # спрашивают на собеседовании именно «вот данные, что проверишь первым».
+    by_topic: dict[str, list] = {}
+    for x in c.questions:
+        by_topic.setdefault(x.get("topic"), []).append(x)
+    for topic, pool in sorted(by_topic.items()):
+        levelled = [x for x in pool if x.get("level")]
+        if not levelled or len(levelled) != len(pool):
+            continue                      # тема размечена частично — ещё в работе
+        rep.check(any(x["level"] == "L4" for x in levelled),
+                  f"тема '{topic}': все вопросы размечены по уровням, но нет ни "
+                  f"одного уровня L4 — тема не доходит до диагностики")
 
     # ── те же метрики ПО КАЖДОМУ АКТИВНОМУ ТРЕКУ ──
     # Пользователь видит вопросы только своего трека, поэтому общая доля по
