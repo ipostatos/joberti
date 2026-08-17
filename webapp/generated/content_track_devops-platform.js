@@ -6979,6 +6979,7 @@
    "track_id":"devops-platform"
   }
  ],
+ "projects":[],
  "questions":[
   {
    "answer":0,

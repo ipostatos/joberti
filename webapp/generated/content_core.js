@@ -289,6 +289,7 @@
   "lessons":95,
   "library_resources":224,
   "mock_questions":142,
+  "projects":4,
   "questions":541,
   "roadmap_steps":95,
   "sources":236,
@@ -4628,6 +4629,7 @@
    "title":"Финальная сессия"
   }
  ],
+ "projects":[],
  "questions":[],
  "questionsByTopic":{},
  "roadmap":[],

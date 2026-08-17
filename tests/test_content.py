@@ -376,6 +376,25 @@ class TestReferences(unittest.TestCase):
                                 "урок без блока «как проверить руками»")
                 self.assertTrue(l.get("tools"), "урок без списка инструментов")
 
+    def test_seo_track_has_required_practice(self):
+        """Практика руками не заменяется тестами и моком.
+
+        У проекта намеренно нет собственного состояния: сделанным он считается
+        через доказательство у требования вакансии. Поэтому проект без живой
+        ссылки на требование закрыть нечем, а ограничитель готовности остался
+        бы включённым навсегда.
+        """
+        track_id = "redcore-junior-seo"
+        projects = [p for p in self.c.projects if p["track_id"] == track_id]
+        self.assertGreaterEqual(len(projects), 3, "обязательной практики слишком мало")
+        self.assertTrue(any(p["required"] for p in projects))
+        t = next(x for x in self.c.tracks if x["id"] == track_id)
+        vac = next(v for v in self.c.vacancies if v["id"] == t["vacancy_id"])
+        req_ids = {r["id"] for r in vac["requirements"]}
+        for p in projects:
+            with self.subTest(project=p["id"]):
+                self.assertIn(p["requirement_id"], req_ids)
+
     def test_seo_critical_topics_have_a_case(self):
         """У критической темы должен быть способ снять потолок практикой.
 

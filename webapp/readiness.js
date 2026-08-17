@@ -485,6 +485,7 @@
   var VACANCY_CAPS = {
     requiredNotStarted: 80,   // хотя бы одно обязательное требование не начато
     noFullMock: 79,           // нет ни одной полной сессии mock interview
+    projectsNotDone: 79,      // обязательная практика не сдана
     englishNotMet: 74,        // обязательное языковое требование не закрыто
   };
 
@@ -627,6 +628,19 @@
         reason: "Нет ни одной полной сессии mock interview",
         action: "Пройти полное mock interview" });
     }
+    // Практика руками не заменяется ни тестами, ни моком: «я читал про
+    // Screaming Frog» и «я краулил сайт и делал аудит» — разные ответы, и
+    // разницу на собеседовании слышно сразу.
+    var requiredProjects = (input.projects || []).filter(function (p) {
+      return p.required;
+    });
+    var projectsLeft = requiredProjects.filter(function (p) { return !p.done; });
+    if (requiredProjects.length && projectsLeft.length) {
+      caps.push({ key: "projectsNotDone", max: VACANCY_CAPS.projectsNotDone,
+        reason: "Обязательная практика не сдана: " + projectsLeft.length +
+          " из " + requiredProjects.length,
+        action: "Сделать проект и описать доказательство" });
+    }
     if (mandatoryLang.length && !langMet) {
       caps.push({ key: "englishNotMet", max: VACANCY_CAPS.englishNotMet,
         reason: "Обязательное требование по английскому не закрыто",
@@ -663,6 +677,8 @@
       capMax: capMax,
       requiredTotal: required.length,
       requiredClosed: required.filter(closed).length,
+      projectsTotal: requiredProjects.length,
+      projectsDone: requiredProjects.length - projectsLeft.length,
       evidenceShare: evidenceShare,
       englishRequired: mandatoryLang.length > 0,
       englishMet: langMet,

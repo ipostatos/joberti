@@ -32,6 +32,7 @@ FILES = {
     "mock_questions": "mock_questions.json",
     "cases": "cases.json",
     "roadmap": "roadmap.json",
+    "projects": "projects.json",
     "stories": "stories.json",
     "achievements": "achievements.json",
     "english_phrases": "english_phrases.json",
@@ -54,6 +55,7 @@ LIST_KEY = {
     "mock_questions": "questions",
     "cases": "cases",
     "roadmap": "steps",
+    "projects": "projects",
     "stories": "templates",
     "achievements": "achievements",
     "english_phrases": "phrases",
@@ -84,6 +86,7 @@ class Content:
     mock_questions: list = field(default_factory=list)
     cases: list = field(default_factory=list)
     roadmap: list = field(default_factory=list)
+    projects: list = field(default_factory=list)
     stories: list = field(default_factory=list)
     achievements: list = field(default_factory=list)
     english_phrases: list = field(default_factory=list)
@@ -168,6 +171,7 @@ class Content:
             "mock_questions": len(self.mock_questions),
             "cases": len(self.cases),
             "roadmap_steps": len(self.roadmap),
+            "projects": len(self.projects),
             "story_templates": len(self.stories),
             "achievements": len(self.achievements),
             "english_phrases": len(self.english_phrases),

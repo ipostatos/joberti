@@ -53,6 +53,7 @@ TRACK_SECTIONS = {
     "mockQuestions": "track_id",
     "cases": "track_id",
     "roadmap": "track_id",
+    "projects": "track_id",
     "stories": "track_id",
     # Английский сквозной: пустой track_ids значит «во всех треках», поэтому он
     # режется тем же правилом, что и глоссарий, и общая часть попадает в каждый
@@ -134,6 +135,7 @@ def build_sections(c) -> dict:
         "mockSessionModes": c.raw["mock_questions"].get("session_modes", []),
         "cases": c.cases,
         "roadmap": c.roadmap,
+        "projects": c.projects,
         "stories": c.stories,
         "storyFramework": c.raw["stories"].get("framework", {}),
         "achievements": c.achievements,

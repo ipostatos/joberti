@@ -319,6 +319,26 @@ const vDraft = R.computeVacancy(vacancyState({
 }));
 ok(!vDraft.available, "неактивный трек не получает готовности к вакансии");
 
+// ── практика руками ──
+// Проекты приходят снаружи как список {required, done}: readiness.js не знает,
+// откуда взялась отметка, и это позволяет проверить сам ограничитель.
+const PROJECTS = (CONTENT.projects || []).filter((p) => p.track_id === TRACK);
+ok(PROJECTS.length >= 3, `у трека описано ${PROJECTS.length} практических проектов`);
+ok(PROJECTS.every((p) => p.requirement_id),
+  "каждый проект обязан ссылаться на требование вакансии, иначе его нечем закрыть");
+
+const noProjects = R.computeVacancy(vacancyState({
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: false })),
+}));
+ok(noProjects.caps.some((c) => c.key === "projectsNotDone"),
+  "несданная обязательная практика обязана срабатывать ограничителем");
+
+const withProjects = R.computeVacancy(vacancyState({
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: true })),
+}));
+ok(!withProjects.caps.some((c) => c.key === "projectsNotDone"),
+  "сданная практика снимает ограничитель");
+
 // ── всё закрыто, кроме английского ──
 function closedAll(evidence) {
   return REQS.map((r) => ({
@@ -333,6 +353,7 @@ const strongVacancy = vacancyState(Object.assign({}, strongState(), {
   storiesFilled: 6,
   english: { drills: 10, drillsDone: 10, writingTasks: 10, writingPassed: 10,
              words: 50, wordsProdLearned: 50 },
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: true })),
 }));
 const vStrong = R.computeVacancy(strongVacancy);
 ok(vStrong.percent >= 90,

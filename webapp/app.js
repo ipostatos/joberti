@@ -460,6 +460,31 @@
     if (Sync) Sync.schedulePush();
   }
 
+  // ── практические проекты ─────────────────────────────────────────────────
+  //
+  // У проекта намеренно НЕТ собственного состояния. Сделанным он считается
+  // тогда, когда человек описал доказательство у связанного требования
+  // вакансии: заводить рядом вторую отметку «выполнено» значило бы держать два
+  // источника правды об одном факте, а они неизбежно разъедутся при слиянии.
+  function projects() {
+    var id = trackId();
+    return (C.projects || []).filter(function (p) { return p.track_id === id; })
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+  }
+
+  function requirementById(reqId) {
+    var v = vacancy();
+    return v ? byId(v.requirements || [], reqId) : null;
+  }
+
+  function projectDone(p) {
+    var req = requirementById(p.requirement_id);
+    if (!req) return false;
+    var st = requirementState(req);
+    return !!String(st.evidence || "").trim() &&
+      (st.status === "confirmed" || st.status === "partial");
+  }
+
   // Сколько требований вакансии человек подкрепил доказательством из своего
   // опыта. Знание и доказательство — разные вещи: процент по тестам не отвечает
   // на вопрос «что вы можете показать», а на собеседовании спрашивают именно это.
@@ -636,6 +661,9 @@
       languageRequirements: (v && v.language_requirements) || [],
       storiesFilled: storyFilledCount(),
       english: englishStats(),
+      projects: projects().map(function (p) {
+        return { id: p.id, required: !!p.required, done: projectDone(p) };
+      }),
     });
   }
 
@@ -891,6 +919,7 @@
     saveStory: saveStory, storyFilledCount: storyFilledCount,
     saveRequirement: saveRequirement, requirementState: requirementState,
     requirementsEvidencedCount: requirementsEvidencedCount,
+    projects: projects, projectDone: projectDone, requirementById: requirementById,
     stepProgress: stepProgress, stepDone: stepDone, stepUnlocked: stepUnlocked,
     recomputeRoadmap: recomputeRoadmap, currentStep: currentStep,
     fullMockSessions: fullMockSessions,

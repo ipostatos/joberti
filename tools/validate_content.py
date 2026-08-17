@@ -681,6 +681,50 @@ def validate_roadmap(rep: Report, c) -> None:
                         f"'{dep}' (order {order_of[dep]}) — предпосылка идёт не раньше")
 
 
+def validate_projects(rep: Report, c) -> None:
+    """Практические проекты.
+
+    У проекта намеренно НЕТ собственного состояния: сделанным он считается
+    тогда, когда человек описал доказательство у связанного требования
+    вакансии. Вторая отметка «выполнено» рядом с доказательством была бы
+    вторым источником правды об одном и том же факте — и они бы разъехались.
+    """
+    check_unique_ids(rep, c.projects, "projects")
+    topic_ids, track_ids = set(c.topics_by_id), set(c.tracks_by_id)
+    orders: dict[str, set] = {}
+    for x in c.projects:
+        where = f"project '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "track_id", "title", "goal", "why_it_matters",
+            "deliverable", "evidence_hint", "requirement_id",
+        ], where)
+        rep.check(x.get("track_id") in track_ids, f"{where}: неизвестный track_id")
+        rep.check(isinstance(x.get("order"), int), f"{where}: order должен быть числом")
+        seen = orders.setdefault(x.get("track_id"), set())
+        if x.get("order") in seen:
+            rep.err(f"{where}: повторяющийся order {x.get('order')} внутри трека")
+        seen.add(x.get("order"))
+        rep.check(isinstance(x.get("required"), bool), f"{where}: required должен быть bool")
+        rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
+                  f"{where}: некорректный estimated_minutes")
+        rep.check(len(x.get("steps") or []) >= 3, f"{where}: меньше 3 шагов")
+        rep.check(len(x.get("checklist") or []) >= 3, f"{where}: меньше 3 пунктов чек-листа")
+        check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
+
+        # Требование вакансии, которым подтверждается проект, обязано
+        # существовать: иначе проект нечем закрыть, а ограничитель готовности
+        # останется включённым навсегда.
+        track = c.tracks_by_id.get(x.get("track_id")) or {}
+        vac = next((v for v in c.vacancies if v.get("id") == track.get("vacancy_id")), None)
+        if vac is None:
+            rep.err(f"{where}: у трека нет вакансии, подтвердить проект нечем")
+            continue
+        req_ids = {r.get("id") for r in vac.get("requirements") or []}
+        rep.check(x.get("requirement_id") in req_ids,
+                  f"{where}: requirement_id '{x.get('requirement_id')}' не найден "
+                  f"в вакансии '{vac.get('id')}'")
+
+
 def validate_vacancies(rep: Report, c) -> None:
     check_unique_ids(rep, c.vacancies, "vacancies")
     topic_ids, track_ids = set(c.topics_by_id), set(c.tracks_by_id)
@@ -1194,6 +1238,7 @@ def run() -> Report:
     validate_cases(rep, c)
     validate_roadmap(rep, c)
     validate_vacancies(rep, c)
+    validate_projects(rep, c)
     validate_stories(rep, c)
     validate_achievements(rep, c)
     validate_english(rep, c)

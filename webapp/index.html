@@ -119,6 +119,11 @@
     <span class="t">Кейсы</span>
     <span class="d" id="caseCount">—</span>
   </a>
+  <a class="cell" href="projects.html">
+    <span class="ic-tile green" data-icon="graduation-cap"></span>
+    <span class="t">Практика</span>
+    <span class="d" id="projectCount">—</span>
+  </a>
   <a class="cell" href="glossary.html">
     <span class="ic-tile slate" data-icon="file-text"></span>
     <span class="t">Словарь</span>
@@ -317,6 +322,11 @@
     document.getElementById("mockCount").textContent = App.mocks().length + " вопросов";
     var doneCases = r.available ? r.blocks[2].detail.completed : 0;
     document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
+
+    var prj = App.projects();
+    var prjDone = prj.filter(App.projectDone).length;
+    document.getElementById("projectCount").textContent =
+      prj.length ? prjDone + " из " + prj.length : "нет заданий";
     var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
     document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
     var eng = App.englishStats();
