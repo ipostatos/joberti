@@ -361,6 +361,21 @@ class TestReferences(unittest.TestCase):
                     with self.subTest(topic=topic["id"]):
                         self.assertIn(topic["id"], covered)
 
+    def test_seo_lessons_say_how_to_check(self):
+        """Урок трека под вакансию обязан отвечать «как проверить это руками».
+
+        Без этого блока урок остаётся чтением: человек узнаёт правило и не
+        умеет применить его к живому сайту. Поля идут парой — проверка без
+        инструмента и инструмент без проверки одинаково бесполезны.
+        """
+        for l in self.c.lessons:
+            if l["track_id"] != "redcore-junior-seo":
+                continue
+            with self.subTest(lesson=l["id"]):
+                self.assertTrue((l.get("how_to_check") or "").strip(),
+                                "урок без блока «как проверить руками»")
+                self.assertTrue(l.get("tools"), "урок без списка инструментов")
+
     def test_seo_critical_topics_have_a_case(self):
         """У критической темы должен быть способ снять потолок практикой.
 

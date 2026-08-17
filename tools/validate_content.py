@@ -249,6 +249,26 @@ def validate_lessons(rep: Report, c) -> None:
                   f"{where}: меньше 2 common_mistakes")
         rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
                   f"{where}: некорректный estimated_minutes")
+
+        # Блоки «как проверить руками» и «чем» из сетки урока. Поля
+        # необязательные: старые треки размечаются постепенно. Но пустая
+        # проверка или инструмент без проверки — это половина блока, и такая
+        # запись хуже отсутствующей: на экране появится заголовок без смысла.
+        how = x.get("how_to_check")
+        tools = x.get("tools")
+        if how is not None:
+            rep.check(isinstance(how, str) and len(how.strip()) >= 40,
+                      f"{where}: how_to_check пуст или слишком короткий, "
+                      f"чтобы описать проверку руками")
+        if tools is not None:
+            rep.check(isinstance(tools, list) and tools and
+                      all(isinstance(t, str) and t.strip() for t in tools),
+                      f"{where}: tools должен быть непустым списком названий")
+        if (how is None) != (tools is None):
+            rep.err(f"{where}: how_to_check и tools заполняются вместе — "
+                    f"проверка без инструмента и инструмент без проверки "
+                    f"одинаково бесполезны")
+
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_question_ids"), q_ids, where, "related_question_ids")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
