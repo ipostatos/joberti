@@ -594,7 +594,7 @@
     {
       "id": "step-24-final-mock",
       "track_id": "redcore-junior-seo",
-      "order": 27,
+      "order": 29,
       "title": "Финальное mock interview",
       "goal": "Пройти полную сессию и получить разбор по блокам",
       "topic_ids": [
@@ -609,7 +609,9 @@
         "step-23-behavioral",
         "step-08-indexing-gsc",
         "step-25-igaming-context",
-        "step-26-vacancy-evidence"
+        "step-26-vacancy-evidence",
+        "step-27-site-architecture",
+        "step-28-seo-audit"
       ],
       "study_items": [],
       "practice_items": [
@@ -2444,6 +2446,67 @@
         "mock_answered_min": 2,
         "stories_filled_min": 5,
         "requirements_evidenced_min": 6
+      }
+    },
+    {
+      "id": "step-27-site-architecture",
+      "track_id": "redcore-junior-seo",
+      "order": 27,
+      "title": "Архитектура сайта",
+      "goal": "Считать глубину клика, находить сирот и поднимать важные страницы ссылками",
+      "topic_ids": [
+        "site-architecture"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-15-internal-linking",
+        "step-11-screaming-frog"
+      ],
+      "study_items": [
+        "lesson-site-architecture"
+      ],
+      "practice_items": [
+        "quiz:site-architecture",
+        "case:case-architecture-014",
+        "mock:mock-technical-011"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-28-seo-audit",
+      "track_id": "redcore-junior-seo",
+      "order": 28,
+      "title": "SEO-аудит",
+      "goal": "Превращать выгрузку в приоритизированный план, а не в список предупреждений",
+      "topic_ids": [
+        "seo-audit"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-27-site-architecture",
+        "step-20-reporting",
+        "step-24-off-page"
+      ],
+      "study_items": [
+        "lesson-seo-audit-framework"
+      ],
+      "practice_items": [
+        "quiz:seo-audit",
+        "case:case-audit-priority-015",
+        "mock:mock-practical-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
       }
     }
   ]

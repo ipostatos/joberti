@@ -745,6 +745,24 @@
       "required": true,
       "critical": false,
       "volatility": "high"
+    },
+    {
+      "id": "site-architecture",
+      "track_id": "redcore-junior-seo",
+      "order": 23,
+      "title": "Архитектура сайта",
+      "short": "Иерархия разделов, глубина клика, страницы-сироты, хлебные крошки и путь робота от главной",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "seo-audit",
+      "track_id": "redcore-junior-seo",
+      "order": 24,
+      "title": "SEO-аудит",
+      "short": "Десять срезов, приоритет находки через влияние, масштаб и уверенность, итоговый документ",
+      "required": true,
+      "critical": false
     }
   ]
 }

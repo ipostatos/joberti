@@ -68,7 +68,7 @@ class TestCounts(unittest.TestCase):
             "search-basics": 12, "search-intent": 10, "on-page": 18,
             "technical-seo": 24, "html-http": 12, "keyword-research": 12,
             "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
-            "off-page-seo": 12,
+            "off-page-seo": 12, "site-architecture": 8, "seo-audit": 8,
         }
         actual = {}
         seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
