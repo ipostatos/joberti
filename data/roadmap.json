@@ -20,11 +20,13 @@
       ],
       "practice_items": [
         "quiz:search-basics",
-        "mock:mock-fundamentals-001"
+        "mock:mock-fundamentals-001",
+        "case:case-discovery-016"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "case_completed_min": 1
       }
     },
     {
@@ -46,11 +48,13 @@
       ],
       "practice_items": [
         "quiz:search-intent",
-        "mock:mock-fundamentals-005"
+        "mock:mock-fundamentals-005",
+        "case:case-intent-mismatch-017"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "case_completed_min": 1
       }
     },
     {
@@ -279,11 +283,13 @@
       ],
       "practice_items": [
         "quiz:seo-tools",
-        "mock:mock-tools-002"
+        "mock:mock-tools-002",
+        "case:case-crawl-settings-018"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 75
+        "quiz_score_min": 75,
+        "case_completed_min": 1
       }
     },
     {

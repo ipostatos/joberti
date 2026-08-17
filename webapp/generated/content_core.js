@@ -279,7 +279,7 @@
  "counts":{
   "achievements":24,
   "active_tracks":4,
-  "cases":39,
+  "cases":42,
   "english_drills":26,
   "english_phrases":64,
   "english_resources":9,
@@ -6753,7 +6753,11 @@
     "on-page",
     "technical-seo",
     "indexing-gsc",
-    "keyword-research"
+    "keyword-research",
+    "html-http",
+    "seo-tools",
+    "site-architecture",
+    "internal-linking"
    ],
    "id":"redcore-junior-seo",
    "language":"ru",

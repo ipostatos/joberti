@@ -840,7 +840,12 @@
     var changed = false;
     (r.topics || []).forEach(function (t) {
       if (t.mastery == null) return;
-      if (t.mastery < 0.40 && !seen[t.id]) { seen[t.id] = true; changed = true; }
+      // Порог берётся из расчёта, а не дублируется числом: разъехавшись, они
+      // дали бы достижение «слабая тема подтянута» для темы, которая по расчёту
+      // слабой не считалась.
+      if (t.mastery < Readiness.WEAK_CRITICAL && !seen[t.id]) {
+        seen[t.id] = true; changed = true;
+      }
       if (seen[t.id] && t.mastery >= 0.70 && !Progress.flags().weakTopicRecovered) {
         Progress.setFlag("weakTopicRecovered", true);
       }

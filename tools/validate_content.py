@@ -964,9 +964,34 @@ def validate_counts(rep: Report, c) -> None:
                 rep.err(f"track '{t['id']}': обязательная тема '{topic['id']}' без уроков")
         # Критическая тема обязана иметь и вопросы, и уроки.
         q_topics = {q["topic"] for q in c.questions if q.get("track_id") == t["id"]}
+        # Кейсы критических тем: критическая тема ограничивает готовность
+        # потолком, поэтому у человека должен быть способ её проработать не
+        # только тестом. Без практики потолок становится тупиком.
+        case_topics = set()
+        for x in c.cases:
+            if x.get("track_id") == t["id"]:
+                case_topics.update(x.get("topic_ids") or [])
         for tid in t.get("critical_topic_ids") or []:
             if tid not in q_topics:
                 rep.err(f"track '{t['id']}': критическая тема '{tid}' без вопросов теста")
+            if tid not in case_topics:
+                # Предупреждение, а не ошибка: правило введено при переработке
+                # SEO-трека, и на остальных треках пробел ещё не закрыт. Ронять
+                # им CI значило бы либо блокировать чужую работу, либо тихо
+                # выключить проверку — оба варианта хуже видимого долга.
+                rep.warn(f"track '{t['id']}': критическая тема '{tid}' без единого "
+                         f"кейса — потолок готовности снять нечем")
+
+        # Списки критических тем в двух местах обязаны совпадать: трек объявляет
+        # их для расчёта, тема помечает себя сама. Разъехавшись, они дают
+        # ограничитель по теме, которая себя критической не считает.
+        declared = set(t.get("critical_topic_ids") or [])
+        marked = {x["id"] for x in c.topics
+                  if x.get("track_id") == t["id"] and x.get("critical")}
+        if declared != marked:
+            rep.err(f"track '{t['id']}': critical_topic_ids и темы с critical:true "
+                    f"расходятся — только в треке {sorted(declared - marked)}, "
+                    f"только в темах {sorted(marked - declared)}")
 
 
 def _parse_review_date(rep: Report, value, where: str):

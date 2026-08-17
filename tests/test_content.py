@@ -342,6 +342,32 @@ class TestReferences(unittest.TestCase):
                     with self.subTest(topic=topic["id"]):
                         self.assertIn(topic["id"], covered)
 
+    def test_seo_critical_topics_have_a_case(self):
+        """У критической темы должен быть способ снять потолок практикой.
+
+        Правило введено при переработке SEO-трека, поэтому проверяется на нём:
+        на остальных треках пробел ещё открыт и виден предупреждением
+        валидатора, а не падением чужого CI.
+        """
+        track_id = "redcore-junior-seo"
+        t = next(x for x in self.c.tracks if x["id"] == track_id)
+        covered = set()
+        for case in self.c.cases:
+            if case["track_id"] == track_id:
+                covered.update(case.get("topic_ids") or [])
+        for tid in t["critical_topic_ids"]:
+            with self.subTest(topic=tid):
+                self.assertIn(tid, covered, "критическая тема без единого кейса")
+
+    def test_critical_lists_agree(self):
+        """Трек объявляет критические темы, тема помечает себя сама."""
+        for t in self.c.active_tracks():
+            declared = set(t.get("critical_topic_ids") or [])
+            marked = {x["id"] for x in self.c.topics
+                      if x["track_id"] == t["id"] and x.get("critical")}
+            with self.subTest(track=t["id"]):
+                self.assertEqual(declared, marked)
+
     def test_critical_topics_have_enough_questions(self):
         for t in self.c.active_tracks():
             counts = {}
