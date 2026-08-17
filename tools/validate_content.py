@@ -63,6 +63,11 @@ ENGLISH_MIN_PER_TRACK = {
 # Свои, не сквозные записи: без них трек получает только общий английский.
 ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
+# То же, но предупреждением: правило введено при переработке SEO-трека, у
+# которого своих фраз не было вовсе — раздел выглядел наполненным за счёт
+# сквозных. На остальных треках пробел тот же, и ронять им CI неправильно.
+ENGLISH_WARN_TRACK_OWN = {"english_phrases": 2}
+
 # Уровни владения темой (docs/REDCORE_CONTENT_SPEC.md §3). Поле необязательное:
 # старый банк размечается постепенно, но размеченная тема обязана доходить до
 # диагностики — ради неё уровни и вводились.
@@ -1051,6 +1056,11 @@ def validate_english(rep: Report, c) -> None:
             rep.check(len(own) >= minimum,
                       f"track '{t['id']}': своих записей в '{key}' — {len(own)}, "
                       f"требуется минимум {minimum}: без них раздел одинаков для всех профессий")
+        for key, minimum in ENGLISH_WARN_TRACK_OWN.items():
+            own = [x for x in getattr(c, key) if t["id"] in (x.get("track_ids") or [])]
+            if len(own) < minimum:
+                rep.warn(f"track '{t['id']}': своих записей в '{key}' — {len(own)} "
+                         f"при желаемых {minimum}: раздел наполнен только сквозными")
 
 
 def validate_counts(rep: Report, c) -> None:

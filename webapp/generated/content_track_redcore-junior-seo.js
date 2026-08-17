@@ -2220,6 +2220,70 @@
     "I'd appreciate any feedback that could help me next time."
    ],
    "when":"Ответ на отказ. Обратная связь после отказа — самый дешёвый источник роста."
+  },
+  {
+   "category":"Технические объяснения",
+   "en":"It controls crawling, not indexing.",
+   "id":"ph-seo-001",
+   "level":2,
+   "note":"Самая полезная конструкция всего блока: «X, not Y» коротко разводит два понятия, которые путают. То же работает с «It's a signal, not a directive» про canonical.",
+   "ru":"Это управляет обходом, а не индексацией.",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "variants":[
+    "It's a signal, not a directive.",
+    "It affects discovery, not ranking."
+   ],
+   "when":"Когда объясняете robots.txt и нужно сразу снять главное заблуждение собеседника."
+  },
+  {
+   "category":"Технические объяснения",
+   "en":"The status tells us what happened, not why.",
+   "id":"ph-seo-002",
+   "level":2,
+   "note":"Фраза, за которой удобно перейти к гипотезам: «So I'd check a few things in order…». Без неё ответ звучит как готовый диагноз по одному слову.",
+   "ru":"Статус говорит, что произошло, а не почему.",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "variants":[
+    "That's a symptom, not a diagnosis.",
+    "I'd treat that as a hypothesis to verify."
+   ],
+   "when":"Когда просят прокомментировать статус индексации и ждут диагноз."
+  },
+  {
+   "category":"Технические объяснения",
+   "en":"I'd check that in Search Console before I promise anything.",
+   "id":"ph-seo-003",
+   "level":2,
+   "note":"Сильный ответ на давление: вы не отказываетесь, а называете, чем проверите. Обещание позиций и сроков на собеседовании читается как тревожный сигнал.",
+   "ru":"Я бы проверил это в Search Console, прежде чем что-то обещать.",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "variants":[
+    "I can give you a range, but not a guarantee.",
+    "Let me look at the data first."
+   ],
+   "when":"Когда просят оценить сроки или гарантировать результат."
+  },
+  {
+   "category":"Опыт и проекты",
+   "en":"I ran a crawl on a small site and put together a short audit.",
+   "id":"ph-seo-004",
+   "level":2,
+   "note":"Конструкция «I ran… and put together…» описывает сделанное действие и результат. Подставляйте свои факты: заученная чужая фраза разваливается на уточняющем вопросе.",
+   "ru":"Я прокраулил небольшой сайт и собрал короткий аудит.",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "variants":[
+    "I collected the semantics for one service and mapped it to pages.",
+    "I looked at the indexing report and found the main gap."
+   ],
+   "when":"Когда спрашивают про практический опыт с инструментами."
   }
  ],
  "englishResources":[
