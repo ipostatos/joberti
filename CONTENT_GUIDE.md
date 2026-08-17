@@ -249,6 +249,7 @@ URL обязан быть https. `verified: true` требует `verified_at`.
   "model_answer_short": "…",
   "model_answer_full": "…",
   "rubric": { "0": "…", "1": "…", "2": "…", "3": "…", "4": "…" },
+  "answer_kind": "generic",
   "source_refs": []
 }
 ```
@@ -259,6 +260,22 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 `model_answer_short` — то, что можно произнести за минуту.
 `model_answer_full` — разбор для чтения: почему ответ устроен именно так, что
 отличает сильный ответ от среднего.
+
+**`answer_kind` — эталон или каркас.** Значения объявлены в `answer_kinds`
+в начале файла:
+
+* `generic` — эталон можно произнести как есть: он описывает подход и порядок
+  действий, а не личные факты;
+* `personal` — ответ строится на опыте человека, поэтому `model_answer_short`
+  обязан быть **каркасом**, а не готовым текстом, и рядом обязателен
+  `personal_evidence_prompt` — подсказка на русском, что именно вписать своё.
+
+**Эталон не имеет права заявлять опыт кандидата.** «Год занимаюсь SEO»,
+«I have been working with SEO for about a year», «начал с собственного сайта» —
+это выдуманные достижения: человек заучит чужую биографию и развалится на первом
+уточняющем вопросе. Список запрещённых оборотов —
+`FABRICATED_EXPERIENCE` в `tools/validate_content.py`, проверяется и валидатором,
+и тестом.
 
 `category` обязана быть в списке `categories`. Каждая категория из
 `session_flow` должна иметь хотя бы один вопрос, иначе полная сессия окажется
@@ -322,7 +339,11 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 
 Возможные ключи `completion_rule`: `lesson_read`, `quiz_score_min`,
 `case_completed_min`, `mock_answered_min`, `stories_filled_min`,
-`full_mock_sessions_min`.
+`full_mock_sessions_min`, `requirements_evidenced_min`.
+
+`requirements_evidenced_min` — сколько требований вакансии человек подкрепил
+доказательством из своего опыта. Знание и доказательство разные вещи: процент по
+тестам не отвечает на вопрос «что вы можете показать», а спрашивают именно это.
 
 ### `vacancies.json`
 

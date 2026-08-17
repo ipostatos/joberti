@@ -370,6 +370,46 @@ class TestNoUserDataInvented(unittest.TestCase):
                     self.assertEqual(r.get("status"), "not_started",
                                      "статус требования не может быть проставлен заранее")
 
+    def test_model_answers_do_not_claim_experience(self):
+        """Эталон мок-интервью не заявляет опыт кандидата.
+
+        «Год занимаюсь SEO» в эталоне — выдуманное достижение: человек заучит
+        чужую биографию и развалится на первом уточняющем вопросе. Личный
+        материал живёт отдельным полем и заполняется пользователем.
+        """
+        for m in self.c.mock_questions:
+            for field in ("model_answer_short", "model_answer_full"):
+                blob = str(m.get(field) or "").lower()
+                for marker in validate_content.FABRICATED_EXPERIENCE:
+                    with self.subTest(mock=m["id"], field=field, marker=marker):
+                        self.assertNotIn(marker, blob)
+
+    def test_personal_answers_ask_for_own_material(self):
+        """Каркас личного ответа обязан говорить, что вписать своё."""
+        for m in self.c.mock_questions:
+            kind = m.get("answer_kind")
+            if kind is None:
+                continue
+            with self.subTest(mock=m["id"]):
+                self.assertIn(kind, validate_content.ANSWER_KINDS)
+                if kind == "personal":
+                    self.assertTrue((m.get("personal_evidence_prompt") or "").strip(),
+                                    "personal без personal_evidence_prompt")
+                else:
+                    self.assertIsNone(m.get("personal_evidence_prompt"))
+
+    def test_active_track_mocks_are_classified(self):
+        """Трек под конкретную вакансию размечен целиком.
+
+        Частичная разметка хуже отсутствия: экран показал бы «каркас ответа»
+        на одних вопросах и «эталон» на других без всякой логики.
+        """
+        for m in self.c.mock_questions:
+            if m["track_id"] != "redcore-junior-seo":
+                continue
+            with self.subTest(mock=m["id"]):
+                self.assertIn(m.get("answer_kind"), validate_content.ANSWER_KINDS)
+
     def test_story_templates_are_empty(self):
         for s in self.c.stories:
             for field in ("situation", "task", "action", "result", "reflection"):

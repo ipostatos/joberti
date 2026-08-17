@@ -460,6 +460,17 @@
     if (Sync) Sync.schedulePush();
   }
 
+  // Сколько требований вакансии человек подкрепил доказательством из своего
+  // опыта. Знание и доказательство — разные вещи: процент по тестам не отвечает
+  // на вопрос «что вы можете показать», а на собеседовании спрашивают именно это.
+  function requirementsEvidencedCount() {
+    var v = vacancy();
+    if (!v) return 0;
+    return (v.requirements || []).filter(function (r) {
+      return (requirementState(r).evidence || "").trim();
+    }).length;
+  }
+
   // Требование с учётом пользовательских правок поверх данных вакансии.
   function requirementState(req) {
     var p = Progress.profile();
@@ -532,6 +543,8 @@
     if (rule.mock_answered_min && pr.mocksAnswered < rule.mock_answered_min) return false;
     if (rule.stories_filled_min && storyFilledCount() < rule.stories_filled_min) return false;
     if (rule.full_mock_sessions_min && fullMockSessions() < rule.full_mock_sessions_min) return false;
+    if (rule.requirements_evidenced_min &&
+        requirementsEvidencedCount() < rule.requirements_evidenced_min) return false;
     return true;
   }
 
@@ -841,6 +854,7 @@
     toggleLibraryRead: toggleLibraryRead, saveLibraryNote: saveLibraryNote,
     saveStory: saveStory, storyFilledCount: storyFilledCount,
     saveRequirement: saveRequirement, requirementState: requirementState,
+    requirementsEvidencedCount: requirementsEvidencedCount,
     stepProgress: stepProgress, stepDone: stepDone, stepUnlocked: stepUnlocked,
     recomputeRoadmap: recomputeRoadmap, currentStep: currentStep,
     fullMockSessions: fullMockSessions,

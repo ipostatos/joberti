@@ -71,6 +71,25 @@ REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_
 IMPORTANCE = {"required", "desirable", "nice_to_have"}
 VERIFICATION = {"verified", "needs_review"}
 
+# Эталонный ответ мок-интервью не имеет права заявлять опыт кандидата.
+# «Год занимаюсь SEO» в model_answer — это выдуманное достижение: человек
+# заучит чужую биографию и развалится на первом уточняющем вопросе.
+# Список намеренно узкий и буквальный: широкая эвристика ловила бы обороты
+# вроде «я бы проверил», которые описывают подход, а не опыт.
+FABRICATED_EXPERIENCE = [
+    "год занимаюсь", "года занимаюсь", "лет занимаюсь",
+    "год работаю", "года работаю", "лет работаю",
+    "начал с собственного", "начала с собственного",
+    "я вёл проект", "я вела проект", "на прошлой работе я",
+    "посмотрел ваши", "посмотрела ваши",
+    "у меня опыт", "мой опыт работы",
+    "i have been working", "for about a year", "i worked with clients",
+]
+
+# Каркас личного ответа против готового эталона. Значения объявляются рядом с
+# данными, в mock_questions.json → answer_kinds.
+ANSWER_KINDS = {"generic", "personal"}
+
 # Морская предметная область референсного проекта. Ни одно из этих слов не
 # должно попасть в новый контент — иначе где-то остался копипаст.
 MARITIME_MARKERS = [
@@ -415,6 +434,32 @@ def validate_mock(rep: Report, c) -> None:
                   f"{where}: rubric должен содержать уровни 0..4")
         check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
+
+        # Эталон против личного материала. Поле необязательное: разметка идёт
+        # трек за треком. Но «personal» без подсказки о личном материале
+        # означает пустой экран там, где человек должен вписать своё.
+        kind = x.get("answer_kind")
+        if kind is not None:
+            rep.check(kind in ANSWER_KINDS,
+                      f"{where}: недопустимый answer_kind '{kind}'")
+            if kind == "personal":
+                rep.check(bool((x.get("personal_evidence_prompt") or "").strip()),
+                          f"{where}: answer_kind=personal без personal_evidence_prompt — "
+                          f"каркас есть, а куда вписать своё, человеку не сказано")
+            elif kind == "generic" and x.get("personal_evidence_prompt"):
+                rep.err(f"{where}: personal_evidence_prompt у generic-ответа — "
+                        f"либо ответ личный, либо подсказка лишняя")
+
+        # Приложение не придумывает опыт пользователя. Проверяется по обоим
+        # эталонам: короткий заучивают, развёрнутый читают.
+        for field in ("model_answer_short", "model_answer_full"):
+            blob = str(x.get(field) or "").lower()
+            for marker in FABRICATED_EXPERIENCE:
+                if marker in blob:
+                    rep.err(f"{where}: в {field} заявлен опыт кандидата "
+                            f"(«{marker}») — приложение не выдумывает достижения, "
+                            f"личный материал живёт в personal_evidence_prompt")
+
         key = normalize_text(x.get("question", ""))
         if key in seen:
             rep.err(f"{where}: дубль вопроса '{seen[key]}'")
