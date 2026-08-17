@@ -69,7 +69,8 @@ TRACK_SECTIONS = {
 # ссылаются source_refs обоих треков. Библиотека и ачивки сквозные по смыслу.
 CORE_SECTIONS = (
     "tracks", "sources", "library", "achievements",
-    "glossaryCategories", "mockCategories", "mockSessionFlow", "storyFramework",
+    "glossaryCategories", "mockCategories", "mockSessionFlow", "mockSessionModes",
+    "storyFramework",
     "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
     "englishWritingCategories", "englishResourceCategories",
     "counts",
@@ -130,6 +131,7 @@ def build_sections(c) -> dict:
         "mockQuestions": c.mock_questions,
         "mockCategories": c.raw["mock_questions"].get("categories", []),
         "mockSessionFlow": c.raw["mock_questions"].get("session_flow", []),
+        "mockSessionModes": c.raw["mock_questions"].get("session_modes", []),
         "cases": c.cases,
         "roadmap": c.roadmap,
         "stories": c.stories,

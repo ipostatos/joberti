@@ -288,7 +288,7 @@
   "glossary_terms":282,
   "lessons":95,
   "library_resources":224,
-  "mock_questions":141,
+  "mock_questions":142,
   "questions":541,
   "roadmap_steps":95,
   "sources":236,
@@ -4573,6 +4573,60 @@
   "practical",
   "behavioral",
   "candidate_questions"
+ ],
+ "mockSessionModes":[
+  {
+   "flow":[
+    "intro",
+    "motivation",
+    "portfolio"
+   ],
+   "hint":"Первый разговор: о себе, мотивация, ожидания",
+   "id":"recruiter",
+   "minutes":15,
+   "per_category":2,
+   "title":"Рекрутер"
+  },
+  {
+   "flow":[
+    "fundamentals",
+    "tools",
+    "practical",
+    "english"
+   ],
+   "hint":"Профильный блок: основы, инструменты, практика, английский",
+   "id":"junior",
+   "minutes":25,
+   "per_category":2,
+   "title":"Junior SEO"
+  },
+  {
+   "flow":[
+    "technical"
+   ],
+   "hint":"Технический блок без пощады: HTTP, robots, canonical, индексация",
+   "id":"technical",
+   "minutes":25,
+   "per_category":5,
+   "title":"Technical SEO"
+  },
+  {
+   "closing":"mock-practical-006",
+   "flow":[
+    "intro",
+    "motivation",
+    "fundamentals",
+    "technical",
+    "tools",
+    "practical",
+    "behavioral"
+   ],
+   "hint":"Все блоки по порядку, как на настоящем собеседовании",
+   "id":"full",
+   "minutes":45,
+   "per_category":1,
+   "title":"Финальная сессия"
+  }
  ],
  "questions":[],
  "questionsByTopic":{},

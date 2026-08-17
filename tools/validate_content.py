@@ -506,6 +506,64 @@ def validate_mock(rep: Report, c) -> None:
             rep.err(f"{where}: дубль вопроса '{seen[key]}'")
         seen[key] = x.get("id")
 
+    # Уточняющие вопросы и три глубины ответа — необязательные блоки, но
+    # заполненные наполовину они хуже отсутствующих: экран покажет заголовок
+    # без содержания.
+    for x in c.mock_questions:
+        where = f"mock '{x.get('id')}'"
+        for i, u in enumerate(x.get("follow_ups") or []):
+            at = f"{where} follow_ups[{i}]"
+            if not isinstance(u, dict):
+                rep.err(f"{at}: уточняющий вопрос должен быть объектом")
+                continue
+            require_fields(rep, u, ["question", "expect"], at)
+        depths = x.get("answer_depths")
+        if depths is not None:
+            rep.check(isinstance(depths, dict) and set(depths) == {"30", "60", "120"},
+                      f"{where}: answer_depths должен содержать ровно 30, 60 и 120")
+            if isinstance(depths, dict):
+                for k, v in depths.items():
+                    rep.check(isinstance(v, str) and v.strip(),
+                              f"{where}: пустой ответ на {k} секунд")
+                # Длиннее — значит подробнее. Если тридцатисекундный ответ не
+                # короче двухминутного, глубины перепутаны местами.
+                if set(depths) == {"30", "60", "120"}:
+                    rep.check(len(depths["30"]) < len(depths["60"]) < len(depths["120"]),
+                              f"{where}: глубины ответа не возрастают по объёму — "
+                              f"похоже, перепутаны местами")
+        if x.get("explain_to") is not None:
+            rep.check(isinstance(x["explain_to"], str) and x["explain_to"].strip(),
+                      f"{where}: explain_to пуст")
+
+    # Режимы сессии: состав блоков — это контент, а не разметка экрана.
+    modes = c.raw["mock_questions"].get("session_modes", [])
+    mode_ids = set()
+    for i, m in enumerate(modes):
+        at = f"session_modes[{i}]"
+        require_fields(rep, m, ["id", "title", "hint", "flow"], at)
+        if m.get("id") in mode_ids:
+            rep.err(f"{at}: дублирующийся id режима '{m.get('id')}'")
+        mode_ids.add(m.get("id"))
+        for cat in m.get("flow") or []:
+            rep.check(cat in categories,
+                      f"{at}: категория '{cat}' не объявлена в categories")
+        if m.get("closing"):
+            rep.check(m["closing"] in {q["id"] for q in c.mock_questions},
+                      f"{at}: закрывающий вопрос '{m['closing']}' не найден")
+    if modes:
+        rep.check("full" in mode_ids,
+                  "session_modes: нет режима 'full' — по нему считаются полные "
+                  "сессии в готовности и достижениях")
+        # Пустой блок режим просто пропускает, но знать о пробеле нужно.
+        for t in c.active_tracks():
+            have_cats = {q.get("category") for q in c.mock_questions
+                         if q.get("track_id") == t["id"]}
+            for m in modes:
+                empty = [cat for cat in m.get("flow") or [] if cat not in have_cats]
+                if empty:
+                    rep.warn(f"track '{t['id']}': режим '{m.get('id')}' пропустит "
+                             f"блоки {empty} — вопросов этих категорий нет")
+
     # Полная сессия mock interview собирается по категориям из session_flow.
     flow = c.raw["mock_questions"].get("session_flow", [])
     have = {q.get("category") for q in c.mock_questions}
