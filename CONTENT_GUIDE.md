@@ -351,12 +351,21 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 {
   "id": "…", "track_id": "…", "title": "…", "company": "…",
   "level": "Junior", "work_format": "…", "summary": "…",
+  "external_ref": "TAG-2147",
   "main_tasks": ["…"], "tools": ["…"], "interview_topics": ["topic-id"],
+  "language_requirements": [
+    {
+      "language": "en", "level": "B1", "level_label": "Intermediate",
+      "importance": "required", "requirement_id": "req-english",
+      "note": "Почему язык нужен именно здесь"
+    }
+  ],
   "requirements": [
     {
       "id": "req-gsc",
       "requirement": "Google Search Console: отчёты, индексация, проверка URL",
       "importance": "required",
+      "competency": "tools",
       "topic_ids": ["indexing-gsc"],
       "status": "not_started",
       "evidence": "",
@@ -370,6 +379,17 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 
 `importance`: `required` | `desirable` | `nice_to_have`.
 `status`: `confirmed` | `partial` | `learning` | `not_started` | `not_applicable`.
+`competency` (необязательно): `tools` | `english`.
+
+**`language_requirements`** — язык отдельным блоком, а не строкой внутри
+требования. Расчёт готовности к вакансии обязан отличать обязательный язык от
+желательного, а разбирать это из текста требования означало бы гадать по строке.
+`requirement_id` ссылается на требование в том же списке; если язык объявлен
+обязательным, а связанное требование помечено как желательное, валидатор падает:
+вакансия противоречит сама себе.
+
+`external_ref` — номер объявления, под которое выровнена вакансия. Виден в
+шапке экрана вакансии.
 
 **`evidence` и `gap` обязаны быть пустыми, `status` — всегда `not_started`.**
 Их заполняет пользователь в приложении. Валидатор запрещает статус

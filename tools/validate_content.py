@@ -69,6 +69,9 @@ QUESTION_LEVELS = {"L1", "L2", "L3", "L4"}
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
 REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
 IMPORTANCE = {"required", "desirable", "nice_to_have"}
+# Компетенция помечается в данных, а не выводится кодом из списка тем: расчёт
+# готовности к вакансии не должен знать наизусть, какая тема «про инструменты».
+COMPETENCIES = {"tools", "english"}
 VERIFICATION = {"verified", "needs_review"}
 
 # Эталонный ответ мок-интервью не имеет права заявлять опыт кандидата.
@@ -606,6 +609,27 @@ def validate_vacancies(rep: Report, c) -> None:
             if r.get("status") in {"confirmed", "partial"} and not (r.get("evidence") or "").strip():
                 rep.err(f"{rw}: статус '{r['status']}' без evidence — "
                         f"приложение не должно выдумывать достижения пользователя")
+            if r.get("competency") is not None:
+                rep.check(r["competency"] in COMPETENCIES,
+                          f"{rw}: недопустимая competency '{r['competency']}'")
+
+        # Языковое требование живёт отдельным блоком: расчёт готовности к
+        # вакансии обязан отличать обязательный язык от желательного, а
+        # разбирать это из текста требования означало бы гадать по строке.
+        for i, lang in enumerate(v.get("language_requirements") or []):
+            lw = f"{where} / language_requirements[{i}]"
+            require_fields(rep, lang, ["language", "importance", "requirement_id"], lw)
+            rep.check(lang.get("importance") in IMPORTANCE,
+                      f"{lw}: недопустимый importance")
+            linked = lang.get("requirement_id")
+            rep.check(linked in req_ids,
+                      f"{lw}: requirement_id '{linked}' не найден среди требований")
+            if lang.get("importance") == "required" and linked in req_ids:
+                target = next(r for r in v["requirements"] if r["id"] == linked)
+                rep.check(target.get("importance") == "required",
+                          f"{lw}: язык объявлен обязательным, а требование "
+                          f"'{linked}' помечено как '{target.get('importance')}' — "
+                          f"вакансия противоречит сама себе")
 
     # У активного трека обязана быть вакансия.
     for t in c.active_tracks():

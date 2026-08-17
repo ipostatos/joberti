@@ -608,6 +608,37 @@
     });
   }
 
+  // Готовность к ВАКАНСИИ — второй процент, отвечающий на другой вопрос:
+  // не «знаю ли я предмет», а «готов ли я к этой вакансии». Состояние
+  // требований сливается здесь: readiness.js хранилище не читает.
+  function vacancyReadiness(now) {
+    var v = vacancy();
+    var reqs = ((v && v.requirements) || []).map(function (r) {
+      var st = requirementState(r);
+      return {
+        id: r.id,
+        importance: r.importance,
+        competency: r.competency || null,
+        status: st.status,
+        evidence: st.evidence,
+      };
+    });
+    return Readiness.computeVacancy({
+      content: C,
+      trackId: trackId(),
+      srs: SRS.stateMap(),
+      profile: Progress.profile(),
+      days: Progress.days(),
+      today: Progress.dayKey(now),
+      nowMs: (now || new Date()).getTime(),
+      fullMockSessions: fullMockSessions(),
+      requirements: reqs,
+      languageRequirements: (v && v.language_requirements) || [],
+      storiesFilled: storyFilledCount(),
+      english: englishStats(),
+    });
+  }
+
   function examPlan(now) {
     return Readiness.examPlan({
       content: C,
@@ -858,7 +889,8 @@
     stepProgress: stepProgress, stepDone: stepDone, stepUnlocked: stepUnlocked,
     recomputeRoadmap: recomputeRoadmap, currentStep: currentStep,
     fullMockSessions: fullMockSessions,
-    readiness: readiness, examPlan: examPlan, setExamDate: setExamDate,
+    readiness: readiness, vacancyReadiness: vacancyReadiness,
+    examPlan: examPlan, setExamDate: setExamDate,
     dueIds: dueIds, reviewDue: reviewDue, mistakeIds: mistakeIds,
     nextAction: nextAction,
     achievements: achievements, trackWeakTopicRecovery: trackWeakTopicRecovery,

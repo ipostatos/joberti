@@ -8,8 +8,8 @@
       "title": "Junior SEO Specialist",
       "company": "RedCore",
       "level": "Junior",
-      "work_format": "Уточнить у рекрутера (офис / гибрид / удалённо)",
-      "summary": "Позиция для начинающего SEO-специалиста: работа с сайтами компании, техническая гигиена, семантика, контентные задачи и отчётность.",
+      "work_format": "Удалённо (remote), кандидаты с правом работы в Польше",
+      "summary": "Позиция для начинающего SEO-специалиста в команде ниши iGaming: работа с сайтами компании, техническая гигиена, семантика, контентные задачи, ссылочный профиль и отчётность. Формат удалённый, рассматриваются кандидаты с правом работы в Польше. Английский Intermediate и выше — обязательное требование, а не пожелание.",
       "main_tasks": [
         "Технический аудит страниц и разделов сайта",
         "Сбор и кластеризация семантического ядра",
@@ -17,7 +17,8 @@
         "Оптимизация метаданных и структуры страниц",
         "Работа с Google Search Console и GA4",
         "Мониторинг индексации и позиций",
-        "Анализ конкурентов в выдаче",
+        "Анализ конкурентов в выдаче и разрыва по ссылающимся доменам",
+        "Работа со ссылочным профилем: оценка доноров, анкоры, аутрич",
         "Подготовка регулярной отчётности"
       ],
       "tools": [
@@ -38,6 +39,8 @@
         "keyword-research",
         "analytics-ga4",
         "seo-tools",
+        "off-page-seo",
+        "igaming-context",
         "behavioral"
       ],
       "requirements": [
@@ -131,7 +134,8 @@
           "evidence": "",
           "evidence_hint": "Скриншот или описание отчёта, который вы регулярно смотрели",
           "gap": "",
-          "next_action": "Подготовить мини-кейс по GSC с динамикой показов и кликов"
+          "next_action": "Подготовить мини-кейс по GSC с динамикой показов и кликов",
+          "competency": "tools"
         },
         {
           "id": "req-keyword-research",
@@ -158,7 +162,8 @@
           "evidence": "",
           "evidence_hint": "Таблица, где вы использовали фильтры, сводные или ВПР/QUERY",
           "gap": "",
-          "next_action": "Сделать шаблон обработки выгрузки Screaming Frog"
+          "next_action": "Сделать шаблон обработки выгрузки Screaming Frog",
+          "competency": "tools"
         },
         {
           "id": "req-analytics",
@@ -171,7 +176,50 @@
           "evidence": "",
           "evidence_hint": "Какие отчёты вы открывали и какие выводы делали",
           "gap": "",
-          "next_action": "Пройти уроки по GA4 и тест по теме"
+          "next_action": "Пройти уроки по GA4 и тест по теме",
+          "competency": "tools"
+        },
+        {
+          "id": "req-seo-tools",
+          "requirement": "Практическое владение инструментами: GSC, GA4, Screaming Frog, Ahrefs или Semrush",
+          "importance": "required",
+          "competency": "tools",
+          "topic_ids": [
+            "seo-tools",
+            "indexing-gsc",
+            "analytics-ga4"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "По одной решённой задаче на каждый инструмент: какой отчёт открывали, что нашли, какой сделали вывод",
+          "gap": "",
+          "next_action": "Пройти шаги плана по GSC, GA4 и краулеру и выписать по одной задаче на инструмент"
+        },
+        {
+          "id": "req-off-page",
+          "requirement": "Off-page SEO: ссылающиеся домены, анкоры, оценка доноров, ссылочный спам",
+          "importance": "required",
+          "topic_ids": [
+            "off-page-seo"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор ссылочного профиля любого сайта: что смотрели, какие доноры отбраковали и почему",
+          "gap": "",
+          "next_action": "Пройти блок off-page и кейс case-link-buying-013"
+        },
+        {
+          "id": "req-igaming",
+          "requirement": "Понимание ниши iGaming: партнёрские выдачи, рынки, регулирование",
+          "importance": "desirable",
+          "topic_ids": [
+            "igaming-context"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Можете объяснить, чем SEO в этой нише отличается от обычного коммерческого сайта, с примером из выдачи",
+          "gap": "",
+          "next_action": "Пройти урок про контекст iGaming и мок-вопросы про мотивацию"
         },
         {
           "id": "req-screaming-frog",
@@ -184,7 +232,8 @@
           "evidence": "",
           "evidence_hint": "Отчёт краула с описанием найденных проблем",
           "gap": "",
-          "next_action": "Прокраулить учебный сайт и выписать топ-5 проблем"
+          "next_action": "Прокраулить учебный сайт и выписать топ-5 проблем",
+          "competency": "tools"
         },
         {
           "id": "req-ahrefs-semrush",
@@ -198,7 +247,8 @@
           "evidence": "",
           "evidence_hint": "Сравнение своего сайта с конкурентом по видимости",
           "gap": "",
-          "next_action": "Сделать разбор одного конкурента"
+          "next_action": "Сделать разбор одного конкурента",
+          "competency": "tools"
         },
         {
           "id": "req-cwv",
@@ -211,7 +261,7 @@
           "evidence": "",
           "evidence_hint": "Разбор отчёта PageSpeed Insights по реальной странице",
           "gap": "",
-          "next_action": "Прогнать страницу через PageSpeed Insights и объяснить метрики"
+          "next_action": "Прогнать страницу через PageSpeed Insights и объяснить метрики. Тема остаётся в плане, но отсекающим требованием вакансии не является"
         },
         {
           "id": "req-content-brief",
@@ -254,16 +304,17 @@
         },
         {
           "id": "req-english",
-          "requirement": "Английский для чтения документации",
-          "importance": "desirable",
+          "requirement": "Английский Intermediate (B1) и выше: документация, переписка, созвоны",
+          "importance": "required",
           "topic_ids": [
             "interview-seo"
           ],
           "status": "not_started",
           "evidence": "",
-          "evidence_hint": "Регулярно читаете Google Search Central в оригинале",
+          "evidence_hint": "Чем подтверждается уровень: опыт работы или учёбы на английском, сертификат, пройденные письменные задания и устный тренажёр в разделе «Английский»",
           "gap": "",
-          "next_action": "Разобрать блок Interview English в словаре"
+          "next_action": "Пройти письменные задания и устный тренажёр в разделе «Английский»",
+          "competency": "english"
         },
         {
           "id": "req-international",
@@ -277,6 +328,17 @@
           "evidence_hint": "Работа с hreflang или языковыми версиями",
           "gap": "",
           "next_action": "Пройти урок по hreflang"
+        }
+      ],
+      "external_ref": "TAG-2147",
+      "language_requirements": [
+        {
+          "language": "en",
+          "level": "B1",
+          "level_label": "Intermediate",
+          "importance": "required",
+          "requirement_id": "req-english",
+          "note": "Команда распределённая: документация, переписка и часть созвонов на английском"
         }
       ]
     },
