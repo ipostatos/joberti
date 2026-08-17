@@ -126,6 +126,13 @@ CASES: list[dict] = load_json("cases.json")["cases"]
 QUESTIONS_BY_ID = {q["id"]: q for q in QUESTIONS}
 MOCKS_BY_ID = {m["id"]: m for m in MOCKS}
 
+# Окно «уже виденного» в файле прогресса. Оно нужно, чтобы файл не рос
+# бесконечно, но обязано быть НЕ МЕНЬШЕ банка: иначе бот начинает считать
+# невиданными вопросы, которые человек уже проходил, и «сначала невиданные»
+# превращается в случайный повтор. Порог был фиксированным (500) и стал мал,
+# когда банк перевалил за пятьсот вопросов — поймано тестом на живых данных.
+SEEN_WINDOW = max(500, len(QUESTIONS))
+
 # Треки нужны и чату: без них случайный вопрос приходит из ЧУЖОЙ профессии —
 # SEO-специалист получает вопрос про CrashLoopBackOff.
 TRACKS: list[dict] = [
@@ -206,8 +213,8 @@ def record_answer(user_id: int, question_id: str, correct: bool) -> None:
     if question_id not in data["seen"]:
         data["seen"].append(question_id)
         # Не даём файлу расти бесконечно: держим окно последних вопросов.
-        if len(data["seen"]) > 500:
-            data["seen"] = data["seen"][-500:]
+        if len(data["seen"]) > SEEN_WINDOW:
+            data["seen"] = data["seen"][-SEEN_WINDOW:]
     save_progress(user_id, data)
 
 

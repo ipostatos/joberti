@@ -63,6 +63,11 @@ ENGLISH_MIN_PER_TRACK = {
 # Свои, не сквозные записи: без них трек получает только общий английский.
 ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
+# То же, но предупреждением: правило введено при переработке SEO-трека, у
+# которого своих фраз не было вовсе — раздел выглядел наполненным за счёт
+# сквозных. На остальных треках пробел тот же, и ронять им CI неправильно.
+ENGLISH_WARN_TRACK_OWN = {"english_phrases": 2}
+
 # Уровни владения темой (docs/REDCORE_CONTENT_SPEC.md §3). Поле необязательное:
 # старый банк размечается постепенно, но размеченная тема обязана доходить до
 # диагностики — ради неё уровни и вводились.
@@ -249,6 +254,26 @@ def validate_lessons(rep: Report, c) -> None:
                   f"{where}: меньше 2 common_mistakes")
         rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
                   f"{where}: некорректный estimated_minutes")
+
+        # Блоки «как проверить руками» и «чем» из сетки урока. Поля
+        # необязательные: старые треки размечаются постепенно. Но пустая
+        # проверка или инструмент без проверки — это половина блока, и такая
+        # запись хуже отсутствующей: на экране появится заголовок без смысла.
+        how = x.get("how_to_check")
+        tools = x.get("tools")
+        if how is not None:
+            rep.check(isinstance(how, str) and len(how.strip()) >= 40,
+                      f"{where}: how_to_check пуст или слишком короткий, "
+                      f"чтобы описать проверку руками")
+        if tools is not None:
+            rep.check(isinstance(tools, list) and tools and
+                      all(isinstance(t, str) and t.strip() for t in tools),
+                      f"{where}: tools должен быть непустым списком названий")
+        if (how is None) != (tools is None):
+            rep.err(f"{where}: how_to_check и tools заполняются вместе — "
+                    f"проверка без инструмента и инструмент без проверки "
+                    f"одинаково бесполезны")
+
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_question_ids"), q_ids, where, "related_question_ids")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
@@ -486,6 +511,64 @@ def validate_mock(rep: Report, c) -> None:
             rep.err(f"{where}: дубль вопроса '{seen[key]}'")
         seen[key] = x.get("id")
 
+    # Уточняющие вопросы и три глубины ответа — необязательные блоки, но
+    # заполненные наполовину они хуже отсутствующих: экран покажет заголовок
+    # без содержания.
+    for x in c.mock_questions:
+        where = f"mock '{x.get('id')}'"
+        for i, u in enumerate(x.get("follow_ups") or []):
+            at = f"{where} follow_ups[{i}]"
+            if not isinstance(u, dict):
+                rep.err(f"{at}: уточняющий вопрос должен быть объектом")
+                continue
+            require_fields(rep, u, ["question", "expect"], at)
+        depths = x.get("answer_depths")
+        if depths is not None:
+            rep.check(isinstance(depths, dict) and set(depths) == {"30", "60", "120"},
+                      f"{where}: answer_depths должен содержать ровно 30, 60 и 120")
+            if isinstance(depths, dict):
+                for k, v in depths.items():
+                    rep.check(isinstance(v, str) and v.strip(),
+                              f"{where}: пустой ответ на {k} секунд")
+                # Длиннее — значит подробнее. Если тридцатисекундный ответ не
+                # короче двухминутного, глубины перепутаны местами.
+                if set(depths) == {"30", "60", "120"}:
+                    rep.check(len(depths["30"]) < len(depths["60"]) < len(depths["120"]),
+                              f"{where}: глубины ответа не возрастают по объёму — "
+                              f"похоже, перепутаны местами")
+        if x.get("explain_to") is not None:
+            rep.check(isinstance(x["explain_to"], str) and x["explain_to"].strip(),
+                      f"{where}: explain_to пуст")
+
+    # Режимы сессии: состав блоков — это контент, а не разметка экрана.
+    modes = c.raw["mock_questions"].get("session_modes", [])
+    mode_ids = set()
+    for i, m in enumerate(modes):
+        at = f"session_modes[{i}]"
+        require_fields(rep, m, ["id", "title", "hint", "flow"], at)
+        if m.get("id") in mode_ids:
+            rep.err(f"{at}: дублирующийся id режима '{m.get('id')}'")
+        mode_ids.add(m.get("id"))
+        for cat in m.get("flow") or []:
+            rep.check(cat in categories,
+                      f"{at}: категория '{cat}' не объявлена в categories")
+        if m.get("closing"):
+            rep.check(m["closing"] in {q["id"] for q in c.mock_questions},
+                      f"{at}: закрывающий вопрос '{m['closing']}' не найден")
+    if modes:
+        rep.check("full" in mode_ids,
+                  "session_modes: нет режима 'full' — по нему считаются полные "
+                  "сессии в готовности и достижениях")
+        # Пустой блок режим просто пропускает, но знать о пробеле нужно.
+        for t in c.active_tracks():
+            have_cats = {q.get("category") for q in c.mock_questions
+                         if q.get("track_id") == t["id"]}
+            for m in modes:
+                empty = [cat for cat in m.get("flow") or [] if cat not in have_cats]
+                if empty:
+                    rep.warn(f"track '{t['id']}': режим '{m.get('id')}' пропустит "
+                             f"блоки {empty} — вопросов этих категорий нет")
+
     # Полная сессия mock interview собирается по категориям из session_flow.
     flow = c.raw["mock_questions"].get("session_flow", [])
     have = {q.get("category") for q in c.mock_questions}
@@ -601,6 +684,50 @@ def validate_roadmap(rep: Report, c) -> None:
             if dep in order_of and order_of[dep] >= s.get("order", 0):
                 rep.err(f"step '{s['id']}' (order {s.get('order')}) зависит от "
                         f"'{dep}' (order {order_of[dep]}) — предпосылка идёт не раньше")
+
+
+def validate_projects(rep: Report, c) -> None:
+    """Практические проекты.
+
+    У проекта намеренно НЕТ собственного состояния: сделанным он считается
+    тогда, когда человек описал доказательство у связанного требования
+    вакансии. Вторая отметка «выполнено» рядом с доказательством была бы
+    вторым источником правды об одном и том же факте — и они бы разъехались.
+    """
+    check_unique_ids(rep, c.projects, "projects")
+    topic_ids, track_ids = set(c.topics_by_id), set(c.tracks_by_id)
+    orders: dict[str, set] = {}
+    for x in c.projects:
+        where = f"project '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "track_id", "title", "goal", "why_it_matters",
+            "deliverable", "evidence_hint", "requirement_id",
+        ], where)
+        rep.check(x.get("track_id") in track_ids, f"{where}: неизвестный track_id")
+        rep.check(isinstance(x.get("order"), int), f"{where}: order должен быть числом")
+        seen = orders.setdefault(x.get("track_id"), set())
+        if x.get("order") in seen:
+            rep.err(f"{where}: повторяющийся order {x.get('order')} внутри трека")
+        seen.add(x.get("order"))
+        rep.check(isinstance(x.get("required"), bool), f"{where}: required должен быть bool")
+        rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
+                  f"{where}: некорректный estimated_minutes")
+        rep.check(len(x.get("steps") or []) >= 3, f"{where}: меньше 3 шагов")
+        rep.check(len(x.get("checklist") or []) >= 3, f"{where}: меньше 3 пунктов чек-листа")
+        check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
+
+        # Требование вакансии, которым подтверждается проект, обязано
+        # существовать: иначе проект нечем закрыть, а ограничитель готовности
+        # останется включённым навсегда.
+        track = c.tracks_by_id.get(x.get("track_id")) or {}
+        vac = next((v for v in c.vacancies if v.get("id") == track.get("vacancy_id")), None)
+        if vac is None:
+            rep.err(f"{where}: у трека нет вакансии, подтвердить проект нечем")
+            continue
+        req_ids = {r.get("id") for r in vac.get("requirements") or []}
+        rep.check(x.get("requirement_id") in req_ids,
+                  f"{where}: requirement_id '{x.get('requirement_id')}' не найден "
+                  f"в вакансии '{vac.get('id')}'")
 
 
 def validate_vacancies(rep: Report, c) -> None:
@@ -929,6 +1056,11 @@ def validate_english(rep: Report, c) -> None:
             rep.check(len(own) >= minimum,
                       f"track '{t['id']}': своих записей в '{key}' — {len(own)}, "
                       f"требуется минимум {minimum}: без них раздел одинаков для всех профессий")
+        for key, minimum in ENGLISH_WARN_TRACK_OWN.items():
+            own = [x for x in getattr(c, key) if t["id"] in (x.get("track_ids") or [])]
+            if len(own) < minimum:
+                rep.warn(f"track '{t['id']}': своих записей в '{key}' — {len(own)} "
+                         f"при желаемых {minimum}: раздел наполнен только сквозными")
 
 
 def validate_counts(rep: Report, c) -> None:
@@ -964,9 +1096,34 @@ def validate_counts(rep: Report, c) -> None:
                 rep.err(f"track '{t['id']}': обязательная тема '{topic['id']}' без уроков")
         # Критическая тема обязана иметь и вопросы, и уроки.
         q_topics = {q["topic"] for q in c.questions if q.get("track_id") == t["id"]}
+        # Кейсы критических тем: критическая тема ограничивает готовность
+        # потолком, поэтому у человека должен быть способ её проработать не
+        # только тестом. Без практики потолок становится тупиком.
+        case_topics = set()
+        for x in c.cases:
+            if x.get("track_id") == t["id"]:
+                case_topics.update(x.get("topic_ids") or [])
         for tid in t.get("critical_topic_ids") or []:
             if tid not in q_topics:
                 rep.err(f"track '{t['id']}': критическая тема '{tid}' без вопросов теста")
+            if tid not in case_topics:
+                # Предупреждение, а не ошибка: правило введено при переработке
+                # SEO-трека, и на остальных треках пробел ещё не закрыт. Ронять
+                # им CI значило бы либо блокировать чужую работу, либо тихо
+                # выключить проверку — оба варианта хуже видимого долга.
+                rep.warn(f"track '{t['id']}': критическая тема '{tid}' без единого "
+                         f"кейса — потолок готовности снять нечем")
+
+        # Списки критических тем в двух местах обязаны совпадать: трек объявляет
+        # их для расчёта, тема помечает себя сама. Разъехавшись, они дают
+        # ограничитель по теме, которая себя критической не считает.
+        declared = set(t.get("critical_topic_ids") or [])
+        marked = {x["id"] for x in c.topics
+                  if x.get("track_id") == t["id"] and x.get("critical")}
+        if declared != marked:
+            rep.err(f"track '{t['id']}': critical_topic_ids и темы с critical:true "
+                    f"расходятся — только в треке {sorted(declared - marked)}, "
+                    f"только в темах {sorted(marked - declared)}")
 
 
 def _parse_review_date(rep: Report, value, where: str):
@@ -1091,6 +1248,7 @@ def run() -> Report:
     validate_cases(rep, c)
     validate_roadmap(rep, c)
     validate_vacancies(rep, c)
+    validate_projects(rep, c)
     validate_stories(rep, c)
     validate_achievements(rep, c)
     validate_english(rep, c)

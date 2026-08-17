@@ -147,7 +147,18 @@ class TestProgress(unittest.TestCase):
     def test_seen_list_is_capped(self):
         for q in self.bot.QUESTIONS:
             self.bot.record_answer(5, q["id"], True)
-        self.assertLessEqual(len(self.bot.load_progress(5)["seen"]), 500)
+        self.assertLessEqual(len(self.bot.load_progress(5)["seen"]),
+                             self.bot.SEEN_WINDOW)
+
+    def test_seen_window_covers_the_whole_bank(self):
+        """Окно не должно «забывать» просмотренное, пока банк не пройден.
+
+        Порог был фиксированным (500) и стал мал, когда банк перевалил за
+        пятьсот вопросов: бот начал считать невиданными вопросы, которые
+        человек уже проходил. Поймано на живых данных, поэтому проверка
+        привязана к размеру банка, а не к числу.
+        """
+        self.assertGreaterEqual(self.bot.SEEN_WINDOW, len(self.bot.QUESTIONS))
 
     def test_corrupt_file_does_not_crash(self):
         path = Path(self.tmp) / "6.json"

@@ -20,11 +20,13 @@
       ],
       "practice_items": [
         "quiz:search-basics",
-        "mock:mock-fundamentals-001"
+        "mock:mock-fundamentals-001",
+        "case:case-discovery-016"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "case_completed_min": 1
       }
     },
     {
@@ -46,11 +48,13 @@
       ],
       "practice_items": [
         "quiz:search-intent",
-        "mock:mock-fundamentals-005"
+        "mock:mock-fundamentals-005",
+        "case:case-intent-mismatch-017"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "case_completed_min": 1
       }
     },
     {
@@ -279,11 +283,13 @@
       ],
       "practice_items": [
         "quiz:seo-tools",
-        "mock:mock-tools-002"
+        "mock:mock-tools-002",
+        "case:case-crawl-settings-018"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 75
+        "quiz_score_min": 75,
+        "case_completed_min": 1
       }
     },
     {
@@ -377,11 +383,13 @@
         "lesson-internal-linking"
       ],
       "practice_items": [
+        "quiz:internal-linking",
         "mock:mock-fundamentals-007"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "mock_answered_min": 1
+        "mock_answered_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -428,12 +436,14 @@
         "lesson-content-brief"
       ],
       "practice_items": [
+        "quiz:content-briefs",
         "case:case-content-brief-010",
         "mock:mock-practical-002"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -477,6 +487,7 @@
         "lesson-sheets-for-seo"
       ],
       "practice_items": [
+        "quiz:sheets",
         "quiz:reporting",
         "mock:mock-tools-004"
       ],
@@ -504,12 +515,14 @@
         "lesson-reporting"
       ],
       "practice_items": [
+        "quiz:reporting",
         "case:case-report-011",
         "mock:mock-practical-004"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -530,12 +543,14 @@
         "lesson-dev-communication"
       ],
       "practice_items": [
+        "quiz:dev-communication",
         "case:case-dev-task-012",
         "mock:mock-practical-003"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -556,13 +571,15 @@
         "lesson-interview-questions"
       ],
       "practice_items": [
+        "quiz:interview-seo",
         "mock:mock-intro-001",
         "mock:mock-motivation-001",
         "mock:mock-practical-006"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "mock_answered_min": 3
+        "mock_answered_min": 3,
+        "quiz_score_min": 80
       }
     },
     {
@@ -594,7 +611,7 @@
     {
       "id": "step-24-final-mock",
       "track_id": "redcore-junior-seo",
-      "order": 27,
+      "order": 29,
       "title": "Финальное mock interview",
       "goal": "Пройти полную сессию и получить разбор по блокам",
       "topic_ids": [
@@ -609,7 +626,9 @@
         "step-23-behavioral",
         "step-08-indexing-gsc",
         "step-25-igaming-context",
-        "step-26-vacancy-evidence"
+        "step-26-vacancy-evidence",
+        "step-27-site-architecture",
+        "step-28-seo-audit"
       ],
       "study_items": [],
       "practice_items": [
@@ -2444,6 +2463,67 @@
         "mock_answered_min": 2,
         "stories_filled_min": 5,
         "requirements_evidenced_min": 6
+      }
+    },
+    {
+      "id": "step-27-site-architecture",
+      "track_id": "redcore-junior-seo",
+      "order": 27,
+      "title": "Архитектура сайта",
+      "goal": "Считать глубину клика, находить сирот и поднимать важные страницы ссылками",
+      "topic_ids": [
+        "site-architecture"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-15-internal-linking",
+        "step-11-screaming-frog"
+      ],
+      "study_items": [
+        "lesson-site-architecture"
+      ],
+      "practice_items": [
+        "quiz:site-architecture",
+        "case:case-architecture-014",
+        "mock:mock-technical-011"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
+      }
+    },
+    {
+      "id": "step-28-seo-audit",
+      "track_id": "redcore-junior-seo",
+      "order": 28,
+      "title": "SEO-аудит",
+      "goal": "Превращать выгрузку в приоритизированный план, а не в список предупреждений",
+      "topic_ids": [
+        "seo-audit"
+      ],
+      "estimated_minutes": 75,
+      "required": true,
+      "prerequisites": [
+        "step-27-site-architecture",
+        "step-20-reporting",
+        "step-24-off-page"
+      ],
+      "study_items": [
+        "lesson-seo-audit-framework"
+      ],
+      "practice_items": [
+        "quiz:seo-audit",
+        "case:case-audit-priority-015",
+        "mock:mock-practical-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1,
+        "mock_answered_min": 1
       }
     }
   ]

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Практика · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_core.js"></script>
+<script src="content-loader.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .pr{ background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:var(--sp-3) var(--sp-4); margin-bottom:var(--sp-2) }
+  .pr .top{ display:flex; align-items:flex-start; gap:var(--sp-3) }
+  .pr .body{ flex:1; min-width:0 }
+  .pr .t{ display:block; font-weight:700; font-size:var(--fs-body); line-height:1.35 }
+  .pr .d{ display:block; font-size:var(--fs-sm); color:var(--hint); margin-top:3px; line-height:1.5 }
+  .pr .line{ font-size:var(--fs-sm); margin-top:var(--sp-2); line-height:1.55 }
+  .pr .line b{ color:var(--hint); font-weight:600 }
+  .honest{ font-size:var(--fs-xs); color:var(--hint); line-height:1.5;
+    background:var(--muted-fill); border:1px solid var(--border);
+    border-radius:var(--r-sm); padding:10px var(--sp-3); margin-bottom:var(--sp-3) }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var root = document.getElementById("root");
+  var projects = App.projects();
+
+  if (!projects.length) {
+    root.innerHTML = '<div class="state">Для выбранного трека практика не описана</div>' +
+      '<a class="btn ghost" href="index.html">На главную</a>';
+    Icons.hydrate();
+    return;
+  }
+
+  function render() {
+    var done = projects.filter(App.projectDone).length;
+    var required = projects.filter(function (p) { return p.required; });
+    var parts = [];
+
+    parts.push('<div class="hero">' +
+      '<span class="ic-tile green" data-icon="graduation-cap"></span>' +
+      '<div class="body"><h1>Практика</h1>' +
+      '<div class="muted small">' + done + " из " + projects.length +
+      " · после них на собеседовании можно говорить «я делал», а не «я читал»</div></div></div>");
+
+    parts.push('<div class="honest">Проект считается сделанным, когда вы описали ' +
+      'доказательство у связанного требования вакансии. Отдельной галочки «выполнено» ' +
+      'здесь нет намеренно: два места для одного факта неизбежно разъедутся, ' +
+      'а на собеседовании спрашивают именно доказательство.</div>');
+
+    parts.push('<div class="card"><div class="h3">Обязательная практика</div>' +
+      '<div class="meter ' + (done === required.length ? "ok" : "warn") + '">' +
+      '<i style="width:' + Math.round(done / Math.max(1, required.length) * 100) +
+      '%"></i></div>' +
+      '<div class="small muted" style="margin-top:6px">' + done + " из " +
+      required.length + " закрыто</div></div>");
+
+    parts.push(projects.slice().sort(function (a, b) {
+      return (a.order || 0) - (b.order || 0);
+    }).map(function (p) {
+      var ok = App.projectDone(p);
+      var req = App.requirementById(p.requirement_id);
+      return '<div class="pr">' +
+        '<div class="top">' +
+        '<span class="st ' + (ok ? "st-confirmed" : "st-not_started") + '">' +
+        (ok ? "сделано" : "не сдано") + "</span>" +
+        '<div class="body"><span class="t">' + App.esc(p.title) + "</span>" +
+        '<span class="d">' + App.esc(p.goal) + "</span></div></div>" +
+
+        '<div class="line"><b>Зачем:</b> ' + App.esc(p.why_it_matters) + "</div>" +
+
+        '<details style="margin-top:var(--sp-3)">' +
+        '<summary class="small muted" style="cursor:pointer">Шаги и чек-лист · ~' +
+        Math.round((p.estimated_minutes || 0) / 60) + " ч</summary>" +
+        '<ul class="points" style="margin-top:var(--sp-2)">' +
+        (p.steps || []).map(function (s) {
+          return '<li><span class="b"></span><span>' + App.esc(s) + "</span></li>";
+        }).join("") + "</ul>" +
+        '<div class="line"><b>Что сдаём:</b> ' + App.esc(p.deliverable) + "</div>" +
+        '<ul class="points ok" style="margin-top:var(--sp-2)">' +
+        (p.checklist || []).map(function (s) {
+          return '<li><span class="b"></span><span>' + App.esc(s) + "</span></li>";
+        }).join("") + "</ul></details>" +
+
+        '<div class="line"><b>Чем подтверждается:</b> ' +
+        App.esc(p.evidence_hint) + "</div>" +
+        (req
+          ? '<div class="btn-row" style="margin-top:var(--sp-2)">' +
+            '<a class="btn sm ghost" href="vacancy.html">' +
+            (ok ? "Открыть доказательство" : "Описать доказательство") + "</a>" +
+            '<span class="small muted" style="align-self:center">требование: ' +
+            App.esc(req.requirement) + "</span></div>"
+          : "") +
+        "</div>";
+    }).join(""));
+
+    parts.push('<a class="btn ghost" href="index.html" style="margin-top:var(--sp-3)">' +
+      "На главную</a>");
+
+    root.innerHTML = parts.join("");
+    Icons.hydrate();
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -30,7 +30,8 @@
       "related_lesson_ids": [
         "lesson-how-search-works"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-basics-002",
@@ -62,7 +63,8 @@
       "related_lesson_ids": [
         "lesson-how-search-works"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-003",
@@ -94,7 +96,8 @@
       "related_lesson_ids": [
         "lesson-how-search-works"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-004",
@@ -127,7 +130,8 @@
       "related_lesson_ids": [
         "lesson-crawl-budget-discovery"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-basics-005",
@@ -158,7 +162,8 @@
       "related_lesson_ids": [
         "lesson-crawl-budget-discovery"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-006",
@@ -189,7 +194,8 @@
       "related_lesson_ids": [
         "lesson-crawl-budget-discovery"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-basics-007",
@@ -221,7 +227,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-basics-008",
@@ -253,7 +260,8 @@
       "related_lesson_ids": [
         "lesson-how-search-works"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-search-basics-009",
@@ -284,7 +292,8 @@
       "related_lesson_ids": [
         "lesson-indexing-diagnostics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-010",
@@ -316,12 +325,13 @@
       "related_lesson_ids": [
         "lesson-crawl-budget-discovery"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-011",
       "track_id": "redcore-junior-seo",
-      "topic": "search-basics",
+      "topic": "interview-seo",
       "question": "Кандидат обещает вывести сайт в топ-3 за месяц. Как это оценивается на собеседовании?",
       "options": [
         "Как признак уверенности в себе",
@@ -347,12 +357,13 @@
       "related_lesson_ids": [
         "lesson-interview-questions"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-basics-012",
       "track_id": "redcore-junior-seo",
-      "topic": "search-basics",
+      "topic": "interview-seo",
       "question": "Что лучше ответить, если вы не знаете ответа на технический вопрос интервьюера?",
       "options": [
         "Назвать наиболее вероятный вариант как точный факт",
@@ -376,7 +387,8 @@
       "related_lesson_ids": [
         "lesson-interview-questions"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-intent-001",
@@ -409,7 +421,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-intent-002",
@@ -440,7 +453,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-intent-003",
@@ -471,7 +485,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-intent-004",
@@ -502,7 +517,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-intent-005",
@@ -533,7 +549,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-search-intent-006",
@@ -564,7 +581,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-search-intent-007",
@@ -596,7 +614,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-search-intent-008",
@@ -628,7 +647,8 @@
       "related_lesson_ids": [
         "lesson-clustering-mapping"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-intent-009",
@@ -659,7 +679,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-search-intent-010",
@@ -691,7 +712,8 @@
       "related_lesson_ids": [
         "lesson-search-intent"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-on-page-001",
@@ -723,7 +745,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-002",
@@ -754,7 +777,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-003",
@@ -786,7 +810,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-004",
@@ -818,7 +843,8 @@
       "related_lesson_ids": [
         "lesson-title-description"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-005",
@@ -849,7 +875,8 @@
       "related_lesson_ids": [
         "lesson-title-description"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-006",
@@ -880,7 +907,8 @@
       "related_lesson_ids": [
         "lesson-title-description"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-007",
@@ -911,7 +939,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-008",
@@ -944,7 +973,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-on-page-009",
@@ -975,7 +1005,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-010",
@@ -1007,7 +1038,8 @@
       "related_lesson_ids": [
         "lesson-title-description"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-011",
@@ -1038,7 +1070,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-on-page-012",
@@ -1069,7 +1102,8 @@
       "related_lesson_ids": [
         "lesson-onpage-basics"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-013",
@@ -1101,12 +1135,13 @@
       "related_lesson_ids": [
         "lesson-title-description"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-on-page-014",
       "track_id": "redcore-junior-seo",
-      "topic": "on-page",
+      "topic": "internal-linking",
       "question": "Какой анкор внутренней ссылки полезнее?",
       "options": [
         "«Нажмите здесь, чтобы узнать больше»",
@@ -1133,12 +1168,13 @@
       "related_lesson_ids": [
         "lesson-internal-linking"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-015",
       "track_id": "redcore-junior-seo",
-      "topic": "on-page",
+      "topic": "internal-linking",
       "question": "Какие внутренние ссылки обычно весомее?",
       "options": [
         "Ссылки в основном контенте страницы",
@@ -1164,7 +1200,8 @@
       "related_lesson_ids": [
         "lesson-internal-linking"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-016",
@@ -1196,7 +1233,8 @@
       "related_lesson_ids": [
         "lesson-structured-data"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-on-page-017",
@@ -1228,7 +1266,8 @@
       "related_lesson_ids": [
         "lesson-structured-data"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-on-page-018",
@@ -1260,7 +1299,8 @@
       "related_lesson_ids": [
         "lesson-structured-data"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-html-http-001",
@@ -1293,7 +1333,8 @@
       "related_lesson_ids": [
         "lesson-html-structure"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-html-http-002",
@@ -1325,7 +1366,8 @@
       "related_lesson_ids": [
         "lesson-html-structure"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-html-http-003",
@@ -1357,7 +1399,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-html-http-004",
@@ -1388,7 +1431,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-html-http-005",
@@ -1419,7 +1463,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-html-http-006",
@@ -1452,7 +1497,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-html-http-007",
@@ -1483,7 +1529,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-html-http-008",
@@ -1515,7 +1562,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-html-http-009",
@@ -1548,7 +1596,8 @@
       "related_lesson_ids": [
         "lesson-html-structure"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-html-http-010",
@@ -1579,7 +1628,8 @@
       "related_lesson_ids": [
         "lesson-html-structure"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-html-http-011",
@@ -1612,7 +1662,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-html-http-012",
@@ -1645,7 +1696,8 @@
       "related_lesson_ids": [
         "lesson-http-codes-redirects"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-001",
@@ -1676,7 +1728,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-technical-seo-002",
@@ -1709,7 +1762,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-003",
@@ -1742,7 +1796,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-004",
@@ -1773,7 +1828,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-technical-seo-005",
@@ -1805,7 +1861,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-006",
@@ -1836,7 +1893,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-007",
@@ -1867,7 +1925,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-008",
@@ -1899,7 +1958,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-009",
@@ -1931,7 +1991,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-010",
@@ -1963,7 +2024,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-011",
@@ -1994,7 +2056,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-012",
@@ -2027,7 +2090,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-013",
@@ -2058,7 +2122,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-014",
@@ -2089,7 +2154,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-technical-seo-015",
@@ -2122,7 +2188,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-016",
@@ -2154,7 +2221,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-017",
@@ -2186,7 +2254,8 @@
       "related_lesson_ids": [
         "lesson-js-rendering"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-018",
@@ -2218,7 +2287,8 @@
       "related_lesson_ids": [
         "lesson-core-web-vitals"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-technical-seo-019",
@@ -2251,7 +2321,8 @@
       "related_lesson_ids": [
         "lesson-core-web-vitals"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-020",
@@ -2282,7 +2353,8 @@
       "related_lesson_ids": [
         "lesson-international-seo"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-021",
@@ -2314,7 +2386,8 @@
       "related_lesson_ids": [
         "lesson-international-seo"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-technical-seo-022",
@@ -2345,7 +2418,8 @@
       "related_lesson_ids": [
         "lesson-crawl-budget-discovery"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-technical-seo-023",
@@ -2377,7 +2451,8 @@
       "related_lesson_ids": [
         "lesson-robots-sitemap-canonical"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-technical-seo-024",
@@ -2409,7 +2484,8 @@
       "related_lesson_ids": [
         "lesson-duplicates-parameters"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-keyword-research-001",
@@ -2441,7 +2517,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-keyword-research-002",
@@ -2473,7 +2550,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-keyword-research-003",
@@ -2504,7 +2582,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-keyword-research-004",
@@ -2536,7 +2615,8 @@
       "related_lesson_ids": [
         "lesson-clustering-mapping"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-keyword-research-005",
@@ -2567,7 +2647,8 @@
       "related_lesson_ids": [
         "lesson-clustering-mapping"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-keyword-research-006",
@@ -2599,7 +2680,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-keyword-research-007",
@@ -2631,7 +2713,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-keyword-research-008",
@@ -2663,7 +2746,8 @@
       "related_lesson_ids": [
         "lesson-clustering-mapping"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-keyword-research-009",
@@ -2695,7 +2779,8 @@
       "related_lesson_ids": [
         "lesson-keyword-research"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-keyword-research-010",
@@ -2727,7 +2812,8 @@
       "related_lesson_ids": [
         "lesson-ahrefs-semrush"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-keyword-research-011",
@@ -2760,7 +2846,8 @@
       "related_lesson_ids": [
         "lesson-competitor-analysis"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L3"
     },
     {
       "id": "q-keyword-research-012",
@@ -2792,7 +2879,8 @@
       "related_lesson_ids": [
         "lesson-clustering-mapping"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-001",
@@ -2826,7 +2914,8 @@
         "lesson-indexing-diagnostics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-002",
@@ -2859,7 +2948,8 @@
         "lesson-indexing-diagnostics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-indexing-gsc-003",
@@ -2891,7 +2981,8 @@
         "lesson-indexing-diagnostics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-004",
@@ -2925,7 +3016,8 @@
         "lesson-gsc-performance"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-indexing-gsc-005",
@@ -2958,7 +3050,8 @@
         "lesson-gsc-performance"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-006",
@@ -2990,7 +3083,8 @@
         "lesson-gsc-performance"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-indexing-gsc-007",
@@ -3023,7 +3117,8 @@
         "lesson-gsc-performance"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-008",
@@ -3055,7 +3150,8 @@
         "lesson-duplicates-parameters"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-indexing-gsc-009",
@@ -3087,7 +3183,8 @@
         "lesson-indexing-diagnostics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-indexing-gsc-010",
@@ -3120,7 +3217,8 @@
         "lesson-gsc-performance"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-analytics-ga4-001",
@@ -3152,7 +3250,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-analytics-ga4-002",
@@ -3186,7 +3285,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-analytics-ga4-003",
@@ -3218,7 +3318,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-analytics-ga4-004",
@@ -3251,7 +3352,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-analytics-ga4-005",
@@ -3286,7 +3388,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-analytics-ga4-006",
@@ -3318,7 +3421,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-analytics-ga4-007",
@@ -3352,7 +3456,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-analytics-ga4-008",
@@ -3384,7 +3489,8 @@
         "lesson-ga4-basics"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-001",
@@ -3417,7 +3523,8 @@
         "lesson-screaming-frog"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-002",
@@ -3451,7 +3558,8 @@
         "lesson-screaming-frog"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-003",
@@ -3484,7 +3592,8 @@
         "lesson-ahrefs-semrush"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-seo-tools-004",
@@ -3518,7 +3627,8 @@
         "lesson-ahrefs-semrush"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-005",
@@ -3551,7 +3661,8 @@
         "lesson-competitor-analysis"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L1"
     },
     {
       "id": "q-seo-tools-006",
@@ -3584,7 +3695,8 @@
         "lesson-competitor-analysis"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-007",
@@ -3617,7 +3729,8 @@
         "lesson-screaming-frog"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L2"
     },
     {
       "id": "q-seo-tools-008",
@@ -3649,12 +3762,13 @@
         "lesson-screaming-frog"
       ],
       "verification_status": "verified",
-      "content_reviewed_at": "2026-08-17"
+      "content_reviewed_at": "2026-08-17",
+      "level": "L3"
     },
     {
       "id": "q-reporting-001",
       "track_id": "redcore-junior-seo",
-      "topic": "reporting",
+      "topic": "sheets",
       "question": "Что чаще всего ломает соединение двух выгрузок по URL?",
       "options": [
         "Разное количество строк в двух таблицах",
@@ -3681,12 +3795,13 @@
       "related_lesson_ids": [
         "lesson-sheets-for-seo"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-reporting-002",
       "track_id": "redcore-junior-seo",
-      "topic": "reporting",
+      "topic": "sheets",
       "question": "Какой инструмент Sheets удобнее для подсчёта итогов по группам?",
       "options": [
         "Условное форматирование",
@@ -3712,7 +3827,8 @@
       "related_lesson_ids": [
         "lesson-sheets-for-seo"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L1"
     },
     {
       "id": "q-reporting-003",
@@ -3743,7 +3859,8 @@
       "related_lesson_ids": [
         "lesson-reporting"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-reporting-004",
@@ -3775,12 +3892,13 @@
       "related_lesson_ids": [
         "lesson-reporting"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-reporting-005",
       "track_id": "redcore-junior-seo",
-      "topic": "reporting",
+      "topic": "content-briefs",
       "question": "Что обязательно должно быть в ТЗ копирайтеру?",
       "options": [
         "Требуемая плотность ключевых слов в тексте",
@@ -3806,12 +3924,13 @@
       "related_lesson_ids": [
         "lesson-content-brief"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-reporting-006",
       "track_id": "redcore-junior-seo",
-      "topic": "reporting",
+      "topic": "dev-communication",
       "question": "Как правильно сформулировать техническую задачу разработчику?",
       "options": [
         "Через конкретную правку в конфигурации сервера",
@@ -3838,7 +3957,8 @@
       "related_lesson_ids": [
         "lesson-dev-communication"
       ],
-      "verification_status": "verified"
+      "verification_status": "verified",
+      "level": "L2"
     },
     {
       "id": "q-devops-linux-001",
@@ -14262,6 +14382,1610 @@
         "lesson-link-gap-outreach"
       ],
       "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Что такое глубина клика страницы?",
+      "options": [
+        "Число кликов от главной до страницы",
+        "Число внутренних ссылок на страницу",
+        "Уровень вложенности папок в URL",
+        "Позиция страницы в меню сайта"
+      ],
+      "answer": 0,
+      "explanation": "Глубина клика — кратчайший путь по ссылкам от главной. С вложенностью адреса она не совпадает: страница может лежать по /a/b/c/d и быть в одном клике от главной, если на неё оттуда ведёт ссылка.",
+      "why": [
+        "Верно: считается кратчайший путь по ссылкам.",
+        "Это число входящих внутренних ссылок — другая метрика.",
+        "Вложенность адреса и глубина клика расходятся регулярно.",
+        "Место в меню влияет на глубину, но самой глубиной не является."
+      ],
+      "difficulty": 1,
+      "level": "L1",
+      "source_refs": [
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-click-depth",
+        "t-url-hierarchy"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Зачем нужны хлебные крошки?",
+      "options": [
+        "Чтобы увеличить число ключевых слов",
+        "Чтобы показать место страницы в структуре",
+        "Чтобы ускорить загрузку страницы",
+        "Чтобы заменить главное меню сайта"
+      ],
+      "answer": 1,
+      "explanation": "Крошки показывают путь от корня к текущей странице: человеку — где он находится, поисковику — как устроена иерархия. С разметкой BreadcrumbList они могут появиться в результате выдачи.",
+      "why": [
+        "Набивать крошки запросами бессмысленно и вредно.",
+        "Верно: это отражение иерархии, а не украшение.",
+        "На скорость загрузки крошки не влияют.",
+        "Крошки дополняют меню, а не заменяют его."
+      ],
+      "difficulty": 1,
+      "level": "L1",
+      "source_refs": [
+        "google-breadcrumb-structured-data"
+      ],
+      "related_term_ids": [
+        "t-breadcrumbs",
+        "t-site-architecture"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-003",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Чем глубина клика отличается от вложенности URL?",
+      "options": [
+        "Ничем, это одно и то же",
+        "Вложенность считается по ссылкам, глубина по папкам",
+        "Глубина считается по ссылкам, вложенность по адресу",
+        "Глубина имеет значение только для интернет-магазинов"
+      ],
+      "answer": 2,
+      "explanation": "Глубина клика — кратчайший путь по ссылкам от главной. Вложенность — число сегментов в адресе. Робот ходит по ссылкам, поэтому на обход влияет первое, а второе нужно людям и удобно для отчётов по разделам.",
+      "why": [
+        "Это разные метрики, и они расходятся регулярно.",
+        "Перепутано местами.",
+        "Верно: одно про ссылки, другое про адрес.",
+        "Глубина важна на любом сайте с большим числом страниц."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-url-structure"
+      ],
+      "related_term_ids": [
+        "t-click-depth",
+        "t-url-hierarchy"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-004",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Почему страница-сирота — проблема?",
+      "options": [
+        "Она отдаёт код ответа 404",
+        "Она обязательно дублирует другую страницу",
+        "Она автоматически исключается из sitemap",
+        "Робот может не найти её по ссылкам"
+      ],
+      "answer": 3,
+      "explanation": "Основной способ обнаружения — переход по ссылкам. На страницу без единой входящей внутренней ссылки робот попадёт разве что из sitemap, и она останется на периферии обхода.",
+      "why": [
+        "Сирота отвечает нормально, просто на неё никто не ссылается.",
+        "Дублирование — отдельная проблема, с сиротством не связанная.",
+        "В sitemap она может быть, это её и спасает от полного забвения.",
+        "Верно: обнаружение идёт по ссылкам."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-links-crawlable",
+        "google-crawlers-overview"
+      ],
+      "related_term_ids": [
+        "t-orphan-page",
+        "t-internal-link"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-005",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Что даёт более плоская структура каталога?",
+      "options": [
+        "Меньше кликов от главной до товара",
+        "Меньше страниц в индексе сайта",
+        "Более высокие позиции по всем запросам",
+        "Отсутствие необходимости в хлебных крошках"
+      ],
+      "answer": 0,
+      "explanation": "Плоская структура сокращает путь от главной до целевых страниц: важное оказывается ближе к точке входа обхода. Гарантией позиций это не является и иерархию не отменяет.",
+      "why": [
+        "Верно: сокращается путь от главной.",
+        "Число страниц зависит от содержимого, а не от структуры.",
+        "Позиции определяются соответствием запросу, а не глубиной.",
+        "Крошки нужны в любой структуре: они показывают контекст."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-url-structure"
+      ],
+      "related_term_ids": [
+        "t-site-architecture",
+        "t-click-depth"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-006",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Важная коммерческая страница находится на глубине 6. Что сделать в первую очередь?",
+      "options": [
+        "Сократить число сегментов в её URL",
+        "Поставить на неё ссылки с верхних уровней",
+        "Добавить её в sitemap.xml ещё раз",
+        "Закрыть промежуточные страницы от обхода"
+      ],
+      "answer": 1,
+      "explanation": "Глубина клика меняется ссылками, а не адресом. Ссылка из меню, с главной или из подходящей категории сразу поднимает страницу к точке входа обхода. Переписывание адреса потребует редиректов и глубину само по себе не изменит.",
+      "why": [
+        "Адрес и глубина — разные вещи; смена URL стоит редиректов и не решает задачу.",
+        "Верно: глубина определяется ссылками.",
+        "Sitemap помогает обнаружению, но структуру ссылок не меняет.",
+        "Закрытие промежуточных страниц только ухудшит связность."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-click-depth",
+        "t-hub-page"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-007",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "В каталоге 40 000 товаров, средняя глубина клика — 8. Что это означает?",
+      "options": [
+        "Сайт слишком большой для индексации",
+        "Товары надо перенести в корень сайта",
+        "Часть товаров робот будет обходить редко",
+        "Структура каталога нарушает правила Google"
+      ],
+      "answer": 2,
+      "explanation": "Чем дальше страница от точки входа, тем реже она попадает в обход. На крупном каталоге это выражается в том, что часть товаров подолгу не появляется в поиске. Лечится связностью — категориями, подборками, перелинковкой, — а не переносом всего в корень.",
+      "why": [
+        "Размер сам по себе индексации не мешает.",
+        "Плоский корень на 40 000 адресов неуправляем и задачу не решает.",
+        "Верно: далёкие страницы обходятся реже.",
+        "Требований к глубине структуры у Google нет."
+      ],
+      "difficulty": 3,
+      "level": "L3",
+      "source_refs": [
+        "google-crawl-budget",
+        "google-url-structure"
+      ],
+      "related_term_ids": [
+        "t-click-depth",
+        "t-crawl-budget"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-site-architecture-008",
+      "track_id": "redcore-junior-seo",
+      "topic": "site-architecture",
+      "question": "Краул: 12 000 страниц, 3 000 без входящих внутренних ссылок, в sitemap все 12 000, в GSC растёт «Обнаружена — не проиндексирована». Что проверить первым?",
+      "options": [
+        "Скорость ответа сервера на этих страницах",
+        "Наличие noindex на страницах без ссылок",
+        "Корректность формата файла sitemap.xml",
+        "Что это за 3 000 страниц без ссылок"
+      ],
+      "answer": 3,
+      "explanation": "Три тысячи сирот при растущей группе «Обнаружена — не проиндексирована» означают, что адреса известны из sitemap, но пути к ним по ссылкам нет. Первый вопрос — что это вообще за страницы: если мусор от фильтров, их не нужно ни индексировать, ни держать в sitemap; если живые товары, задача в связности.",
+      "why": [
+        "Скорость влияет на объём обхода, но отсутствия ссылок не объясняет.",
+        "Noindex дал бы другой статус — об исключении по директиве.",
+        "Формат файла проверить полезно, но три тысячи сирот он не объясняет.",
+        "Верно: сначала выясняют природу этих страниц, потом чинят."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-page-indexing-report",
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-orphan-page",
+        "t-click-depth"
+      ],
+      "related_lesson_ids": [
+        "lesson-site-architecture"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Из чего складывается приоритет находки в аудите?",
+      "options": [
+        "Из влияния, масштаба и уверенности",
+        "Из порядка появления находки в отчёте",
+        "Из числа страниц, на которых она встречается",
+        "Из сложности исправления для разработчика"
+      ],
+      "answer": 0,
+      "explanation": "Приоритет складывается из трёх множителей: насколько сильно проблема влияет, скольких страниц касается и насколько мы уверены в диагнозе. Одна распространённость приоритета не задаёт.",
+      "why": [
+        "Верно: влияние, масштаб и уверенность вместе.",
+        "Порядок в отчёте — следствие приоритета, а не он сам.",
+        "Масштаб — только один из трёх множителей.",
+        "Трудоёмкость учитывают при планировании, но она не про важность."
+      ],
+      "difficulty": 1,
+      "level": "L1",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-issue-priority",
+        "t-seo-audit"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Что входит в краткую сводку аудита?",
+      "options": [
+        "Полный список всех найденных проблем",
+        "Главные выводы и что делать первым",
+        "Методика и настройки краула",
+        "Список использованных инструментов"
+      ],
+      "answer": 1,
+      "explanation": "Краткая сводка отвечает на вопрос «что здесь главное и с чего начинать». Полные таблицы уходят в приложение: их читают исполнители, а решение принимает тот, кто дочитает до конца первой страницы.",
+      "why": [
+        "Полный список — это приложение, а не сводка.",
+        "Верно: выводы и первоочередные действия.",
+        "Методику указывают, но не вместо выводов.",
+        "Перечень инструментов на решение не влияет."
+      ],
+      "difficulty": 1,
+      "level": "L1",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-executive-summary",
+        "t-seo-audit"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-003",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Чем аудит отличается от списка предупреждений краулера?",
+      "options": [
+        "Аудит делается вручную, без инструментов",
+        "Аудит охватывает больше проверок, чем краулер",
+        "Аудит объясняет последствия и расставляет приоритет",
+        "Аудит не касается технической части сайта"
+      ],
+      "answer": 2,
+      "explanation": "Краулер выдаёт факты: столько-то страниц с длинным заголовком. Аудит отвечает, что из этого важно, почему и в каком порядке чинить. Тысяча предупреждений обычно сводится к трём-четырём типам проблем.",
+      "why": [
+        "Инструменты в аудите используются обязательно.",
+        "Число проверок само по себе ценности не добавляет.",
+        "Верно: ценность в интерпретации и приоритете.",
+        "Техническая часть — один из основных срезов аудита."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "screamingfrog-user-guide"
+      ],
+      "related_term_ids": [
+        "t-seo-audit",
+        "t-issue-priority"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-004",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Почему при приоритизации учитывают уверенность в диагнозе?",
+      "options": [
+        "Чтобы отчёт выглядел научно обоснованным",
+        "Чтобы уменьшить общее число находок",
+        "Чтобы убрать из отчёта спорные места",
+        "Чтобы не двигать разработку на догадке"
+      ],
+      "answer": 3,
+      "explanation": "Правка требует чужого рабочего времени. Отправить разработку переделывать шаблон по непроверенной гипотезе — дорогая ошибка, поэтому неуверенный диагноз сначала проверяют, а потом ставят в план.",
+      "why": [
+        "Формула нужна для решения, а не для вида.",
+        "Уверенность меняет порядок работ, а не их количество.",
+        "Спорные места не выбрасывают, их помечают как гипотезы.",
+        "Верно: цена ошибки — чужое рабочее время."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-issue-priority"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-005",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Какой срез аудита разбирают раньше остальных?",
+      "options": [
+        "Доступность и обход",
+        "Скорость загрузки",
+        "Внешние ссылки",
+        "Микроразметку"
+      ],
+      "answer": 0,
+      "explanation": "Порядок идёт от того, без чего остальное не имеет смысла: если страницу нельзя обойти и проиндексировать, её скорость и разметка уже неважны. Отсюда последовательность: обход, индексация, канонизация, архитектура, перелинковка, on-page, контент, скорость, внешние ссылки, аналитика.",
+      "why": [
+        "Верно: без обхода остальные срезы бессмысленны.",
+        "Скорость важна, но после того, как страница попадает в индекс.",
+        "Внешние ссылки разбирают ближе к концу.",
+        "Разметка — надстройка над уже работающей страницей."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-search-essentials"
+      ],
+      "related_term_ids": [
+        "t-seo-audit"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-006",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Найдено: 5 000 товарных страниц с noindex и 17 заголовков длиннее 60 символов. Как расставить приоритет?",
+      "options": [
+        "Сначала заголовки: их быстрее исправить",
+        "Сначала noindex: затронут весь каталог",
+        "Одновременно, обе задачи в один спринт",
+        "Сначала заголовки, noindex после аудита"
+      ],
+      "answer": 1,
+      "explanation": "Влияние и масштаб несопоставимы: пять тысяч закрытых товарных страниц — это отсутствующий в поиске каталог, семнадцать длинных заголовков — косметика, и лимит в 60 символов вообще не является требованием Google. Быстрота исправления на приоритет не влияет.",
+      "why": [
+        "Трудоёмкость не делает задачу важной.",
+        "Верно: влияние и масштаб на порядок больше.",
+        "Параллельная постановка размывает приоритет и время разработки.",
+        "Откладывать отсутствующий каталог нельзя ни на какой срок."
+      ],
+      "difficulty": 3,
+      "level": "L3",
+      "source_refs": [
+        "google-title-link"
+      ],
+      "related_term_ids": [
+        "t-issue-priority",
+        "t-noindex"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-007",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "Заказчик просит «найти все ошибки» на сайте из 200 000 страниц. Что ответить?",
+      "options": [
+        "Согласиться и выгрузить полный список краулера",
+        "Отказаться: аудит такого сайта невозможен",
+        "Уточнить цель и ограничить аудит значимым",
+        "Предложить проверить только главную страницу"
+      ],
+      "answer": 2,
+      "explanation": "«Все ошибки» — не задача, а список без приоритета, который никто не будет чинить. Полезный аудит начинается с цели: какие страницы приносят деньги, что мешает именно им и что реально исправить в разумный срок.",
+      "why": [
+        "Сырая выгрузка — исходные данные, а не результат работы.",
+        "Аудит возможен, вопрос в его границах и цели.",
+        "Верно: сначала цель и границы, потом проверки.",
+        "Одна главная страница ничего не скажет о каталоге."
+      ],
+      "difficulty": 3,
+      "level": "L3",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-seo-audit",
+        "t-executive-summary"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-seo-audit-008",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-audit",
+      "question": "В аудите: 30% страниц с дублирующимся title, 2% отдают 5xx, у 60% нет описания. Трафик упал на 40% за неделю. С чего начать?",
+      "options": [
+        "С дублирующихся title: их больше всего",
+        "С описаний: они влияют на кликабельность",
+        "С полного повторного краула всего сайта",
+        "С серверных ошибок и даты начала падения"
+      ],
+      "answer": 3,
+      "explanation": "Резкое падение за неделю не объясняется метаданными: дубли заголовков и отсутствие описаний накапливаются месяцами и так не обваливают трафик. Два процента ответов 5xx — единственная находка, совпадающая по характеру с внезапностью. Первый шаг — сопоставить дату падения с датой появления ошибок.",
+      "why": [
+        "Дубли заголовков влияют постепенно и не дают обвала за неделю.",
+        "Описания влияют на кликабельность, а не на падение такого масштаба.",
+        "Повторный краул повторит те же цифры и динамику не объяснит.",
+        "Верно: внезапное падение сопоставляют с внезапной технической причиной."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-traffic-drops",
+        "google-http-status-codes"
+      ],
+      "related_term_ids": [
+        "t-issue-priority",
+        "t-http-status"
+      ],
+      "related_lesson_ids": [
+        "lesson-seo-audit-framework"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Что даёт внутренняя ссылка кроме перехода пользователя?",
+      "options": [
+        "Контекст о странице и путь для робота",
+        "Ускорение загрузки целевой страницы",
+        "Замену записи в файле sitemap.xml",
+        "Увеличение частоты обхода сервера"
+      ],
+      "answer": 0,
+      "explanation": "Внутренняя ссылка делает две вещи сразу: даёт роботу путь к странице и сообщает анкором, о чём она. Поэтому осмысленный анкор полезнее, чем «подробнее».",
+      "why": [
+        "Верно: обнаружение плюс контекст из анкора.",
+        "На скорость загрузки ссылка не влияет.",
+        "Sitemap помогает обнаружению, но связность им не заменяется.",
+        "Частота обхода зависит от сайта в целом, а не от одной ссылки."
+      ],
+      "difficulty": 1,
+      "level": "L1",
+      "source_refs": [
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-internal-link",
+        "t-anchor-text"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Чем внутренний анкор отличается от внешнего?",
+      "options": [
+        "Внешний Google учитывает, внутренний нет",
+        "Внутренним вы управляете сами",
+        "Внутренний влияет только на скорость",
+        "Внешний работает лишь при dofollow"
+      ],
+      "answer": 1,
+      "explanation": "И тот и другой дают контекст. Разница в управляемости: внутренний анкор пишете вы, поэтому его можно сделать описательным. Внешний пишет чужой человек, и там значение имеет распределение по всему профилю.",
+      "why": [
+        "Внутренние анкоры учитываются, это ваш собственный сигнал.",
+        "Верно: внутренним анкором вы распоряжаетесь сами.",
+        "К скорости анкор отношения не имеет.",
+        "Значения rel — подсказки, а не выключатель ссылки."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-qualify-links",
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-anchor-text",
+        "t-anchor-text-external"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-003",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Чем плох анкор «подробнее» у внутренней ссылки?",
+      "options": [
+        "Такие ссылки считаются спамными",
+        "Такая ссылка не индексируется вовсе",
+        "Он мешает работе хлебных крошек",
+        "Он не говорит, о чём целевая страница"
+      ],
+      "answer": 3,
+      "explanation": "Анкор — это контекст. «Подробнее» одинаково подходит к любой странице, поэтому не сообщает ни человеку, ни поисковику, куда он ведёт. Описательный анкор полезен обоим.",
+      "why": [
+        "Спамным анкор становится от переоптимизации, а не от неинформативности.",
+        "Индексации целевой страницы это не мешает.",
+        "Крошки формируются отдельно и от анкоров не зависят.",
+        "Верно: контекста в таком анкоре нет."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-links-crawlable",
+        "google-seo-starter-guide"
+      ],
+      "related_term_ids": [
+        "t-anchor-text",
+        "t-internal-link"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-004",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Сколько внутренних ссылок уместно на странице?",
+      "options": [
+        "Не больше ста, это официальный лимит",
+        "Не больше трёх на тысячу знаков текста",
+        "Чем больше, тем лучше для обхода",
+        "Столько, сколько оправдано содержанием"
+      ],
+      "answer": 3,
+      "explanation": "Жёсткого лимита у Google нет. Ссылки ставятся там, где они уместны читателю; страница-каталог ссылок и страница без единой ссылки одинаково плохи, но не из-за числа, а из-за пользы.",
+      "why": [
+        "Правило про сто ссылок — устаревшая рекомендация, а не лимит.",
+        "Плотность ссылок фактором не является, как и плотность ключей.",
+        "Сотни ссылок в подвале размывают контекст и не помогают обходу.",
+        "Верно: ориентир — польза для читателя, а не число."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "google-seo-starter-guide"
+      ],
+      "related_term_ids": [
+        "t-internal-link"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-005",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Новый раздел плохо индексируется, на него ведёт одна ссылка из подвала. Что предложите?",
+      "options": [
+        "Поставить ссылки из материалов по теме",
+        "Продублировать ссылку в подвале ещё раз",
+        "Добавить раздел в sitemap.xml и подождать",
+        "Закрыть старые разделы от обхода"
+      ],
+      "answer": 0,
+      "explanation": "Сквозная ссылка в подвале даёт формальную связность, но слабый контекст: она одинакова на всех страницах и ничего не говорит о теме. Ссылки из материалов по теме дают и путь, и контекст.",
+      "why": [
+        "Верно: контекстные ссылки дают и путь, и смысл.",
+        "Вторая ссылка в том же подвале ничего не добавляет.",
+        "Sitemap помогает обнаружению, но связность им не заменяется.",
+        "Закрытие старых разделов только ухудшит обход сайта."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [
+        "google-links-crawlable"
+      ],
+      "related_term_ids": [
+        "t-internal-link",
+        "t-orphan-page"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-internal-linking-006",
+      "track_id": "redcore-junior-seo",
+      "topic": "internal-linking",
+      "question": "Краул: на страницу услуги ведут 240 внутренних ссылок, 238 из них — сквозные из подвала с анкором «услуги». Позиций нет. Что проверить первым?",
+      "options": [
+        "Не закрыт ли подвал от индексации директивой",
+        "Не превышен ли лимит в сто ссылок на странице",
+        "Есть ли на неё ссылки из тематических материалов",
+        "Не дублируется ли подвал на всех страницах сайта"
+      ],
+      "answer": 2,
+      "explanation": "240 ссылок здесь — это фактически две: сквозная в шаблоне и она же повторённая. Контекста такой анкор не даёт, и картину внутренних ссылок она рисует ложную. Первое, что стоит выяснить, — есть ли на страницу хоть одна ссылка из материала по теме.",
+      "why": [
+        "Подвал открыт, иначе ссылок не было бы видно в крауле.",
+        "Лимита в сто ссылок не существует, это устаревшее правило.",
+        "Верно: сквозная ссылка не заменяет тематическую.",
+        "Дублирование подвала — свойство шаблона, а не причина отсутствия позиций."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-links-crawlable",
+        "google-seo-starter-guide"
+      ],
+      "related_term_ids": [
+        "t-internal-link",
+        "t-anchor-text"
+      ],
+      "related_lesson_ids": [
+        "lesson-internal-linking"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-sheets-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "sheets",
+      "question": "Чем QUERY удобнее обычного фильтра?",
+      "options": [
+        "Работает быстрее на любых объёмах",
+        "Не требует ссылок на исходные данные",
+        "Автоматически исправляет ошибки в данных",
+        "Формула повторяется на новых данных"
+      ],
+      "answer": 3,
+      "explanation": "QUERY описывает выборку формулой: при обновлении исходных данных результат пересчитывается сам. Фильтр — разовое действие руками, которое придётся повторять и которое не воспроизводится через месяц.",
+      "why": [
+        "На небольших объёмах разницы в скорости нет.",
+        "QUERY как раз ссылается на диапазон исходных данных.",
+        "Ошибки в данных ни одна функция сама не чинит.",
+        "Верно: воспроизводимость на новых выгрузках."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "sheets-query-function"
+      ],
+      "related_term_ids": [
+        "t-query-function",
+        "t-data-cleaning"
+      ],
+      "related_lesson_ids": [
+        "lesson-sheets-for-seo"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-sheets-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "sheets",
+      "question": "Зачем держать исходную выгрузку на отдельном листе?",
+      "options": [
+        "Чтобы файл занимал меньше места",
+        "Чтобы обработку можно было повторить",
+        "Чтобы ускорить пересчёт формул",
+        "Чтобы обойти лимит строк в таблице"
+      ],
+      "answer": 1,
+      "explanation": "Правка исходника руками ломает воспроизводимость: через месяц никто не вспомнит, что и почему исправляли, и повторить обработку на новой выгрузке невозможно. Схема простая: сырые данные, лист нормализации, результат.",
+      "why": [
+        "На размер файла это не влияет.",
+        "Верно: сырые данные отделены от обработки.",
+        "Скорость пересчёта от расположения листов не зависит.",
+        "Лимиты таблицы так не обходятся."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "sheets-query-function"
+      ],
+      "related_term_ids": [
+        "t-data-cleaning",
+        "t-pivot-table"
+      ],
+      "related_lesson_ids": [
+        "lesson-sheets-for-seo"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-sheets-003",
+      "track_id": "redcore-junior-seo",
+      "topic": "sheets",
+      "question": "После соединения двух выгрузок половина строк пустая. Что проверить первым?",
+      "options": [
+        "Совпадает ли формат URL в обеих таблицах",
+        "Хватает ли строк в диапазоне результата",
+        "Не превышен ли лимит формул в таблице",
+        "Правильно ли выбран тип диаграммы"
+      ],
+      "answer": 0,
+      "explanation": "Пустые значения после соединения почти всегда означают, что ключи не совпали: разный протокол, www, завершающий слеш, регистр хоста или оставшиеся трекинговые метки. Нормализовать при этом можно только заведомо эквивалентные различия.",
+      "why": [
+        "Верно: несовпадение ключей — самая частая причина.",
+        "Диапазон даёт ошибку, а не пустые значения.",
+        "Лимит формул проявился бы иначе и на всей таблице.",
+        "Диаграммы к соединению данных отношения не имеют."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [
+        "sheets-query-function"
+      ],
+      "related_term_ids": [
+        "t-data-cleaning",
+        "t-vlookup"
+      ],
+      "related_lesson_ids": [
+        "lesson-sheets-for-seo"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-sheets-004",
+      "track_id": "redcore-junior-seo",
+      "topic": "sheets",
+      "question": "Соединили краул и выгрузку GSC. Нашлось 300 страниц с показами и без кликов и 40 с кликами и кодом 404. Что в работу первым?",
+      "options": [
+        "Страницы с показами: их в семь раз больше",
+        "Ничего: сначала перепроверить обе выгрузки",
+        "Страницы 404 с кликами: теряется трафик",
+        "И то и другое одной задачей разработке"
+      ],
+      "answer": 2,
+      "explanation": "Сорок страниц отдают ошибку, но люди на них ещё переходят — это прямая потеря уже полученного трафика и самый дешёвый выигрыш. Триста страниц с показами без кликов — задача про сниппеты и позиции, она важна, но не срочна и решается медленнее.",
+      "why": [
+        "Количество не делает задачу важнее: там нет потери трафика.",
+        "Перепроверка полезна, но откладывать живые 404 из-за неё нельзя.",
+        "Верно: теряется трафик, который уже есть.",
+        "Разные задачи с разной срочностью не ставят одной."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "sheets-query-function",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-data-cleaning",
+        "t-http-status"
+      ],
+      "related_lesson_ids": [
+        "lesson-sheets-for-seo"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-reporting-007",
+      "track_id": "redcore-junior-seo",
+      "topic": "reporting",
+      "question": "Почему в отчёте сравнивают периоды, а не показывают абсолютные числа?",
+      "options": [
+        "Абсолютные числа сложнее считать",
+        "Так требует интерфейс Search Console",
+        "Заказчик не понимает больших чисел",
+        "Без базы сравнения цифра ничего не значит"
+      ],
+      "answer": 3,
+      "explanation": "Пять тысяч кликов — это много или мало? Ответ появляется только рядом с предыдущим периодом и с тем же периодом год назад, чтобы отделить рост от сезонности.",
+      "why": [
+        "Считаются они одинаково просто.",
+        "Интерфейс тут ни при чём, это правило отчётности.",
+        "Дело не в понимании, а в отсутствии базы сравнения.",
+        "Верно: без базы цифра не интерпретируется."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-seasonality",
+        "t-kpi"
+      ],
+      "related_lesson_ids": [
+        "lesson-reporting"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-reporting-008",
+      "track_id": "redcore-junior-seo",
+      "topic": "reporting",
+      "question": "Зачем в отчёте разделять брендовые и небрендовые запросы?",
+      "options": [
+        "Бренд растёт от рекламы, а не от SEO",
+        "Брендовые запросы не индексируются",
+        "Так требуют правила Search Console",
+        "Небрендовые запросы всегда важнее"
+      ],
+      "answer": 0,
+      "explanation": "Брендовый трафик двигают известность и реклама. Если сложить его с остальным, рост чужого канала окажется записан в результат SEO — и это вскроется ровно тогда, когда рекламу выключат.",
+      "why": [
+        "Верно: иначе чужой результат запишется в ваш.",
+        "Индексация от типа запроса не зависит.",
+        "Таких правил нет, это профессиональная гигиена.",
+        "Оба типа важны, вопрос в том, чтобы их не смешивать."
+      ],
+      "difficulty": 2,
+      "level": "L2",
+      "source_refs": [
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-brand-query",
+        "t-organic-traffic"
+      ],
+      "related_lesson_ids": [
+        "lesson-reporting"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-reporting-009",
+      "track_id": "redcore-junior-seo",
+      "topic": "reporting",
+      "question": "Трафик вырос на 25%, заявок столько же. Что писать в отчёте?",
+      "options": [
+        "Что работа успешна: трафик вырос",
+        "Что вырос охват, а не результат",
+        "Что аналитика считает неверно",
+        "Что нужно срочно менять стратегию"
+      ],
+      "answer": 1,
+      "explanation": "Рост трафика без роста целевых действий обычно означает приток информационных запросов. Честная формулировка называет и рост охвата, и отсутствие коммерческого эффекта, и следующий шаг — посмотреть, на какие страницы пришёл рост.",
+      "why": [
+        "Это подмена результата охватом.",
+        "Верно: разделяем охват и коммерческий результат.",
+        "Расхождение объяснимо и без ошибок в аналитике.",
+        "Менять стратегию по одному месяцу преждевременно."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [
+        "ga4-default-channel-group",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-key-event",
+        "t-organic-traffic"
+      ],
+      "related_lesson_ids": [
+        "lesson-reporting"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-reporting-010",
+      "track_id": "redcore-junior-seo",
+      "topic": "reporting",
+      "question": "В отчёте: клики +18%, показы +60%, средняя позиция ухудшилась с 14 до 19, заявки без изменений. Какой вывод корректен?",
+      "options": [
+        "Сайт просел, нужно откатывать правки",
+        "Данные противоречивы, отчёт непригоден",
+        "Охват расширился на дальних позициях",
+        "Средняя позиция — главный сигнал здесь"
+      ],
+      "answer": 2,
+      "explanation": "Средняя позиция усредняется по показам, поэтому появление новых запросов на дальних позициях ухудшает её при растущем охвате. Клики выросли меньше показов — новые запросы кликают слабо. Отсутствие заявок означает, что прирост скорее информационный, и проверять это надо разрезом по страницам.",
+      "why": [
+        "Просадкой это не является: клики выросли.",
+        "Противоречия нет, так и выглядит расширение охвата.",
+        "Верно: новые запросы на дальних позициях тянут среднюю вниз.",
+        "Средняя позиция здесь наименее информативна из четырёх чисел."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-average-position",
+        "t-impressions",
+        "t-ctr"
+      ],
+      "related_lesson_ids": [
+        "lesson-reporting"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-interview-seo-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "interview-seo",
+      "question": "Интервьюер спрашивает то, чего вы не знаете. Как лучше поступить?",
+      "options": [
+        "Назвать похожий термин наугад",
+        "Сказать прямо и описать, как найдёте ответ",
+        "Промолчать и ждать следующий вопрос",
+        "Перевести разговор на знакомую тему"
+      ],
+      "answer": 1,
+      "explanation": "Признание незнания стоит дёшево, выдумка — дорого: следующий уточняющий вопрос обнаружит её сразу, и под сомнением окажется весь остальной ответ. Сильный ход — назвать, где вы стали бы искать и как проверять.",
+      "why": [
+        "Угадывание вскрывается первым же уточнением.",
+        "Верно: честность плюс способ найти ответ.",
+        "Молчание читается как растерянность, а не как честность.",
+        "Уход от вопроса заметен и оставляет неприятное впечатление."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-red-flag",
+        "t-follow-up-question"
+      ],
+      "related_lesson_ids": [
+        "lesson-interview-questions"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-interview-seo-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "interview-seo",
+      "question": "На собеседовании дают отчёт: показы растут, клики стоят, позиции в середине второй десятки. Просят прокомментировать. С чего начать?",
+      "options": [
+        "Предложить переписать заголовки страниц",
+        "Сказать, что нужно наращивать ссылки",
+        "Назвать вероятную причину и способ проверки",
+        "Попросить полный доступ ко всем данным"
+      ],
+      "answer": 2,
+      "explanation": "Проверяют не готовый ответ, а порядок мышления. Сильный ход — назвать гипотезу, следующую из чисел (охват вырос на некликабельных позициях), и сказать, каким разрезом вы её проверите. Готовое решение до диагностики — красный флаг.",
+      "why": [
+        "Правка заголовков — решение, предложенное до диагноза.",
+        "Ссылки названы наугад: числа на них не указывают.",
+        "Верно: сначала гипотеза и способ её проверки.",
+        "Запрос всех данных выглядит уходом от вопроса."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-impressions",
+        "t-average-position",
+        "t-follow-up-question"
+      ],
+      "related_lesson_ids": [
+        "lesson-interview-questions"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-content-briefs-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "content-briefs",
+      "question": "Копирайтер сдал текст, который не отвечает на запрос. Что чаще всего не так в ТЗ?",
+      "options": [
+        "Не указан интент и тип целевой страницы",
+        "Не указано требуемое число знаков",
+        "Не перечислены запросы с частотностью",
+        "Не назван срок сдачи материала"
+      ],
+      "answer": 0,
+      "explanation": "Текст пишется под конкретный интент и под тип страницы, который этому интенту отвечает. Список запросов без интента даёт текст, где ключи есть, а ответа нет. Объём и срок — организационные детали, содержание они не задают.",
+      "why": [
+        "Верно: без интента текст пишется вслепую.",
+        "Объём — следствие содержания, а не его причина.",
+        "Список запросов есть почти в каждом ТЗ и сам по себе не спасает.",
+        "Срок влияет на сдачу, а не на соответствие запросу."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [
+        "google-helpful-content"
+      ],
+      "related_term_ids": [
+        "t-content-brief",
+        "t-search-intent"
+      ],
+      "related_lesson_ids": [
+        "lesson-content-brief"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-content-briefs-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "content-briefs",
+      "question": "Статья вышла месяц назад: показы растут, средняя позиция 25, целевых действий нет. Что проверить первым?",
+      "options": [
+        "Плотность ключевых слов в тексте",
+        "Совпадает ли тип страницы с выдачей",
+        "Скорость загрузки этой страницы",
+        "Число внешних ссылок на статью"
+      ],
+      "answer": 1,
+      "explanation": "Показы есть, значит формальная релевантность запросам появилась. Позиция 25 и отсутствие целевых действий чаще всего означают несоответствие интенту: под коммерческий запрос сделана статья или наоборот. Смотрят, какой тип страниц занимает топ.",
+      "why": [
+        "Плотность ключей фактором ранжирования не является.",
+        "Верно: сначала проверяют соответствие типа страницы интенту.",
+        "Скорость влияет на опыт, но не объясняет картину при позиции 25.",
+        "Внешние ссылки — не первая гипотеза для новой статьи."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-helpful-content",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-search-intent",
+        "t-content-brief"
+      ],
+      "related_lesson_ids": [
+        "lesson-content-brief"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-dev-communication-001",
+      "track_id": "redcore-junior-seo",
+      "topic": "dev-communication",
+      "question": "Разработчик отвечает «это не влияет на SEO». Что делать?",
+      "options": [
+        "Эскалировать вопрос руководителю",
+        "Сделать правку самостоятельно в обход",
+        "Показать данные и ожидаемое поведение",
+        "Отложить задачу до следующего квартала"
+      ],
+      "answer": 2,
+      "explanation": "Спор о мнениях не решается мнениями. Работает описание в терминах поведения: что происходит сейчас, что должно происходить, на скольких URL и как мы проверим результат. Эскалация — крайняя мера.",
+      "why": [
+        "Эскалация до попытки договориться портит отношения и редко нужна.",
+        "Правка в обход разработки не переживёт следующий релиз.",
+        "Верно: факты и ожидаемое поведение вместо спора о мнениях.",
+        "Откладывание не решает задачу и не отвечает на возражение."
+      ],
+      "difficulty": 2,
+      "level": "L3",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-acceptance-criteria",
+        "t-stakeholder"
+      ],
+      "related_lesson_ids": [
+        "lesson-dev-communication"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-dev-communication-002",
+      "track_id": "redcore-junior-seo",
+      "topic": "dev-communication",
+      "question": "Задача выкачена, но проблема осталась на части страниц. Что сделать прежде, чем возвращать её в работу?",
+      "options": [
+        "Переоткрыть задачу с тем же описанием",
+        "Попросить откатить релиз целиком",
+        "Написать, что задача сделана плохо",
+        "Выяснить, чем отличаются эти страницы"
+      ],
+      "answer": 3,
+      "explanation": "Частичное исправление почти всегда означает, что под правило попали не все случаи: другой шаблон, другой тип страницы, кеш. Возвращать задачу с прежним описанием бессмысленно — она уйдёт по второму кругу. Сначала находят признак, по которому страницы разделились.",
+      "why": [
+        "Прежнее описание уже привело к неполной правке.",
+        "Откат целого релиза несоразмерен частичной проблеме.",
+        "Оценка вместо фактов исправить не помогает.",
+        "Верно: сначала признак различия, потом уточнённое описание."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [],
+      "related_term_ids": [
+        "t-acceptance-criteria",
+        "t-scope"
+      ],
+      "related_lesson_ids": [
+        "lesson-dev-communication"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-search-basics-013",
+      "track_id": "redcore-junior-seo",
+      "topic": "search-basics",
+      "question": "Логи: Googlebot делает 50 000 запросов в сутки, 80% из них — к адресам с параметром sort. Новые товары появляются в поиске через месяц. Что проверить первым?",
+      "options": [
+        "Какие параметры участвуют в обходе и зачем",
+        "Не закрыт ли сайт целиком в robots.txt",
+        "Скорость ответа сервера на карточках",
+        "Количество страниц в файле sitemap.xml"
+      ],
+      "answer": 0,
+      "explanation": "Восемьдесят процентов обхода уходит на сортировки, на карточки почти ничего не остаётся — отсюда и месяц ожидания. Первый шаг: классифицировать параметры и понять, какие из них порождают самостоятельные страницы, а какие копии.",
+      "why": [
+        "Верно: сначала разбираются, на что именно тратится обход.",
+        "Запрет обхода дал бы отсутствие запросов, а их пятьдесят тысяч.",
+        "Скорость влияет на объём обхода, но не на его состав.",
+        "Размер карты сайта не объясняет перекос в сторону сортировок."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-crawl-budget",
+        "google-url-structure"
+      ],
+      "related_term_ids": [
+        "t-crawl-budget",
+        "t-url-parameters"
+      ],
+      "related_lesson_ids": [
+        "lesson-crawl-budget-discovery"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-search-intent-011",
+      "track_id": "redcore-junior-seo",
+      "topic": "search-intent",
+      "question": "У запроса 12 000 показов и 40 кликов при средней позиции 8. В топе — карточки товаров, у вас статья. Что это значит?",
+      "options": [
+        "Сниппет статьи требует переписывания",
+        "Тип страницы не совпадает с интентом",
+        "Позиция 8 слишком низкая для кликов",
+        "Запрос стоит признать нецелевым"
+      ],
+      "answer": 1,
+      "explanation": "Восьмая позиция кликабельна, но CTR около трёх десятых процента: люди видят статью там, где ждут товар, и проходят мимо. Это несоответствие типа страницы интенту, а не проблема сниппета.",
+      "why": [
+        "Сниппет вторичен: не совпадает сам тип результата.",
+        "Верно: в выдаче карточки, а у вас статья.",
+        "Восьмая позиция даёт заметно больше кликов при совпадении интента.",
+        "Запрос целевой, неверна выбранная под него страница."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-performance-report",
+        "google-helpful-content"
+      ],
+      "related_term_ids": [
+        "t-search-intent",
+        "t-ctr"
+      ],
+      "related_lesson_ids": [
+        "lesson-search-intent"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-on-page-019",
+      "track_id": "redcore-junior-seo",
+      "topic": "on-page",
+      "question": "Страница в индексе, позиция 6, CTR 0,8% при среднем по сайту 4%. Что проверить первым?",
+      "options": [
+        "Скорость загрузки этой страницы",
+        "Число внутренних ссылок на неё",
+        "Как выглядит сниппет в выдаче",
+        "Плотность ключевых слов в тексте"
+      ],
+      "answer": 2,
+      "explanation": "Позиция шестая, а кликают в пять раз реже среднего: страница видна, но её не выбирают. Смотрят выдачу глазами — что показано в заголовке и описании, не переписал ли Google title, нет ли рядом блоков, забирающих клик.",
+      "why": [
+        "Скорость влияет после клика, а не до него.",
+        "Внутренние ссылки влияют на позицию, а она уже хорошая.",
+        "Верно: смотрят, что видит человек в выдаче.",
+        "Плотность ключей на кликабельность не влияет."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-title-link",
+        "google-snippet",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-ctr",
+        "t-snippet",
+        "t-title-tag"
+      ],
+      "related_lesson_ids": [
+        "lesson-title-description"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-on-page-020",
+      "track_id": "redcore-junior-seo",
+      "topic": "on-page",
+      "question": "После выката шаблона у 4 000 страниц title стал «Каталог — Компания». Показы упали на 15%, клики на 45%. О чём это говорит?",
+      "options": [
+        "Страницы выпали из индекса целиком",
+        "Google понизил сайт за дубли title",
+        "Сезонный спад совпал с выкатом",
+        "Просел в первую очередь сниппет"
+      ],
+      "answer": 3,
+      "explanation": "Клики упали втрое сильнее показов: страницы по-прежнему показываются, но по ним перестали кликать. Это следствие неинформативного заголовка, а не выпадения из индекса и не санкции — отдельного наказания за дубли заголовков не существует.",
+      "why": [
+        "При выпадении из индекса упали бы прежде всего показы.",
+        "Отдельной санкции за дублирующиеся заголовки нет.",
+        "Сезонность не бьёт по кликам втрое сильнее, чем по показам.",
+        "Верно: показы почти на месте, обрушилась кликабельность."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-title-link",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-title-tag",
+        "t-ctr",
+        "t-duplicate-content"
+      ],
+      "related_lesson_ids": [
+        "lesson-title-description"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-technical-seo-025",
+      "track_id": "redcore-junior-seo",
+      "topic": "technical-seo",
+      "question": "Проверка URL: указанный канонический /product, выбранный Google /category/product, страница не в индексе. Что проверить первым?",
+      "options": [
+        "Чем страницы отличаются по содержимому",
+        "Не закрыт ли /product в robots.txt",
+        "Скорость ответа на обеих страницах",
+        "Есть ли /product в файле sitemap.xml"
+      ],
+      "answer": 0,
+      "explanation": "Расхождение указанного и выбранного канонического адреса означает, что Google счёл страницы дублями. Canonical — подсказка, а не команда, и переспорить его тегом нельзя. Первый шаг — понять, различается ли содержимое по существу.",
+      "why": [
+        "Верно: сначала выясняют, есть ли реальное различие.",
+        "Закрытая в robots.txt страница не попала бы в отчёт с выбранным каноническим.",
+        "Скорость на выбор канонического адреса не влияет.",
+        "Карта сайта канонизацию не решает."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-canonicalization",
+        "gsc-url-inspection"
+      ],
+      "related_term_ids": [
+        "t-canonical-url",
+        "t-url-inspection"
+      ],
+      "related_lesson_ids": [
+        "lesson-duplicates-parameters"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-technical-seo-026",
+      "track_id": "redcore-junior-seo",
+      "topic": "technical-seo",
+      "question": "После релиза группа «Страница с переадресацией» выросла на 8 000 адресов, трафик пока не изменился. Что проверить первым?",
+      "options": [
+        "Не пора ли переотправить карту сайта",
+        "Куда именно ведут эти редиректы",
+        "Скорость ответа сервера после релиза",
+        "Не появились ли новые дубли title"
+      ],
+      "answer": 1,
+      "explanation": "Восемь тысяч переадресаций после релиза — это либо смена адресов, либо ошибка в правилах. Разница видна по цели: если старые адреса ведут на релевантные новые, это перенос; если всё сводится на главную, это мягкая 404 в промышленных масштабах. Трафик отреагирует позже, ждать нельзя.",
+      "why": [
+        "Карта сайта не отвечает на вопрос, что случилось с адресами.",
+        "Верно: смысл редиректа определяется его целью.",
+        "Скорость не объясняет появление восьми тысяч переадресаций.",
+        "Дубли заголовков — другая проблема и другой масштаб."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-301-redirects",
+        "gsc-page-indexing-report"
+      ],
+      "related_term_ids": [
+        "t-301-redirect",
+        "t-soft-404"
+      ],
+      "related_lesson_ids": [
+        "lesson-http-codes-redirects"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-html-http-013",
+      "track_id": "redcore-junior-seo",
+      "topic": "html-http",
+      "question": "Краул: 1 200 адресов отвечают 200, но в теле «Товар не найден». В GSC растёт группа мягких 404. Что сделать?",
+      "options": [
+        "Закрыть эти адреса в robots.txt",
+        "Поставить на них canonical на главную",
+        "Отдавать 404 или 410 на этих адресах",
+        "Добавить их в файл sitemap.xml"
+      ],
+      "answer": 2,
+      "explanation": "Код ответа обязан соответствовать содержимому: раз товара нет, сервер должен сказать 404, а при осознанном удалении — 410. Robots.txt не уберёт адреса из индекса, а canonical на главную с другим содержимым будет проигнорирован.",
+      "why": [
+        "Закрытие обхода не убирает уже известные адреса из индекса.",
+        "Canonical на нерелевантную страницу игнорируется.",
+        "Верно: код ответа приводится в соответствие содержимому.",
+        "В карту сайта кладут индексируемые страницы, отвечающие 200."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-http-status-codes",
+        "gsc-page-indexing-report"
+      ],
+      "related_term_ids": [
+        "t-soft-404",
+        "t-404",
+        "t-http-status"
+      ],
+      "related_lesson_ids": [
+        "lesson-http-codes-redirects"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-keyword-research-013",
+      "track_id": "redcore-junior-seo",
+      "topic": "keyword-research",
+      "question": "В кластере 40 запросов: у 12 в топе карточки товаров, у 28 — статьи. Что сделать?",
+      "options": [
+        "Оставить кластер и назначить одну страницу",
+        "Взять только высокочастотные запросы",
+        "Удалить из кластера коммерческие запросы",
+        "Разделить кластер по типу выдачи"
+      ],
+      "answer": 3,
+      "explanation": "Кластеризация по пересечению выдачи как раз и означает, что запросы с разным типом результата в один кластер не собираются. Здесь их два: коммерческий под карточку и информационный под материал. Одна страница качественно не закроет оба.",
+      "why": [
+        "Одна страница не может быть одновременно карточкой и статьёй.",
+        "Частотность не решает вопрос разного интента.",
+        "Коммерческие запросы ценнее прочих, удалять их незачем.",
+        "Верно: разный тип выдачи — разные кластеры и разные страницы."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "google-helpful-content"
+      ],
+      "related_term_ids": [
+        "t-clustering",
+        "t-keyword-mapping",
+        "t-search-intent"
+      ],
+      "related_lesson_ids": [
+        "lesson-clustering-mapping"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "id": "q-indexing-gsc-011",
+      "track_id": "redcore-junior-seo",
+      "topic": "indexing-gsc",
+      "question": "В отчёте эффективности клики упали вдвое за три дня, показы не изменились. Что проверить первым?",
+      "options": [
+        "Не изменилась ли выдача по запросам",
+        "Не выпали ли страницы из индекса",
+        "Не упала ли скорость загрузки сайта",
+        "Не сломалась ли карта сайта"
+      ],
+      "answer": 0,
+      "explanation": "Показы на месте, значит страницы в индексе и позиции примерно те же. Упала только доля кликов, а это чаще всего изменение самой выдачи: появился блок с ответом, реклама, новые конкуренты с более удачным сниппетом. Проверяют глазами и разрезом по запросам.",
+      "why": [
+        "Верно: при неизменных показах меняется то, что вокруг вашей ссылки.",
+        "Выпадение из индекса обрушило бы и показы.",
+        "Скорость влияет после клика, а не на решение кликнуть.",
+        "Поломка карты сайта не меняет кликабельность за три дня."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-performance-report",
+        "google-traffic-drops"
+      ],
+      "related_term_ids": [
+        "t-ctr",
+        "t-impressions",
+        "t-serp-feature"
+      ],
+      "related_lesson_ids": [
+        "lesson-gsc-performance"
+      ],
+      "verification_status": "verified",
+      "content_reviewed_at": "2026-08-17"
+    },
+    {
+      "id": "q-indexing-gsc-012",
+      "track_id": "redcore-junior-seo",
+      "topic": "indexing-gsc",
+      "question": "В отчёте об индексировании 60% страниц в группе «Страница является копией; Google выбрал другой канонический URL». Что это чаще всего значит?",
+      "options": [
+        "Сайт получил санкцию за дубли",
+        "Шаблон порождает одинаковые страницы",
+        "Robots.txt закрывает половину сайта",
+        "Сервер отдаёт неверные коды ответа"
+      ],
+      "answer": 1,
+      "explanation": "Такая доля не бывает случайной: почти всегда это генерация — параметры, сортировки, версии для печати, города в шаблоне без различий по существу. Санкции здесь ни при чём: Google просто выбрал одну версию из группы.",
+      "why": [
+        "Отдельной санкции за дубли не существует.",
+        "Верно: массовая копия почти всегда следствие генерации.",
+        "Закрытые в robots.txt страницы попали бы в другую группу.",
+        "Неверные коды дали бы группы про ошибки, а не про копии."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "gsc-page-indexing-report",
+        "google-canonicalization"
+      ],
+      "related_term_ids": [
+        "t-index-coverage",
+        "t-duplicate-content",
+        "t-canonical-url"
+      ],
+      "related_lesson_ids": [
+        "lesson-indexing-diagnostics"
+      ],
+      "verification_status": "verified",
+      "content_reviewed_at": "2026-08-17"
+    },
+    {
+      "id": "q-analytics-ga4-009",
+      "track_id": "redcore-junior-seo",
+      "topic": "analytics-ga4",
+      "question": "В GA4 органика выросла на 40%, в Search Console клики не изменились. Что проверить первым?",
+      "options": [
+        "Не изменилась ли модель атрибуции",
+        "Не упала ли скорость загрузки сайта",
+        "Не попадают ли в органику чужие переходы",
+        "Не выросло ли число ключевых событий"
+      ],
+      "answer": 2,
+      "explanation": "Search Console считает клики из поиска Google, GA4 — сессии канала Organic Search, куда попадают и другие поисковые системы, и переходы с неверными метками. Расхождение такого размера обычно означает, что в канал заехало что-то чужое: внутренние utm или реклама без разметки.",
+      "why": [
+        "Модель атрибуции меняет распределение конверсий, а не объём сессий канала.",
+        "Скорость на состав канала не влияет.",
+        "Верно: сначала проверяют, что вообще попало в органику.",
+        "Ключевые события — следствие, а не причина расхождения."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "ga4-default-channel-group",
+        "ga4-traffic-source-scopes",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-organic-search",
+        "t-utm",
+        "t-clicks"
+      ],
+      "related_lesson_ids": [
+        "lesson-ga4-basics"
+      ],
+      "verification_status": "verified",
+      "content_reviewed_at": "2026-08-17"
+    },
+    {
+      "id": "q-seo-tools-009",
+      "track_id": "redcore-junior-seo",
+      "topic": "seo-tools",
+      "question": "Сервис показывает у конкурента 200 000 визитов в месяц, у вас 40 000. В GA4 у вас 95 000. Какой вывод корректен?",
+      "options": [
+        "GA4 считает неверно и требует настройки",
+        "У конкурента ровно впятеро больше трафика",
+        "Данные сервиса надо считать точными",
+        "Оценки сервиса годятся лишь для порядка"
+      ],
+      "answer": 3,
+      "explanation": "Сторонний сервис моделирует трафик по своей базе и систематически расходится с фактическими данными: у вас 95 000 против оценки в 40 000. Значит и по конкуренту это оценка того же качества. Сравнивать такие числа можно только как порядок величины, а собственный трафик брать из аналитики и Search Console.",
+      "why": [
+        "Расхождение объясняется методикой сервиса, а не поломкой GA4.",
+        "Точное отношение по оценкам не считается.",
+        "Точными данные сервиса не являются ни для кого.",
+        "Верно: у сервиса оценка, у вас факт."
+      ],
+      "difficulty": 3,
+      "level": "L4",
+      "source_refs": [
+        "ahrefs-help",
+        "semrush-kb",
+        "gsc-performance-report"
+      ],
+      "related_term_ids": [
+        "t-visibility",
+        "t-domain-rating"
+      ],
+      "related_lesson_ids": [
+        "lesson-ahrefs-semrush"
+      ],
+      "verification_status": "verified",
+      "content_reviewed_at": "2026-08-17"
     }
   ]
 }
