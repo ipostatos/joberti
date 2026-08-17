@@ -817,8 +817,9 @@
         "google-crawl-budget"
       ],
       "related_question_ids": [
-        "q-on-page-014",
-        "q-on-page-015"
+        "q-internal-linking-001",
+        "q-internal-linking-005",
+        "q-internal-linking-006"
       ],
       "related_term_ids": [
         "t-internal-link",
@@ -898,7 +899,8 @@
         "google-seo-starter-guide"
       ],
       "related_question_ids": [
-        "q-reporting-005"
+        "q-content-briefs-001",
+        "q-content-briefs-002"
       ],
       "related_term_ids": [
         "t-content-brief",
@@ -979,8 +981,9 @@
         "sheets-query-function"
       ],
       "related_question_ids": [
-        "q-reporting-001",
-        "q-reporting-002"
+        "q-sheets-001",
+        "q-sheets-003",
+        "q-sheets-004"
       ],
       "related_term_ids": [
         "t-vlookup",
@@ -1021,8 +1024,9 @@
         "google-traffic-drops"
       ],
       "related_question_ids": [
-        "q-reporting-003",
-        "q-reporting-004"
+        "q-reporting-007",
+        "q-reporting-009",
+        "q-reporting-010"
       ],
       "related_term_ids": [
         "t-kpi",
@@ -1062,7 +1066,8 @@
         "google-http-status-codes"
       ],
       "related_question_ids": [
-        "q-reporting-006"
+        "q-dev-communication-001",
+        "q-dev-communication-002"
       ],
       "related_term_ids": [
         "t-acceptance-criteria",
@@ -1101,8 +1106,8 @@
         "google-search-essentials"
       ],
       "related_question_ids": [
-        "q-search-basics-011",
-        "q-search-basics-012"
+        "q-interview-seo-001",
+        "q-interview-seo-002"
       ],
       "related_term_ids": [
         "t-star-method",

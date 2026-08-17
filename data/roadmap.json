@@ -377,11 +377,13 @@
         "lesson-internal-linking"
       ],
       "practice_items": [
+        "quiz:internal-linking",
         "mock:mock-fundamentals-007"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "mock_answered_min": 1
+        "mock_answered_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -428,12 +430,14 @@
         "lesson-content-brief"
       ],
       "practice_items": [
+        "quiz:content-briefs",
         "case:case-content-brief-010",
         "mock:mock-practical-002"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -477,6 +481,7 @@
         "lesson-sheets-for-seo"
       ],
       "practice_items": [
+        "quiz:sheets",
         "quiz:reporting",
         "mock:mock-tools-004"
       ],
@@ -504,12 +509,14 @@
         "lesson-reporting"
       ],
       "practice_items": [
+        "quiz:reporting",
         "case:case-report-011",
         "mock:mock-practical-004"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -530,12 +537,14 @@
         "lesson-dev-communication"
       ],
       "practice_items": [
+        "quiz:dev-communication",
         "case:case-dev-task-012",
         "mock:mock-practical-003"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "quiz_score_min": 80
       }
     },
     {
@@ -556,13 +565,15 @@
         "lesson-interview-questions"
       ],
       "practice_items": [
+        "quiz:interview-seo",
         "mock:mock-intro-001",
         "mock:mock-motivation-001",
         "mock:mock-practical-006"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "mock_answered_min": 3
+        "mock_answered_min": 3,
+        "quiz_score_min": 80
       }
     },
     {

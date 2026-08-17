@@ -8013,8 +8013,9 @@
    ],
    "practice_task":"Найдите на сайте три страницы с наименьшим числом входящих внутренних ссылок и предложите, откуда на них сослаться.",
    "related_question_ids":[
-    "q-on-page-014",
-    "q-on-page-015"
+    "q-internal-linking-001",
+    "q-internal-linking-005",
+    "q-internal-linking-006"
    ],
    "related_term_ids":[
     "t-internal-link",
@@ -8094,7 +8095,8 @@
    ],
    "practice_task":"Напишите ТЗ на одну страницу услуги по этой структуре и дайте его прочитать человеку не из SEO — понятно ли, что делать.",
    "related_question_ids":[
-    "q-reporting-005"
+    "q-content-briefs-001",
+    "q-content-briefs-002"
    ],
    "related_term_ids":[
     "t-content-brief",
@@ -8176,8 +8178,9 @@
    ],
    "practice_task":"Соедините две любые выгрузки по URL и посчитайте сводной таблицей число проблемных страниц по типам.",
    "related_question_ids":[
-    "q-reporting-001",
-    "q-reporting-002"
+    "q-sheets-001",
+    "q-sheets-003",
+    "q-sheets-004"
    ],
    "related_term_ids":[
     "t-vlookup",
@@ -8216,8 +8219,9 @@
    ],
    "practice_task":"Составьте одностраничный шаблон месячного отчёта: три блока, не более пяти метрик, один вывод и план.",
    "related_question_ids":[
-    "q-reporting-003",
-    "q-reporting-004"
+    "q-reporting-007",
+    "q-reporting-009",
+    "q-reporting-010"
    ],
    "related_term_ids":[
     "t-kpi",
@@ -8258,7 +8262,8 @@
    ],
    "practice_task":"Переформулируйте задачу «убрать дубли на сайте» в постановку с примерами URL, ожидаемым поведением и критерием приёмки.",
    "related_question_ids":[
-    "q-reporting-006"
+    "q-dev-communication-001",
+    "q-dev-communication-002"
    ],
    "related_term_ids":[
     "t-acceptance-criteria",
@@ -8297,8 +8302,8 @@
    ],
    "practice_task":"Запишите на диктофон ответы на пять базовых вопросов, послушайте и сократите каждый до 40–60 секунд.",
    "related_question_ids":[
-    "q-search-basics-011",
-    "q-search-basics-012"
+    "q-interview-seo-001",
+    "q-interview-seo-002"
    ],
    "related_term_ids":[
     "t-star-method",
@@ -11200,6 +11205,7 @@
    "difficulty":1,
    "explanation":"Позиции зависят от конкурентов и алгоритмов и не поддаются гарантии. Такое обещание считается тревожным сигналом.",
    "id":"q-search-basics-011",
+   "level":"L2",
    "options":[
     "Как признак уверенности в себе",
     "Как нормальная практика для junior",
@@ -11216,7 +11222,7 @@
    "source_refs":[
     "google-search-essentials"
    ],
-   "topic":"search-basics",
+   "topic":"interview-seo",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -11231,6 +11237,7 @@
    "difficulty":1,
    "explanation":"Признание незнания с описанием способа поиска ответа оценивается выше уверенной выдумки: интервьюер проверяет и honesty, и подход к работе.",
    "id":"q-search-basics-012",
+   "level":"L2",
    "options":[
     "Назвать наиболее вероятный вариант как точный факт",
     "Перевести разговор на более знакомую вам тему",
@@ -11245,7 +11252,7 @@
     "t-red-flag"
    ],
    "source_refs":[],
-   "topic":"search-basics",
+   "topic":"interview-seo",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -11985,6 +11992,7 @@
    "difficulty":1,
    "explanation":"Анкор должен описывать целевую страницу: это помогает и пользователю, и пониманию темы страницы.",
    "id":"q-on-page-014",
+   "level":"L1",
    "options":[
     "«Нажмите здесь, чтобы узнать больше»",
     "«Смотрите информацию по ссылке»",
@@ -12002,7 +12010,7 @@
    "source_refs":[
     "google-seo-starter-guide"
    ],
-   "topic":"on-page",
+   "topic":"internal-linking",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -12017,6 +12025,7 @@
    "difficulty":2,
    "explanation":"Ссылки внутри основного содержимого связаны с темой страницы и обычно значат больше, чем сквозные элементы навигации.",
    "id":"q-on-page-015",
+   "level":"L2",
    "options":[
     "Ссылки в основном контенте страницы",
     "Ссылки в сквозном подвале сайта",
@@ -12033,7 +12042,7 @@
    "source_refs":[
     "google-seo-starter-guide"
    ],
-   "topic":"on-page",
+   "topic":"internal-linking",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -14533,6 +14542,7 @@
    "difficulty":2,
    "explanation":"К одному виду приводят только заведомо эквивалентные различия: протокол, www, завершающий слеш, регистр хоста, порядок параметров, трекинговые метки. Регистр пути и значимые параметры трогать нельзя — так склеиваются разные страницы.",
    "id":"q-reporting-001",
+   "level":"L2",
    "options":[
     "Разное количество строк в двух таблицах",
     "Разные названия колонок в исходных выгрузках",
@@ -14550,7 +14560,7 @@
    "source_refs":[
     "sheets-query-function"
    ],
-   "topic":"reporting",
+   "topic":"sheets",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -14565,6 +14575,7 @@
    "difficulty":1,
    "explanation":"Сводная таблица группирует данные по выбранному измерению и считает метрики, пересчитываясь при изменении исходных данных.",
    "id":"q-reporting-002",
+   "level":"L1",
    "options":[
     "Условное форматирование",
     "Проверка данных",
@@ -14581,7 +14592,7 @@
    "source_refs":[
     "sheets-query-function"
    ],
-   "topic":"reporting",
+   "topic":"sheets",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -14596,6 +14607,7 @@
    "difficulty":2,
    "explanation":"Заказчику нужен ответ на вопрос «что изменилось и что дальше». Детали и таблицы идут приложением.",
    "id":"q-reporting-003",
+   "level":"L2",
    "options":[
     "С выводов о том, что изменилось",
     "С таблиц с исходными данными",
@@ -14627,6 +14639,7 @@
    "difficulty":2,
    "explanation":"Позиция зависит от региона, устройства и персонализации, легко улучшается по неконкурентным запросам и плохо связана с деньгами.",
    "id":"q-reporting-004",
+   "level":"L2",
    "options":[
     "Их невозможно измерить с достаточной точностью",
     "Они зависят от региона и слабо связаны с бизнесом",
@@ -14659,6 +14672,7 @@
    "difficulty":2,
    "explanation":"Без целевой страницы, понимания интента и структуры текст некуда ставить и непонятно, какую задачу он решает.",
    "id":"q-reporting-005",
+   "level":"L2",
    "options":[
     "Требуемая плотность ключевых слов в тексте",
     "Точное количество знаков с пробелами в тексте",
@@ -14675,7 +14689,7 @@
    "source_refs":[
     "google-helpful-content"
    ],
-   "topic":"reporting",
+   "topic":"content-briefs",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -14690,6 +14704,7 @@
    "difficulty":2,
    "explanation":"Разработчику нужны текущее и требуемое поведение, конкретные примеры и проверяемый критерий приёмки. Способ реализации выбирает он.",
    "id":"q-reporting-006",
+   "level":"L2",
    "options":[
     "Через конкретную правку в конфигурации сервера",
     "Общим описанием «оптимизировать раздел»",
@@ -14707,7 +14722,7 @@
    "source_refs":[
     "google-301-redirects"
    ],
-   "topic":"reporting",
+   "topic":"dev-communication",
    "track_id":"redcore-junior-seo",
    "verification_status":"verified",
    "why":[
@@ -15640,6 +15655,667 @@
     "Повторный краул повторит те же цифры и динамику не объяснит.",
     "Верно: внезапное падение сопоставляют с внезапной технической причиной."
    ]
+  },
+  {
+   "answer":0,
+   "difficulty":1,
+   "explanation":"Внутренняя ссылка делает две вещи сразу: даёт роботу путь к странице и сообщает анкором, о чём она. Поэтому осмысленный анкор полезнее, чем «подробнее».",
+   "id":"q-internal-linking-001",
+   "level":"L1",
+   "options":[
+    "Контекст о странице и путь для робота",
+    "Ускорение загрузки целевой страницы",
+    "Замену записи в файле sitemap.xml",
+    "Увеличение частоты обхода сервера"
+   ],
+   "question":"Что даёт внутренняя ссылка кроме перехода пользователя?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-internal-link",
+    "t-anchor-text"
+   ],
+   "source_refs":[
+    "google-links-crawlable"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Верно: обнаружение плюс контекст из анкора.",
+    "На скорость загрузки ссылка не влияет.",
+    "Sitemap помогает обнаружению, но связность им не заменяется.",
+    "Частота обхода зависит от сайта в целом, а не от одной ссылки."
+   ]
+  },
+  {
+   "answer":1,
+   "difficulty":2,
+   "explanation":"И тот и другой дают контекст. Разница в управляемости: внутренний анкор пишете вы, поэтому его можно сделать описательным. Внешний пишет чужой человек, и там значение имеет распределение по всему профилю.",
+   "id":"q-internal-linking-002",
+   "level":"L2",
+   "options":[
+    "Внешний Google учитывает, внутренний нет",
+    "Внутренним вы управляете сами",
+    "Внутренний влияет только на скорость",
+    "Внешний работает лишь при dofollow"
+   ],
+   "question":"Чем внутренний анкор отличается от внешнего?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-anchor-text",
+    "t-anchor-text-external"
+   ],
+   "source_refs":[
+    "google-qualify-links",
+    "google-links-crawlable"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Внутренние анкоры учитываются, это ваш собственный сигнал.",
+    "Верно: внутренним анкором вы распоряжаетесь сами.",
+    "К скорости анкор отношения не имеет.",
+    "Значения rel — подсказки, а не выключатель ссылки."
+   ]
+  },
+  {
+   "answer":3,
+   "difficulty":2,
+   "explanation":"Анкор — это контекст. «Подробнее» одинаково подходит к любой странице, поэтому не сообщает ни человеку, ни поисковику, куда он ведёт. Описательный анкор полезен обоим.",
+   "id":"q-internal-linking-003",
+   "level":"L2",
+   "options":[
+    "Такие ссылки считаются спамными",
+    "Такая ссылка не индексируется вовсе",
+    "Он мешает работе хлебных крошек",
+    "Он не говорит, о чём целевая страница"
+   ],
+   "question":"Чем плох анкор «подробнее» у внутренней ссылки?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-anchor-text",
+    "t-internal-link"
+   ],
+   "source_refs":[
+    "google-links-crawlable",
+    "google-seo-starter-guide"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Спамным анкор становится от переоптимизации, а не от неинформативности.",
+    "Индексации целевой страницы это не мешает.",
+    "Крошки формируются отдельно и от анкоров не зависят.",
+    "Верно: контекста в таком анкоре нет."
+   ]
+  },
+  {
+   "answer":3,
+   "difficulty":2,
+   "explanation":"Жёсткого лимита у Google нет. Ссылки ставятся там, где они уместны читателю; страница-каталог ссылок и страница без единой ссылки одинаково плохи, но не из-за числа, а из-за пользы.",
+   "id":"q-internal-linking-004",
+   "level":"L2",
+   "options":[
+    "Не больше ста, это официальный лимит",
+    "Не больше трёх на тысячу знаков текста",
+    "Чем больше, тем лучше для обхода",
+    "Столько, сколько оправдано содержанием"
+   ],
+   "question":"Сколько внутренних ссылок уместно на странице?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-internal-link"
+   ],
+   "source_refs":[
+    "google-seo-starter-guide"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Правило про сто ссылок — устаревшая рекомендация, а не лимит.",
+    "Плотность ссылок фактором не является, как и плотность ключей.",
+    "Сотни ссылок в подвале размывают контекст и не помогают обходу.",
+    "Верно: ориентир — польза для читателя, а не число."
+   ]
+  },
+  {
+   "answer":0,
+   "difficulty":2,
+   "explanation":"Сквозная ссылка в подвале даёт формальную связность, но слабый контекст: она одинакова на всех страницах и ничего не говорит о теме. Ссылки из материалов по теме дают и путь, и контекст.",
+   "id":"q-internal-linking-005",
+   "level":"L3",
+   "options":[
+    "Поставить ссылки из материалов по теме",
+    "Продублировать ссылку в подвале ещё раз",
+    "Добавить раздел в sitemap.xml и подождать",
+    "Закрыть старые разделы от обхода"
+   ],
+   "question":"Новый раздел плохо индексируется, на него ведёт одна ссылка из подвала. Что предложите?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-internal-link",
+    "t-orphan-page"
+   ],
+   "source_refs":[
+    "google-links-crawlable"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Верно: контекстные ссылки дают и путь, и смысл.",
+    "Вторая ссылка в том же подвале ничего не добавляет.",
+    "Sitemap помогает обнаружению, но связность им не заменяется.",
+    "Закрытие старых разделов только ухудшит обход сайта."
+   ]
+  },
+  {
+   "answer":2,
+   "difficulty":3,
+   "explanation":"240 ссылок здесь — это фактически две: сквозная в шаблоне и она же повторённая. Контекста такой анкор не даёт, и картину внутренних ссылок она рисует ложную. Первое, что стоит выяснить, — есть ли на страницу хоть одна ссылка из материала по теме.",
+   "id":"q-internal-linking-006",
+   "level":"L4",
+   "options":[
+    "Не закрыт ли подвал от индексации директивой",
+    "Не превышен ли лимит в сто ссылок на странице",
+    "Есть ли на неё ссылки из тематических материалов",
+    "Не дублируется ли подвал на всех страницах сайта"
+   ],
+   "question":"Краул: на страницу услуги ведут 240 внутренних ссылок, 238 из них — сквозные из подвала с анкором «услуги». Позиций нет. Что проверить первым?",
+   "related_lesson_ids":[
+    "lesson-internal-linking"
+   ],
+   "related_term_ids":[
+    "t-internal-link",
+    "t-anchor-text"
+   ],
+   "source_refs":[
+    "google-links-crawlable",
+    "google-seo-starter-guide"
+   ],
+   "topic":"internal-linking",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Подвал открыт, иначе ссылок не было бы видно в крауле.",
+    "Лимита в сто ссылок не существует, это устаревшее правило.",
+    "Верно: сквозная ссылка не заменяет тематическую.",
+    "Дублирование подвала — свойство шаблона, а не причина отсутствия позиций."
+   ]
+  },
+  {
+   "answer":3,
+   "difficulty":2,
+   "explanation":"QUERY описывает выборку формулой: при обновлении исходных данных результат пересчитывается сам. Фильтр — разовое действие руками, которое придётся повторять и которое не воспроизводится через месяц.",
+   "id":"q-sheets-001",
+   "level":"L2",
+   "options":[
+    "Работает быстрее на любых объёмах",
+    "Не требует ссылок на исходные данные",
+    "Автоматически исправляет ошибки в данных",
+    "Формула повторяется на новых данных"
+   ],
+   "question":"Чем QUERY удобнее обычного фильтра?",
+   "related_lesson_ids":[
+    "lesson-sheets-for-seo"
+   ],
+   "related_term_ids":[
+    "t-query-function",
+    "t-data-cleaning"
+   ],
+   "source_refs":[
+    "sheets-query-function"
+   ],
+   "topic":"sheets",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "На небольших объёмах разницы в скорости нет.",
+    "QUERY как раз ссылается на диапазон исходных данных.",
+    "Ошибки в данных ни одна функция сама не чинит.",
+    "Верно: воспроизводимость на новых выгрузках."
+   ]
+  },
+  {
+   "answer":1,
+   "difficulty":2,
+   "explanation":"Правка исходника руками ломает воспроизводимость: через месяц никто не вспомнит, что и почему исправляли, и повторить обработку на новой выгрузке невозможно. Схема простая: сырые данные, лист нормализации, результат.",
+   "id":"q-sheets-002",
+   "level":"L2",
+   "options":[
+    "Чтобы файл занимал меньше места",
+    "Чтобы обработку можно было повторить",
+    "Чтобы ускорить пересчёт формул",
+    "Чтобы обойти лимит строк в таблице"
+   ],
+   "question":"Зачем держать исходную выгрузку на отдельном листе?",
+   "related_lesson_ids":[
+    "lesson-sheets-for-seo"
+   ],
+   "related_term_ids":[
+    "t-data-cleaning",
+    "t-pivot-table"
+   ],
+   "source_refs":[
+    "sheets-query-function"
+   ],
+   "topic":"sheets",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "На размер файла это не влияет.",
+    "Верно: сырые данные отделены от обработки.",
+    "Скорость пересчёта от расположения листов не зависит.",
+    "Лимиты таблицы так не обходятся."
+   ]
+  },
+  {
+   "answer":0,
+   "difficulty":2,
+   "explanation":"Пустые значения после соединения почти всегда означают, что ключи не совпали: разный протокол, www, завершающий слеш, регистр хоста или оставшиеся трекинговые метки. Нормализовать при этом можно только заведомо эквивалентные различия.",
+   "id":"q-sheets-003",
+   "level":"L3",
+   "options":[
+    "Совпадает ли формат URL в обеих таблицах",
+    "Хватает ли строк в диапазоне результата",
+    "Не превышен ли лимит формул в таблице",
+    "Правильно ли выбран тип диаграммы"
+   ],
+   "question":"После соединения двух выгрузок половина строк пустая. Что проверить первым?",
+   "related_lesson_ids":[
+    "lesson-sheets-for-seo"
+   ],
+   "related_term_ids":[
+    "t-data-cleaning",
+    "t-vlookup"
+   ],
+   "source_refs":[
+    "sheets-query-function"
+   ],
+   "topic":"sheets",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Верно: несовпадение ключей — самая частая причина.",
+    "Диапазон даёт ошибку, а не пустые значения.",
+    "Лимит формул проявился бы иначе и на всей таблице.",
+    "Диаграммы к соединению данных отношения не имеют."
+   ]
+  },
+  {
+   "answer":2,
+   "difficulty":3,
+   "explanation":"Сорок страниц отдают ошибку, но люди на них ещё переходят — это прямая потеря уже полученного трафика и самый дешёвый выигрыш. Триста страниц с показами без кликов — задача про сниппеты и позиции, она важна, но не срочна и решается медленнее.",
+   "id":"q-sheets-004",
+   "level":"L4",
+   "options":[
+    "Страницы с показами: их в семь раз больше",
+    "Ничего: сначала перепроверить обе выгрузки",
+    "Страницы 404 с кликами: теряется трафик",
+    "И то и другое одной задачей разработке"
+   ],
+   "question":"Соединили краул и выгрузку GSC. Нашлось 300 страниц с показами и без кликов и 40 с кликами и кодом 404. Что в работу первым?",
+   "related_lesson_ids":[
+    "lesson-sheets-for-seo"
+   ],
+   "related_term_ids":[
+    "t-data-cleaning",
+    "t-http-status"
+   ],
+   "source_refs":[
+    "sheets-query-function",
+    "gsc-performance-report"
+   ],
+   "topic":"sheets",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Количество не делает задачу важнее: там нет потери трафика.",
+    "Перепроверка полезна, но откладывать живые 404 из-за неё нельзя.",
+    "Верно: теряется трафик, который уже есть.",
+    "Разные задачи с разной срочностью не ставят одной."
+   ]
+  },
+  {
+   "answer":3,
+   "difficulty":2,
+   "explanation":"Пять тысяч кликов — это много или мало? Ответ появляется только рядом с предыдущим периодом и с тем же периодом год назад, чтобы отделить рост от сезонности.",
+   "id":"q-reporting-007",
+   "level":"L2",
+   "options":[
+    "Абсолютные числа сложнее считать",
+    "Так требует интерфейс Search Console",
+    "Заказчик не понимает больших чисел",
+    "Без базы сравнения цифра ничего не значит"
+   ],
+   "question":"Почему в отчёте сравнивают периоды, а не показывают абсолютные числа?",
+   "related_lesson_ids":[
+    "lesson-reporting"
+   ],
+   "related_term_ids":[
+    "t-seasonality",
+    "t-kpi"
+   ],
+   "source_refs":[
+    "gsc-performance-report"
+   ],
+   "topic":"reporting",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Считаются они одинаково просто.",
+    "Интерфейс тут ни при чём, это правило отчётности.",
+    "Дело не в понимании, а в отсутствии базы сравнения.",
+    "Верно: без базы цифра не интерпретируется."
+   ]
+  },
+  {
+   "answer":0,
+   "difficulty":2,
+   "explanation":"Брендовый трафик двигают известность и реклама. Если сложить его с остальным, рост чужого канала окажется записан в результат SEO — и это вскроется ровно тогда, когда рекламу выключат.",
+   "id":"q-reporting-008",
+   "level":"L2",
+   "options":[
+    "Бренд растёт от рекламы, а не от SEO",
+    "Брендовые запросы не индексируются",
+    "Так требуют правила Search Console",
+    "Небрендовые запросы всегда важнее"
+   ],
+   "question":"Зачем в отчёте разделять брендовые и небрендовые запросы?",
+   "related_lesson_ids":[
+    "lesson-reporting"
+   ],
+   "related_term_ids":[
+    "t-brand-query",
+    "t-organic-traffic"
+   ],
+   "source_refs":[
+    "gsc-performance-report"
+   ],
+   "topic":"reporting",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Верно: иначе чужой результат запишется в ваш.",
+    "Индексация от типа запроса не зависит.",
+    "Таких правил нет, это профессиональная гигиена.",
+    "Оба типа важны, вопрос в том, чтобы их не смешивать."
+   ]
+  },
+  {
+   "answer":1,
+   "difficulty":2,
+   "explanation":"Рост трафика без роста целевых действий обычно означает приток информационных запросов. Честная формулировка называет и рост охвата, и отсутствие коммерческого эффекта, и следующий шаг — посмотреть, на какие страницы пришёл рост.",
+   "id":"q-reporting-009",
+   "level":"L3",
+   "options":[
+    "Что работа успешна: трафик вырос",
+    "Что вырос охват, а не результат",
+    "Что аналитика считает неверно",
+    "Что нужно срочно менять стратегию"
+   ],
+   "question":"Трафик вырос на 25%, заявок столько же. Что писать в отчёте?",
+   "related_lesson_ids":[
+    "lesson-reporting"
+   ],
+   "related_term_ids":[
+    "t-key-event",
+    "t-organic-traffic"
+   ],
+   "source_refs":[
+    "ga4-default-channel-group",
+    "gsc-performance-report"
+   ],
+   "topic":"reporting",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Это подмена результата охватом.",
+    "Верно: разделяем охват и коммерческий результат.",
+    "Расхождение объяснимо и без ошибок в аналитике.",
+    "Менять стратегию по одному месяцу преждевременно."
+   ]
+  },
+  {
+   "answer":2,
+   "difficulty":3,
+   "explanation":"Средняя позиция усредняется по показам, поэтому появление новых запросов на дальних позициях ухудшает её при растущем охвате. Клики выросли меньше показов — новые запросы кликают слабо. Отсутствие заявок означает, что прирост скорее информационный, и проверять это надо разрезом по страницам.",
+   "id":"q-reporting-010",
+   "level":"L4",
+   "options":[
+    "Сайт просел, нужно откатывать правки",
+    "Данные противоречивы, отчёт непригоден",
+    "Охват расширился на дальних позициях",
+    "Средняя позиция — главный сигнал здесь"
+   ],
+   "question":"В отчёте: клики +18%, показы +60%, средняя позиция ухудшилась с 14 до 19, заявки без изменений. Какой вывод корректен?",
+   "related_lesson_ids":[
+    "lesson-reporting"
+   ],
+   "related_term_ids":[
+    "t-average-position",
+    "t-impressions",
+    "t-ctr"
+   ],
+   "source_refs":[
+    "gsc-performance-report"
+   ],
+   "topic":"reporting",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Просадкой это не является: клики выросли.",
+    "Противоречия нет, так и выглядит расширение охвата.",
+    "Верно: новые запросы на дальних позициях тянут среднюю вниз.",
+    "Средняя позиция здесь наименее информативна из четырёх чисел."
+   ]
+  },
+  {
+   "answer":1,
+   "difficulty":2,
+   "explanation":"Признание незнания стоит дёшево, выдумка — дорого: следующий уточняющий вопрос обнаружит её сразу, и под сомнением окажется весь остальной ответ. Сильный ход — назвать, где вы стали бы искать и как проверять.",
+   "id":"q-interview-seo-001",
+   "level":"L3",
+   "options":[
+    "Назвать похожий термин наугад",
+    "Сказать прямо и описать, как найдёте ответ",
+    "Промолчать и ждать следующий вопрос",
+    "Перевести разговор на знакомую тему"
+   ],
+   "question":"Интервьюер спрашивает то, чего вы не знаете. Как лучше поступить?",
+   "related_lesson_ids":[
+    "lesson-interview-questions"
+   ],
+   "related_term_ids":[
+    "t-red-flag",
+    "t-follow-up-question"
+   ],
+   "source_refs":[],
+   "topic":"interview-seo",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Угадывание вскрывается первым же уточнением.",
+    "Верно: честность плюс способ найти ответ.",
+    "Молчание читается как растерянность, а не как честность.",
+    "Уход от вопроса заметен и оставляет неприятное впечатление."
+   ]
+  },
+  {
+   "answer":2,
+   "difficulty":3,
+   "explanation":"Проверяют не готовый ответ, а порядок мышления. Сильный ход — назвать гипотезу, следующую из чисел (охват вырос на некликабельных позициях), и сказать, каким разрезом вы её проверите. Готовое решение до диагностики — красный флаг.",
+   "id":"q-interview-seo-002",
+   "level":"L4",
+   "options":[
+    "Предложить переписать заголовки страниц",
+    "Сказать, что нужно наращивать ссылки",
+    "Назвать вероятную причину и способ проверки",
+    "Попросить полный доступ ко всем данным"
+   ],
+   "question":"На собеседовании дают отчёт: показы растут, клики стоят, позиции в середине второй десятки. Просят прокомментировать. С чего начать?",
+   "related_lesson_ids":[
+    "lesson-interview-questions"
+   ],
+   "related_term_ids":[
+    "t-impressions",
+    "t-average-position",
+    "t-follow-up-question"
+   ],
+   "source_refs":[
+    "gsc-performance-report"
+   ],
+   "topic":"interview-seo",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Правка заголовков — решение, предложенное до диагноза.",
+    "Ссылки названы наугад: числа на них не указывают.",
+    "Верно: сначала гипотеза и способ её проверки.",
+    "Запрос всех данных выглядит уходом от вопроса."
+   ]
+  },
+  {
+   "answer":0,
+   "difficulty":2,
+   "explanation":"Текст пишется под конкретный интент и под тип страницы, который этому интенту отвечает. Список запросов без интента даёт текст, где ключи есть, а ответа нет. Объём и срок — организационные детали, содержание они не задают.",
+   "id":"q-content-briefs-001",
+   "level":"L3",
+   "options":[
+    "Не указан интент и тип целевой страницы",
+    "Не указано требуемое число знаков",
+    "Не перечислены запросы с частотностью",
+    "Не назван срок сдачи материала"
+   ],
+   "question":"Копирайтер сдал текст, который не отвечает на запрос. Что чаще всего не так в ТЗ?",
+   "related_lesson_ids":[
+    "lesson-content-brief"
+   ],
+   "related_term_ids":[
+    "t-content-brief",
+    "t-search-intent"
+   ],
+   "source_refs":[
+    "google-helpful-content"
+   ],
+   "topic":"content-briefs",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Верно: без интента текст пишется вслепую.",
+    "Объём — следствие содержания, а не его причина.",
+    "Список запросов есть почти в каждом ТЗ и сам по себе не спасает.",
+    "Срок влияет на сдачу, а не на соответствие запросу."
+   ]
+  },
+  {
+   "answer":1,
+   "difficulty":3,
+   "explanation":"Показы есть, значит формальная релевантность запросам появилась. Позиция 25 и отсутствие целевых действий чаще всего означают несоответствие интенту: под коммерческий запрос сделана статья или наоборот. Смотрят, какой тип страниц занимает топ.",
+   "id":"q-content-briefs-002",
+   "level":"L4",
+   "options":[
+    "Плотность ключевых слов в тексте",
+    "Совпадает ли тип страницы с выдачей",
+    "Скорость загрузки этой страницы",
+    "Число внешних ссылок на статью"
+   ],
+   "question":"Статья вышла месяц назад: показы растут, средняя позиция 25, целевых действий нет. Что проверить первым?",
+   "related_lesson_ids":[
+    "lesson-content-brief"
+   ],
+   "related_term_ids":[
+    "t-search-intent",
+    "t-content-brief"
+   ],
+   "source_refs":[
+    "google-helpful-content",
+    "gsc-performance-report"
+   ],
+   "topic":"content-briefs",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Плотность ключей фактором ранжирования не является.",
+    "Верно: сначала проверяют соответствие типа страницы интенту.",
+    "Скорость влияет на опыт, но не объясняет картину при позиции 25.",
+    "Внешние ссылки — не первая гипотеза для новой статьи."
+   ]
+  },
+  {
+   "answer":2,
+   "difficulty":2,
+   "explanation":"Спор о мнениях не решается мнениями. Работает описание в терминах поведения: что происходит сейчас, что должно происходить, на скольких URL и как мы проверим результат. Эскалация — крайняя мера.",
+   "id":"q-dev-communication-001",
+   "level":"L3",
+   "options":[
+    "Эскалировать вопрос руководителю",
+    "Сделать правку самостоятельно в обход",
+    "Показать данные и ожидаемое поведение",
+    "Отложить задачу до следующего квартала"
+   ],
+   "question":"Разработчик отвечает «это не влияет на SEO». Что делать?",
+   "related_lesson_ids":[
+    "lesson-dev-communication"
+   ],
+   "related_term_ids":[
+    "t-acceptance-criteria",
+    "t-stakeholder"
+   ],
+   "source_refs":[],
+   "topic":"dev-communication",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Эскалация до попытки договориться портит отношения и редко нужна.",
+    "Правка в обход разработки не переживёт следующий релиз.",
+    "Верно: факты и ожидаемое поведение вместо спора о мнениях.",
+    "Откладывание не решает задачу и не отвечает на возражение."
+   ]
+  },
+  {
+   "answer":3,
+   "difficulty":3,
+   "explanation":"Частичное исправление почти всегда означает, что под правило попали не все случаи: другой шаблон, другой тип страницы, кеш. Возвращать задачу с прежним описанием бессмысленно — она уйдёт по второму кругу. Сначала находят признак, по которому страницы разделились.",
+   "id":"q-dev-communication-002",
+   "level":"L4",
+   "options":[
+    "Переоткрыть задачу с тем же описанием",
+    "Попросить откатить релиз целиком",
+    "Написать, что задача сделана плохо",
+    "Выяснить, чем отличаются эти страницы"
+   ],
+   "question":"Задача выкачена, но проблема осталась на части страниц. Что сделать прежде, чем возвращать её в работу?",
+   "related_lesson_ids":[
+    "lesson-dev-communication"
+   ],
+   "related_term_ids":[
+    "t-acceptance-criteria",
+    "t-scope"
+   ],
+   "source_refs":[],
+   "topic":"dev-communication",
+   "track_id":"redcore-junior-seo",
+   "verification_status":"verified",
+   "why":[
+    "Прежнее описание уже привело к неполной правке.",
+    "Откат целого релиза несоразмерен частичной проблеме.",
+    "Оценка вместо фактов исправить не помогает.",
+    "Верно: сначала признак различия, потом уточнённое описание."
+   ]
   }
  ],
  "questionsByTopic":{
@@ -15652,6 +16328,16 @@
    "q-analytics-ga4-006",
    "q-analytics-ga4-007",
    "q-analytics-ga4-008"
+  ],
+  "content-briefs":[
+   "q-content-briefs-001",
+   "q-content-briefs-002",
+   "q-reporting-005"
+  ],
+  "dev-communication":[
+   "q-dev-communication-001",
+   "q-dev-communication-002",
+   "q-reporting-006"
   ],
   "html-http":[
    "q-html-http-001",
@@ -15678,6 +16364,22 @@
    "q-indexing-gsc-008",
    "q-indexing-gsc-009",
    "q-indexing-gsc-010"
+  ],
+  "internal-linking":[
+   "q-internal-linking-001",
+   "q-internal-linking-002",
+   "q-internal-linking-003",
+   "q-internal-linking-004",
+   "q-internal-linking-005",
+   "q-internal-linking-006",
+   "q-on-page-014",
+   "q-on-page-015"
+  ],
+  "interview-seo":[
+   "q-interview-seo-001",
+   "q-interview-seo-002",
+   "q-search-basics-011",
+   "q-search-basics-012"
   ],
   "keyword-research":[
    "q-keyword-research-001",
@@ -15721,19 +16423,17 @@
    "q-on-page-011",
    "q-on-page-012",
    "q-on-page-013",
-   "q-on-page-014",
-   "q-on-page-015",
    "q-on-page-016",
    "q-on-page-017",
    "q-on-page-018"
   ],
   "reporting":[
-   "q-reporting-001",
-   "q-reporting-002",
    "q-reporting-003",
    "q-reporting-004",
-   "q-reporting-005",
-   "q-reporting-006"
+   "q-reporting-007",
+   "q-reporting-008",
+   "q-reporting-009",
+   "q-reporting-010"
   ],
   "search-basics":[
    "q-search-basics-001",
@@ -15745,9 +16445,7 @@
    "q-search-basics-007",
    "q-search-basics-008",
    "q-search-basics-009",
-   "q-search-basics-010",
-   "q-search-basics-011",
-   "q-search-basics-012"
+   "q-search-basics-010"
   ],
   "search-intent":[
    "q-search-intent-001",
@@ -15780,6 +16478,14 @@
    "q-seo-tools-006",
    "q-seo-tools-007",
    "q-seo-tools-008"
+  ],
+  "sheets":[
+   "q-reporting-001",
+   "q-reporting-002",
+   "q-sheets-001",
+   "q-sheets-002",
+   "q-sheets-003",
+   "q-sheets-004"
   ],
   "site-architecture":[
    "q-site-architecture-001",
@@ -16179,13 +16885,15 @@
   {
    "completion_rule":{
     "lesson_read":true,
-    "mock_answered_min":1
+    "mock_answered_min":1,
+    "quiz_score_min":80
    },
    "estimated_minutes":35,
    "goal":"Объяснить три задачи внутренних ссылок и найти слабые места на сайте",
    "id":"step-15-internal-linking",
    "order":15,
    "practice_items":[
+    "quiz:internal-linking",
     "mock:mock-fundamentals-007"
    ],
    "prerequisites":[
@@ -16230,13 +16938,15 @@
   {
    "completion_rule":{
     "case_completed_min":1,
-    "lesson_read":true
+    "lesson_read":true,
+    "quiz_score_min":80
    },
    "estimated_minutes":45,
    "goal":"Написать ТЗ, по которому текст сделают с первого раза",
    "id":"step-17-content-briefs",
    "order":17,
    "practice_items":[
+    "quiz:content-briefs",
     "case:case-content-brief-010",
     "mock:mock-practical-002"
    ],
@@ -16288,6 +16998,7 @@
    "id":"step-19-sheets",
    "order":19,
    "practice_items":[
+    "quiz:sheets",
     "quiz:reporting",
     "mock:mock-tools-004"
    ],
@@ -16305,13 +17016,15 @@
   {
    "completion_rule":{
     "case_completed_min":1,
-    "lesson_read":true
+    "lesson_read":true,
+    "quiz_score_min":80
    },
    "estimated_minutes":45,
    "goal":"Собрать отчёт, который отвечает на вопросы заказчика и не приукрашивает",
    "id":"step-20-reporting",
    "order":20,
    "practice_items":[
+    "quiz:reporting",
     "case:case-report-011",
     "mock:mock-practical-004"
    ],
@@ -16332,13 +17045,15 @@
   {
    "completion_rule":{
     "case_completed_min":1,
-    "lesson_read":true
+    "lesson_read":true,
+    "quiz_score_min":80
    },
    "estimated_minutes":40,
    "goal":"Ставить задачи так, чтобы их делали без уточняющих вопросов",
    "id":"step-21-dev-communication",
    "order":21,
    "practice_items":[
+    "quiz:dev-communication",
     "case:case-dev-task-012",
     "mock:mock-practical-003"
    ],
@@ -16358,13 +17073,15 @@
   {
    "completion_rule":{
     "lesson_read":true,
-    "mock_answered_min":3
+    "mock_answered_min":3,
+    "quiz_score_min":80
    },
    "estimated_minutes":60,
    "goal":"Проговорить вслух ответы на базовые вопросы и уложить каждый в минуту",
    "id":"step-22-interview-questions",
    "order":22,
    "practice_items":[
+    "quiz:interview-seo",
     "mock:mock-intro-001",
     "mock:mock-motivation-001",
     "mock:mock-practical-006"

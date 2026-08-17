@@ -65,10 +65,12 @@ class TestCounts(unittest.TestCase):
         проверка начала измерять не то, что задумано.
         """
         expected = {
-            "search-basics": 12, "search-intent": 10, "on-page": 18,
+            "search-basics": 10, "search-intent": 10, "on-page": 16,
             "technical-seo": 24, "html-http": 12, "keyword-research": 12,
             "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
             "off-page-seo": 12, "site-architecture": 8, "seo-audit": 8,
+            "internal-linking": 8, "sheets": 6, "interview-seo": 4,
+            "content-briefs": 3, "dev-communication": 3,
         }
         actual = {}
         seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
