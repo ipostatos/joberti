@@ -65,9 +65,9 @@ class TestCounts(unittest.TestCase):
         проверка начала измерять не то, что задумано.
         """
         expected = {
-            "search-basics": 10, "search-intent": 10, "on-page": 16,
-            "technical-seo": 24, "html-http": 12, "keyword-research": 12,
-            "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
+            "search-basics": 11, "search-intent": 11, "on-page": 18,
+            "technical-seo": 26, "html-http": 13, "keyword-research": 13,
+            "indexing-gsc": 12, "analytics-ga4": 9, "seo-tools": 9, "reporting": 6,
             "off-page-seo": 12, "site-architecture": 8, "seo-audit": 8,
             "internal-linking": 8, "sheets": 6, "interview-seo": 4,
             "content-briefs": 3, "dev-communication": 3,
@@ -268,6 +268,25 @@ class TestQuestionQuality(unittest.TestCase):
             with self.subTest(topic=topic):
                 self.assertTrue(any(q["level"] == "L4" for q in levelled),
                                 f"тема {topic} размечена по уровням, но без диагностики")
+
+    def test_seo_bank_is_fully_levelled(self):
+        """Трек под вакансию размечен целиком и каждая тема доходит до L4.
+
+        Диагностика — целевой уровень трека: на собеседовании дают данные и
+        спрашивают, что проверять первым. До этой разметки в банке не было ни
+        одного вопроса уровня L4 ни в одной теме.
+        """
+        seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
+        by_topic = {}
+        for q in seo:
+            with self.subTest(q=q["id"]):
+                self.assertIn(q.get("level"), validate_content.QUESTION_LEVELS,
+                              "вопрос трека без уровня")
+            by_topic.setdefault(q["topic"], []).append(q)
+        for topic, pool in by_topic.items():
+            with self.subTest(topic=topic):
+                self.assertTrue(any(q["level"] == "L4" for q in pool),
+                                "тема без диагностического вопроса")
 
     def test_options_are_distinct(self):
         for q in self.c.questions:
