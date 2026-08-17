@@ -1025,6 +1025,84 @@
    },
    "seconds":60,
    "track_ids":[]
+  },
+  {
+   "category":"Технический вопрос",
+   "hint":"Каркас ANSWER-REASON-EXAMPLE-CHECK: что делает каждый, почему их нельзя сочетать, короткий пример, чем проверите.",
+   "id":"ed-seo-004",
+   "keywords":[
+    "controls crawling",
+    "does not guarantee",
+    "cannot read"
+   ],
+   "level":2,
+   "model_answer_en":"robots.txt controls crawling: it tells the crawler which URLs it should not request. noindex controls indexing: it tells the search engine not to show the page in results. They are not interchangeable, and combining them breaks: if the URL is blocked in robots.txt, the crawler never opens the page and never reads the noindex tag, so the page can stay in the results without a description. I would check the file first and then use URL Inspection in Search Console to see what Google actually does with the URL.",
+   "model_answer_ru":"robots.txt управляет обходом: он говорит роботу, какие адреса не запрашивать. noindex управляет индексацией: он говорит не показывать страницу в выдаче. Они не взаимозаменяемы, а их сочетание ломается: если URL закрыт в robots.txt, робот не откроет страницу и не прочитает noindex, поэтому страница может остаться в выдаче без описания. Сначала посмотрю сам файл, потом проверку URL в Search Console.",
+   "prompt_en":"Explain the difference between robots.txt and noindex.",
+   "prompt_ru":"Объясните разницу между robots.txt и noindex.",
+   "rubric":{
+    "0":"Ответ не сложился",
+    "1":"Механизмы перепутаны",
+    "2":"Разница названа, но без объяснения, почему сочетание не работает",
+    "3":"Оба механизма и причина, по которой их нельзя сочетать",
+    "4":"Плюс способ проверки и корректная формулировка про отсутствие гарантии"
+   },
+   "seconds":90,
+   "track_ids":[
+    "redcore-junior-seo"
+   ]
+  },
+  {
+   "category":"Технический вопрос",
+   "hint":"Проверяется не термин, а понимание: если объясняете без жаргона и с бытовым сравнением, значит понимаете. Жаргон здесь запрещён.",
+   "id":"ed-seo-005",
+   "keywords":[
+    "the same page",
+    "which one",
+    "a hint, not a command"
+   ],
+   "level":3,
+   "model_answer_en":"Sometimes the same page is available at several web addresses, for example with and without a filter in the address. For a person it is one page, but for a search engine these look like different pages, so the value is split between them. A canonical is a line in the page code that says which address we consider the main one. It is a hint, not a command: the search engine takes it into account but can still choose a different address, and we can see that choice in Search Console.",
+   "model_answer_ru":"Иногда одна и та же страница доступна по нескольким адресам, например с фильтром в адресе и без него. Для человека это одна страница, а для поисковика — разные, и ценность делится между ними. Canonical — строка в коде страницы, которая говорит, какой адрес мы считаем основным. Это подсказка, а не команда: поисковик её учитывает, но может выбрать другой адрес, и этот выбор видно в Search Console.",
+   "prompt_en":"Explain what a canonical URL is to a project manager who has never heard of SEO.",
+   "prompt_ru":"Объясните, что такое канонический адрес, менеджеру, который ничего не знает про SEO.",
+   "rubric":{
+    "0":"Ответ не сложился",
+    "1":"Пересказ определения с жаргоном",
+    "2":"Понятно, но без примера или без оговорки про подсказку",
+    "3":"Простыми словами, с примером и без жаргона",
+    "4":"Плюс сказано, что это подсказка, и названо, где увидеть выбор поисковика"
+   },
+   "seconds":90,
+   "track_ids":[
+    "redcore-junior-seo"
+   ]
+  },
+  {
+   "category":"Ситуация на работе",
+   "hint":"Не количество, а порядок разбора: чем меряем, куда ведут ссылки, что предлагаем, чем меряем результат. И честно про риск закупки.",
+   "id":"ed-seo-006",
+   "keywords":[
+    "referring domains",
+    "which pages",
+    "not just volume"
+   ],
+   "level":3,
+   "model_answer_en":"First I would check how the gap is measured. Referring domains matter, not the total number of links, because one website can link a hundred times. Then I would look at which pages those links point to: if the competitor spreads links across landing pages while ours all point at the home page, the real problem is distribution, not volume. After that I would build a link gap report and filter it by topic, real traffic and how realistic the placement is. Buying links in bulk is described in the Google spam policies as a link scheme, so I would say that out loud instead of agreeing quietly. I would measure the result by new referring domains to the target pages, not by the number of placements.",
+   "model_answer_ru":"Сначала проверю, как измерен разрыв: считать надо ссылающиеся домены, а не ссылки, потому что один сайт может сослаться сто раз. Потом посмотрю, на какие страницы ведут эти ссылки: если у конкурента они распределены по посадочным, а у нас все на главной, проблема в распределении, а не в объёме. Дальше построю отчёт по ссылочному разрыву и отфильтрую по теме, живому трафику и достижимости. Про закупку скажу прямо: это описано в спам-политиках Google как ссылочная схема. Результат буду мерить приростом доноров на целевые страницы, а не числом размещений.",
+   "prompt_en":"A competitor has four times more referring domains. What would you do?",
+   "prompt_ru":"У конкурента вчетверо больше ссылающихся доменов. Что будете делать?",
+   "rubric":{
+    "0":"Ответ не сложился",
+    "1":"Предлагает закупку объёма",
+    "2":"Отказывается от закупки, но без плана",
+    "3":"Корректная единица измерения и внятный порядок действий",
+    "4":"Плюс распределение по страницам, риск и метрика результата"
+   },
+   "seconds":120,
+   "track_ids":[
+    "redcore-junior-seo"
+   ]
   }
  ],
  "englishPhrases":[
@@ -2635,6 +2713,81 @@
     "redcore-junior-seo"
    ],
    "wrong":"одинаковое произношение существительного и глагола — окончание меняется"
+  },
+  {
+   "category":"SEO",
+   "example_en":"We gained twelve backlinks from industry blogs last quarter.",
+   "example_ru":"За квартал мы получили двенадцать внешних ссылок с отраслевых блогов.",
+   "id":"ev-backlink",
+   "ipa":"/ˈbæklɪŋk/",
+   "level":1,
+   "meaning":"внешняя входящая ссылка на ваш сайт",
+   "ru_hint":"БЭК-линк",
+   "term":"backlink",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "wrong":"«бэклИнк» с ударением на второй слог"
+  },
+  {
+   "category":"SEO",
+   "example_en":"We count referring domains, not the total number of links.",
+   "example_ru":"Мы считаем ссылающиеся домены, а не общее число ссылок.",
+   "id":"ev-referring-domain",
+   "ipa":"/rɪˈfɜːrɪŋ dəˈmeɪn/",
+   "level":2,
+   "meaning":"уникальный сайт-источник ссылок",
+   "ru_hint":"ри-ФЁ-ринг до-МЭЙН",
+   "term":"referring domain",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "wrong":"«рЕферринг» с ударением на первый слог"
+  },
+  {
+   "category":"SEO",
+   "example_en":"Most outreach emails get no reply, and that is normal.",
+   "example_ru":"Большая часть писем в аутриче остаётся без ответа, и это норма.",
+   "id":"ev-outreach",
+   "ipa":"/ˈaʊtriːtʃ/",
+   "level":2,
+   "meaning":"адресная работа с площадками ради упоминания",
+   "ru_hint":"АУТ-рич",
+   "term":"outreach",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "wrong":"«аутрИч» с ударением на второй слог"
+  },
+  {
+   "category":"SEO",
+   "example_en":"Paid placements should be marked as sponsored.",
+   "example_ru":"Оплаченные размещения помечают значением sponsored.",
+   "id":"ev-sponsored",
+   "ipa":"/ˈspɒnsəd/",
+   "level":2,
+   "meaning":"помеченный как оплаченное размещение",
+   "ru_hint":"СПОН-сэд, два слога",
+   "term":"sponsored",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "wrong":"«спонсОред» в три слога с ударением на второй"
+  },
+  {
+   "category":"SEO",
+   "example_en":"We only disavow links when there is a manual action.",
+   "example_ru":"Мы отклоняем ссылки только при ручных мерах.",
+   "id":"ev-disavow",
+   "ipa":"/ˌdɪsəˈvaʊ/",
+   "level":3,
+   "meaning":"отклонить ссылки, чтобы поисковик их не учитывал",
+   "ru_hint":"дис-э-ВАУ",
+   "term":"disavow",
+   "track_ids":[
+    "redcore-junior-seo"
+   ],
+   "wrong":"«дисавОв» с «в» на конце: там звук «ау»"
   }
  ],
  "englishWriting":[
@@ -3606,6 +3759,19 @@
     ]
    },
    "title":"Письмо разработчику про техническую правку",
+   "track_ids":[
+    "redcore-junior-seo"
+   ]
+  },
+  {
+   "category":"Созвоны и статусы",
+   "en":"It controls crawling, not indexing. That matters because a blocked page can still appear in the results without a description. For example, a page closed in robots.txt with external links to it. I would verify it with URL Inspection in Search Console.",
+   "id":"ew-seo-002",
+   "kind":"pattern",
+   "level":2,
+   "note":"Каркас нужен ровно затем, чтобы не заучивать текст. Слова свои, порядок общий. Если вы не можете назвать пункт CHECK, значит вы объясняете теорию, а не рабочий процесс — на собеседовании это слышно.",
+   "ru":"Каркас устного ответа на технический вопрос: сначала прямой ответ одной фразой, потом причина, почему это важно, потом короткий пример, потом чем проверите. Четыре предложения — это уже сильный ответ на минуту.",
+   "title":"ANSWER — REASON — EXAMPLE — CHECK",
    "track_ids":[
     "redcore-junior-seo"
    ]

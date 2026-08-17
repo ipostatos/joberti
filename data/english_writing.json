@@ -1123,6 +1123,19 @@
         ],
         "model_en": "Summary: customer charged twice for order 88214\nEnvironment: production, 3 April 12:31 Europe/Warsaw\nSteps to reproduce: 1. Place an order with a saved card 2. Confirm the payment 3. Open the provider dashboard\nExpected: one charge of 149.90 PLN\nActual: two charges of 149.90 PLN with different request ids\nMoney impact: 37 customers by 149.90 PLN over 24 hours\nEvidence: request ids, ledger rows, provider dashboard screenshot"
       }
+    },
+    {
+      "id": "ew-seo-002",
+      "category": "Созвоны и статусы",
+      "kind": "pattern",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "title": "ANSWER — REASON — EXAMPLE — CHECK",
+      "en": "It controls crawling, not indexing. That matters because a blocked page can still appear in the results without a description. For example, a page closed in robots.txt with external links to it. I would verify it with URL Inspection in Search Console.",
+      "ru": "Каркас устного ответа на технический вопрос: сначала прямой ответ одной фразой, потом причина, почему это важно, потом короткий пример, потом чем проверите. Четыре предложения — это уже сильный ответ на минуту.",
+      "note": "Каркас нужен ровно затем, чтобы не заучивать текст. Слова свои, порядок общий. Если вы не можете назвать пункт CHECK, значит вы объясняете теорию, а не рабочий процесс — на собеседовании это слышно."
     }
   ]
 }
