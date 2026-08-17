@@ -354,6 +354,65 @@ class TestReferences(unittest.TestCase):
                     )
 
 
+class TestFreshness(unittest.TestCase):
+    """Метки свежести: они должны работать, а не украшать схему."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+        cls.vol = {t["id"]: t.get("volatility", validate_content.DEFAULT_VOLATILITY)
+                   for t in cls.c.topics}
+
+    def test_volatility_values_are_valid(self):
+        for t in self.c.topics:
+            with self.subTest(topic=t["id"]):
+                self.assertIn(t.get("volatility", validate_content.DEFAULT_VOLATILITY),
+                              validate_content.VOLATILITY_LEVELS)
+
+    def test_ga4_gsc_and_tools_are_high_volatility(self):
+        """Именно там формулировки и интерфейсы устаревают быстрее всего."""
+        for tid in ("analytics-ga4", "indexing-gsc", "seo-tools"):
+            with self.subTest(topic=tid):
+                self.assertEqual(self.vol.get(tid), "high")
+
+    def test_vacancy_data_is_watched(self):
+        """Объявление правит работодатель, а не мы: дата сверки обязательна."""
+        for t in self.c.active_tracks():
+            v = next((x for x in self.c.vacancies if x["id"] == t.get("vacancy_id")), None)
+            if v is None or v.get("volatility") != "high":
+                continue
+            with self.subTest(vacancy=v["id"]):
+                self.assertTrue(v.get("content_reviewed_at"))
+
+    def test_high_volatility_records_carry_review_date(self):
+        high = {tid for tid, v in self.vol.items() if v == "high"}
+        collections = [
+            ("lesson", self.c.lessons, lambda x: [x.get("topic_id")]),
+            ("question", self.c.questions, lambda x: [x.get("topic")]),
+            ("term", self.c.glossary, lambda x: x.get("topic_ids") or []),
+            ("mock", self.c.mock_questions, lambda x: x.get("topic_ids") or []),
+            ("case", self.c.cases, lambda x: x.get("topic_ids") or []),
+        ]
+        for kind, items, topics_of in collections:
+            for x in items:
+                if not high & {t for t in topics_of(x) if t}:
+                    continue
+                with self.subTest(kind=kind, item=x["id"]):
+                    self.assertTrue(x.get("content_reviewed_at"),
+                                    "запись высоковолатильной темы без даты сверки")
+
+    def test_review_dates_are_not_in_the_future(self):
+        from datetime import date
+        for key in ("lessons", "questions", "glossary", "mock_questions", "cases"):
+            for x in getattr(self.c, key):
+                d = x.get("content_reviewed_at")
+                if not d:
+                    continue
+                with self.subTest(item=x["id"]):
+                    self.assertRegex(d, r"^\d{4}-\d{2}-\d{2}$")
+                    self.assertLessEqual(date.fromisoformat(d), date.today())
+
+
 class TestNoUserDataInvented(unittest.TestCase):
     """Приложение не должно придумывать достижения пользователя."""
 

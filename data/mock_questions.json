@@ -603,7 +603,8 @@
         "gsc-page-indexing-report",
         "google-robots-meta-tag"
       ],
-      "answer_kind": "generic"
+      "answer_kind": "generic",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-technical-002",
@@ -649,7 +650,8 @@
         "google-traffic-drops",
         "gsc-performance-report"
       ],
-      "answer_kind": "generic"
+      "answer_kind": "generic",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-technical-003",
@@ -955,7 +957,8 @@
         "ahrefs-help"
       ],
       "answer_kind": "personal",
-      "personal_evidence_prompt": "Перечислите инструменты, которыми вы действительно пользовались, и по одной задаче на каждый. Инструмент без задачи в этот список не попадает: на уточняющем вопросе это сразу видно."
+      "personal_evidence_prompt": "Перечислите инструменты, которыми вы действительно пользовались, и по одной задаче на каждый. Инструмент без задачи в этот список не попадает: на уточняющем вопросе это сразу видно.",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-tools-002",
@@ -997,7 +1000,8 @@
       "source_refs": [
         "screamingfrog-user-guide"
       ],
-      "answer_kind": "generic"
+      "answer_kind": "generic",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-tools-003",
@@ -1041,7 +1045,8 @@
         "gsc-page-indexing-report",
         "gsc-url-inspection"
       ],
-      "answer_kind": "generic"
+      "answer_kind": "generic",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-tools-004",
@@ -1803,7 +1808,8 @@
         "ga4-about-events",
         "ga4-default-channel-group"
       ],
-      "answer_kind": "generic"
+      "answer_kind": "generic",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-technical-009",
@@ -5542,7 +5548,8 @@
         "3": "Названы условия задачи и профессиональный интерес",
         "4": "То же плюс конкретная деталь из выдачи ниши и спокойное отношение к отрасли"
       },
-      "source_refs": []
+      "source_refs": [],
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-fundamentals-009",
@@ -5585,7 +5592,8 @@
       "source_refs": [
         "google-helpful-content",
         "google-search-essentials"
-      ]
+      ],
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "mock-english-003",

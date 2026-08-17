@@ -340,7 +340,9 @@
           "requirement_id": "req-english",
           "note": "Команда распределённая: документация, переписка и часть созвонов на английском"
         }
-      ]
+      ],
+      "volatility": "high",
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "devops-platform-generic",

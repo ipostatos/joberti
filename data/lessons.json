@@ -477,7 +477,8 @@
         "t-noindex",
         "t-canonical-url"
       ],
-      "estimated_minutes": 25
+      "estimated_minutes": 25,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "lesson-gsc-performance",
@@ -518,7 +519,8 @@
         "t-ctr",
         "t-average-position"
       ],
-      "estimated_minutes": 20
+      "estimated_minutes": 20,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "lesson-keyword-research",
@@ -645,7 +647,8 @@
         "t-duplicate-content",
         "t-user-agent"
       ],
-      "estimated_minutes": 20
+      "estimated_minutes": 20,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "lesson-ahrefs-semrush",
@@ -687,7 +690,8 @@
         "t-backlink",
         "t-visibility"
       ],
-      "estimated_minutes": 20
+      "estimated_minutes": 20,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "lesson-ga4-basics",
@@ -734,7 +738,8 @@
         "t-key-event",
         "t-session"
       ],
-      "estimated_minutes": 25
+      "estimated_minutes": 25,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "lesson-core-web-vitals",
@@ -4019,7 +4024,8 @@
         "t-affiliate-marketing",
         "t-brand-query"
       ],
-      "estimated_minutes": 12
+      "estimated_minutes": 12,
+      "content_reviewed_at": "2026-08-17"
     }
   ]
 }

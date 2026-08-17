@@ -88,7 +88,8 @@
         "google-how-search-works",
         "gsc-page-indexing-report"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-ranking",
@@ -165,7 +166,8 @@
       "source_refs": [
         "screamingfrog-user-guide"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-crawl-budget",
@@ -268,7 +270,8 @@
         "google-robots-meta-tag",
         "google-remove-information"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-x-robots-tag",
@@ -755,7 +758,8 @@
         "google-http-status-codes",
         "gsc-page-indexing-report"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-http-status",
@@ -1817,7 +1821,8 @@
         "chrome-lighthouse",
         "psi-about"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-url-inspection",
@@ -1842,7 +1847,8 @@
       "source_refs": [
         "gsc-url-inspection"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-index-coverage",
@@ -1867,7 +1873,8 @@
       "source_refs": [
         "gsc-page-indexing-report"
       ],
-      "difficulty": 3
+      "difficulty": 3,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-impressions",
@@ -1892,7 +1899,8 @@
       "source_refs": [
         "gsc-performance-report"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-clicks",
@@ -1918,7 +1926,8 @@
         "gsc-performance-report",
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-ctr",
@@ -1944,7 +1953,8 @@
       "source_refs": [
         "gsc-performance-report"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-average-position",
@@ -1969,7 +1979,8 @@
       "source_refs": [
         "gsc-performance-report"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-ga4",
@@ -1994,7 +2005,8 @@
         "ga4-setup",
         "ga4-devguide"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-organic-search",
@@ -2019,7 +2031,8 @@
       "source_refs": [
         "ga4-default-channel-group"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-landing-page",
@@ -2044,7 +2057,8 @@
       "source_refs": [
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-session",
@@ -2069,7 +2083,8 @@
       "source_refs": [
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 1
+      "difficulty": 1,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-key-event",
@@ -2094,7 +2109,8 @@
       "source_refs": [
         "ga4-about-events"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-engagement-rate",
@@ -2118,7 +2134,8 @@
       "source_refs": [
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-conversion-rate",
@@ -2145,7 +2162,8 @@
         "ga4-about-events",
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-attribution",
@@ -2170,7 +2188,8 @@
       "source_refs": [
         "ga4-dimensions-metrics"
       ],
-      "difficulty": 3
+      "difficulty": 3,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-organic-traffic",
@@ -2269,7 +2288,8 @@
         "ahrefs-help",
         "semrush-kb"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-domain-rating",
@@ -2296,7 +2316,8 @@
         "ahrefs-help",
         "semrush-kb"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-visibility",
@@ -2323,7 +2344,8 @@
         "semrush-kb",
         "ahrefs-help"
       ],
-      "difficulty": 3
+      "difficulty": 3,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-share-of-voice",
@@ -2374,7 +2396,8 @@
         "google-crawlers-overview",
         "screamingfrog-user-guide"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-vlookup",
@@ -2521,7 +2544,8 @@
         "ga4-sessions",
         "ga4-traffic-source-scopes"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-affiliate-marketing",
@@ -2547,7 +2571,8 @@
       "source_refs": [
         "google-spam-policies"
       ],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-brand-query",
@@ -7163,7 +7188,8 @@
       "question": "Как устроена выдача по коммерческим запросам в iGaming?",
       "answer": "В основном из партнёрских обзоров и рейтингов. Значит и оценивать конкурентов, и планировать тип страницы надо в этой системе координат: рейтинг конкурирует с рейтингом.",
       "source_refs": [],
-      "difficulty": 2
+      "difficulty": 2,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-ymyl",
@@ -7190,7 +7216,8 @@
         "google-helpful-content",
         "google-search-essentials"
       ],
-      "difficulty": 3
+      "difficulty": 3,
+      "content_reviewed_at": "2026-08-17"
     },
     {
       "id": "t-market-localization",
@@ -7218,7 +7245,8 @@
         "google-localized-versions",
         "google-multi-regional"
       ],
-      "difficulty": 3
+      "difficulty": 3,
+      "content_reviewed_at": "2026-08-17"
     }
   ]
 }

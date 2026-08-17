@@ -44,7 +44,8 @@
       "title": "Технический SEO",
       "short": "robots.txt, sitemap.xml, canonical, дубли, параметры, рендеринг",
       "required": true,
-      "critical": true
+      "critical": true,
+      "volatility": "medium"
     },
     {
       "id": "indexing-gsc",
@@ -53,7 +54,8 @@
       "title": "Индексация и Search Console",
       "short": "Почему страница не в индексе и как это проверить в GSC",
       "required": true,
-      "critical": true
+      "critical": true,
+      "volatility": "high"
     },
     {
       "id": "keyword-research",
@@ -80,7 +82,8 @@
       "title": "Аналитика и GA4",
       "short": "Каналы, сессии, события, конверсии и связка с органикой",
       "required": true,
-      "critical": false
+      "critical": false,
+      "volatility": "high"
     },
     {
       "id": "seo-tools",
@@ -89,7 +92,8 @@
       "title": "Инструменты SEO",
       "short": "Screaming Frog, Ahrefs, Semrush: что чем смотрят",
       "required": true,
-      "critical": false
+      "critical": false,
+      "volatility": "high"
     },
     {
       "id": "performance-cwv",
@@ -98,7 +102,8 @@
       "title": "Скорость и Core Web Vitals",
       "short": "LCP, INP, CLS: что измеряют и на что влияют",
       "required": true,
-      "critical": false
+      "critical": false,
+      "volatility": "medium"
     },
     {
       "id": "internal-linking",
@@ -728,7 +733,8 @@
       "title": "Off-page SEO и ссылки",
       "short": "Обратные ссылки, ссылающиеся домены, анкоры, rel-атрибуты, ссылочный спам, разрыв с конкурентами и аутрич",
       "required": true,
-      "critical": false
+      "critical": false,
+      "volatility": "medium"
     },
     {
       "id": "igaming-context",
@@ -737,7 +743,8 @@
       "title": "Контекст iGaming",
       "short": "Ниша RedCore: партнёрские сайты, рынки и регулирование, YMYL, конкуренция за ссылки и вопросы про мотивацию",
       "required": true,
-      "critical": false
+      "critical": false,
+      "volatility": "high"
     }
   ]
 }

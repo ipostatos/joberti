@@ -13,7 +13,9 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -65,6 +67,22 @@ ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 # старый банк размечается постепенно, но размеченная тема обязана доходить до
 # диагностики — ради неё уровни и вводились.
 QUESTION_LEVELS = {"L1", "L2", "L3", "L4"}
+
+# ── свежесть контента ──────────────────────────────────────────────────────
+#
+# Факты стареют неравномерно, поэтому волатильность объявляется на ТЕМЕ:
+# устаревает предметная область, а не отдельная формулировка. Дата сверки живёт
+# на записи. Аннотировать всё подряд запрещено: поле без реального смысла
+# превращается в шум, поэтому требуется оно только там, где тема помечена
+# как high.
+VOLATILITY_LEVELS = {"low", "medium", "high"}
+DEFAULT_VOLATILITY = "low"
+
+# Через сколько дней сверка считается просроченной. Это предупреждение, а не
+# ошибка: CI не должен краснеть от того, что прошло время.
+REVIEW_MAX_AGE_DAYS = {"high": 90, "medium": 180}
+
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
 REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
@@ -951,6 +969,98 @@ def validate_counts(rep: Report, c) -> None:
                 rep.err(f"track '{t['id']}': критическая тема '{tid}' без вопросов теста")
 
 
+def _parse_review_date(rep: Report, value, where: str):
+    """Разобрать content_reviewed_at. Возвращает date или None при ошибке."""
+    if not DATE_RE.match(str(value)):
+        rep.err(f"{where}: content_reviewed_at '{value}' не в формате ГГГГ-ММ-ДД")
+        return None
+    try:
+        d = date.fromisoformat(str(value))
+    except ValueError:
+        rep.err(f"{where}: content_reviewed_at '{value}' не является датой")
+        return None
+    if d > date.today():
+        rep.err(f"{where}: content_reviewed_at '{value}' в будущем — "
+                f"сверка не могла состояться")
+        return None
+    return d
+
+
+def validate_freshness(rep: Report, c) -> None:
+    """Метки свежести: формат, обязательность и просрочка.
+
+    Волатильность объявляется на теме, дата сверки — на записи. Запись,
+    относящаяся к высоковолатильной теме, обязана нести дату: без неё нельзя
+    ответить на вопрос «когда это последний раз сверяли с документацией», а
+    именно в GA4 и Search Console формулировки устаревают быстрее всего.
+    """
+    volatility = {}
+    for t in c.topics:
+        v = t.get("volatility", DEFAULT_VOLATILITY)
+        rep.check(v in VOLATILITY_LEVELS,
+                  f"topic '{t.get('id')}': недопустимая volatility '{v}'")
+        volatility[t["id"]] = v
+
+    high = {tid for tid, v in volatility.items() if v == "high"}
+    today = date.today()
+
+    def worst_level(topic_ids):
+        levels = [volatility.get(t, DEFAULT_VOLATILITY) for t in topic_ids]
+        for lvl in ("high", "medium"):
+            if lvl in levels:
+                return lvl
+        return DEFAULT_VOLATILITY
+
+    # Коллекция → как достать темы записи.
+    collections = [
+        ("lesson", c.lessons, lambda x: [x.get("topic_id")]),
+        ("question", c.questions, lambda x: [x.get("topic")]),
+        ("term", c.glossary, lambda x: x.get("topic_ids") or []),
+        ("mock", c.mock_questions, lambda x: x.get("topic_ids") or []),
+        ("case", c.cases, lambda x: x.get("topic_ids") or []),
+    ]
+
+    stale = []
+    for kind, items, topics_of in collections:
+        for x in items:
+            where = f"{kind} '{x.get('id')}'"
+            tids = [t for t in topics_of(x) if t]
+            value = x.get("content_reviewed_at")
+            if value is None:
+                if high & set(tids):
+                    rep.err(f"{where}: тема высоковолатильна, но нет "
+                            f"content_reviewed_at — непонятно, когда запись "
+                            f"последний раз сверяли с документацией")
+                continue
+            d = _parse_review_date(rep, value, where)
+            if d is None:
+                continue
+            limit = REVIEW_MAX_AGE_DAYS.get(worst_level(tids))
+            if limit and (today - d).days > limit:
+                stale.append((where, value, (today - d).days, limit))
+
+    # Вакансия высоковолатильна по определению: объявление правят без нас.
+    for v in c.vacancies:
+        where = f"vacancy '{v.get('id')}'"
+        level = v.get("volatility")
+        if level is not None:
+            rep.check(level in VOLATILITY_LEVELS,
+                      f"{where}: недопустимая volatility '{level}'")
+        value = v.get("content_reviewed_at")
+        if value is None:
+            if level == "high":
+                rep.err(f"{where}: volatility=high без content_reviewed_at")
+            continue
+        d = _parse_review_date(rep, value, where)
+        if d is not None:
+            limit = REVIEW_MAX_AGE_DAYS.get(level or DEFAULT_VOLATILITY)
+            if limit and (today - d).days > limit:
+                stale.append((where, value, (today - d).days, limit))
+
+    for where, value, age, limit in stale:
+        rep.warn(f"{where}: сверено {value} — {age} дней назад при норме {limit}")
+
+
 def validate_no_reference_leftovers(rep: Report, c) -> None:
     """Ни морской предметной области, ни ключей хранилища референса."""
     import json as _json
@@ -985,6 +1095,7 @@ def run() -> Report:
     validate_achievements(rep, c)
     validate_english(rep, c)
     validate_counts(rep, c)
+    validate_freshness(rep, c)
     validate_no_reference_leftovers(rep, c)
     return rep
 
