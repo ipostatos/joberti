@@ -109,6 +109,9 @@ a{ color:var(--link) }
 
 /* сетка разделов */
 .grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2) }
+/* Нечётная последняя плашка растягивается на ряд — без дыры справа.
+   Класс ставит страница: часть плашек скрыта по треку, :nth-child их не видит. */
+.grid > .cell.span2{ grid-column:1 / -1 }
 .cell{ display:flex; flex-direction:column; gap:var(--sp-1);
   text-decoration:none; color:var(--text); background:var(--card);
   border:1px solid var(--border); border-radius:var(--r-md);
@@ -210,7 +213,9 @@ button.chip{ cursor:pointer; font-family:inherit }
 .stats{ display:flex; gap:var(--sp-2) }
 .stats > div{ flex:1; text-align:center; padding:10px 6px;
   border:1px solid var(--border); border-radius:var(--r-sm); min-width:0 }
-.stats .k{ font-size:var(--fs-xs); color:var(--hint) }
+/* body рвёт слова где угодно (overflow-wrap:anywhere) — в узкой плитке это
+   давало «доказательство / м». Подписи плиток переносим только по словам. */
+.stats .k{ font-size:var(--fs-xs); color:var(--hint); overflow-wrap:normal; hyphens:auto }
 .stats .v{ font-weight:800; font-size:18px; margin-top:2px }
 
 /* ── список определений ─────────────────────────────────────────────────── */

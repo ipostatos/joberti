@@ -388,12 +388,23 @@
     document.getElementById("storyCount").textContent =
       App.storyFilledCount() + " из " + CONTENT.stories.length + " историй заполнено";
     document.getElementById("histCount").textContent =
-      Progress.history().length + " записей";
+      Progress.history().length + " " +
+      App.plural(Progress.history().length, "запись", "записи", "записей");
 
     // ── карта активности ──
-    Heatmap.render(document.getElementById("heatmap"), {
-      weeks: 16, days: Progress.days(), goal: goal, today: Progress.dayKey(),
+    // Столько недель, сколько помещается в карточку (клетка 12 + зазор 3 px):
+    // 16 фиксированных оставляли справа пустую треть на телефоне.
+    var hmEl = document.getElementById("heatmap");
+    var hmWeeks = Math.max(16, Math.min(26, Math.floor((hmEl.clientWidth + 3) / 15)));
+    Heatmap.render(hmEl, {
+      weeks: hmWeeks, days: Progress.days(), goal: goal, today: Progress.dayKey(),
     });
+
+    // Плашки «Практика» и «Лабы» видны по треку — нечётная последняя
+    // растягивается на ряд, иначе справа остаётся дыра.
+    var cells = Array.prototype.filter.call(document.querySelectorAll(".grid > .cell:not(.wide)"),
+      function (c) { c.classList.remove("span2"); return !c.classList.contains("hidden"); });
+    if (cells.length % 2) cells[cells.length - 1].classList.add("span2");
 
     Icons.hydrate();
   }

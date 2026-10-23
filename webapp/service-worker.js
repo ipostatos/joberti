@@ -18,7 +18,7 @@
 // ===========================================================================
 "use strict";
 
-var CACHE = "interview-trainer-v6";
+var CACHE = "interview-trainer-v7";
 var NET_TIMEOUT_MS = 4000;
 
 // Файлы, без которых приложение не открывается офлайн.
