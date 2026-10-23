@@ -38,7 +38,12 @@
 
   // Порядок статусов требования вакансии: при слиянии побеждает более
   // продвинутый. Индекс = «сила» статуса.
-  var REQ_STATUS_RANK = ["not_started", "not_applicable", "learning", "partial", "confirmed"];
+  // unverified_experience — опыт, заявленный без доказательства: сильнее
+  // «не начато», но слабее «учу», чтобы не перебить учебный статус навыка.
+  var REQ_STATUS_RANK = ["not_started", "not_applicable", "unverified_experience",
+    "learning", "partial", "confirmed"];
+  var LAB_NOTE_MAX = 1000;
+  var PORTFOLIO_FIELDS = ["project", "owned", "changed", "verified", "result", "link"];
 
   var tg = global.Telegram && global.Telegram.WebApp;
   var initData = (tg && tg.initData) || "";
@@ -330,6 +335,120 @@
     };
   }
 
+  // ── merge: лабораторные ──
+  // Попытки — максимум (не теряем), выполнено — ИЛИ (слияние не может отнять
+  // подтверждённое выполнение), лучший post-check — максимум, заметка — у
+  // более свежей записи по ts, отмеченные пункты чек-листа — объединение.
+  function normScore(v) {
+    if (typeof v !== "number" || !isFinite(v)) return null;
+    return v < 0 ? 0 : v > 1 ? 1 : v;
+  }
+  function normLab(e) {
+    e = e || {};
+    var cl = {};
+    Object.keys(e.checklist || {}).forEach(function (k) { if (e.checklist[k]) cl[k] = true; });
+    var a = parseInt(e.attempts, 10);
+    var t = parseInt(e.ts, 10);
+    return {
+      attempts: isNaN(a) || a < 0 ? 0 : a,
+      completed: !!e.completed,
+      post_check_score: normScore(e.post_check_score),
+      evidence_note: String(e.evidence_note || "").slice(0, LAB_NOTE_MAX),
+      checklist: cl,
+      ts: isNaN(t) || t < 0 ? 0 : t,
+    };
+  }
+  function mergeLabs(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (id) {
+      var x = normLab(a[id]), y = normLab(b[id]);
+      var newer = y.ts >= x.ts ? y : x, older = newer === y ? x : y;
+      var scores = [x.post_check_score, y.post_check_score].filter(function (s) { return s !== null; });
+      var cl = {};
+      keysOf(x.checklist, y.checklist).forEach(function (k) { cl[k] = true; });
+      out[id] = {
+        attempts: Math.max(x.attempts, y.attempts),
+        completed: x.completed || y.completed,
+        post_check_score: scores.length ? Math.max.apply(null, scores) : null,
+        evidence_note: newer.evidence_note || older.evidence_note || "",
+        checklist: cl,
+        ts: Math.max(x.ts, y.ts),
+      };
+    });
+    return out;
+  }
+
+  // ── merge: DutyOps drills ──
+  // Лучший результат — максимум, последний — у более свежей попытки.
+  function clampPct(v) {
+    var n = parseInt(v, 10);
+    if (isNaN(n)) return null;
+    return n < 0 ? 0 : n > 100 ? 100 : n;
+  }
+  function mergeDrills(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (id) {
+      var x = a[id] || {}, y = b[id] || {};
+      var bx = clampPct(x.best), by = clampPct(y.best);
+      var tx = num(x, "ts"), ty = num(y, "ts");
+      var newer = ty >= tx ? y : x, older = newer === y ? x : y;
+      var last = clampPct(newer.last);
+      if (last === null) last = clampPct(older.last);
+      var best = bx === null ? by : by === null ? bx : Math.max(bx, by);
+      out[id] = {
+        best: best,
+        last: last,
+        attempts: Math.max(num(x, "attempts"), num(y, "attempts")),
+        ts: Math.max(tx, ty),
+      };
+    });
+    return out;
+  }
+
+  // ── merge: диагностика ──
+  // Результат целиком от более свежего прохождения: смешивать домены двух
+  // разных попыток нельзя. Число прохождений — максимум.
+  function mergeDiagnostic(a, b) {
+    var x = a && typeof a === "object" ? a : null;
+    var y = b && typeof b === "object" ? b : null;
+    if (!x && !y) return null;
+    var w = !x ? y : !y ? x : (num(y, "ts") >= num(x, "ts") ? y : x);
+    var domains = {};
+    Object.keys(w.domains || {}).sort().forEach(function (k) {
+      var v = clampPct(w.domains[k]);
+      if (v !== null) domains[k] = v;
+    });
+    var selfLabs = {};
+    Object.keys(w.selfLabs || {}).forEach(function (k) { if (w.selfLabs[k]) selfLabs[k] = true; });
+    return {
+      ts: num(w, "ts"),
+      count: Math.max(num(x, "count"), num(y, "count"), 1),
+      total: Math.max(0, num(w, "total")),
+      correct: Math.max(0, num(w, "correct")),
+      pct: clampPct(w.pct) || 0,
+      domains: domains,
+      selfLabs: selfLabs,
+    };
+  }
+
+  // ── merge: доказательства из портфолио ──
+  // Как истории STAR: целиком побеждает более свежая редакция.
+  function mergePortfolio(a, b) {
+    a = a || {}; b = b || {};
+    var out = {};
+    keysOf(a, b).forEach(function (id) {
+      var x = a[id] || {}, y = b[id] || {};
+      var w = num(y, "updatedAt") >= num(x, "updatedAt") ? y : x;
+      var rec = {};
+      PORTFOLIO_FIELDS.forEach(function (f) { rec[f] = String(w[f] || "").slice(0, 2000); });
+      rec.updatedAt = Math.max(num(x, "updatedAt"), num(y, "updatedAt"));
+      out[id] = rec;
+    });
+    return out;
+  }
+
   // ── merge: профиль ──
   function mergeProfile(a, b) {
     a = a || {}; b = b || {};
@@ -364,6 +483,10 @@
       quizBest: mergeQuizBest(a.quizBest, b.quizBest),
       weakTopicsSeen: mergeSeen(a.weakTopicsSeen, b.weakTopicsSeen),
       english: mergeEnglish(a.english, b.english),
+      labs: mergeLabs(a.labs, b.labs),
+      drills: mergeDrills(a.drills, b.drills),
+      portfolio: mergePortfolio(a.portfolio, b.portfolio),
+      diagnostic: mergeDiagnostic(a.diagnostic, b.diagnostic),
     };
     if (out.trackId === null) delete out.trackId;
     return out;
@@ -583,6 +706,10 @@
     mergeLibrary: mergeLibrary,
     mergeStories: mergeStories,
     mergeEnglish: mergeEnglish,
+    mergeLabs: mergeLabs,
+    mergeDrills: mergeDrills,
+    mergeDiagnostic: mergeDiagnostic,
+    mergePortfolio: mergePortfolio,
     mergeLessons: mergeLessons,
     mergeQuizBest: mergeQuizBest,
     mergeExamDate: mergeExamDate,

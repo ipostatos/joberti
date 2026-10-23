@@ -201,6 +201,19 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn("q:b", srs)
         self.assertEqual(srs["q:a"]["box"], 4)
 
+    def test_lab_completion_survives_second_device(self):
+        """Устройство, где лабораторную не открывали, не отменяет её выполнение."""
+        done = {"profile": {"labs": {"lab-x": {"attempts": 2, "completed": True,
+                                               "post_check_score": 1, "evidence_note": "журнал", "ts": 10}}}}
+        stale = {"profile": {"labs": {"lab-x": {"attempts": 0, "completed": False, "ts": 50}}}}
+        self.c.post("/api/state", json=done, headers=hdr(14))
+        r = self.c.post("/api/state", json=stale, headers=hdr(14))
+        lab = r.json()["state"]["profile"]["labs"]["lab-x"]
+        self.assertTrue(lab["completed"])
+        self.assertEqual(lab["attempts"], 2)
+        self.assertEqual(lab["post_check_score"], 1)
+        self.assertEqual(lab["evidence_note"], "журнал")
+
     def test_lower_box_does_not_downgrade(self):
         self.c.post("/api/state", json={"srs": {"q:a": {"box": 5, "due": 100}}}, headers=hdr(4))
         r = self.c.post("/api/state", json={"srs": {"q:a": {"box": 1, "due": 200}}}, headers=hdr(4))
@@ -303,6 +316,20 @@ class TestAttempts(unittest.TestCase):
         r = self.c.post("/api/attempts", json={"attempts": [
             {"id": "g", "ts": "abc", "total": "много"}]}, headers=hdr(25))
         self.assertEqual(r.status_code, 422)
+
+    def test_lab_and_drill_history_roundtrip(self):
+        """История лабораторных и DutyOps drills хранится как отдельные виды."""
+        recs = [
+            {"id": "lab1", "ts": 10, "kind": "lab", "mode": "lab-linux-service-001",
+             "total": 2, "correct": 1, "pct": 50,
+             "details": [{"attempt": 1, "completed": True, "postCheck": True}]},
+            {"id": "dr1", "ts": 20, "kind": "drill", "mode": "drill-dutyops-502-001",
+             "total": 6, "correct": 4, "pct": 75},
+        ]
+        r = self.c.post("/api/attempts", json={"attempts": recs}, headers=hdr(27))
+        self.assertEqual(r.status_code, 200)
+        kinds = {a["id"]: a["kind"] for a in self.c.get("/api/attempts", headers=hdr(27)).json()["attempts"]}
+        self.assertEqual(kinds, {"lab1": "lab", "dr1": "drill"})
 
     def test_unknown_kind_normalized(self):
         r = self.c.post("/api/attempts", json={"attempts": [

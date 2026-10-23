@@ -589,6 +589,222 @@
       }
     },
     {
+      "id": "ed-devops-rc-01",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain a 502 error.",
+      "prompt_ru": "Объясните, что значит ошибка 502.",
+      "hint": "Кто вернул ошибку (прокси) и о ком она (upstream). Затем порядок: error log прокси → процесс бэкенда → порт → curl с хоста прокси.",
+      "keywords": [
+        "bad gateway",
+        "upstream",
+        "error log",
+        "proxy_pass"
+      ],
+      "model_answer_en": "A 502 Bad Gateway means the proxy itself is working, but it got an invalid response from the upstream, or no response at all. So the problem is usually behind Nginx or the load balancer, not in front of it. First I'd check the proxy error log, because it tells you what exactly happened: connection refused, upstream prematurely closed connection, or no live upstreams. Then I'd check the backend directly: is the process running, is it listening on the expected port, and does curl to it work from the proxy host. Common causes are a crashed application, a wrong port in proxy_pass, or a restart during a deploy.",
+      "model_answer_ru": "502 Bad Gateway значит, что сам прокси работает, но от upstream пришёл некорректный ответ или не пришло никакого. Поэтому проблема обычно за Nginx или балансировщиком, а не перед ними. Сначала я посмотрел(а) бы error log прокси: там видно, что именно случилось — connection refused, upstream prematurely closed connection или no live upstreams. Потом проверил(а) бы бэкенд напрямую: запущен ли процесс, слушает ли он ожидаемый порт, отвечает ли он на curl с хоста прокси. Частые причины — упавшее приложение, неверный порт в proxy_pass или перезапуск во время выката.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Говорит, что «сервер упал», без разделения прокси и бэкенда",
+        "2": "Объяснил(а), что ошибка от прокси, но без порядка проверки",
+        "3": "Прокси против upstream, error log, проверка процесса и порта",
+        "4": "Плюс типичные причины и проверка curl с хоста прокси — спокойно и без пауз"
+      }
+    },
+    {
+      "id": "ed-devops-rc-02",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Describe how you troubleshoot DNS.",
+      "prompt_ru": "Расскажите, как вы диагностируете DNS.",
+      "hint": "От клиента к авторитативному серверу: что отвечает локальный резолвер, что публичный, что говорит сама зона. Не забыть TTL и /etc/resolv.conf.",
+      "keywords": [
+        "resolver",
+        "authoritative",
+        "TTL",
+        "dig"
+      ],
+      "model_answer_en": "I go from the client side to the authoritative side. First I check what the name actually resolves to with dig, and I compare the answer from the local resolver with a public resolver like 1.1.1.1. If they differ, it may be caching, so I look at the TTL. Then I query the authoritative name server directly, with dig +trace or dig @ the server, to see what the zone really says. I also check /etc/resolv.conf on the host, because sometimes the problem is the resolver config, not the record. And I keep in mind that after a change, old answers can live in caches until the TTL expires.",
+      "model_answer_ru": "Я иду от клиента к авторитативному серверу. Сначала смотрю через dig, во что имя реально резолвится, и сравниваю ответ локального резолвера с публичным, например 1.1.1.1. Если ответы разные, дело может быть в кэше, поэтому смотрю TTL. Потом спрашиваю авторитативный сервер напрямую — dig +trace или dig @сервер, — чтобы увидеть, что на самом деле записано в зоне. Ещё проверяю /etc/resolv.conf на хосте: иногда проблема в настройке резолвера, а не в записи. И помню, что после изменения старые ответы живут в кэшах, пока не истечёт TTL.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Только «проверю ping»",
+        "2": "Назван dig, но нет сравнения резолверов и авторитативного сервера",
+        "3": "Локальный против публичного резолвера, авторитативный сервер, TTL",
+        "4": "Плюс resolv.conf и кэширование после изменений — понятная последовательность"
+      }
+    },
+    {
+      "id": "ed-devops-rc-03",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain CrashLoopBackOff.",
+      "prompt_ru": "Объясните, что такое CrashLoopBackOff.",
+      "hint": "Это состояние, а не причина. Покажите, где искать причину: describe (events, exit code, last state) и logs --previous.",
+      "keywords": [
+        "exit code",
+        "kubectl describe",
+        "--previous",
+        "back-off"
+      ],
+      "model_answer_en": "CrashLoopBackOff is not an error by itself, it's a state. It means the container starts, exits, and Kubernetes keeps restarting it with a growing delay between attempts. To find the real cause I'd run kubectl describe pod to see the events, the exit code and the last state, and then kubectl logs with --previous, because the current container may not have any logs yet. Typical causes are a missing environment variable or secret, a wrong command, an application that can't reach its database, or a liveness probe that kills a slow container. Exit code 137 means the container was killed, often OOMKilled, so I'd check the memory limits.",
+      "model_answer_ru": "CrashLoopBackOff — не ошибка сама по себе, а состояние. Контейнер стартует, завершается, и Kubernetes перезапускает его снова, с растущей паузой между попытками. Чтобы найти настоящую причину, я запустил(а) бы kubectl describe pod — там events, exit code и last state, — а потом kubectl logs с --previous, потому что у текущего контейнера логов может ещё не быть. Типичные причины: нет переменной окружения или секрета, неверная команда, приложение не достучалось до базы или liveness probe убивает медленный контейнер. Exit code 137 значит, что контейнер убит, часто это OOMKilled, — тогда я проверил(а) бы лимиты памяти.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Называет CrashLoopBackOff причиной («под сломан»)",
+        "2": "Понимает, что это перезапуски, но не говорит, где искать причину",
+        "3": "Состояние, а не причина; describe и logs --previous; типичные причины",
+        "4": "Плюс exit code 137 и лимиты памяти — уверенно и по порядку"
+      }
+    },
+    {
+      "id": "ed-devops-rc-04",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain what Terraform state is.",
+      "prompt_ru": "Объясните, что такое state в Terraform.",
+      "hint": "Что хранит state и зачем он нужен plan. Затем командная работа: удалённое хранение, блокировка, доступ, никакой ручной правки.",
+      "keywords": [
+        "state file",
+        "remote backend",
+        "locking",
+        "terraform plan"
+      ],
+      "model_answer_en": "Terraform state is a file where Terraform records which real resources it manages and how they map to the code. When I run terraform plan, it compares the code, the state, and what actually exists in the cloud. Without the state, Terraform wouldn't know that a server already exists, and it would try to create it again. In a team the state should live in a remote backend, for example an S3 bucket, with locking, so two people can't apply at the same time. It can also contain secrets, so access to it must be restricted. And you don't edit it by hand; you use terraform state commands or import.",
+      "model_answer_ru": "State — это файл, в котором Terraform записывает, какими реальными ресурсами он управляет и как они соотносятся с кодом. При terraform plan он сравнивает код, state и то, что реально существует в облаке. Без state Terraform не знал бы, что сервер уже есть, и попытался бы создать его заново. В команде state хранят в удалённом backend, например в S3-бакете, с блокировкой, чтобы двое не делали apply одновременно. В нём могут быть секреты, поэтому доступ ограничивают. И руками его не правят: для этого есть команды terraform state и import.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "«Это файл с настройками» без объяснения роли",
+        "2": "Объяснил(а) связь кода и ресурсов, но не командную работу",
+        "3": "Роль в plan, удалённый backend и блокировка",
+        "4": "Плюс секреты в state и запрет ручной правки — коротко и ясно"
+      }
+    },
+    {
+      "id": "ed-devops-rc-05",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Ситуация на работе",
+      "level": 2,
+      "seconds": 120,
+      "prompt_en": "Describe an incident you handled.",
+      "prompt_ru": "Опишите инцидент, который вы разбирали сами.",
+      "hint": "Если опыт не из прода, скажите об этом первой фразой. Затем: симптом → диагностика → быстрое снижение ущерба → устранение причины → что изменили.",
+      "keywords": [
+        "mitigation",
+        "root cause",
+        "the impact was",
+        "alert"
+      ],
+      "model_answer_en": "I haven't been on a production on-call rotation yet, so this one is from my own VPS, where I host a personal project. One evening the site started returning 500 errors. The Nginx error log showed the application couldn't write to disk, and df showed the root partition at one hundred percent: the application logs had no rotation. As a quick mitigation I removed old log archives that I had already copied off the server, and the site recovered in about ten minutes. Then I fixed the root cause: I configured logrotate and added a disk usage alert at eighty percent. I also wrote a short note about what happened.",
+      "model_answer_ru": "В дежурной смене на проде я пока не работал(а), поэтому пример с моего VPS, где живёт личный проект. Однажды вечером сайт начал отдавать 500. В error log Nginx было видно, что приложение не может писать на диск, а df показал корневой раздел заполненным на сто процентов: у логов приложения не было ротации. Для быстрого снижения ущерба я удалил(а) старые архивы логов, которые заранее скопировал(а) с сервера, и минут через десять сайт ожил. Потом устранил(а) причину: настроил(а) logrotate и добавил(а) алерт на заполнение диска в восемьдесят процентов. И коротко записал(а), что произошло.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Выдаёт лабораторный случай за прод или рассказывает без деталей",
+        "2": "Хронология есть, но нет разделения mitigation и root cause",
+        "3": "Честный контекст, диагностика, быстрое восстановление, устранение причины",
+        "4": "Плюс что изменили, чтобы не повторилось, и цифры по времени"
+      }
+    },
+    {
+      "id": "ed-devops-rc-06",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Технический вопрос",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain why a backup must be restored to be trusted.",
+      "prompt_ru": "Объясните, почему резервной копии можно доверять, только если её восстанавливали.",
+      "hint": "Успешная задача бэкапа не доказывает, что копия рабочая. Назовите, что может сломаться, как проверить восстановлением и зачем мерить время.",
+      "keywords": [
+        "test restore",
+        "corrupted",
+        "recovery time",
+        "separate environment"
+      ],
+      "model_answer_en": "A backup that has never been restored is only a hope. The backup job can report success while the file is empty, corrupted, or missing a database that was added later. A changed format or missing permissions can also break the restore. So the only real proof is to restore it regularly into a separate environment, check the data, for example row counts or the latest records, and measure how long it takes. That time matters, because it tells us whether we can meet the recovery time we promised. For me, a backup counts as working only after a successful test restore.",
+      "model_answer_ru": "Резервная копия, которую ни разу не восстанавливали, — это просто надежда. Задача бэкапа может отчитаться об успехе, а файл окажется пустым, повреждённым или без базы, которую добавили позже. Восстановление могут сломать и изменившийся формат, и нехватка прав. Поэтому единственное настоящее доказательство — регулярно восстанавливать копию в отдельное окружение, проверять данные, например число строк или последние записи, и замерять время. Это время важно: по нему видно, уложимся ли мы в обещанное время восстановления. Для меня бэкап рабочий только после успешного тестового восстановления.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "«Бэкап есть — значит, всё хорошо»",
+        "2": "Говорит, что нужно проверять, но не объясняет почему и как",
+        "3": "Причины поломки, восстановление в отдельное окружение, проверка данных",
+        "4": "Плюс замер времени восстановления и связь с обещанным RTO"
+      }
+    },
+    {
+      "id": "ed-devops-rc-07",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Ситуация на работе",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain how you would escalate an incident you cannot fix.",
+      "prompt_ru": "Расскажите, как вы эскалируете инцидент, который не можете решить сами.",
+      "hint": "Когда эскалировать (время или полномочия), кому (путь из runbook), что сообщить (ущерб, начало, что проверено, что нужно) и что делать после.",
+      "keywords": [
+        "escalation path",
+        "impact",
+        "ruled out",
+        "hand off"
+      ],
+      "model_answer_en": "If I can't fix an incident within the time we agreed on, or the fix needs access or decisions outside my role, I escalate early instead of trying alone for an hour. I'd follow the escalation path in the runbook and contact the next level or the service owner. In the message I'd give the impact, when it started, what I've already checked and ruled out, and what I need from them. Then I stay involved: I keep the timeline, post status updates, and hand off clearly so nobody repeats my steps. Escalating isn't a failure; waiting too long is.",
+      "model_answer_ru": "Если я не могу решить инцидент за оговорённое время или для исправления нужны доступы и решения вне моей роли, я эскалирую рано, а не бьюсь в одиночку час. Иду по пути эскалации из runbook и связываюсь со следующим уровнем или владельцем сервиса. В сообщении указываю ущерб, время начала, что уже проверил(а) и исключил(а) и что мне от них нужно. Потом не ухожу: веду хронологию, пишу статусы и чётко передаю дела, чтобы никто не повторял мои шаги. Эскалация — не провал; провал — ждать слишком долго.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "«Буду разбираться, пока не решу» — без эскалации",
+        "2": "Эскалирует, но не говорит, что сообщить",
+        "3": "Когда и кому эскалировать, содержание сообщения",
+        "4": "Плюс остаётся в инциденте: хронология, статусы, чёткая передача"
+      }
+    },
+    {
+      "id": "ed-devops-rc-08",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "category": "Опыт и проекты",
+      "level": 2,
+      "seconds": 90,
+      "prompt_en": "Explain your hands-on experience honestly when it comes from labs, not production.",
+      "prompt_ru": "Честно расскажите о практическом опыте, если он из лабораторий, а не из прода.",
+      "hint": "Первой фразой — граница: прод или нет. Затем конкретно, что делали руками, что из этого понимаете и чего пока не видели. Без преувеличений и без самоуничижения.",
+      "keywords": [
+        "in production",
+        "hands-on labs",
+        "I haven't dealt with",
+        "what I have done"
+      ],
+      "model_answer_en": "I want to be precise about my experience. I haven't worked with Kubernetes in production yet. What I have done is hands-on labs: I set up a local cluster with kind, deployed an application with a Deployment, a Service and a ConfigMap, and practised debugging CrashLoopBackOff and Pending pods. I also built a GitLab CI pipeline that builds and tests a Docker image. So I understand the basics and the troubleshooting flow, but I haven't dealt with real traffic, scale or on-call pressure. That's exactly what I'd like to learn here, and I learn fast when I have a real system to work with.",
+      "model_answer_ru": "Хочу точно описать свой опыт. С Kubernetes в проде я пока не работал(а). Что я делал(а) руками — лабораторные: поднял(а) локальный кластер в kind, развернул(а) приложение с Deployment, Service и ConfigMap, тренировал(а) разбор CrashLoopBackOff и подов в Pending. Ещё собрал(а) пайплайн в GitLab CI, который собирает и тестирует Docker-образ. То есть основы и порядок диагностики я понимаю, но с реальным трафиком, масштабом и давлением дежурств не сталкивался(лась). Именно этому я хочу научиться здесь, и на реальной системе я учусь быстро.",
+      "rubric": {
+        "0": "Ответ не сложился",
+        "1": "Выдаёт лабораторный опыт за production",
+        "2": "Честно, но расплывчато: «немного пробовал(а)»",
+        "3": "Граница прод/лаборатория, конкретные действия, честные пробелы",
+        "4": "Плюс спокойная уверенность и связь с тем, чему хочет научиться в роли"
+      }
+    },
+    {
       "id": "ed-seo-004",
       "track_ids": [
         "redcore-junior-seo"

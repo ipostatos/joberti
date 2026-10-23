@@ -4077,6 +4077,1737 @@
       "last_verified": "2026-08-01"
     },
     {
+      "id": "lib-nginx-proxy-module",
+      "source_ref": "nginx-proxy-module",
+      "title": "Module ngx_http_proxy_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_proxy_module.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "nginx-proxy",
+        "traffic-delivery"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 40,
+      "why_read": "Главный справочник по proxy_pass, proxy_set_header, proxy_connect_timeout и proxy_read_timeout. Перед собеседованием разберитесь, как URI в proxy_pass меняет путь запроса и какие таймауты приводят к 502 и 504.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-nginx-upstream-module",
+      "source_ref": "nginx-upstream-module",
+      "title": "Module ngx_http_upstream_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_upstream_module.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "nginx-proxy",
+        "traffic-delivery"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Блок upstream: round-robin, least_conn, ip_hash, параметры max_fails, fail_timeout и backup. Это основа ответа на вопрос, как открытая версия nginx выводит сломанный бэкенд из ротации через пассивные проверки.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-nginx-beginners-guide",
+      "source_ref": "nginx-beginners-guide",
+      "title": "Beginner's Guide",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/beginners_guide.html",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Структура конфигурации, контексты server и location, управление через nginx -s reload. Хорошая база, чтобы объяснить, что происходит при перезагрузке конфига без остановки трафика.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-nginx-log-module",
+      "source_ref": "nginx-log-module",
+      "title": "Module ngx_http_log_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_log_module.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "nginx-proxy",
+        "observability"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Директивы access_log и log_format. Посмотрите, как добавить в формат $upstream_addr, $upstream_status и $request_time: по этим полям на дежурстве находят бэкенд, который отвечает медленно или с ошибкой.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-prometheus-getting-started",
+      "source_ref": "prometheus-getting-started",
+      "title": "Getting started",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/getting_started/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 30,
+      "why_read": "Пошаговый локальный запуск Prometheus: конфиг, сбор собственных метрик, первые запросы в веб-интерфейсе. Удобная отправная точка для лабораторной по scrape targets.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-prometheus-querying-basics",
+      "source_ref": "prometheus-querying-basics",
+      "title": "Querying basics",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 35,
+      "why_read": "Селекторы по меткам, instant vector и range vector, offset. Нужно уверенно объяснить разницу между up и rate(http_requests_total[5m]) и почему rate применяют только к counter.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-prometheus-alertmanager",
+      "source_ref": "prometheus-alertmanager",
+      "title": "Alertmanager",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/alerting/latest/alertmanager/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus",
+        "incidents"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Что делает Alertmanager после Prometheus: группировка, inhibition, silences и маршрутизация уведомлений. Типичный вопрос: как не разбудить дежурного сотней одинаковых алертов.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-prometheus-configuration",
+      "source_ref": "prometheus-configuration",
+      "title": "Configuration",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 40,
+      "why_read": "Справочник по prometheus.yml: global, scrape_configs, scrape_interval, relabel_configs. Читать выборочно, чтобы понимать, почему таргет пропал из списка или висит в состоянии DOWN.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-prometheus-node-exporter-guide",
+      "source_ref": "prometheus-node-exporter-guide",
+      "title": "Monitoring Linux host metrics with the Node Exporter",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/guides/node-exporter/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus",
+        "linux-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Как поднять node_exporter и подключить его к Prometheus. Запомните ключевые метрики хоста: node_cpu_seconds_total, node_memory_MemAvailable_bytes, node_filesystem_avail_bytes.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-grafana-dashboards",
+      "source_ref": "grafana-dashboards",
+      "title": "Dashboards",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "monitoring-prometheus",
+        "observability"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Дашборды, панели и переменные в Grafana. На собеседовании могут попросить описать дашборд сервиса: трафик, ошибки, задержки, насыщение.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-loki-logql",
+      "source_ref": "loki-logql",
+      "title": "Query Loki",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "logging-loki"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Обзор LogQL: запросы по логам и метрические запросы. Отсюда видно, что селектор потока вроде {app=\"nginx\"} опирается на метки, а текстовые фильтры работают уже поверх выбранных потоков.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-loki-log-queries",
+      "source_ref": "loki-log-queries",
+      "title": "Log queries",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/log_queries/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "logging-loki",
+        "observability"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Фильтры строк |=, !=, |~, парсеры json и logfmt, фильтры по извлечённым меткам. Ровно то, что нужно, чтобы быстро найти 5xx в логах nginx за последние 15 минут.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-loki-metric-queries",
+      "source_ref": "loki-metric-queries",
+      "title": "Metric queries",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/metric_queries/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "logging-loki",
+        "monitoring-prometheus"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "count_over_time, rate и агрегации по меткам поверх логов. Пригодится, чтобы превратить поток ошибок в график или правило алерта без отдельного экспортера.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-mongodb-replication",
+      "source_ref": "mongodb-replication",
+      "title": "Replication",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/replication/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Primary, secondary, arbiter, выборы и oplog. Разберитесь, что происходит при потере primary и почему для выборов нужно большинство голосующих участников.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-mongodb-backup-methods",
+      "source_ref": "mongodb-backup-methods",
+      "title": "Backup Methods for a Self-Managed Deployment",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/core/backups/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Сравнение способов резервного копирования: mongodump, снимки файловой системы, управляемые решения. Полезно, чтобы объяснить, почему mongodump хорош для небольших баз и плохо подходит для больших.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-mongodb-deploy-replica-set",
+      "source_ref": "mongodb-deploy-replica-set",
+      "title": "Deploy a Self-Managed Replica Set",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/tutorial/deploy-replica-set/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Пошаговое развёртывание replica set: replSetName, rs.initiate(), rs.status(). Основа лабораторной с локальным replica set и проверкой переключения primary.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-clickhouse-quick-start",
+      "source_ref": "clickhouse-quick-start",
+      "title": "Quick install",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/getting-started/quick-start/oss",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Установка ClickHouse, запуск сервера и clickhouse-client, первая таблица и запросы. Достаточно, чтобы честно сказать на собеседовании, что вы поднимали его в лаборатории.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-clickhouse-mergetree",
+      "source_ref": "clickhouse-mergetree",
+      "title": "MergeTree table engine",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/engines/table-engines/mergetree-family/mergetree",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 40,
+      "why_read": "Как MergeTree хранит данные частями (parts) и сливает их в фоне, зачем нужны ORDER BY, PARTITION BY и TTL. Без этого не объяснить, почему частые мелкие вставки вредят ClickHouse.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-clickhouse-system-tables",
+      "source_ref": "clickhouse-system-tables",
+      "title": "System Tables Overview",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/operations/system-tables/overview",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "clickhouse-ops",
+        "observability"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Системные таблицы как главный инструмент диагностики: system.parts, system.merges, system.query_log, system.replicas, system.processes. Покажите, что знаете, где искать медленные запросы и отставание реплик.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-clickhouse-replication",
+      "source_ref": "clickhouse-replication",
+      "title": "Replicated* table engines",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/engines/table-engines/mergetree-family/replication",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 30,
+      "why_read": "Replicated-движки и роль ClickHouse Keeper или ZooKeeper в координации реплик. Полезно для вопроса, что будет с записью при недоступности Keeper и как проверить состояние через system.replicas.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-postgres-pg-dump",
+      "source_ref": "postgres-pg-dump",
+      "title": "pg_dump",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/app-pgdump.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Форматы дампа (plain, custom, directory), ключи -Fc, --schema-only и восстановление через pg_restore. Главное для собеседования: резервная копия считается рабочей только после проверки восстановлением.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-postgres-connection-settings",
+      "source_ref": "postgres-connection-settings",
+      "title": "Connections and Authentication",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/runtime-config-connection.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "max_connections, superuser_reserved_connections, listen_addresses и TCP keepalive. Пригодится при разборе ошибки FATAL: sorry, too many clients already и при объяснении, зачем нужен пулер соединений.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-postgres-monitoring-stats",
+      "source_ref": "postgres-monitoring-stats",
+      "title": "The Cumulative Statistics System",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/monitoring-stats.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "databases-ops",
+        "observability"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "pg_stat_activity, pg_stat_database и другие представления статистики. Нужно уметь найти, кто держит соединения и какие сессии висят в состоянии idle in transaction.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-ansible-getting-started",
+      "source_ref": "ansible-getting-started",
+      "title": "Getting started with Ansible",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/getting_started/index.html",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Короткий вводный маршрут: control node, managed nodes, инвентарь, первый playbook. Подходит, если с Ansible вы ещё не работали и нужно быстро освоить базовые термины.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-ansible-playbooks-intro",
+      "source_ref": "ansible-playbooks-intro",
+      "title": "Ansible playbooks",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ansible-config",
+        "iac"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Структура playbook: plays, tasks, handlers, модули и идемпотентность. Будьте готовы объяснить, почему повторный запуск на настроенном сервере должен давать changed=0.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-ansible-check-mode",
+      "source_ref": "ansible-check-mode",
+      "title": "Validating tasks: check mode and diff mode",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "Режимы --check и --diff: как увидеть изменения до применения. Важная оговорка: не все модули поддерживают check mode, а command и shell в этом режиме саму команду не выполняют.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-ansible-inventory",
+      "source_ref": "ansible-inventory",
+      "title": "How to build your inventory",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Форматы INI и YAML, группы, host_vars и group_vars. Пригодится, чтобы описать, как разделить staging и production и не применить playbook не к тем хостам.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-terraform-drift-tutorial",
+      "source_ref": "terraform-drift-tutorial",
+      "title": "Manage resource drift",
+      "publisher": "HashiCorp Developer",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/state/resource-drift",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "iac"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Что такое дрейф, как увидеть его через terraform plan -refresh-only и как решить, принять изменение или вернуть состояние из кода. Частый вопрос: кто-то поменял ресурс руками в консоли.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-terraform-tutorials",
+      "source_ref": "terraform-tutorials",
+      "title": "Terraform tutorials",
+      "publisher": "HashiCorp Developer",
+      "url": "https://developer.hashicorp.com/terraform/tutorials",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "iac"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 60,
+      "why_read": "Официальный каталог учебных треков: от установки до state, модулей и импорта. Начинайте с трека на локальном провайдере Docker, чтобы не тратить деньги на облако.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-aws-eks-what-is",
+      "source_ref": "aws-eks-what-is",
+      "title": "What is Amazon EKS?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "aws-eks",
+        "kubernetes"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Что берёт на себя EKS (control plane) и что остаётся на вас в зависимости от режима: узлы, сеть, IAM-права, обновления. На собеседовании важно разделить зоны ответственности, а не перечислять сервисы.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-aws-eks-troubleshooting",
+      "source_ref": "aws-eks-troubleshooting",
+      "title": "Troubleshoot problems with Amazon EKS clusters and nodes",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "aws-eks",
+        "k8s-operations"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Типовые проблемы EKS: узлы не присоединяются к кластеру, kubectl получает отказ в доступе, не хватает ёмкости в зоне доступности. Используйте как чек-лист для вопросов о диагностике кластера в AWS.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-aws-vpc-what-is",
+      "source_ref": "aws-vpc-what-is",
+      "title": "What is Amazon VPC?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "aws-eks",
+        "cloud-basics",
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Подсети, таблицы маршрутов, internet gateway, NAT gateway, security groups. Минимум, чтобы нарисовать сеть веб-сервиса в AWS и объяснить, почему инстанс в приватной подсети не виден из интернета.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-aws-iam-intro",
+      "source_ref": "aws-iam-intro",
+      "title": "What is IAM?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "aws-eks",
+        "cloud-basics",
+        "security-pipeline"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Пользователи, роли, политики и принцип наименьших привилегий. Будьте готовы объяснить, почему сервисам выдают роли, а не долгоживущие ключи доступа.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-aws-ecr-what-is",
+      "source_ref": "aws-ecr-what-is",
+      "title": "What is Amazon Elastic Container Registry?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "aws-eks",
+        "images-registry"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Приватный реестр образов: репозитории, аутентификация через aws ecr get-login-password, политики жизненного цикла. Пригодится, когда спросят, откуда EKS берёт образы и почему под застрял в ImagePullBackOff.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-aws-well-architected",
+      "source_ref": "aws-well-architected",
+      "title": "AWS Well-Architected",
+      "publisher": "AWS",
+      "url": "https://aws.amazon.com/architecture/well-architected/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "cloud-basics",
+        "reliability-slo"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Шесть опор Well-Architected: операционное совершенство, безопасность, надёжность, производительность, стоимость, устойчивое развитие. Помогает структурировать ответ на архитектурный вопрос.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-gcp-docs-overview",
+      "source_ref": "gcp-docs-overview",
+      "title": "Google Cloud overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/docs/overview",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "gcp-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Обзор Google Cloud: иерархия ресурсов (организация, папки, проекты), регионы и зоны, способы управления. Достаточно, чтобы сопоставить базовые понятия с AWS.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-gcp-architecture-framework",
+      "source_ref": "gcp-architecture-framework",
+      "title": "Google Cloud Well-Architected Framework",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/architecture/framework",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "gcp-basics",
+        "reliability-slo"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Принципы проектирования от Google Cloud по надёжности, безопасности, стоимости и эксплуатации. Читать выборочно: раздел о надёжности ближе всего к задачам дежурного инженера.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-gcp-gke-overview",
+      "source_ref": "gcp-gke-overview",
+      "title": "GKE overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "gcp-basics",
+        "kubernetes"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Что такое GKE, режимы Autopilot и Standard и чем они различаются по зоне ответственности. Полезно для сравнения управляемого Kubernetes в GCP и AWS.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-gcp-iam-overview",
+      "source_ref": "gcp-iam-overview",
+      "title": "IAM overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/iam/docs/overview",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "gcp-basics"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "Модель IAM в Google Cloud: principal, роль, allow-политика и наследование по иерархии ресурсов. Модель отличается от AWS, и эту разницу стоит уметь сформулировать.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-dns-docs",
+      "source_ref": "cloudflare-dns-docs",
+      "title": "Cloudflare DNS",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/dns/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "edge-cloudflare",
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "DNS-записи в Cloudflare, режимы Proxied и DNS only. Нужно понимать, что при проксировании клиент видит IP-адреса Cloudflare, а не адрес origin.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-waf-docs",
+      "source_ref": "cloudflare-waf-docs",
+      "title": "Cloudflare Web Application Firewall (WAF)",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/waf/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "edge-cloudflare",
+        "security-pipeline"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Custom rules, managed rules и rate limiting. Пригодится, когда часть пользователей получает 403 и нужно выяснить по событиям безопасности, сработало ли правило WAF.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-cache-docs",
+      "source_ref": "cloudflare-cache-docs",
+      "title": "Cloudflare Cache (CDN)",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/cache/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Что кэшируется по умолчанию, Cache Rules, заголовок cf-cache-status (HIT, MISS, BYPASS, EXPIRED) и очистка кэша. Без этого не разобрать жалобу на старую версию сайта у части пользователей.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-custom-hostnames",
+      "source_ref": "cloudflare-custom-hostnames",
+      "title": "Custom hostnames - Cloudflare for SaaS",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/domain-support/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "difficulty": 3,
+      "estimated_minutes": 25,
+      "why_read": "Концепция custom hostnames: домен клиента через CNAME указывает на зону сервиса, а сертификат для него выпускается после валидации. Объясняет, как один origin обслуживает много чужих доменов.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-5xx-errors",
+      "source_ref": "cloudflare-5xx-errors",
+      "title": "Cloudflare 5xx errors",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "edge-cloudflare",
+        "incidents",
+        "traffic-delivery"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Разбор ошибок 502, 504 и 520–526: какие указывают на проблему origin, а какие на сторону Cloudflare. Ключевой материал для вопроса, что проверить первым, если сайт за Cloudflare отдаёт 522.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-cloudflare-reverse-proxy-learn",
+      "source_ref": "cloudflare-reverse-proxy-learn",
+      "title": "What is a reverse proxy?",
+      "publisher": "Cloudflare Learning",
+      "url": "https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "traffic-delivery",
+        "edge-cloudflare"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Простое объяснение reverse proxy и его отличия от forward proxy. Подходит, чтобы отточить формулировку ответа своими словами.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-cloudflare-load-balancing-learn",
+      "source_ref": "cloudflare-load-balancing-learn",
+      "title": "What is load balancing?",
+      "publisher": "Cloudflare Learning",
+      "url": "https://www.cloudflare.com/learning/performance/what-is-load-balancing/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "traffic-delivery"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Что такое балансировка нагрузки, основные алгоритмы и роль health checks. Короткая база перед разговором об upstream в nginx.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-nats-docs",
+      "source_ref": "nats-docs",
+      "title": "NATS Documentation",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Входная точка в документацию NATS: core NATS, JetStream, развёртывание и CLI. Используйте как карту разделов.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-nats-subjects",
+      "source_ref": "nats-subjects",
+      "title": "Subject-Based Messaging",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/concepts/subjects",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Subjects и wildcard-символы * и >. Нужно, чтобы объяснить, как подписчик получает сообщения по шаблону темы.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-nats-jetstream",
+      "source_ref": "nats-jetstream",
+      "title": "JetStream",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/concepts/jetstream",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "JetStream как слой хранения поверх core NATS: streams, consumers, подтверждения. Ключевая разница: core NATS не хранит сообщения, и без подписчика они теряются.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-redis-persistence",
+      "source_ref": "redis-persistence",
+      "title": "Redis persistence",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats",
+        "databases-ops"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "RDB-снимки, AOF и их сочетание. Будьте готовы объяснить, сколько данных можно потерять при падении Redis при разных значениях appendfsync.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-redis-eviction",
+      "source_ref": "redis-eviction",
+      "title": "Key eviction",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/develop/reference/eviction/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "maxmemory и политики вытеснения: allkeys-lru, volatile-lru, noeviction и другие. Пригодится, когда спросят, почему Redis начал отвечать ошибкой OOM на запись.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-redis-docs",
+      "source_ref": "redis-docs",
+      "title": "Redis Docs",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/index.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Входная точка в документацию Redis: команды, типы данных, эксплуатация. Используйте как справочник по INFO, CONFIG GET и SLOWLOG.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-man-ss",
+      "source_ref": "man-ss",
+      "title": "ss(8) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "ss -tlnp, ss -s и фильтры по состоянию. Первая команда, чтобы проверить, слушает ли сервис нужный порт и на каком адресе: 127.0.0.1 или 0.0.0.0.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-man-ip",
+      "source_ref": "man-ip",
+      "title": "ip(8) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "networking",
+        "linux-basics"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "ip addr, ip link, ip route и ip route get. Нужно, чтобы показать адреса интерфейсов и маршрут до конкретного хоста без устаревших ifconfig и route.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-man-du",
+      "source_ref": "man-du",
+      "title": "du(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "du -sh, du -x и связка с sort -h. Вместе с df помогает найти каталог, занявший диск, и заметить расхождение из-за удалённых, но ещё открытых файлов.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-man-free",
+      "source_ref": "man-free",
+      "title": "free(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "Колонки free, available, buff/cache и swap. Типичная ловушка: маленькое значение free ещё не означает нехватку памяти, смотреть нужно на available.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-man-chown",
+      "source_ref": "man-chown",
+      "title": "chown(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "chown user:group, рекурсивный -R и отличие от chmod. Пригодится при разборе ошибки Permission denied у службы, работающей от отдельного пользователя.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-curl-manpage",
+      "source_ref": "curl-manpage",
+      "title": "curl man page",
+      "publisher": "curl",
+      "url": "https://curl.se/docs/manpage.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "networking",
+        "nginx-proxy"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "Ключи для дежурства: -v, -I, -H, --resolve, -w '%{http_code}', --connect-timeout. Особенно --resolve: он позволяет проверить конкретный origin в обход DNS.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-openssl-s-client",
+      "source_ref": "openssl-s-client",
+      "title": "openssl-s_client",
+      "publisher": "OpenSSL Documentation",
+      "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "networking"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "openssl s_client -connect host:443 -servername host и чтение цепочки сертификатов. Нужно, чтобы показать срок действия, издателя и проблему с SNI или неполной цепочкой.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-dig-manpage",
+      "source_ref": "dig-manpage",
+      "title": "Manual Pages — BIND 9 documentation (dig)",
+      "publisher": "BIND 9 Documentation (ISC)",
+      "url": "https://bind9.readthedocs.io/en/stable/manpages.html",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Раздел dig: +short, +trace, запрос к конкретному резолверу через @server. Основной инструмент, чтобы отличить проблему авторитативного сервера от кэша резолвера.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-python-subprocess",
+      "source_ref": "python-subprocess",
+      "title": "subprocess — Subprocess management",
+      "publisher": "Python Documentation",
+      "url": "https://docs.python.org/3/library/subprocess.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "scripting"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "subprocess.run с check=True, capture_output и timeout. Пригодится для скриптов автоматизации, которые вызывают системные команды и должны корректно обрабатывать ненулевой код возврата.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-python-logging",
+      "source_ref": "python-logging",
+      "title": "logging — Logging facility for Python",
+      "publisher": "Python Documentation",
+      "url": "https://docs.python.org/3/library/logging.html",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "scripting",
+        "observability"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Логгеры, уровни, handlers и форматтеры. Операционный скрипт должен писать понятные логи с временем и уровнем, а не выводить всё через print.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-gitlab-ci-quick-start",
+      "source_ref": "gitlab-ci-quick-start",
+      "title": "Tutorial: Create and run your first GitLab CI/CD pipeline",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/quick_start/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Первый .gitlab-ci.yml: stages, jobs, runners. Нужно уметь объяснить, кто выполняет job и почему он висит в состоянии pending без доступного runner.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-gitlab-ci-variables",
+      "source_ref": "gitlab-ci-variables",
+      "title": "CI/CD variables",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/variables/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ci-cd",
+        "config-secrets"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Предопределённые и пользовательские переменные, masked и protected. Пригодится для вопроса, как передать секрет в job и не засветить его в логе.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-gitlab-ci-artifacts",
+      "source_ref": "gitlab-ci-artifacts",
+      "title": "Job artifacts",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/jobs/job_artifacts/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "artifacts:paths, expire_in и передача результатов сборки между стадиями. Важно не путать артефакты с кэшем: это частый вопрос.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-gitlab-ci-caching",
+      "source_ref": "gitlab-ci-caching",
+      "title": "Caching in GitLab CI/CD",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/caching/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 20,
+      "why_read": "cache:key, cache:paths и политика pull/push. Объясняет, почему кэш ускоряет установку зависимостей, но не гарантирует наличие файлов в следующем job.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-atlassian-gitflow",
+      "source_ref": "atlassian-gitflow",
+      "title": "Gitflow Workflow",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Модель веток develop, feature, release и hotfix. Полезно знать её ограничения, чтобы сравнить с trunk-based разработкой.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "secondary"
+    },
+    {
+      "id": "lib-pro-git-book",
+      "source_ref": "pro-git-book",
+      "title": "Pro Git book",
+      "publisher": "Pro Git",
+      "url": "https://git-scm.com/book/en/v2",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 120,
+      "why_read": "Полная книга по Git. Перед собеседованием достаточно глав о ветвлении, слиянии, rebase и работе с удалёнными репозиториями.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-learn-git-branching",
+      "source_ref": "learn-git-branching",
+      "title": "Learn Git Branching",
+      "publisher": "Learn Git Branching",
+      "url": "https://learngitbranching.js.org/",
+      "type": "practice",
+      "language": "en",
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 45,
+      "why_read": "Интерактивный тренажёр веток в браузере: merge, rebase, cherry-pick. Хорошо закрепляет понимание того, как двигаются указатели веток.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-docker-compose-docs",
+      "source_ref": "docker-compose-docs",
+      "title": "Docker Compose",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/compose/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "containers"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 25,
+      "why_read": "Описание многоконтейнерного приложения: services, networks, volumes, depends_on. Удобный способ собрать локальный стенд для лабораторных.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-docker-cli-logs",
+      "source_ref": "docker-cli-logs",
+      "title": "docker container logs",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "containers"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 10,
+      "why_read": "docker logs с ключами --tail, -f, --since и --timestamps. Первая команда при разборе контейнера в restart loop.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-docker-cli-inspect",
+      "source_ref": "docker-cli-inspect",
+      "title": "docker inspect",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "containers"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 15,
+      "why_read": "docker inspect и --format для отдельных полей: State.ExitCode, State.OOMKilled, RestartCount, сети. Помогает доказать причину падения контейнера, а не угадывать.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-k8s-persistent-volumes",
+      "source_ref": "k8s-persistent-volumes",
+      "title": "Persistent Volumes",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 30,
+      "why_read": "PV, PVC, StorageClass, access modes и reclaim policy. Пригодится, когда под висит в Pending из-за несвязанного PVC.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-k8s-network-policies",
+      "source_ref": "k8s-network-policies",
+      "title": "Network Policies",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes",
+        "security-pipeline"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "Как NetworkPolicy ограничивает трафик между подами и почему без поддерживающего CNI-плагина политика не действует. Важная деталь: как только под выбран политикой, в этом направлении запрещено всё, что явно не разрешено.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-k8s-assign-pod-node",
+      "source_ref": "k8s-assign-pod-node",
+      "title": "Assigning Pods to Nodes",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+      "type": "official_documentation",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes",
+        "k8s-operations"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 25,
+      "why_read": "nodeSelector, node affinity, pod affinity и anti-affinity. Нужно, чтобы читать события FailedScheduling и объяснять, почему под не может попасть ни на один узел.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-kubectl-quick-reference",
+      "source_ref": "kubectl-quick-reference",
+      "title": "kubectl Quick Reference",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/reference/kubectl/quick-reference/",
+      "type": "cheatsheet",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes",
+        "k8s-operations"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Шпаргалка по kubectl: get, describe, logs --previous, exec, rollout, контексты. Пройдитесь по ней перед собеседованием, чтобы команды диагностики звучали уверенно.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-kind-quick-start",
+      "source_ref": "kind-quick-start",
+      "title": "Quick Start - kind",
+      "publisher": "kind (Kubernetes SIGs)",
+      "url": "https://kind.sigs.k8s.io/docs/user/quick-start/",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Локальный кластер Kubernetes в Docker-контейнерах за несколько минут. Подходит для лабораторных по CrashLoopBackOff и Pending без затрат на облако.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-minikube-start",
+      "source_ref": "minikube-start",
+      "title": "minikube start",
+      "publisher": "minikube (Kubernetes SIGs)",
+      "url": "https://minikube.sigs.k8s.io/docs/start/",
+      "type": "tool_documentation",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 20,
+      "why_read": "Установка minikube и запуск локального кластера с выбором драйвера. Альтернатива kind, если нужны аддоны вроде ingress или dashboard.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "official"
+    },
+    {
+      "id": "lib-devops-roadmap-milanm",
+      "source_ref": "devops-roadmap-milanm",
+      "title": "DevOps Roadmap",
+      "publisher": "GitHub · milanm",
+      "url": "https://github.com/milanm/DevOps-Roadmap",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "linux-basics",
+        "containers",
+        "ci-cd"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 30,
+      "why_read": "Карта тем DevOps с подборкой ресурсов по каждому шагу. Используйте как чек-лист пробелов, а не как программу, которую нужно пройти целиком до собеседования.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-sre-workbook-incident-response",
+      "source_ref": "sre-workbook-incident-response",
+      "title": "Incident Response",
+      "publisher": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/incident-response/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 40,
+      "why_read": "Организация реагирования на инциденты: роли incident commander, communications lead и operations lead, разбор реальных случаев. Пригодится для ответа на вопрос, что вы делаете в первые минуты инцидента.",
+      "read_before_interview": true,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "secondary"
+    },
+    {
+      "id": "lib-sre-workbook-on-call",
+      "source_ref": "sre-workbook-on-call",
+      "title": "On-Call",
+      "publisher": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/on-call/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 35,
+      "why_read": "Практика дежурств: нагрузка, передача смены, борьба с шумными алертами. Полезно, чтобы говорить о дежурстве как о процессе, а не о героизме.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "secondary"
+    },
+    {
+      "id": "lib-pagerduty-incident-response",
+      "source_ref": "pagerduty-incident-response",
+      "title": "PagerDuty Incident Response Documentation",
+      "publisher": "PagerDuty",
+      "url": "https://response.pagerduty.com/",
+      "type": "guide",
+      "language": "en",
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 40,
+      "why_read": "Открытая методология: уровни severity, роли, действия до, во время и после инцидента. Хороший образец формализованного процесса дежурства.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "secondary"
+    },
+    {
+      "id": "lib-howdns-works",
+      "source_ref": "howdns-works",
+      "title": "How DNS works",
+      "publisher": "DNSimple",
+      "url": "https://howdns.works/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Комикс о пути DNS-запроса: резолвер, корневые серверы, TLD, авторитативный сервер, кэширование. Помогает объяснить цепочку простыми словами до перехода к деталям.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-howhttps-works",
+      "source_ref": "howhttps-works",
+      "title": "How HTTPS works",
+      "publisher": "DNSimple",
+      "url": "https://howhttps.works/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "networking"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 15,
+      "why_read": "Комикс о HTTPS: шифрование, рукопожатие TLS, сертификаты и центры сертификации. Полезен, чтобы выстроить ответ о том, что происходит до первого байта HTTP.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-iximiuz-containers",
+      "source_ref": "iximiuz-containers",
+      "title": "Learning Containers From The Bottom Up",
+      "publisher": "iximiuz.com",
+      "url": "https://iximiuz.com/en/posts/container-learning-path/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "containers"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 45,
+      "why_read": "Маршрут изучения контейнеров снизу вверх: namespaces, cgroups, runtimes, образы. Даёт понимание, что контейнер — это процесс Linux, а не лёгкая виртуальная машина.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-devops-with-kubernetes",
+      "source_ref": "devops-with-kubernetes",
+      "title": "DevOps with Kubernetes",
+      "publisher": "MOOC.fi · University of Helsinki",
+      "url": "https://devopswithkubernetes.com/",
+      "type": "course",
+      "language": "en",
+      "topic_ids": [
+        "kubernetes",
+        "k8s-operations"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 600,
+      "why_read": "Бесплатный курс с практическими заданиями: деплой, сеть, хранилище, мониторинг, GitOps. Берите отдельные части под свои пробелы: курс целиком занимает недели.",
+      "read_before_interview": false,
+      "verification_status": "needs_review",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-martin-fowler-ci",
+      "source_ref": "martin-fowler-ci",
+      "title": "Continuous Integration",
+      "publisher": "martinfowler.com",
+      "url": "https://martinfowler.com/articles/continuousIntegration.html",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "difficulty": 2,
+      "estimated_minutes": 40,
+      "why_read": "Классическое описание непрерывной интеграции: частые слияния в основную ветку, самопроверяющаяся сборка, быстрое исправление сломанной сборки. Помогает отличать CI как практику от CI как инструмента.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
+      "id": "lib-freecodecamp-nginx-handbook",
+      "source_ref": "freecodecamp-nginx-handbook",
+      "title": "The NGINX Handbook",
+      "publisher": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/news/the-nginx-handbook/",
+      "type": "article",
+      "language": "en",
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "difficulty": 1,
+      "estimated_minutes": 90,
+      "why_read": "Большой практический разбор nginx: конфигурация, location, reverse proxy, логи. Вторичный источник: детали сверяйте с официальной документацией nginx.org.",
+      "read_before_interview": false,
+      "verification_status": "verified",
+      "last_verified": "2026-10-23",
+      "source_origin": "milanm-devops-roadmap",
+      "reference_commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3"
+    },
+    {
       "id": "lib-ga4-sessions",
       "source_ref": "ga4-sessions",
       "title": "[GA4] About Analytics sessions",

@@ -283,21 +283,24 @@
     },
     {
       "id": "devops-platform",
-      "title": "DevOps / Platform Engineer",
-      "company": null,
+      "title": "RedCore Junior DevOps / DutyOps",
+      "company": "RedCore",
       "status": "active",
       "language": "ru",
-      "summary": "Подготовка к собеседованию на позицию DevOps / Platform Engineer: Linux и сети, контейнеры и Kubernetes, конвейеры сборки, инфраструктура как код, наблюдаемость и надёжность, поведение в аварии.",
-      "vacancy_id": "devops-platform-generic",
+      "summary": "Подготовка к собеседованию на позицию Junior DevOps Engineer в RedCore (вакансия TATECH-23211, удалённо): Linux и сети, Nginx, мониторинг Prometheus/Grafana и логи LogQL, PostgreSQL, MongoDB и ClickHouse, Docker, CI/CD, Terraform и Ansible, Kubernetes и EKS, облака AWS и GCP, Cloudflare — и дежурство DutyOps: мониторинг доставки трафика, работа по runbook и связь в инцидентном канале.",
+      "vacancy_id": "redcore-junior-devops-tatech-23211",
       "critical_topic_ids": [
         "linux-basics",
         "networking",
-        "ci-cd",
+        "nginx-proxy",
         "containers",
+        "ci-cd",
         "kubernetes",
         "iac",
         "observability",
-        "reliability-slo"
+        "monitoring-prometheus",
+        "incidents",
+        "dutyops-runbooks"
       ],
       "self_assessment_areas": [
         {
@@ -369,8 +372,123 @@
           "id": "sa-dv-storytelling",
           "title": "Рассказ о своих проектах",
           "hint": "Можете ли внятно объяснить, что делали и какой был результат"
+        },
+        {
+          "id": "sa-dv-nginx",
+          "title": "Nginx",
+          "hint": "Проксирование, upstream, разбор 502 и 504 по error_log"
+        },
+        {
+          "id": "sa-dv-monitoring-stack",
+          "title": "Prometheus, Grafana, LogQL",
+          "hint": "Targets, PromQL, правила тревог, дашборды, запросы к логам"
+        },
+        {
+          "id": "sa-dv-nosql-olap",
+          "title": "MongoDB и ClickHouse",
+          "hint": "Replica set, резервные копии, системные таблицы и диск"
+        },
+        {
+          "id": "sa-dv-ansible",
+          "title": "Ansible",
+          "hint": "Inventory, playbook, идемпотентность и check mode"
+        },
+        {
+          "id": "sa-dv-cloudflare",
+          "title": "Cloudflare и CDN",
+          "hint": "DNS через edge, кэш, WAF, ошибки 52x"
+        },
+        {
+          "id": "sa-dv-dutyops",
+          "title": "Дежурство по runbook",
+          "hint": "Мониторинг доставки трафика, эскалация, сообщения в инцидентный канал"
         }
-      ]
+      ],
+      "lab_domains": [
+        {
+          "id": "linux",
+          "title": "Linux",
+          "core": true
+        },
+        {
+          "id": "networking",
+          "title": "Сеть: DNS, TLS, HTTP",
+          "core": true
+        },
+        {
+          "id": "nginx",
+          "title": "Nginx",
+          "core": true
+        },
+        {
+          "id": "scripting",
+          "title": "Bash и Python",
+          "core": false
+        },
+        {
+          "id": "git-cicd",
+          "title": "Git и CI/CD",
+          "core": false
+        },
+        {
+          "id": "docker",
+          "title": "Docker",
+          "core": true
+        },
+        {
+          "id": "monitoring",
+          "title": "Мониторинг и логи",
+          "core": true
+        },
+        {
+          "id": "databases",
+          "title": "Базы данных",
+          "core": true
+        },
+        {
+          "id": "iac",
+          "title": "Terraform и Ansible",
+          "core": true
+        },
+        {
+          "id": "kubernetes",
+          "title": "Kubernetes",
+          "core": true
+        },
+        {
+          "id": "cloud",
+          "title": "AWS, EKS и GCP",
+          "core": false
+        },
+        {
+          "id": "edge",
+          "title": "Cloudflare и CDN",
+          "core": false
+        },
+        {
+          "id": "messaging",
+          "title": "Redis и NATS",
+          "core": false
+        },
+        {
+          "id": "dutyops",
+          "title": "DutyOps",
+          "core": false
+        }
+      ],
+      "diagnostic": {
+        "question_count": 48,
+        "scenario_count": 8,
+        "note": "Диагностика даёт стартовую точку и быстрый путь. Самооценка в ней не засчитывается: процент считается только по ответам."
+      },
+      "curriculum_ref": {
+        "repo": "milanm/DevOps-Roadmap",
+        "url": "https://github.com/milanm/DevOps-Roadmap",
+        "branch": "master",
+        "commit": "d7499e6dabe2fc54be85a28952080c0b6be857b3",
+        "license": "Apache-2.0",
+        "usage": "Карта тем и каталог дополнительных материалов. Учебный текст Joberti написан отдельно; порядок шагов задаёт вакансия, а не порядок разделов README."
+      }
     }
   ]
 }

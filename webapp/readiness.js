@@ -21,6 +21,16 @@
 //   критическая тема ниже 50%        → максимум 69
 //   охвачено меньше 60% обязательных тем → максимум 64
 //
+// У трека может быть собственный ПРОФИЛЬ расчёта (READINESS_PROFILES). Сейчас
+// он есть у devops-platform: там к блокам добавлены лабораторные и DutyOps
+// drills, а ограничители требуют диагностику, практику по core-доменам и
+// разбор инцидентов. Треки без своего профиля считаются ровно как раньше —
+// это проверяет _readiness_legacy.mjs по эталону, снятому до введения профилей.
+//
+// Готовность ≠ покрытие требований вакансии. Покрытие (requirementCoverage)
+// считается отдельно и только по доказательствам, которые человек внёс сам:
+// учёба не превращается в коммерческий опыт.
+//
 // Модуль чистый: не читает localStorage сам, всё получает во входном объекте.
 // Это позволяет прогонять его в Node без браузера.
 // ===========================================================================
@@ -60,6 +70,65 @@
     { min: 30, label: "База формируется" },
     { min: 0, label: "Начало подготовки" },
   ];
+
+  // ── профили расчёта ──────────────────────────────────────────────────────
+  //
+  // default — прежняя формула всех треков, БЕЗ изменений.
+  // devops-platform — RedCore Junior DevOps / DutyOps: практика весит больше
+  // знаний, потому что DevOps нельзя оценить только тестами.
+  var DEVOPS_PROFILE = {
+    id: "devops",
+    weights: { knowledge: 25, mock: 15, cases: 20, glossary: 5, plan: 5, labs: 30 },
+    caps: {
+      noDiagnostic: 59,          // не пройдена диагностика
+      fewLabs: 64,               // выполнено меньше MIN_LABS лабораторных
+      lowTopicCoverage: 64,      // охвачено меньше 65% обязательных тем
+      coreLabDomainMissing: 69,  // какой-то core-домен без единой выполненной лабораторной
+      weakCriticalTopic: 69,     // критическая тема ниже 50%
+      fewIncidents: 74,          // разобрано меньше 5 инцидентов (кейсы + drills)
+      noFullMock: 79,            // нет полной сессии mock interview
+    },
+    minLabs: 6,
+    minIncidents: 5,
+    weakCritical: 0.50,
+    topicCovered: 0.30,
+    minTopicCoverage: 0.65,
+    // Условные единицы работы для плана к дате: лабораторная дороже кейса.
+    actionCost: { review: 1, mock: 3, "case": 8, lab: 10, step: 4, drill: 5 },
+    blockTitles: { cases: "Инциденты и разбор сбоев", labs: "Лабораторные" },
+  };
+
+  var DEFAULT_PROFILE = {
+    id: "default",
+    weights: WEIGHTS,
+    caps: CAPS,
+    minCases: MIN_CASES,
+    weakCritical: WEAK_CRITICAL,
+    topicCovered: TOPIC_COVERED,
+    minTopicCoverage: MIN_TOPIC_COVERAGE,
+    actionCost: null,          // задаётся ниже как ACTION_COST
+    blockTitles: {},
+  };
+
+  var READINESS_PROFILES = {
+    "default": DEFAULT_PROFILE,
+    "devops-platform": DEVOPS_PROFILE,
+  };
+
+  function profileFor(trackId) {
+    return READINESS_PROFILES[trackId] || READINESS_PROFILES["default"];
+  }
+
+  // Уверенность в лабораторной. Отметка «готово» сама по себе даёт только
+  // 40%: Mini App не может проверить внешнюю среду. Остальное — post-check и
+  // повторное прохождение. Самооценка сюда не входит.
+  var LAB_PRIORITY_WEIGHT = { core: 3, important: 2, optional: 0 };
+  function labConfidence(st) {
+    if (!st || !st.completed) return 0;
+    var pc = typeof st.post_check_score === "number" ? clamp01(st.post_check_score) : 0;
+    var repeat = (st.attempts || 0) >= 2 ? 0.2 : 0;
+    return Math.min(1, 0.4 + 0.4 * pc + repeat);
+  }
 
   function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
 
@@ -327,6 +396,217 @@
       String(d.getUTCDate()).padStart(2, "0");
   }
 
+  // ── блоки профиля DevOps ─────────────────────────────────────────────────
+
+  function trackOf(c, trackId) {
+    return (c.tracks || []).filter(function (t) { return t.id === trackId; })[0] || null;
+  }
+
+  function labsBlock(input) {
+    var c = input.content, trackId = input.trackId;
+    var labs = (c.labs || []).filter(function (l) { return l.track_id === trackId; });
+    var state = (input.profile && input.profile.labs) || {};
+    var track = trackOf(c, trackId) || {};
+    var coreDomains = (track.lab_domains || []).filter(function (d) { return d.core; });
+
+    var sum = 0, total = 0, completed = 0, confirmed = 0, requiredTotal = 0;
+    var doneByDomain = {};
+    labs.forEach(function (l) {
+      var st = state[l.id];
+      var conf = labConfidence(st);
+      if (st && st.completed) {
+        completed++;
+        doneByDomain[l.lab_domain] = true;
+        if (typeof st.post_check_score === "number" && st.post_check_score >= 0.67) confirmed++;
+      }
+      // Необязательные лабораторные не входят в знаменатель: базовая
+      // готовность не требует всего списка и тем более платного облака.
+      var w = LAB_PRIORITY_WEIGHT[l.priority] || 0;
+      if (w) { sum += w * conf; total += w; requiredTotal++; }
+    });
+    var weighted = total ? sum / total : 0;
+    var domainRows = coreDomains.map(function (d) {
+      return { id: d.id, title: d.title, done: !!doneByDomain[d.id] };
+    });
+    var closedDomains = domainRows.filter(function (d) { return d.done; }).length;
+    var domainShare = coreDomains.length ? closedDomains / coreDomains.length : 0;
+    var score = labs.length ? clamp01(0.75 * weighted + 0.25 * domainShare) : 0;
+
+    return {
+      score: score,
+      detail: {
+        completed: completed,
+        confirmed: confirmed,
+        total: labs.length,
+        requiredTotal: requiredTotal,
+        confidence: weighted,
+        coreDomains: domainRows,
+        coreDomainsClosed: closedDomains,
+        missingDomains: domainRows.filter(function (d) { return !d.done; }),
+      },
+    };
+  }
+
+  // Кейсы плюс DutyOps drills: оба тренируют разбор сбоя, а не знание фактов.
+  function drillQuality(st) {
+    if (!st || typeof st.best !== "number") return null;
+    var q = clamp01(st.best / 100);
+    return (st.attempts || 0) >= 2 ? q : q * 0.85;      // повтор — подтверждение
+  }
+
+  function incidentsBlock(input) {
+    var cb = casesBlock(input);
+    var c = input.content, trackId = input.trackId;
+    var drills = (c.dutyopsDrills || []).filter(function (d) { return d.track_id === trackId; });
+    var state = (input.profile && input.profile.drills) || {};
+    var done = 0, qs = [];
+    drills.forEach(function (d) {
+      var q = drillQuality(state[d.id]);
+      if (q != null) { done++; qs.push(q); }
+    });
+    var avg = qs.length ? qs.reduce(function (a, b) { return a + b; }, 0) / qs.length : 0;
+    var drillScore = drills.length ? clamp01(0.4 * (done / drills.length) + 0.6 * avg) : 0;
+    var score = drills.length ? clamp01(0.6 * cb.score + 0.4 * drillScore) : cb.score;
+    var d = cb.detail;
+    return {
+      score: score,
+      detail: {
+        completed: d.completed,
+        total: d.total,
+        criticalDone: d.criticalDone,
+        criticalTotal: d.criticalTotal,
+        avgQuality: d.avgQuality,
+        drillsDone: done,
+        drillsTotal: drills.length,
+        incidentsCompleted: d.completed + done,
+        incidentsTotal: d.total + drills.length,
+      },
+    };
+  }
+
+  function computeDevops(input, track, ctx, P) {
+    var kb = knowledgeBlock(ctx);
+    var mb = mockBlock(ctx);
+    var ib = incidentsBlock(ctx);
+    var gb = glossaryBlock(ctx);
+    var pb = planBlock(ctx);
+    var lb = labsBlock(ctx);
+    var W = P.weights;
+
+    // Порядок первых пяти блоков совпадает с общим профилем: экраны берут
+    // блок и по ключу, и по индексу.
+    var blocks = [
+      { key: "knowledge", title: "Знания и повторение", weight: W.knowledge, score: kb.score, detail: kb.detail },
+      { key: "mock", title: "Mock interview", weight: W.mock, score: mb.score, detail: mb.detail },
+      { key: "cases", title: P.blockTitles.cases, weight: W.cases, score: ib.score, detail: ib.detail },
+      { key: "glossary", title: "Словарь", weight: W.glossary, score: gb.score, detail: gb.detail },
+      { key: "plan", title: "План и регулярность", weight: W.plan, score: pb.score, detail: pb.detail },
+      { key: "labs", title: P.blockTitles.labs, weight: W.labs, score: lb.score, detail: lb.detail },
+    ];
+    var raw = Math.round(blocks.reduce(function (a, b) { return a + b.weight * b.score; }, 0));
+
+    var C = P.caps, caps = [];
+    var diag = ctx.profile.diagnostic;
+    if (!(diag && diag.ts)) {
+      caps.push({ key: "noDiagnostic", max: C.noDiagnostic,
+        reason: "Не пройдена диагностика уровня",
+        action: "Пройти диагностику", href: "quiz.html?mode=diagnostic" });
+    }
+    if (lb.detail.completed < P.minLabs) {
+      caps.push({ key: "fewLabs", max: C.fewLabs,
+        reason: "Выполнено лабораторных: " + lb.detail.completed + " из минимальных " + P.minLabs,
+        action: "Выполнить ещё " + (P.minLabs - lb.detail.completed) + " лабораторн." ,
+        href: "labs.html" });
+    }
+    var requiredRows = kb.topics.filter(function (t) { return t.required && t.questions > 0; });
+    var coveredRequired = requiredRows.filter(function (t) {
+      return t.mastery != null && t.mastery >= P.topicCovered;
+    }).length;
+    var coverage = requiredRows.length ? coveredRequired / requiredRows.length : 0;
+    if (coverage < P.minTopicCoverage) {
+      caps.push({ key: "lowTopicCoverage", max: C.lowTopicCoverage,
+        reason: "Охвачено " + Math.round(coverage * 100) + "% обязательных тем (нужно от " +
+          Math.round(P.minTopicCoverage * 100) + "%)",
+        action: "Начать разбор новых тем плана", href: "roadmap.html" });
+    }
+    if (lb.detail.missingDomains.length) {
+      var miss = lb.detail.missingDomains;
+      var firstLab = (ctx.content.labs || []).filter(function (l) {
+        return l.track_id === ctx.trackId && l.lab_domain === miss[0].id && l.priority === "core";
+      })[0];
+      caps.push({ key: "coreLabDomainMissing", max: C.coreLabDomainMissing,
+        reason: "Нет выполненной лабораторной в " +
+          (miss.length === 1 ? "домене " : "доменах ") +
+          miss.map(function (d) { return d.title; }).join(", "),
+        action: firstLab ? "Лабораторная: " + firstLab.title : "Выполнить лабораторную",
+        labId: firstLab ? firstLab.id : null,
+        href: firstLab ? "labs.html?id=" + encodeURIComponent(firstLab.id) : "labs.html" });
+    }
+    var weakCritical = kb.topics.filter(function (t) {
+      return t.critical && (t.mastery == null || t.mastery < P.weakCritical);
+    });
+    if (weakCritical.length) {
+      caps.push({ key: "weakCriticalTopic", max: C.weakCriticalTopic,
+        reason: "Критическая тема ниже " + Math.round(P.weakCritical * 100) + "%: " +
+          weakCritical.map(function (t) { return t.title; }).join(", "),
+        action: "Подтянуть тему «" + weakCritical[0].title + "»",
+        topicId: weakCritical[0].id,
+        href: "quiz.html?topic=" + encodeURIComponent(weakCritical[0].id) });
+    }
+    if (ib.detail.incidentsCompleted < P.minIncidents) {
+      caps.push({ key: "fewIncidents", max: C.fewIncidents,
+        reason: "Разобрано инцидентов (кейсы и drills): " + ib.detail.incidentsCompleted +
+          " из " + P.minIncidents,
+        action: "Разобрать ещё " + (P.minIncidents - ib.detail.incidentsCompleted) + " инцидент.",
+        href: "labs.html?tab=drills" });
+    }
+    if (!ctx.fullMockSessions) {
+      caps.push({ key: "noFullMock", max: C.noFullMock,
+        reason: "Нет ни одной полной сессии mock interview",
+        action: "Пройти полное mock interview", href: "mock.html?mode=full" });
+    }
+
+    var capMax = caps.reduce(function (m, x) { return Math.min(m, x.max); }, 100);
+    var percent = Math.min(raw, capMax);
+    var appliedCap = caps.filter(function (x) { return x.max === capMax; })[0] || null;
+    if (appliedCap && raw <= capMax) appliedCap = null;
+
+    var gaps = [];
+    caps.slice().sort(function (a, b) { return a.max - b.max; }).forEach(function (x) {
+      gaps.push({ kind: "cap", title: x.reason, action: x.action, topicId: x.topicId || null,
+        href: x.href || null });
+    });
+    kb.topics.forEach(function (t) {
+      if (t.questions > 0 && t.mastery != null && t.mastery < 0.5) {
+        gaps.push({ kind: "topic", title: "Тема «" + t.title + "» — " + t.pct + "%",
+          action: "Пройти тест по теме", topicId: t.id,
+          href: "quiz.html?topic=" + encodeURIComponent(t.id) });
+      }
+    });
+    blocks.forEach(function (b) {
+      if (b.score < 0.35 && b.weight >= 20) {
+        gaps.push({ kind: "block", title: "Блок «" + b.title + "» — " +
+          Math.round(b.score * 100) + "%", action: "Заняться этим блоком", blockKey: b.key });
+      }
+    });
+
+    return {
+      available: true,
+      profile: P.id,
+      percent: percent,
+      rawPercent: raw,
+      verdict: verdictFor(percent),
+      blocks: blocks,
+      caps: caps,
+      appliedCap: appliedCap,
+      capMax: capMax,
+      topics: kb.topics,
+      coverage: coverage,
+      gaps: gaps.slice(0, 3),
+      allGaps: gaps,
+    };
+  }
+
   // ── основной расчёт ──────────────────────────────────────────────────────
 
   function compute(input) {
@@ -359,6 +639,9 @@
       nowMs: input.nowMs || 0,
       fullMockSessions: input.fullMockSessions || 0,
     };
+
+    var P = profileFor(trackId);
+    if (P !== DEFAULT_PROFILE) return computeDevops(input, track, ctx, P);
 
     var kb = knowledgeBlock(ctx);
     var mb = mockBlock(ctx);
@@ -693,6 +976,7 @@
   // вес во времени, поэтому норма выражается в «действиях в день», где кейс и
   // mock-вопрос стоят дороже одного ответа на тест.
   var ACTION_COST = { review: 1, mock: 3, "case": 8, step: 4 };
+  DEFAULT_PROFILE.actionCost = ACTION_COST;
 
   function examPlan(input) {
     var date = input.examDate;
@@ -744,6 +1028,25 @@
       + casesLeft * ACTION_COST["case"]
       + stepsLeft * ACTION_COST.step;
 
+    // Профиль DevOps добавляет лабораторные и drills со своей ценой. Для
+    // треков без профиля эта ветка не выполняется — их расчёт не меняется.
+    var P = profileFor(trackId);
+    var labsLeft = 0, drillsLeft = 0;
+    if (P !== DEFAULT_PROFILE) {
+      var cost = P.actionCost;
+      var labState = profile.labs || {};
+      labsLeft = (c.labs || []).filter(function (l) {
+        return l.track_id === trackId && l.priority !== "optional" &&
+          !(labState[l.id] && labState[l.id].completed);
+      }).length;
+      var drillState = profile.drills || {};
+      drillsLeft = (c.dutyopsDrills || []).filter(function (d) {
+        return d.track_id === trackId && !(drillState[d.id] && typeof drillState[d.id].best === "number");
+      }).length;
+      work = reviewsLeft * cost.review + mocksLeft * cost.mock + casesLeft * cost["case"] +
+        stepsLeft * cost.step + labsLeft * cost.lab + drillsLeft * cost.drill;
+    }
+
     var past = daysLeft < 0;
     // День собеседования учить поздно: делим на оставшиеся полные дни.
     var effectiveDays = Math.max(1, daysLeft);
@@ -757,10 +1060,251 @@
       mocksLeft: mocksLeft,
       casesLeft: casesLeft,
       stepsLeft: stepsLeft,
+      labsLeft: labsLeft,
+      drillsLeft: drillsLeft,
       workUnits: work,
       needPerDay: needPerDay,
       goal: input.goal || 0,
       onTrack: past ? false : needPerDay <= (input.goal || 0),
+    };
+  }
+
+  // ── покрытие требований вакансии ─────────────────────────────────────────
+  //
+  // Это НЕ вероятность найма и НЕ готовность. Учитывается только то, что
+  // человек подтвердил сам: статус «подтверждено» или «частично» без описания
+  // доказательства не засчитывается. Требование вида experience (например,
+  // «2+ года администрирования») учёбой не закрывается вовсе.
+  var REQ_WEIGHT = { required: 3, desirable: 2, nice_to_have: 1 };
+  var REQ_VALUE = {
+    confirmed: 1, partial: 0.55, learning: 0.25, not_started: 0,
+    unverified_experience: 0, not_applicable: 0,
+  };
+
+  function effectiveRequirement(req, st) {
+    var status = (st && st.status) || req.status || "not_started";
+    var evidence = String((st && st.evidence !== undefined ? st.evidence : req.evidence) || "").trim();
+    var claimedWithoutEvidence = (status === "confirmed" || status === "partial") && !evidence;
+    var eff = status;
+    if (claimedWithoutEvidence) eff = req.kind === "experience" ? "unverified_experience" : "learning";
+    if (req.kind === "experience" && (eff === "learning" || eff === "not_applicable")) {
+      eff = "unverified_experience";
+    }
+    if (!(eff in REQ_VALUE)) eff = "not_started";
+    return { status: status, effective: eff, evidence: evidence,
+      claimedWithoutEvidence: claimedWithoutEvidence };
+  }
+
+  // input: { vacancy, requirements (profile.requirements), topics (строки из
+  //          compute().topics), labs (контент), labState (profile.labs) }
+  function requirementCoverage(input) {
+    var v = input.vacancy;
+    if (!v || !(v.requirements || []).length) return null;
+    var states = input.requirements || {};
+    var topicPct = {};
+    (input.topics || []).forEach(function (t) { topicPct[t.id] = t.mastery; });
+    var labState = input.labState || {};
+    var labsById = {};
+    (input.labs || []).forEach(function (l) { labsById[l.id] = l; });
+
+    var num = 0, den = 0, unconfirmedRequired = 0, hardGaps = 0, requiredTotal = 0;
+    var rows = (v.requirements || []).map(function (r) {
+      var e = effectiveRequirement(r, states[r.id]);
+      var w = REQ_WEIGHT[r.importance] || 1;
+      var val = REQ_VALUE[e.effective];
+      num += w * val; den += w;
+      if (r.importance === "required") {
+        requiredTotal++;
+        if (e.effective !== "confirmed") unconfirmedRequired++;
+      }
+      var experienceGap = r.kind === "experience" &&
+        e.effective !== "confirmed" && e.effective !== "partial";
+      if (experienceGap) hardGaps++;
+      // Учебное покрытие — отдельная справочная колонка. В процент не входит.
+      var ms = (r.topic_ids || []).map(function (t) { return topicPct[t]; })
+        .filter(function (m) { return typeof m === "number"; });
+      var labIds = (r.lab_ids || []).filter(function (id) { return labsById[id]; });
+      var labsDone = labIds.filter(function (id) { return labState[id] && labState[id].completed; }).length;
+      return {
+        id: r.id, requirement: r.requirement, importance: r.importance, kind: r.kind || "skill",
+        status: e.status, effective: e.effective, value: val, weight: w,
+        evidence: e.evidence, evidenceHint: r.evidence_hint || "",
+        claimedWithoutEvidence: e.claimedWithoutEvidence,
+        learningPct: ms.length ? Math.round(ms.reduce(function (a, b) { return a + b; }, 0) / ms.length * 100) : null,
+        labsDone: labsDone, labsTotal: labIds.length,
+        experienceGap: experienceGap,
+        nextAction: r.next_action || "",
+      };
+    });
+    return {
+      percent: den ? Math.round(num / den * 100) : 0,
+      requiredTotal: requiredTotal,
+      unconfirmedRequired: unconfirmedRequired,
+      hardGaps: hardGaps,
+      rows: rows,
+    };
+  }
+
+  // ── матрица навыков ──────────────────────────────────────────────────────
+  // Колонки НЕ сводятся в одну оценку: цель, доказательство, учебная
+  // освоенность, лабораторные и интервью — разные оси.
+  var EFFECTIVE_RANK = ["not_started", "not_applicable", "unverified_experience", "learning", "partial", "confirmed"];
+
+  function skillMatrix(input) {
+    var v = input.vacancy;
+    if (!v || !(v.skill_matrix || []).length) return [];
+    var cov = input.coverage || { rows: [] };
+    var byDomain = {};
+    (v.requirements || []).forEach(function (r) {
+      if (r.domain_id) (byDomain[r.domain_id] = byDomain[r.domain_id] || []).push(r.id);
+    });
+    var rowById = {};
+    cov.rows.forEach(function (r) { rowById[r.id] = r; });
+    var topicM = {};
+    (input.topics || []).forEach(function (t) { topicM[t.id] = t.mastery; });
+    var labs = (input.labs || []).filter(function (l) { return l.track_id === input.trackId; });
+    var labState = input.labState || {};
+    var mocks = (input.mocks || []).filter(function (m) { return m.track_id === input.trackId; });
+    var mockState = input.mockState || {};
+
+    return v.skill_matrix.map(function (d) {
+      var topics = d.topic_ids || [];
+      var inDomain = function (ids) {
+        return (ids || []).some(function (t) { return topics.indexOf(t) !== -1; });
+      };
+      var best = null;
+      (byDomain[d.id] || []).forEach(function (rid) {
+        var r = rowById[rid];
+        if (!r) return;
+        if (best === null || EFFECTIVE_RANK.indexOf(r.effective) > EFFECTIVE_RANK.indexOf(best)) best = r.effective;
+      });
+      var ms = topics.map(function (t) { return topicM[t]; })
+        .filter(function (m) { return typeof m === "number"; });
+      var dl = labs.filter(function (l) { return inDomain(l.topic_ids); });
+      var labsDone = dl.filter(function (l) { return labState[l.id] && labState[l.id].completed; }).length;
+      var qs = [];
+      mocks.filter(function (m) { return inDomain(m.topic_ids); }).forEach(function (m) {
+        var q = ratedQuality(mockState[m.id]);
+        if (q != null) qs.push(q);
+      });
+      return {
+        id: d.id, title: d.title, priority: d.priority, target: d.target,
+        evidence: best,
+        learningPct: ms.length ? Math.round(ms.reduce(function (a, b) { return a + b; }, 0) / ms.length * 100) : null,
+        labsDone: labsDone, labsTotal: dl.length,
+        interviewPct: qs.length ? Math.round(qs.reduce(function (a, b) { return a + b; }, 0) / qs.length * 100) : null,
+      };
+    });
+  }
+
+  // ── диагностика ──────────────────────────────────────────────────────────
+  // Детерминированный выбор: одинаковый seed — одинаковый набор вопросов.
+  function lcg(seed) {
+    var s = (seed >>> 0) || 1;
+    return function () {
+      s = (s * 1103515245 + 12345) & 0x7fffffff;
+      return s / 0x7fffffff;
+    };
+  }
+
+  function diagnosticSelect(content, trackId, seed) {
+    var track = trackOf(content, trackId);
+    if (!track || !track.diagnostic) return [];
+    var cfg = track.diagnostic;
+    var v = (content.vacancies || []).filter(function (x) { return x.id === track.vacancy_id; })[0];
+    var domains = (v && v.skill_matrix) || [];
+    var qs = (content.questions || []).filter(function (q) { return q.track_id === trackId; });
+    var rnd = lcg(seed);
+    var picked = {}, out = [];
+    function take(pool, n) {
+      pool = pool.filter(function (q) { return !picked[q.id]; });
+      for (var i = pool.length - 1; i > 0; i--) {
+        var j = Math.floor(rnd() * (i + 1));
+        var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+      }
+      // Смесь сложности: сначала по одному каждого уровня, затем остальное.
+      pool.sort(function (a, b) { return (a.difficulty || 1) - (b.difficulty || 1); });
+      var byLevel = {};
+      pool.forEach(function (q) { (byLevel[q.difficulty || 1] = byLevel[q.difficulty || 1] || []).push(q); });
+      var order = [];
+      var levels = Object.keys(byLevel).sort();
+      while (order.length < pool.length) {
+        levels.forEach(function (lv) { if (byLevel[lv].length) order.push(byLevel[lv].shift()); });
+      }
+      order.slice(0, n).forEach(function (q) { picked[q.id] = true; out.push(q.id); });
+    }
+    var per = Math.max(1, Math.floor(cfg.question_count / Math.max(1, domains.length)));
+    domains.forEach(function (d) {
+      take(qs.filter(function (q) { return (d.topic_ids || []).indexOf(q.topic) !== -1; }), per);
+    });
+    // Добор до question_count: в первую очередь P0-домены.
+    var p0 = {};
+    domains.forEach(function (d) { if (d.priority === "P0") (d.topic_ids || []).forEach(function (t) { p0[t] = 1; }); });
+    if (out.length < cfg.question_count) take(qs.filter(function (q) { return p0[q.topic]; }), cfg.question_count - out.length);
+    if (out.length < cfg.question_count) take(qs, cfg.question_count - out.length);
+    // Сценарии разбора сбоя — отдельной порцией.
+    take(qs.filter(function (q) { return q.kind === "scenario"; }), cfg.scenario_count || 0);
+    return out;
+  }
+
+  // answers: [{ id, topic, correct }]. Самооценка не участвует.
+  function diagnosticReport(input) {
+    var c = input.content, trackId = input.trackId;
+    var track = trackOf(c, trackId);
+    var v = track && (c.vacancies || []).filter(function (x) { return x.id === track.vacancy_id; })[0];
+    var domains = (v && v.skill_matrix) || [];
+    var answers = input.answers || [];
+    var rows = domains.map(function (d) {
+      var a = answers.filter(function (x) { return (d.topic_ids || []).indexOf(x.topic) !== -1; });
+      var ok = a.filter(function (x) { return x.correct; }).length;
+      return {
+        id: d.id, title: d.title, priority: d.priority, target: d.target,
+        lab_domain: d.lab_domain, topic_ids: d.topic_ids || [],
+        asked: a.length, correct: ok,
+        pct: a.length ? Math.round(ok / a.length * 100) : null,
+      };
+    }).filter(function (r) { return r.asked > 0; });
+    var strong = rows.filter(function (r) { return r.pct >= 75; });
+    var weak = rows.filter(function (r) { return r.pct < 50; });
+    var critical = weak.filter(function (r) { return r.priority === "P0"; });
+    var PR = { P0: 0, P1: 1, P2: 2 };
+    var focus = rows.filter(function (r) { return r.pct < 75; }).sort(function (a, b) {
+      return (PR[a.priority] - PR[b.priority]) || (a.pct - b.pct);
+    });
+
+    var labState = input.labState || {};
+    var labs = (c.labs || []).filter(function (l) { return l.track_id === trackId; });
+    var lessons = (c.lessons || []).filter(function (l) { return l.track_id === trackId; });
+    var actions = [];
+    focus.forEach(function (r) {
+      if (actions.length >= 5) return;
+      var lab = labs.filter(function (l) {
+        return (l.topic_ids || []).some(function (t) { return r.topic_ids.indexOf(t) !== -1; }) &&
+          l.priority !== "optional" && !(labState[l.id] && labState[l.id].completed);
+      }).sort(function (a, b) { return (a.priority === "core" ? 0 : 1) - (b.priority === "core" ? 0 : 1); })[0];
+      var lesson = lessons.filter(function (l) { return r.topic_ids.indexOf(l.topic_id) !== -1; })[0];
+      if (lesson) actions.push({ kind: "lesson", domain: r.id, title: "Урок: " + lesson.title,
+        href: "lesson.html?id=" + encodeURIComponent(lesson.id) });
+      if (lab && actions.length < 5) actions.push({ kind: "lab", domain: r.id, title: "Лабораторная: " + lab.title,
+        href: "labs.html?id=" + encodeURIComponent(lab.id) });
+    });
+
+    // Быстрый путь: шаги плана, чьи темы целиком в сильных доменах, можно
+    // проходить ускоренно — сразу тест и лабораторная. Остальные — по порядку.
+    var strongTopics = {};
+    strong.forEach(function (r) { r.topic_ids.forEach(function (t) { strongTopics[t] = 1; }); });
+    var steps = (c.roadmap || []).filter(function (s) { return s.track_id === trackId; })
+      .sort(function (a, b) { return a.order - b.order; });
+    var fast = steps.filter(function (s) {
+      return (s.topic_ids || []).length && s.topic_ids.every(function (t) { return strongTopics[t]; });
+    }).map(function (s) { return s.id; });
+
+    var total = answers.length;
+    var correct = answers.filter(function (a) { return a.correct; }).length;
+    return {
+      total: total, correct: correct, pct: total ? Math.round(correct / total * 100) : 0,
+      domains: rows, strong: strong, weak: weak, critical: critical,
+      nextActions: actions.slice(0, 5), fastSteps: fast,
     };
   }
 
@@ -776,6 +1320,16 @@
     TOPIC_COVERED: TOPIC_COVERED,
     MIN_TOPIC_COVERAGE: MIN_TOPIC_COVERAGE,
     ACTION_COST: ACTION_COST,
+    READINESS_PROFILES: READINESS_PROFILES,
+    profileFor: profileFor,
+    labConfidence: labConfidence,
+    requirementCoverage: requirementCoverage,
+    effectiveRequirement: effectiveRequirement,
+    skillMatrix: skillMatrix,
+    diagnosticSelect: diagnosticSelect,
+    diagnosticReport: diagnosticReport,
+    REQ_WEIGHT: REQ_WEIGHT,
+    REQ_VALUE: REQ_VALUE,
     compute: compute,
     computeVacancy: computeVacancy,
     examPlan: examPlan,

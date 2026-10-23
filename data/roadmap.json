@@ -1,6 +1,6 @@
 {
   "schema": "roadmap/v1",
-  "note": "practice_items: 'quiz:<topic_id>' — тест по теме, 'case:<id>' — практический кейс, 'mock:<id>' — открытый вопрос.",
+  "note": "practice_items: 'quiz:<topic_id>' — тест по теме, 'case:<id>' — практический кейс, 'mock:<id>' — открытый вопрос. 'lab:<id>' — лабораторная, 'drill:<id>' — DutyOps drill или runbook.",
   "steps": [
     {
       "id": "step-01-how-search-works",
@@ -641,39 +641,101 @@
       }
     },
     {
-      "id": "step-dv-01-linux",
+      "id": "step-dv-00-diagnostic",
       "track_id": "devops-platform",
       "order": 1,
+      "phase": "Основа",
+      "title": "Диагностика уровня",
+      "goal": "Пройти диагностику: увидеть сильные темы, настоящие пробелы и быстрый путь по плану",
+      "topic_ids": [
+        "linux-basics",
+        "networking",
+        "dutyops-runbooks"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [],
+      "study_items": [],
+      "practice_items": [],
+      "completion_rule": {
+        "diagnostic_done": true
+      }
+    },
+    {
+      "id": "step-dv-01-linux",
+      "track_id": "devops-platform",
+      "order": 2,
+      "phase": "Основа",
       "title": "Linux и службы",
       "goal": "Уверенно читать состояние службы и журнал: с этого начинается любая диагностика",
       "topic_ids": [
         "linux-basics"
       ],
-      "estimated_minutes": 60,
+      "estimated_minutes": 75,
       "required": true,
-      "prerequisites": [],
+      "prerequisites": [
+        "step-dv-00-diagnostic"
+      ],
       "study_items": [
         "lesson-linux-processes-services"
       ],
       "practice_items": [
         "quiz:linux-basics",
+        "lab:lab-linux-service-001",
+        "lab:lab-linux-systemd-002",
         "mock:mock-devops-tools-003"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-23-linux-storage",
+      "track_id": "devops-platform",
+      "order": 3,
+      "phase": "Основа",
+      "title": "Права, диски и inode",
+      "goal": "Находить причину «нет места» и «permission denied» и чинить их без chmod 777 и rm наугад",
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-dv-01-linux"
+      ],
+      "study_items": [
+        "lesson-linux-storage-permissions",
+        "lesson-linux-cli-toolbox"
+      ],
+      "practice_items": [
+        "lab:lab-linux-permissions-003",
+        "lab:lab-linux-disk-004",
+        "lab:lab-linux-resources-005",
+        "lab:lab-linux-journal-006",
+        "case:case-devops-disk-014",
+        "case:case-devops-inode-015",
+        "case:case-devops-cpu-016"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "lab_completed_min": 2,
+        "case_completed_min": 1
       }
     },
     {
       "id": "step-dv-02-networking",
       "track_id": "devops-platform",
-      "order": 2,
+      "order": 4,
+      "phase": "Основа",
       "title": "Сеть и путь запроса",
       "goal": "Пройти цепочку от домена до ответа приложения и знать, чем проверяется каждый шаг",
       "topic_ids": [
         "networking"
       ],
-      "estimated_minutes": 60,
+      "estimated_minutes": 70,
       "required": true,
       "prerequisites": [
         "step-dv-01-linux"
@@ -683,48 +745,119 @@
       ],
       "practice_items": [
         "quiz:networking",
+        "lab:lab-net-port-009",
+        "lab:lab-net-routing-011",
+        "case:case-devops-port-013",
         "mock:mock-devops-fund-003"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-24-dns-tls-http",
+      "track_id": "devops-platform",
+      "order": 5,
+      "phase": "Основа",
+      "title": "DNS, TLS и HTTP по цепочке",
+      "goal": "Пройти запрос от имени домена до ответа приложения и назвать, на каком звене он сломался",
+      "topic_ids": [
+        "networking",
+        "traffic-delivery"
+      ],
+      "estimated_minutes": 90,
+      "required": true,
+      "prerequisites": [
+        "step-dv-02-networking"
+      ],
+      "study_items": [
+        "lesson-dns-tls-http-chain"
+      ],
+      "practice_items": [
+        "lab:lab-net-chain-007",
+        "lab:lab-net-dns-008",
+        "lab:lab-net-tls-010",
+        "case:case-devops-dns-010",
+        "case:case-devops-tls-011"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "lab_completed_min": 2,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-25-nginx",
+      "track_id": "devops-platform",
+      "order": 6,
+      "phase": "Основа",
+      "title": "Nginx и reverse proxy",
+      "goal": "Настроить проксирование и разобрать 502 и 504 по error_log, не перезапуская всё подряд",
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "estimated_minutes": 100,
+      "required": true,
+      "prerequisites": [
+        "step-dv-24-dns-tls-http"
+      ],
+      "study_items": [
+        "lesson-nginx-reverse-proxy"
+      ],
+      "practice_items": [
+        "quiz:nginx-proxy",
+        "lab:lab-nginx-proxy-012",
+        "lab:lab-nginx-502-013",
+        "lab:lab-nginx-upstream-014",
+        "case:case-devops-nginx502-009",
+        "drill:drill-dutyops-502-001"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "lab_completed_min": 2,
+        "case_completed_min": 1
       }
     },
     {
       "id": "step-dv-03-git",
       "track_id": "devops-platform",
-      "order": 3,
-      "title": "Git и релизы",
+      "order": 8,
+      "phase": "Основа",
+      "title": "Git, ветки и Git Flow",
       "goal": "Объяснять выбор между merge и rebase и собирать релиз по тегу",
       "topic_ids": [
         "git-vcs"
       ],
-      "estimated_minutes": 40,
+      "estimated_minutes": 50,
       "required": true,
-      "prerequisites": [
-        "step-dv-01-linux"
-      ],
+      "prerequisites": [],
       "study_items": [
         "lesson-git-branching-review"
       ],
       "practice_items": [
-        "quiz:git-vcs"
+        "quiz:git-vcs",
+        "lab:lab-git-conflict-018"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-04-containers",
       "track_id": "devops-platform",
-      "order": 4,
+      "order": 9,
+      "phase": "Доставка",
       "title": "Контейнеры",
       "goal": "Внятно отвечать, чем контейнер отличается от виртуальной машины, и понимать эфемерность",
       "topic_ids": [
         "containers"
       ],
-      "estimated_minutes": 50,
+      "estimated_minutes": 60,
       "required": true,
       "prerequisites": [
         "step-dv-01-linux"
@@ -734,23 +867,26 @@
       ],
       "practice_items": [
         "quiz:containers",
+        "lab:lab-docker-network-022",
         "mock:mock-devops-fund-001"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-05-images",
       "track_id": "devops-platform",
-      "order": 5,
+      "order": 10,
+      "phase": "Доставка",
       "title": "Образы и кэш сборки",
       "goal": "Уметь уменьшить образ и ускорить сборку, понимая слои",
       "topic_ids": [
         "images-registry"
       ],
-      "estimated_minutes": 50,
+      "estimated_minutes": 75,
       "required": true,
       "prerequisites": [
         "step-dv-04-containers"
@@ -760,80 +896,93 @@
       ],
       "practice_items": [
         "quiz:images-registry",
+        "lab:lab-docker-multistage-021",
+        "lab:lab-docker-restart-023",
         "case:case-devops-pipeline-004",
+        "case:case-devops-docker-loop-017",
         "mock:mock-devops-tech-005"
       ],
       "completion_rule": {
         "lesson_read": true,
         "quiz_score_min": 80,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-06-cicd",
       "track_id": "devops-platform",
-      "order": 6,
+      "order": 11,
+      "phase": "Доставка",
       "title": "Конвейер CI/CD",
       "goal": "Понимать стадии конвейера и уметь разобрать упавшую сборку",
       "topic_ids": [
         "ci-cd"
       ],
-      "estimated_minutes": 60,
+      "estimated_minutes": 90,
       "required": true,
       "prerequisites": [
-        "step-dv-03-git",
-        "step-dv-05-images"
+        "step-dv-03-git"
       ],
       "study_items": [
-        "lesson-ci-cd-pipeline"
+        "lesson-ci-cd-pipeline",
+        "lesson-gitlab-ci-practice"
       ],
       "practice_items": [
         "quiz:ci-cd",
+        "lab:lab-ci-gitlab-019",
+        "lab:lab-ci-failure-020",
+        "case:case-devops-ci-dependency-024",
         "mock:mock-devops-tech-004",
         "mock:mock-devops-tools-002"
       ],
       "completion_rule": {
         "lesson_read": true,
         "quiz_score_min": 80,
-        "mock_answered_min": 1
+        "mock_answered_min": 1,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-07-k8s",
       "track_id": "devops-platform",
-      "order": 7,
+      "order": 25,
+      "phase": "Инфраструктура",
       "title": "Kubernetes: базовые объекты",
       "goal": "Объяснять связку Pod, Deployment, Service и декларативную модель",
       "topic_ids": [
         "kubernetes"
       ],
-      "estimated_minutes": 70,
+      "estimated_minutes": 75,
       "required": true,
       "prerequisites": [
-        "step-dv-04-containers"
+        "step-dv-05-images"
       ],
       "study_items": [
         "lesson-kubernetes-objects"
       ],
       "practice_items": [
         "quiz:kubernetes",
+        "lab:lab-k8s-deploy-035",
         "mock:mock-devops-fund-002"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-08-k8s-ops",
       "track_id": "devops-platform",
-      "order": 8,
+      "order": 26,
+      "phase": "Инфраструктура",
       "title": "Kubernetes: разбор проблем",
       "goal": "Отличать Pending, CrashLoopBackOff и OOMKilled и знать порядок разбора",
       "topic_ids": [
         "k8s-operations"
       ],
-      "estimated_minutes": 70,
+      "estimated_minutes": 120,
       "required": true,
       "prerequisites": [
         "step-dv-07-k8s"
@@ -843,19 +992,96 @@
       ],
       "practice_items": [
         "quiz:k8s-operations",
+        "lab:lab-k8s-crashloop-036",
+        "lab:lab-k8s-oom-probes-037",
+        "lab:lab-k8s-pending-038",
+        "lab:lab-k8s-pvc-039",
+        "lab:lab-k8s-rbac-netpol-040",
         "case:case-devops-crashloop-001",
+        "case:case-devops-pending-027",
+        "case:case-devops-oom-028",
+        "case:case-devops-imagepull-029",
         "mock:mock-devops-tech-001"
       ],
       "completion_rule": {
         "lesson_read": true,
         "quiz_score_min": 80,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "lab_completed_min": 2
+      }
+    },
+    {
+      "id": "step-dv-33-aws-eks-gcp",
+      "track_id": "devops-platform",
+      "order": 27,
+      "phase": "Инфраструктура",
+      "title": "AWS, EKS и GCP",
+      "goal": "Объяснить архитектуру сервиса в AWS и EKS и соответствие сервисам GCP — без платного аккаунта",
+      "topic_ids": [
+        "aws-eks",
+        "gcp-basics",
+        "cloud-basics"
+      ],
+      "estimated_minutes": 120,
+      "required": true,
+      "prerequisites": [
+        "step-dv-17-cloud",
+        "step-dv-08-k8s-ops"
+      ],
+      "study_items": [
+        "lesson-aws-eks-basics",
+        "lesson-gcp-basics"
+      ],
+      "practice_items": [
+        "quiz:aws-eks",
+        "quiz:gcp-basics",
+        "lab:lab-cloud-aws-arch-041",
+        "lab:lab-cloud-eks-043",
+        "lab:lab-cloud-gcp-044",
+        "lab:lab-cloud-aws-iam-042",
+        "case:case-devops-eks-network-030"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-34-cloudflare",
+      "track_id": "devops-platform",
+      "order": 28,
+      "phase": "Инфраструктура",
+      "title": "Cloudflare: DNS, CDN, WAF",
+      "goal": "Отличать ответ edge от ответа origin, расшифровывать 52x и понимать Custom Hostnames",
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-dv-25-nginx"
+      ],
+      "study_items": [
+        "lesson-cloudflare-edge"
+      ],
+      "practice_items": [
+        "quiz:edge-cloudflare",
+        "lab:lab-edge-cloudflare-045",
+        "case:case-devops-cdn-delivery-031"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-09-config",
       "track_id": "devops-platform",
-      "order": 9,
+      "order": 12,
+      "phase": "Доставка",
       "title": "Конфигурация и секреты",
       "goal": "Знать, где живут настройки и что делать при утечке секрета",
       "topic_ids": [
@@ -864,7 +1090,7 @@
       "estimated_minutes": 45,
       "required": true,
       "prerequisites": [
-        "step-dv-07-k8s"
+        "step-dv-06-cicd"
       ],
       "study_items": [
         "lesson-config-and-secrets"
@@ -883,33 +1109,68 @@
     {
       "id": "step-dv-10-iac",
       "track_id": "devops-platform",
-      "order": 10,
-      "title": "Инфраструктура как код",
+      "order": 22,
+      "phase": "Инфраструктура",
+      "title": "Terraform",
       "goal": "Понимать состояние, дрейф и идемпотентность, а не только plan и apply",
       "topic_ids": [
         "iac"
       ],
-      "estimated_minutes": 60,
+      "estimated_minutes": 90,
       "required": true,
       "prerequisites": [
-        "step-dv-06-cicd"
+        "step-dv-03-git"
       ],
       "study_items": [
         "lesson-iac-terraform"
       ],
       "practice_items": [
         "quiz:iac",
+        "lab:lab-iac-tf-state-032",
+        "lab:lab-iac-tf-drift-033",
+        "case:case-devops-tf-destroy-025",
         "mock:mock-devops-tech-006"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-32-ansible",
+      "track_id": "devops-platform",
+      "order": 23,
+      "phase": "Инфраструктура",
+      "title": "Ansible",
+      "goal": "Написать идемпотентный playbook и доказать это вторым прогоном с changed=0",
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "estimated_minutes": 80,
+      "required": true,
+      "prerequisites": [
+        "step-dv-10-iac"
+      ],
+      "study_items": [
+        "lesson-ansible-idempotency"
+      ],
+      "practice_items": [
+        "quiz:ansible-config",
+        "lab:lab-iac-ansible-034",
+        "case:case-devops-ansible-idem-026"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-11-observability",
       "track_id": "devops-platform",
-      "order": 11,
+      "order": 15,
+      "phase": "Наблюдаемость и данные",
       "title": "Наблюдаемость",
       "goal": "Различать сигналы и смотреть перцентили вместо среднего",
       "topic_ids": [
@@ -918,7 +1179,7 @@
       "estimated_minutes": 60,
       "required": true,
       "prerequisites": [
-        "step-dv-02-networking"
+        "step-dv-01-linux"
       ],
       "study_items": [
         "lesson-observability-signals"
@@ -936,9 +1197,73 @@
       }
     },
     {
+      "id": "step-dv-28-prometheus-grafana",
+      "track_id": "devops-platform",
+      "order": 16,
+      "phase": "Наблюдаемость и данные",
+      "title": "Prometheus и Grafana",
+      "goal": "Собрать метрики, написать правило тревоги и разобрать «target down» и «No data» без догадок",
+      "topic_ids": [
+        "monitoring-prometheus",
+        "observability"
+      ],
+      "estimated_minutes": 120,
+      "required": true,
+      "prerequisites": [
+        "step-dv-11-observability"
+      ],
+      "study_items": [
+        "lesson-prometheus-grafana"
+      ],
+      "practice_items": [
+        "quiz:monitoring-prometheus",
+        "lab:lab-mon-scrape-024",
+        "lab:lab-mon-alert-025",
+        "lab:lab-mon-grafana-026",
+        "case:case-devops-prom-target-018",
+        "case:case-devops-grafana-nodata-019"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "lab_completed_min": 2,
+        "case_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-29-loki",
+      "track_id": "devops-platform",
+      "order": 17,
+      "phase": "Наблюдаемость и данные",
+      "title": "Логи: Loki и LogQL",
+      "goal": "Находить причину сбоя в логах запросом LogQL: селектор, фильтр, парсер, агрегация",
+      "topic_ids": [
+        "logging-loki"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-dv-28-prometheus-grafana"
+      ],
+      "study_items": [
+        "lesson-loki-logql"
+      ],
+      "practice_items": [
+        "quiz:logging-loki",
+        "lab:lab-log-loki-027",
+        "case:case-devops-logql-020"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
+      }
+    },
+    {
       "id": "step-dv-12-slo",
       "track_id": "devops-platform",
-      "order": 12,
+      "order": 18,
+      "phase": "Наблюдаемость и данные",
       "title": "Надёжность и SLO",
       "goal": "Считать бюджет ошибок и объяснять, почему цель не равна ста процентам",
       "topic_ids": [
@@ -964,19 +1289,21 @@
     {
       "id": "step-dv-13-incidents",
       "track_id": "devops-platform",
-      "order": 13,
-      "title": "Инциденты и постмортемы",
+      "order": 29,
+      "phase": "DutyOps",
+      "title": "Инциденты и коммуникация",
       "goal": "Знать порядок действий в аварии и уметь написать разбор без поиска виноватых",
       "topic_ids": [
         "incidents"
       ],
-      "estimated_minutes": 50,
+      "estimated_minutes": 80,
       "required": true,
       "prerequisites": [
-        "step-dv-12-slo"
+        "step-dv-11-observability"
       ],
       "study_items": [
-        "lesson-incident-response"
+        "lesson-incident-response",
+        "lesson-incident-communication"
       ],
       "practice_items": [
         "quiz:incidents",
@@ -990,9 +1317,85 @@
       }
     },
     {
+      "id": "step-dv-35-dutyops",
+      "track_id": "devops-platform",
+      "order": 30,
+      "phase": "DutyOps",
+      "title": "DutyOps: runbooks и граница полномочий",
+      "goal": "Работать по runbook: первые проверки, безопасные действия, момент эскалации и сообщение в канал",
+      "topic_ids": [
+        "dutyops-runbooks",
+        "incidents"
+      ],
+      "estimated_minutes": 100,
+      "required": true,
+      "prerequisites": [
+        "step-dv-13-incidents"
+      ],
+      "study_items": [
+        "lesson-dutyops-runbooks"
+      ],
+      "practice_items": [
+        "quiz:dutyops-runbooks",
+        "drill:runbook-nginx-upstream-001",
+        "drill:runbook-disk-full-002",
+        "drill:runbook-dns-003",
+        "drill:runbook-db-connections-004",
+        "drill:runbook-container-restart-005",
+        "drill:runbook-k8s-pod-006",
+        "drill:drill-dutyops-disk-005",
+        "drill:drill-dutyops-db-conn-006",
+        "drill:drill-dutyops-k8s-007"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "drill_completed_min": 3
+      }
+    },
+    {
+      "id": "step-dv-36-traffic",
+      "track_id": "devops-platform",
+      "order": 31,
+      "phase": "DutyOps",
+      "title": "Доставка трафика и зеркала",
+      "goal": "Найти, где рвётся доставка трафика до продукта, и восстановить её в пределах полномочий DutyOps",
+      "topic_ids": [
+        "traffic-delivery",
+        "edge-cloudflare",
+        "dutyops-runbooks"
+      ],
+      "estimated_minutes": 110,
+      "required": true,
+      "prerequisites": [
+        "step-dv-35-dutyops",
+        "step-dv-34-cloudflare"
+      ],
+      "study_items": [
+        "lesson-traffic-delivery"
+      ],
+      "practice_items": [
+        "quiz:traffic-delivery",
+        "lab:lab-dutyops-sim-048",
+        "drill:runbook-traffic-delivery-007",
+        "drill:drill-dutyops-mirror-003",
+        "drill:drill-dutyops-region-008",
+        "drill:drill-dutyops-dns-002",
+        "case:case-devops-mirror-032",
+        "case:case-devops-region-012"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "lab_completed_min": 1,
+        "drill_completed_min": 2
+      }
+    },
+    {
       "id": "step-dv-14-deployment",
       "track_id": "devops-platform",
       "order": 14,
+      "phase": "Доставка",
       "title": "Выкат и откат",
       "goal": "Выбирать стратегию выката и делать миграции, при которых откат возможен",
       "topic_ids": [
@@ -1001,8 +1404,7 @@
       "estimated_minutes": 60,
       "required": true,
       "prerequisites": [
-        "step-dv-06-cicd",
-        "step-dv-11-observability"
+        "step-dv-06-cicd"
       ],
       "study_items": [
         "lesson-deployment-strategies"
@@ -1022,35 +1424,104 @@
     {
       "id": "step-dv-15-databases",
       "track_id": "devops-platform",
-      "order": 15,
-      "title": "Базы данных в эксплуатации",
+      "order": 19,
+      "phase": "Наблюдаемость и данные",
+      "title": "PostgreSQL в эксплуатации",
       "goal": "Проверять восстановление копий и понимать цену миграций на живой базе",
       "topic_ids": [
         "databases-ops"
       ],
-      "estimated_minutes": 55,
+      "estimated_minutes": 100,
       "required": true,
       "prerequisites": [
-        "step-dv-14-deployment"
+        "step-dv-01-linux"
       ],
       "study_items": [
-        "lesson-databases-operations"
+        "lesson-databases-operations",
+        "lesson-postgres-connections-restore"
       ],
       "practice_items": [
         "quiz:databases-ops",
+        "lab:lab-db-pg-backup-028",
+        "lab:lab-db-pg-connections-029",
         "case:case-devops-backup-006",
+        "case:case-devops-pg-conn-021",
         "mock:mock-devops-prac-001"
       ],
       "completion_rule": {
         "lesson_read": true,
         "quiz_score_min": 80,
-        "case_completed_min": 1
+        "case_completed_min": 1,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-30-mongo-clickhouse",
+      "track_id": "devops-platform",
+      "order": 20,
+      "phase": "Наблюдаемость и данные",
+      "title": "MongoDB и ClickHouse",
+      "goal": "Объяснить replica set и выборы primary, MergeTree и «Too many parts», и поднять обе базы локально",
+      "topic_ids": [
+        "mongodb-ops",
+        "clickhouse-ops"
+      ],
+      "estimated_minutes": 110,
+      "required": true,
+      "prerequisites": [
+        "step-dv-15-databases"
+      ],
+      "study_items": [
+        "lesson-mongodb-replica-set",
+        "lesson-clickhouse-operations"
+      ],
+      "practice_items": [
+        "quiz:mongodb-ops",
+        "quiz:clickhouse-ops",
+        "lab:lab-db-mongo-rs-030",
+        "lab:lab-db-clickhouse-031",
+        "case:case-devops-mongo-primary-022",
+        "case:case-devops-clickhouse-disk-023"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70,
+        "lab_completed_min": 1
+      }
+    },
+    {
+      "id": "step-dv-31-redis-nats",
+      "track_id": "devops-platform",
+      "order": 21,
+      "phase": "Наблюдаемость и данные",
+      "title": "Redis и NATS",
+      "goal": "Понимать кэш, вытеснение и персистентность Redis и модель publish/subscribe в NATS",
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "estimated_minutes": 60,
+      "required": false,
+      "prerequisites": [
+        "step-dv-04-containers"
+      ],
+      "study_items": [
+        "lesson-redis-nats"
+      ],
+      "practice_items": [
+        "quiz:redis-nats",
+        "lab:lab-cache-redis-047",
+        "lab:lab-msg-nats-046"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 70
       }
     },
     {
       "id": "step-dv-16-security",
       "track_id": "devops-platform",
-      "order": 16,
+      "order": 13,
+      "phase": "Доставка",
       "title": "Безопасность конвейера",
       "goal": "Выдавать права по минимуму и правильно обращаться с секретами",
       "topic_ids": [
@@ -1059,8 +1530,7 @@
       "estimated_minutes": 50,
       "required": true,
       "prerequisites": [
-        "step-dv-09-config",
-        "step-dv-10-iac"
+        "step-dv-06-cicd"
       ],
       "study_items": [
         "lesson-pipeline-security"
@@ -1076,7 +1546,8 @@
     {
       "id": "step-dv-17-cloud",
       "track_id": "devops-platform",
-      "order": 17,
+      "order": 24,
+      "phase": "Инфраструктура",
       "title": "Облачные основы",
       "goal": "Разбираться в зонах доступности, правах и источниках счёта",
       "topic_ids": [
@@ -1084,9 +1555,7 @@
       ],
       "estimated_minutes": 45,
       "required": true,
-      "prerequisites": [
-        "step-dv-10-iac"
-      ],
+      "prerequisites": [],
       "study_items": [
         "lesson-cloud-basics"
       ],
@@ -1101,32 +1570,39 @@
     {
       "id": "step-dv-18-scripting",
       "track_id": "devops-platform",
-      "order": 18,
-      "title": "Скрипты автоматизации",
-      "goal": "Писать скрипты, которые безопасно перезапускать и которые честно возвращают код",
+      "order": 7,
+      "phase": "Основа",
+      "title": "Bash и Python для автоматизации",
+      "goal": "Писать короткие скрипты, которым можно доверять: коды выхода, таймауты, идемпотентность",
       "topic_ids": [
         "scripting"
       ],
-      "estimated_minutes": 45,
+      "estimated_minutes": 90,
       "required": true,
       "prerequisites": [
         "step-dv-01-linux"
       ],
       "study_items": [
-        "lesson-scripting-automation"
+        "lesson-scripting-automation",
+        "lesson-python-automation"
       ],
       "practice_items": [
-        "quiz:scripting"
+        "quiz:scripting",
+        "lab:lab-script-healthcheck-015",
+        "lab:lab-script-idempotent-016",
+        "lab:lab-script-python-017"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "quiz_score_min": 80
+        "quiz_score_min": 80,
+        "lab_completed_min": 1
       }
     },
     {
       "id": "step-dv-19-capacity",
       "track_id": "devops-platform",
-      "order": 19,
+      "order": 32,
+      "phase": "DutyOps",
       "title": "Стоимость и ёмкость",
       "goal": "Понимать, откуда берётся счёт и почему кластер бывает пуст и переполнен одновременно",
       "topic_ids": [
@@ -1135,7 +1611,7 @@
       "estimated_minutes": 40,
       "required": false,
       "prerequisites": [
-        "step-dv-17-cloud"
+        "step-dv-12-slo"
       ],
       "study_items": [
         "lesson-cost-capacity"
@@ -1152,7 +1628,8 @@
     {
       "id": "step-dv-20-stories",
       "track_id": "devops-platform",
-      "order": 20,
+      "order": 33,
+      "phase": "Интервью",
       "title": "Свои истории",
       "goal": "Собрать банк историй по схеме STAR: авария, ошибка, разногласие, улучшение",
       "topic_ids": [
@@ -1160,32 +1637,32 @@
       ],
       "estimated_minutes": 60,
       "required": true,
-      "prerequisites": [
-        "step-dv-13-incidents"
-      ],
+      "prerequisites": [],
       "study_items": [
         "lesson-behavioral-devops"
       ],
       "practice_items": [
         "quiz:behavioral-devops",
         "mock:mock-devops-beh-001",
-        "mock:mock-devops-beh-003"
+        "mock:mock-devops-beh-003",
+        "mock:mock-devops-rc-027"
       ],
       "completion_rule": {
         "lesson_read": true,
-        "stories_filled_min": 3
+        "stories_filled_min": 4
       }
     },
     {
       "id": "step-dv-21-vacancy",
       "track_id": "devops-platform",
-      "order": 21,
-      "title": "Разбор вакансии",
-      "goal": "Пройти требования и честно отметить, что подтверждено, а что предстоит закрыть",
+      "order": 34,
+      "phase": "Интервью",
+      "title": "Разбор вакансии и честные ответы",
+      "goal": "Сверить свои доказательства с требованиями RedCore и подготовить честные ответы о пробелах в опыте",
       "topic_ids": [
         "behavioral-devops"
       ],
-      "estimated_minutes": 45,
+      "estimated_minutes": 60,
       "required": true,
       "prerequisites": [
         "step-dv-20-stories"
@@ -1193,16 +1670,21 @@
       "study_items": [],
       "practice_items": [
         "mock:mock-devops-intro-001",
-        "mock:mock-devops-mot-001"
+        "mock:mock-devops-mot-001",
+        "mock:mock-devops-rc-004",
+        "mock:mock-devops-rc-022",
+        "mock:mock-devops-rc-029",
+        "mock:mock-devops-rc-030"
       ],
       "completion_rule": {
-        "mock_answered_min": 2
+        "mock_answered_min": 4
       }
     },
     {
       "id": "step-dv-22-full-mock",
       "track_id": "devops-platform",
-      "order": 22,
+      "order": 35,
+      "phase": "Интервью",
       "title": "Полная сессия mock interview",
       "goal": "Пройти сессию целиком и увидеть, где ответы рассыпаются под давлением времени",
       "topic_ids": [
@@ -1220,6 +1702,33 @@
       ],
       "completion_rule": {
         "full_mock_sessions_min": 1
+      }
+    },
+    {
+      "id": "step-dv-37-final-incident",
+      "track_id": "devops-platform",
+      "order": 36,
+      "phase": "Интервью",
+      "title": "Финальная симуляция инцидента",
+      "goal": "Пройти незнакомый инцидент целиком под таймер: от первой проверки до сообщения о восстановлении",
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks",
+        "traffic-delivery"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-dv-22-full-mock"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "drill:drill-dutyops-tls-004",
+        "drill:drill-dutyops-region-008",
+        "drill:drill-dutyops-502-001"
+      ],
+      "completion_rule": {
+        "drill_completed_min": 2
       }
     },
     {

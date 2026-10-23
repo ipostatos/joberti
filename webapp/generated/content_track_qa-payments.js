@@ -409,6 +409,7 @@
    "track_id":"qa-payments"
   }
  ],
+ "dutyopsDrills":[],
  "englishDrills":[
   {
    "category":"О себе",
@@ -4831,6 +4832,7 @@
    ]
   }
  ],
+ "labs":[],
  "lessons":[
   {
    "common_mistakes":[

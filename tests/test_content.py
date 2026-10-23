@@ -329,6 +329,8 @@ class TestReferences(unittest.TestCase):
         topic_ids = set(self.c.topics_by_id)
         case_ids = set(self.c.cases_by_id)
         mock_ids = set(self.c.mock_by_id)
+        lab_ids = set(self.c.labs_by_id)
+        drill_ids = set(self.c.drills_by_id)
         for s in self.c.roadmap:
             for item in s.get("practice_items") or []:
                 kind, _, ref = item.partition(":")
@@ -341,6 +343,10 @@ class TestReferences(unittest.TestCase):
                         self.assertIn(ref, case_ids)
                     elif kind == "mock":
                         self.assertIn(ref, mock_ids)
+                    elif kind == "lab":
+                        self.assertIn(ref, lab_ids)
+                    elif kind == "drill":
+                        self.assertIn(ref, drill_ids)
                     else:
                         self.fail(f"неизвестный тип practice_item: {kind}")
 

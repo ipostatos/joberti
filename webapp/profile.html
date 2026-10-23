@@ -174,7 +174,11 @@
     if (b.key === "mock") return "отвечено " + d.answered + " из " + d.total +
       " · полных сессий " + d.fullSessions;
     if (b.key === "cases") return "пройдено " + d.completed + " из " + d.total +
-      " · критических " + d.criticalDone + " из " + d.criticalTotal;
+      " · критических " + d.criticalDone + " из " + d.criticalTotal +
+      (d.drillsTotal ? " · drills " + d.drillsDone + " из " + d.drillsTotal : "");
+    if (b.key === "labs") return "выполнено " + d.completed + " из " + d.total +
+      " · post-check от 67%: " + d.confirmed + " · core-доменов " + d.coreDomainsClosed + " из " +
+      d.coreDomains.length;
     if (b.key === "glossary") return "освоено " + d.mastered + " из " + d.total;
     if (b.key === "plan") return "шагов " + d.doneRequired + " из " + d.totalRequired +
       " · активных дней " + d.activeDays + " из " + d.window;

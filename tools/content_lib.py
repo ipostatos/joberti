@@ -40,6 +40,10 @@ FILES = {
     "english_drills": "english_drills.json",
     "english_writing": "english_writing.json",
     "english_resources": "english_resources.json",
+    # Практика DevOps: лабораторные и DutyOps-упражнения. Записи привязаны к
+    # треку через track_id, как вопросы и кейсы.
+    "labs": "labs.json",
+    "dutyops": "dutyops.json",
 }
 
 # Ключ верхнего уровня со списком записей внутри каждого файла.
@@ -63,6 +67,8 @@ LIST_KEY = {
     "english_drills": "drills",
     "english_writing": "snippets",
     "english_resources": "resources",
+    "labs": "labs",
+    "dutyops": "drills",
 }
 
 # Разделы английского. Он сквозной: пустой track_ids означает «во всех треках».
@@ -94,6 +100,8 @@ class Content:
     english_drills: list = field(default_factory=list)
     english_writing: list = field(default_factory=list)
     english_resources: list = field(default_factory=list)
+    labs: list = field(default_factory=list)
+    dutyops: list = field(default_factory=list)
 
     # ── индексы по id (строятся один раз) ──
     @property
@@ -131,6 +139,14 @@ class Content:
     @property
     def steps_by_id(self) -> dict:
         return {x["id"]: x for x in self.roadmap}
+
+    @property
+    def labs_by_id(self) -> dict:
+        return {x["id"]: x for x in self.labs}
+
+    @property
+    def drills_by_id(self) -> dict:
+        return {x["id"]: x for x in self.dutyops}
 
     def track(self, track_id: str) -> dict | None:
         return self.tracks_by_id.get(track_id)
@@ -179,6 +195,8 @@ class Content:
             "english_drills": len(self.english_drills),
             "english_writing": len(self.english_writing),
             "english_resources": len(self.english_resources),
+            "labs": len(self.labs),
+            "dutyops_drills": len(self.dutyops),
         }
 
 

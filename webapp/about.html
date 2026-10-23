@@ -105,27 +105,32 @@
 (function () {
   "use strict";
 
-  var W = Readiness.WEIGHTS;
+  // Веса и ограничители — профиля выбранного трека: у DevOps-трека они свои.
+  var P = App.readinessProfile();
+  var W = P.weights;
   var titles = {
     knowledge: "Знания и повторение (SRS)",
     mock: "Mock interview",
-    cases: "Практические кейсы",
+    cases: P.id === "devops" ? "Инциденты: кейсы и DutyOps drills" : "Практические кейсы",
     glossary: "Словарь",
     plan: "План и регулярность",
+    labs: "Лабораторные (чек-лист, заметка, post-check)",
   };
   document.getElementById("weights").innerHTML = Object.keys(W).map(function (k) {
     return '<div class="w"><span>' + App.esc(titles[k]) + "</span>" +
       "<b>" + W[k] + "%</b></div>";
   }).join("");
 
-  var C = Readiness.CAPS;
+  var C = P.caps;
   var capText = {
     noFullMock: "нет ни одной полной сессии mock interview",
     fewCases: "пройдено меньше " + Readiness.MIN_CASES + " практических кейсов",
-    weakCriticalTopic: "критическая тема ниже " +
-      Math.round(Readiness.WEAK_CRITICAL * 100) + "%",
-    lowTopicCoverage: "охвачено меньше " +
-      Math.round(Readiness.MIN_TOPIC_COVERAGE * 100) + "% обязательных тем",
+    weakCriticalTopic: "критическая тема ниже " + Math.round(P.weakCritical * 100) + "%",
+    lowTopicCoverage: "охвачено меньше " + Math.round(P.minTopicCoverage * 100) + "% обязательных тем",
+    noDiagnostic: "не пройдена диагностика уровня",
+    fewLabs: "выполнено меньше " + (P.minLabs || 0) + " лабораторных",
+    coreLabDomainMissing: "какой-то core-домен без выполненной лабораторной",
+    fewIncidents: "разобрано меньше " + (P.minIncidents || 0) + " инцидентов (кейсы и drills)",
   };
   document.getElementById("caps").innerHTML = Object.keys(C).map(function (k) {
     return '<div class="w"><span>' + App.esc(capText[k]) + "</span>" +
@@ -139,6 +144,7 @@
     library_resources: "Материалов библиотеки", questions: "Вопросов теста",
     mock_questions: "Вопросов mock interview", cases: "Практических кейсов",
     roadmap_steps: "Шагов плана", sources: "Источников",
+    labs: "Лабораторных", dutyops_drills: "DutyOps-упражнений",
   };
   document.getElementById("counts").innerHTML = Object.keys(labels)
     .filter(function (k) { return n[k] !== undefined; })
