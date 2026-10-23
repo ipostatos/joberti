@@ -715,6 +715,110 @@
       "when": "Ответ на отказ. Обратная связь после отказа — самый дешёвый источник роста.",
       "note": "Отвечайте спокойно: компании возвращаются к кандидатам через полгода.",
       "variants": ["I'd appreciate any feedback that could help me next time."]
+    },
+    {
+      "id": "eph-devops-rc-01",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "We're seeing elevated 5xx errors on … since …; investigating.",
+      "ru": "Видим рост ошибок 5xx на … с …; разбираемся.",
+      "when": "Первое сообщение в канал инцидента: симптом, где и с какого времени.",
+      "note": "Пишите факт, а не догадку о причине: причина в первом сообщении часто оказывается неверной.",
+      "variants": ["Users are reporting timeouts on … starting around …; we're looking into it."]
+    },
+    {
+      "id": "eph-devops-rc-02",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 1,
+      "en": "Next update in 15 minutes.",
+      "ru": "Следующее обновление через 15 минут.",
+      "when": "Конец каждого статуса в инциденте, даже если новостей нет.",
+      "note": "Обещанный срок снимает поток вопросов «ну что там?» и даёт команде работать.",
+      "variants": ["No change since the last update; next one at …"]
+    },
+    {
+      "id": "eph-devops-rc-03",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "Mitigation is in place; root cause is still under investigation.",
+      "ru": "Ущерб снижен; первопричину ещё выясняем.",
+      "when": "Сервис восстановлен обходным путём или откатом, но причина не найдена.",
+      "note": "Разделяет «пользователям уже нормально» и «мы ещё не знаем почему» — так не создаётся ложное ощущение, что всё закрыто.",
+      "variants": ["The service is back to normal after the rollback; we're still looking for the cause."]
+    },
+    {
+      "id": "eph-devops-rc-04",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "I'm escalating this to … because it's outside my authority.",
+      "ru": "Эскалирую это на …, потому что это вне моих полномочий.",
+      "when": "Нужно решение или доступ, которых у вас нет: переключение трафика, изменение у провайдера, общение с клиентом.",
+      "note": "Причина эскалации в одной фразе показывает, что вы не бросаете задачу, а действуете по процессу.",
+      "variants": ["This needs a decision from the service owner, so I'm paging …"]
+    },
+    {
+      "id": "eph-devops-rc-05",
+      "category": "Опыт и проекты",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "I don't have hands-on production experience with …, but I have built … in a lab.",
+      "ru": "Практического опыта с … в проде у меня нет, но в лаборатории я собрал(а) …",
+      "when": "Вопрос об инструменте из вакансии, который вы знаете только по лабораторным.",
+      "note": "После фразы назовите одно конкретное действие из лабы: это убедительнее любого «я знаком с».",
+      "variants": ["In production, no; in my home lab, yes — I set up … and broke it on purpose to practise recovery."]
+    },
+    {
+      "id": "eph-devops-rc-06",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "The impact is limited to …; other services are not affected.",
+      "ru": "Ущерб ограничен …; остальные сервисы не затронуты.",
+      "when": "Статус в инциденте или ответ интервьюеру на вопрос «как вы оценили масштаб».",
+      "note": "Масштаб поражения — первое, что хотят знать руководитель и поддержка.",
+      "variants": ["Only users in … are affected; everything else looks healthy."]
+    },
+    {
+      "id": "eph-devops-rc-07",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "I've ruled out …; the next thing I'm checking is …",
+      "ru": "… я исключил(а); дальше проверяю …",
+      "when": "Промежуточный статус в инциденте или рассуждение вслух на техническом собеседовании.",
+      "note": "Интервьюер слышит порядок диагностики, коллеги — что повторять не нужно.",
+      "variants": ["DNS and TLS look fine, so I'm moving on to the upstream."]
+    },
+    {
+      "id": "eph-devops-rc-08",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "en": "Handing over: current status is …, what's been tried is …, and the open question is …",
+      "ru": "Передаю дела: текущий статус …, что уже пробовали …, открытый вопрос …",
+      "when": "Конец смены посреди инцидента или передача инцидента другой команде.",
+      "note": "Три части в одном сообщении — и следующему дежурному не нужно перечитывать весь канал.",
+      "variants": ["Quick handoff: it's mitigated, the rollback worked, and we still don't know why the pool ran out."]
     }
   ]
 }

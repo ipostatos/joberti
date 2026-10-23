@@ -37,6 +37,17 @@
   .status-row button.on[data-s="not_started"], .status-row button.on[data-s="not_applicable"]{
     color:var(--text); background:var(--muted-fill) }
   .tag{ font-size:var(--fs-sm) }
+  .status-row button.on[data-s="unverified_experience"]{ color:var(--bad); background:color-mix(in srgb,var(--bad) 14%,transparent) }
+  .st-unverified_experience{ color:var(--bad); background:color-mix(in srgb, var(--bad) 14%, transparent) }
+  .kindb{ display:inline-block; font-size:var(--fs-xs); font-weight:700; padding:1px 7px; margin-left:4px;
+    border-radius:var(--r-pill); color:var(--bad); background:color-mix(in srgb,var(--bad) 12%,transparent) }
+  .big-num{ font-size:34px; font-weight:800; line-height:1 }
+  .mx{ width:100%; border-collapse:collapse; font-size:var(--fs-xs) }
+  .mx th{ text-align:left; color:var(--hint); font-weight:600; padding:4px 6px; border-bottom:1px solid var(--border); white-space:nowrap }
+  .mx td{ padding:6px; border-bottom:1px solid var(--border); white-space:nowrap }
+  .mx td.n{ text-align:right }
+  .mx tr:last-child td{ border-bottom:0 }
+  .warnline{ color:var(--warn) }
 </style>
 </head>
 <body>
@@ -63,7 +74,14 @@
     learning: "учу",
     not_started: "не начато",
     not_applicable: "не применимо",
+    unverified_experience: "опыт не подтверждён",
   };
+  // Для требований-опыта «учу» не имеет смысла: стаж учёбой не набирается.
+  var STATUS_SKILL = ["confirmed", "partial", "learning", "not_started", "not_applicable"];
+  var STATUS_EXPERIENCE = ["confirmed", "partial", "unverified_experience", "not_started"];
+  var EFF_LABEL = { confirmed: "подтверждено", partial: "частично", learning: "учу",
+    not_started: "—", not_applicable: "—", unverified_experience: "нет" };
+  var detailed = !!(v.skill_matrix && v.skill_matrix.length);
   var IMPORTANCE_LABEL = {
     required: "обязательное",
     desirable: "желательное",
@@ -78,7 +96,8 @@
       return ORDER[a.importance] - ORDER[b.importance];
     });
 
-    var stats = { confirmed: 0, partial: 0, learning: 0, not_started: 0, not_applicable: 0 };
+    var stats = { confirmed: 0, partial: 0, learning: 0, not_started: 0, not_applicable: 0,
+      unverified_experience: 0 };
     reqs.forEach(function (r) { stats[App.requirementState(r).status]++; });
 
     var required = reqs.filter(function (r) { return r.importance === "required"; });
@@ -96,9 +115,13 @@
       " · " + App.esc(v.work_format) + "</div></div></div>");
 
     parts.push('<div class="card"><p class="small" style="line-height:1.65">' +
-      App.esc(v.summary) + "</p></div>");
+      App.esc(v.summary) + "</p>" + sourceLine() + "</div>");
 
-    parts.push('<div class="card">' +
+    var cov = detailed ? App.requirementCoverage() : null;
+    if (cov) parts.push(coverageCard(cov));
+    if (detailed) parts.push(matrixCard(cov));
+
+    if (!detailed) parts.push('<div class="card">' +
       '<div class="h3">Разрыв по обязательным требованиям</div>' +
       '<div class="meter ' + (closedReq === required.length ? "ok" : "warn") + '">' +
       '<i style="width:' + Math.round(closedReq / Math.max(1, required.length) * 100) + '%"></i></div>' +
@@ -135,6 +158,11 @@
       "Статус и доказательство из портфолио заполняете вы. Приложение не " +
       "проставляет их само и не придумывает за вас достижения.</p>");
 
+    if (detailed) {
+      parts.push('<p class="small muted" style="margin-bottom:var(--sp-3)">' +
+        "Статус «подтверждено» или «частично» засчитывается в покрытие только вместе с " +
+        "доказательством. Требования-опыт (стаж) учёбой и лабораторными не закрываются.</p>");
+    }
     parts.push('<div class="chip-row" id="filters" style="margin-bottom:var(--sp-3)">' +
       ['<button class="chip' + (filter === "all" ? " on" : "") + '" data-f="all">Все</button>',
        '<button class="chip' + (filter === "required" ? " on" : "") + '" data-f="required">Обязательные</button>',
@@ -148,16 +176,31 @@
       return true;
     });
 
+    var covRows = {};
+    if (cov) cov.rows.forEach(function (x) { covRows[x.id] = x; });
     parts.push('<div id="reqList">' + shown.map(function (r) {
       var st = App.requirementState(r);
+      var cr = covRows[r.id];
+      var exp = r.kind === "experience";
       return '<div class="req" data-req="' + App.esc(r.id) + '">' +
         '<div class="top">' +
         '<span class="st st-' + App.esc(st.status) + '">' +
         App.esc(STATUS_LABEL[st.status]) + "</span>" +
         '<div class="body"><div class="t">' + App.esc(r.requirement) + "</div>" +
         '<div class="imp">' + App.esc(IMPORTANCE_LABEL[r.importance]) +
+        (exp ? '<span class="kindb">опыт</span>' : "") +
         ((r.topic_ids || []).length ? " · " + r.topic_ids.map(App.topicTitle).join(", ") : "") +
         "</div></div></div>" +
+        (cr && cr.claimedWithoutEvidence
+          ? '<div class="line warnline"><b>Не засчитано:</b> статус без доказательства. Добавьте, чем он подтверждается.</div>' : "") +
+        (cr && cr.experienceGap
+          ? '<div class="line warnline"><b>Пробел опыта:</b> закрывается только реальной работой. ' +
+            "Подготовьте честный ответ, почему вас стоит рассмотреть.</div>" : "") +
+        (cr && !exp && (cr.learningPct != null || cr.labsTotal)
+          ? '<div class="line muted"><b>Учебное покрытие:</b> ' +
+            (cr.learningPct != null ? "знания " + cr.learningPct + "%" : "") +
+            (cr.labsTotal ? (cr.learningPct != null ? " · " : "") + "лабораторных " + cr.labsDone + " из " + cr.labsTotal : "") +
+            " — в процент покрытия не входит</div>" : "") +
 
         (st.evidence
           ? '<div class="line"><b>Доказательство:</b> ' + App.esc(st.evidence) + "</div>"
@@ -167,7 +210,7 @@
         '<div class="line"><b>Следующий шаг:</b> ' + App.esc(r.next_action || "—") + "</div>" +
 
         '<div class="status-row">' +
-        ["confirmed", "partial", "learning", "not_started", "not_applicable"].map(function (s) {
+        (exp ? STATUS_EXPERIENCE : STATUS_SKILL).map(function (s) {
           return '<button class="' + (st.status === s ? "on" : "") + '" data-s="' + s +
             '" data-for="' + App.esc(r.id) + '">' + App.esc(STATUS_LABEL[s]) + "</button>";
         }).join("") + "</div>" +
@@ -178,9 +221,112 @@
         "</div>";
     }).join("") + "</div>");
 
+    if (detailed && (v.evidence_prompts || []).length) parts.push(portfolioSection());
+
     root.innerHTML = parts.join("");
     Icons.hydrate();
     bind();
+  }
+
+  // ── источник вакансии ──
+  function sourceLine() {
+    if (!v.source_url) return "";
+    var ok = v.source_status === "verified";
+    return '<div class="xs muted" style="margin-top:var(--sp-2); line-height:1.5">' +
+      'Источник: <a href="' + App.esc(v.source_url) + '" target="_blank" rel="noopener noreferrer">' +
+      App.esc(v.vacancy_ref || v.source_url) + "</a> · " +
+      (ok ? "сверено " + App.esc(v.source_verified_at)
+        : '<span class="warnline">текст не сверен с живой страницей</span>' +
+          (v.source_snapshot_at ? " (снимок " + App.esc(v.source_snapshot_at) + ")" : "")) +
+      (ok ? "" : "<br>" + App.esc(v.source_note || "")) + "</div>";
+  }
+
+  // ── покрытие требований ──
+  function coverageCard(cov) {
+    var r = App.readiness();
+    return '<div class="card"><div class="h3">Покрытие требований</div>' +
+      '<div style="display:flex; align-items:flex-end; gap:var(--sp-4)">' +
+      '<div><div class="big-num">' + cov.percent + '%</div><div class="xs muted">по доказательствам</div></div>' +
+      '<div class="small" style="line-height:1.6">' +
+      "Неподтверждённых обязательных: <b>" + cov.unconfirmedRequired + " из " + cov.requiredTotal + "</b><br>" +
+      "Пробелов опыта (hard gaps): <b>" + cov.hardGaps + "</b></div></div>" +
+      '<div class="meter ' + (cov.percent >= 70 ? "ok" : "warn") + '" style="margin-top:var(--sp-3)">' +
+      '<i style="width:' + cov.percent + '%"></i></div>' +
+      '<p class="xs muted" style="margin-top:var(--sp-2); line-height:1.5">' +
+      "Это не вероятность найма и не готовность к интервью" +
+      (r.available ? " (готовность сейчас " + r.percent + "%)" : "") +
+      ". Вес: обязательное ×3, желательное ×2; статус: подтверждено 100%, частично 55%, учу 25%. " +
+      "Подтверждённым считается только то, для чего вы сами описали доказательство.</p></div>";
+  }
+
+  // ── матрица навыков ──
+  function matrixCard(cov) {
+    var rows = App.skillMatrix(null, cov);
+    if (!rows.length) return "";
+    var pct = function (x) { return x == null ? "—" : x + "%"; };
+    return '<div class="card"><div class="h3">Матрица навыков</div>' +
+      '<p class="xs muted" style="margin-bottom:var(--sp-2); line-height:1.5">Колонки не сводятся в одну оценку: ' +
+      "цель вакансии, доказательство, учебная освоенность, лабораторные и ответы на интервью — разные вещи. " +
+      "Уровни: " + Object.keys(v.depth_levels || {}).map(function (k) {
+        return k + " — " + App.esc(v.depth_levels[k]);
+      }).join("; ") + ".</p>" +
+      '<div class="scroll-x"><table class="mx"><thead><tr><th>Домен</th><th>Цель</th><th>Доказ.</th>' +
+      '<th class="n">Освоено</th><th class="n">Лабы</th><th class="n">Интервью</th></tr></thead><tbody>' +
+      rows.map(function (d) {
+        return "<tr><td>" + App.esc(d.title) + ' <span class="muted">' + App.esc(d.priority) + "</span></td>" +
+          "<td>" + App.esc(d.target) + "</td>" +
+          "<td>" + App.esc(d.evidence ? EFF_LABEL[d.evidence] : "—") + "</td>" +
+          '<td class="n">' + pct(d.learningPct) + "</td>" +
+          '<td class="n">' + d.labsDone + "/" + d.labsTotal + "</td>" +
+          '<td class="n">' + pct(d.interviewPct) + "</td></tr>";
+      }).join("") + "</tbody></table></div></div>";
+  }
+
+  // ── доказательства из портфолио ──
+  var PF_LABELS = { project: "Проект", owned: "За что отвечал(а) лично", changed: "Что изменил(а)",
+    verified: "Как проверил(а)", result: "Результат", link: "Ссылка или репозиторий" };
+  function portfolioSection() {
+    return '<div class="section-title">Доказательства из портфолио</div>' +
+      '<p class="small muted" style="margin-bottom:var(--sp-3)">Заполняете вы сами: приложение не придумывает ' +
+      "опыт. Пишите, что было на самом деле, и отделяйте production от учебного стенда.</p>" +
+      '<div id="pfList">' + v.evidence_prompts.map(function (ep) {
+        var st = App.portfolioState(ep.id);
+        var filled = !!((st.project || "").trim() && (st.result || "").trim());
+        return '<div class="req" data-pf="' + App.esc(ep.id) + '"><div class="top">' +
+          '<span class="st ' + (filled ? "st-confirmed" : "st-not_started") + '">' + (filled ? "заполнено" : "пусто") + "</span>" +
+          '<div class="body"><div class="t">' + App.esc(ep.title) + "</div>" +
+          '<div class="imp">' + App.esc(ep.hint) + "</div></div></div>" +
+          (filled ? '<div class="line"><b>' + App.esc(st.project) + ":</b> " + App.esc(st.result) + "</div>" : "") +
+          '<div class="btn-row" style="margin-top:var(--sp-2)"><button class="btn sm ghost" data-pfedit="' +
+          App.esc(ep.id) + '">' + (filled ? "Изменить" : "Заполнить") + "</button></div></div>";
+      }).join("") + "</div>";
+  }
+
+  function openPortfolio(id) {
+    var card = document.querySelector('[data-pf="' + CSS.escape(id) + '"]');
+    if (!card || card.querySelector(".editor")) return;
+    var st = App.portfolioState(id);
+    var box = document.createElement("div");
+    box.className = "editor";
+    box.style.marginTop = "var(--sp-3)";
+    box.innerHTML = App.PORTFOLIO_FIELDS.map(function (k) {
+      return '<label class="field"><span class="lb">' + PF_LABELS[k] + "</span>" +
+        (k === "link" || k === "project" ? '<input data-k="' + k + '">' : '<textarea data-k="' + k + '"></textarea>') +
+        "</label>";
+    }).join("") + '<div class="btn-row"><button class="btn sm ghost" data-cancel="1">Отмена</button>' +
+      '<button class="btn sm" data-save="1">Сохранить</button></div>';
+    card.appendChild(box);
+    App.PORTFOLIO_FIELDS.forEach(function (k) { box.querySelector('[data-k="' + k + '"]').value = st[k] || ""; });
+    box.addEventListener("click", function (e) {
+      if (e.target.getAttribute("data-cancel")) { box.remove(); return; }
+      if (e.target.getAttribute("data-save")) {
+        var f = {};
+        App.PORTFOLIO_FIELDS.forEach(function (k) { f[k] = box.querySelector('[data-k="' + k + '"]').value; });
+        App.savePortfolio(id, f);
+        toast("Сохранено");
+        render();
+      }
+    });
   }
 
   function bind() {
@@ -191,6 +337,14 @@
         if (!b) return;
         filter = b.getAttribute("data-f");
         render();
+      });
+    }
+
+    var pf = document.getElementById("pfList");
+    if (pf) {
+      pf.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-pfedit]");
+        if (b) openPortfolio(b.getAttribute("data-pfedit"));
       });
     }
 

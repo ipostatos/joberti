@@ -1159,6 +1159,198 @@
       "example_en": "The migration runs during the maintenance window on Sunday.",
       "example_ru": "Миграция идёт в окно работ в воскресенье.",
       "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-01",
+      "term": "degradation",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˌdeɡrəˈdeɪʃən/",
+      "ru_hint": "де-гре-ДЭЙ-шн",
+      "meaning": "деградация: сервис работает, но хуже обычного (медленнее, с частью ошибок)",
+      "wrong": "путают с outage: при degradation сервис доступен, просто плохо",
+      "example_en": "We're seeing a partial degradation, not a full outage.",
+      "example_ru": "У нас частичная деградация, а не полный простой.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/degradation"
+    },
+    {
+      "id": "ew-devops-rc-02",
+      "term": "mitigate",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˈmɪtɪɡeɪt/",
+      "ru_hint": "МИ-ти-гейт",
+      "meaning": "снизить ущерб от проблемы, не обязательно устранив причину",
+      "wrong": "«митигейт» с ударением на «гейт»; путают с fix",
+      "example_en": "We mitigated the issue by rolling back the release.",
+      "example_ru": "Мы снизили ущерб, откатив релиз.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/mitigate"
+    },
+    {
+      "id": "ew-devops-rc-03",
+      "term": "root cause",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˌruːt ˈkɔːz/",
+      "ru_hint": "РУТ КОЗ",
+      "meaning": "первопричина: то, что на самом деле вызвало инцидент",
+      "wrong": "«рут кауз» — в cause читается долгое «о», не «ау»",
+      "example_en": "The root cause was an expired certificate.",
+      "example_ru": "Первопричиной был просроченный сертификат.",
+      "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-04",
+      "term": "rollback",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 1,
+      "ipa": "/ˈrəʊlbæk/",
+      "ru_hint": "РОУЛ-бэк",
+      "meaning": "откат на предыдущую рабочую версию",
+      "wrong": "«роллбэк» с русским «о»; глагол пишется раздельно: roll back",
+      "example_en": "We need to roll back. The rollback takes about two minutes.",
+      "example_ru": "Нужно откатиться. Откат занимает около двух минут.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/rollback"
+    },
+    {
+      "id": "ew-devops-rc-05",
+      "term": "failover",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˈfeɪləʊvə/",
+      "ru_hint": "ФЭЙЛ-оу-вэ",
+      "meaning": "автоматическое или ручное переключение на резервный узел или площадку",
+      "wrong": "«фейловер» с ударением на «ло»; ударение на первый слог",
+      "example_en": "The database failover took thirty seconds.",
+      "example_ru": "Переключение базы на резерв заняло тридцать секунд.",
+      "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-06",
+      "term": "on-call",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 1,
+      "ipa": "/ˌɒn ˈkɔːl/",
+      "ru_hint": "он-КОЛ",
+      "meaning": "дежурство: человек, который отвечает на алерты в своё время смены",
+      "wrong": "«он-калл» с коротким «а» — в call долгое «о»",
+      "example_en": "Who's on call this weekend?",
+      "example_ru": "Кто дежурит в эти выходные?",
+      "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-07",
+      "term": "postmortem",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˌpəʊstˈmɔːtəm/",
+      "ru_hint": "поуст-МО-тэм",
+      "meaning": "разбор инцидента после его завершения: хронология, причины, действия",
+      "wrong": "«постмортем» с ударением на первый слог; разбор без поиска виноватых называют blameless",
+      "example_en": "We'll write a blameless postmortem by Friday.",
+      "example_ru": "К пятнице напишем разбор без поиска виноватых.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/post-mortem"
+    },
+    {
+      "id": "ew-devops-rc-08",
+      "term": "runbook",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 1,
+      "ipa": "/ˈrʌnbʊk/",
+      "ru_hint": "РАН-бук",
+      "meaning": "инструкция для дежурного: шаги диагностики и восстановления по конкретной тревоге",
+      "wrong": "«рунбук» — первый слог как в run, «ран»",
+      "example_en": "Follow the runbook before you escalate.",
+      "example_ru": "Прежде чем эскалировать, пройди по runbook.",
+      "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-09",
+      "term": "upstream",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˈʌpstriːm/",
+      "ru_hint": "АП-стрим",
+      "meaning": "сервис, к которому прокси или балансировщик передаёт запросы",
+      "wrong": "«упстрим» по буквам; в Nginx это бэкенд, а не провайдер",
+      "example_en": "Nginx returns 502 when the upstream doesn't respond.",
+      "example_ru": "Nginx отдаёт 502, когда upstream не отвечает.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/upstream"
+    },
+    {
+      "id": "ew-devops-rc-10",
+      "term": "propagation",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 3,
+      "ipa": "/ˌprɒpəˈɡeɪʃən/",
+      "ru_hint": "про-пэ-ГЭЙ-шн",
+      "meaning": "распространение изменения, например DNS-записи, пока старые ответы живут в кэшах",
+      "wrong": "ударение на «гэй», а не на «про»",
+      "example_en": "DNS propagation can take up to the TTL of the old record.",
+      "example_ru": "Распространение DNS может занять до TTL старой записи.",
+      "dict_url": "https://dictionary.cambridge.org/dictionary/english/propagation"
+    },
+    {
+      "id": "ew-devops-rc-11",
+      "term": "handoff",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 2,
+      "ipa": "/ˈhændɒf/",
+      "ru_hint": "ХЭНД-оф",
+      "meaning": "передача дел между дежурными или командами: статус, что сделано, что открыто",
+      "wrong": "«хандофф» с русским «а» — звук как в hand",
+      "example_en": "I'll write a handoff note before my shift ends.",
+      "example_ru": "Перед концом смены напишу записку для передачи дел.",
+      "dict_url": ""
+    },
+    {
+      "id": "ew-devops-rc-12",
+      "term": "blast radius",
+      "category": "DevOps",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "level": 3,
+      "ipa": "/ˈblɑːst ˌreɪdiəs/",
+      "ru_hint": "БЛАСТ РЭЙ-ди-эс",
+      "meaning": "масштаб поражения: сколько пользователей и систем затронет сбой или изменение",
+      "wrong": "«радиус» по-русски — в radius первый слог «рэй»",
+      "example_en": "A canary release keeps the blast radius small.",
+      "example_ru": "Канареечный выкат держит масштаб поражения маленьким.",
+      "dict_url": ""
     }
   ]
 }

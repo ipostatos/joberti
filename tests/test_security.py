@@ -181,6 +181,17 @@ class TestWebSecurity(unittest.TestCase):
                               .replace("App.esc(x." + field + ")", f"App.esc({field})"),
                               f"{page_name}: значение {field} должно проходить через App.esc")
 
+    def test_portfolio_and_lab_text_is_escaped(self):
+        """Доказательства из портфолио и заметки к лабораторным — пользовательский
+        текст: в разметку только через App.esc, в поля ввода — через .value."""
+        vac = (BASE / "webapp" / "vacancy.html").read_text(encoding="utf-8")
+        for field in ("project", "result"):
+            with self.subTest(field=field):
+                self.assertIsNone(re.search(r"\+\s*st\." + field + r"\s*\+", vac))
+                self.assertIn("App.esc(st." + field + ")", vac)
+        labs = (BASE / "webapp" / "labs.html").read_text(encoding="utf-8")
+        self.assertIsNone(re.search(r"\+\s*st\.evidence_note\s*\+", labs))
+
     def test_esc_covers_all_dangerous_chars(self):
         """Проверяем саму функцию экранирования, а не только её вызовы."""
         app_js = (BASE / "webapp" / "app.js").read_text(encoding="utf-8")

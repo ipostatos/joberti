@@ -117,6 +117,8 @@
     if (plan.casesLeft) parts.push(plan.casesLeft + " " + App.plural(plan.casesLeft, "кейс", "кейса", "кейсов"));
     if (plan.mocksLeft) parts.push(plan.mocksLeft + " " + App.plural(plan.mocksLeft, "вопрос", "вопроса", "вопросов") + " mock");
     if (plan.reviewsLeft) parts.push(plan.reviewsLeft + " повторений");
+    if (plan.labsLeft) parts.push(plan.labsLeft + " " + App.plural(plan.labsLeft, "лабораторная", "лабораторные", "лабораторных"));
+    if (plan.drillsLeft) parts.push(plan.drillsLeft + " DutyOps-упражнений");
 
     dl.innerHTML = "<b>" + plan.daysLeft + " " +
       App.plural(plan.daysLeft, "день", "дня", "дней") + "</b> до собеседования. Осталось: " +
@@ -125,7 +127,10 @@
         ? "Норма " + plan.needPerDay + " действий в день — вы в графике."
         : '<span style="color:var(--warn)">Норма ' + plan.needPerDay +
           " действий в день выше дневной цели " + plan.goal +
-          ". Ниже отмечено, что можно отложить.</span>");
+          ". Ниже отмечено, что можно отложить.</span>") +
+      (plan.labsLeft || plan.drillsLeft
+        ? '<br><span class="xs muted">Действие — условная единица работы: повтор = 1, mock = 3, ' +
+          "шаг = 4, drill = 5, кейс = 8, лабораторная = 10.</span>" : "");
   }
 
   // ── список шагов ──
@@ -155,20 +160,29 @@
       return;
     }
 
+    var lastPhase = null;
     listEl.innerHTML = rows.map(function (s) {
       var st = stepState(s);
+      // Фазы плана (Основа, Доставка, …) — заголовками между шагами.
+      var head = "";
+      if (s.phase && s.phase !== lastPhase) {
+        head = '<div class="section-title">' + App.esc(s.phase) + "</div>";
+        lastPhase = s.phase;
+      }
       var pr = App.stepProgress(s);
       var bits = [];
       if (pr.studyTotal) bits.push("теория " + pr.studyDone + "/" + pr.studyTotal);
       if (pr.quizTopics.length) bits.push("тест " + pr.quizBest + "%");
       if (pr.caseIds.length) bits.push("кейсы " + pr.casesDone + "/" + pr.caseIds.length);
       if (pr.mockIds.length) bits.push("mock " + pr.mocksAnswered + "/" + pr.mockIds.length);
+      if (pr.labIds.length) bits.push("лабы " + pr.labsDone + "/" + pr.labIds.length);
+      if (pr.drillIds.length) bits.push("drills " + pr.drillsDone + "/" + pr.drillIds.length);
 
       var badge = s.required
         ? (tight ? "" : '<span class="req-badge">обязательный</span>')
         : '<span class="req-badge">' + (tight ? "можно отложить" : "по желанию") + "</span>";
 
-      return '<button class="step ' + st + '" data-step="' + App.esc(s.id) + '">' +
+      return head + '<button class="step ' + st + '" data-step="' + App.esc(s.id) + '">' +
         '<span class="num">' + (st === "done" ? "&#10003;" : s.order) + "</span>" +
         '<span class="body"><span class="t">' + App.esc(s.title) + "</span>" +
         '<span class="d">' + App.esc(s.goal) + "</span>" +
@@ -281,8 +295,42 @@
               "</span></span>" +
               '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
           }
+          if (kind === "lab") {
+            var lab = App.byId(CONTENT.labs || [], ref);
+            var ls = App.labState(ref);
+            return '<a class="item" href="labs.html?id=' + encodeURIComponent(ref) + '">' +
+              '<span class="mark' + (ls.completed ? " done" : "") + '" data-icon="' +
+              (ls.completed ? "check-circle" : "list-checks") + '"></span>' +
+              '<span class="body"><span class="t">Лабораторная: ' + App.esc(lab ? lab.title : ref) + "</span>" +
+              '<span class="d">' + (ls.completed ? "выполнена" +
+                (typeof ls.post_check_score === "number" ? " · post-check " + Math.round(ls.post_check_score * 100) + "%" : "")
+                : "не выполнена") + "</span></span>" +
+              '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+          }
+          if (kind === "drill") {
+            var dr = App.byId(CONTENT.dutyopsDrills || [], ref);
+            var ds = App.drillState(ref);
+            return '<a class="item" href="labs.html?id=' + encodeURIComponent(ref) + '">' +
+              '<span class="mark' + (ds ? " done" : "") + '" data-icon="' +
+              (ds ? "check-circle" : "alert-triangle") + '"></span>' +
+              '<span class="body"><span class="t">' + (dr && dr.kind === "runbook" ? "Runbook: " : "Drill: ") +
+              App.esc(dr ? dr.title : ref) + "</span>" +
+              '<span class="d">' + (ds ? "лучший результат " + ds.best + "%" : "не пройден") + "</span></span>" +
+              '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+          }
           return "";
         }).join("") + "</div>";
+    }
+
+    if (rule.diagnostic_done) {
+      var dg = App.diagnosticState();
+      html += '<div class="card"><div class="h3">Диагностика</div>' +
+        '<a class="item" href="quiz.html?mode=diagnostic">' +
+        '<span class="mark' + (dg && dg.ts ? " done" : "") + '" data-icon="' +
+        (dg && dg.ts ? "check-circle" : "target") + '"></span>' +
+        '<span class="body"><span class="t">Проверить мой текущий уровень</span>' +
+        '<span class="d">' + (dg && dg.ts ? "пройдена · " + dg.pct + "%" : "не пройдена") + "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right"></span></a></div>';
     }
 
     // условие завершения
@@ -293,6 +341,9 @@
     if (rule.mock_answered_min) conds.push("вопросов mock отвечено: " + rule.mock_answered_min);
     if (rule.stories_filled_min) conds.push("историй заполнено: " + rule.stories_filled_min);
     if (rule.full_mock_sessions_min) conds.push("полных сессий mock: " + rule.full_mock_sessions_min);
+    if (rule.lab_completed_min) conds.push("лабораторных выполнено: " + rule.lab_completed_min);
+    if (rule.drill_completed_min) conds.push("DutyOps-упражнений пройдено: " + rule.drill_completed_min);
+    if (rule.diagnostic_done) conds.push("диагностика уровня пройдена");
 
     html += '<div class="card"><div class="h3">Шаг считается пройденным, когда</div>' +
       '<ul class="points ' + (done ? "ok" : "") + '">' + conds.map(function (c) {

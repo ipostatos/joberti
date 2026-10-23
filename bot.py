@@ -124,6 +124,10 @@ LESSONS: list[dict] = load_json("lessons.json")["lessons"]
 CASES: list[dict] = load_json("cases.json")["cases"]
 
 QUESTIONS_BY_ID = {q["id"]: q for q in QUESTIONS}
+# Окно «уже видел» обязано вмещать весь банк: иначе, когда вопросов больше
+# окна, давно отвеченные выпадают из него и снова идут как невиданные —
+# «сначала новые» перестаёт работать. Нижняя граница — прежние 500.
+SEEN_LIMIT = max(500, len(QUESTIONS))
 MOCKS_BY_ID = {m["id"]: m for m in MOCKS}
 
 # Треки нужны и чату: без них случайный вопрос приходит из ЧУЖОЙ профессии —
@@ -206,8 +210,8 @@ def record_answer(user_id: int, question_id: str, correct: bool) -> None:
     if question_id not in data["seen"]:
         data["seen"].append(question_id)
         # Не даём файлу расти бесконечно: держим окно последних вопросов.
-        if len(data["seen"]) > 500:
-            data["seen"] = data["seen"][-500:]
+        if len(data["seen"]) > SEEN_LIMIT:
+            data["seen"] = data["seen"][-SEEN_LIMIT:]
     save_progress(user_id, data)
 
 

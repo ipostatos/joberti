@@ -63,6 +63,10 @@ TRACK_SECTIONS = {
     "englishDrills": "track_ids",
     "englishWriting": "track_ids",
     "englishResources": "track_ids",
+    # Практика DevOps: лабораторные и DutyOps-упражнения есть не у каждого
+    # трека — у остальных разделы просто пустые.
+    "labs": "track_id",
+    "dutyopsDrills": "track_id",
 }
 
 # Разделы, общие для всех треков. Источники — общий реестр цитирования, на него
@@ -72,6 +76,7 @@ CORE_SECTIONS = (
     "glossaryCategories", "mockCategories", "mockSessionFlow", "storyFramework",
     "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
     "englishWritingCategories", "englishResourceCategories",
+    "dutyopsPhases",
     "counts",
 )
 
@@ -145,6 +150,9 @@ def build_sections(c) -> dict:
         "englishWritingCategories": c.raw["english_writing"].get("categories", []),
         "englishResources": c.english_resources,
         "englishResourceCategories": c.raw["english_resources"].get("categories", []),
+        "labs": c.labs,
+        "dutyopsDrills": c.dutyops,
+        "dutyopsPhases": c.raw["dutyops"].get("phases", {}),
         "counts": c.counts(),
     }
 

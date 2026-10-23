@@ -51,6 +51,8 @@
     <button class="chip" data-f="quiz">Тесты</button>
     <button class="chip" data-f="mock">Mock</button>
     <button class="chip" data-f="case">Кейсы</button>
+    <button class="chip" data-f="lab">Лабы</button>
+    <button class="chip" data-f="drill">Drills</button>
     <button class="chip" data-f="readiness">Готовность</button>
   </div>
 
@@ -73,6 +75,8 @@
     mock: { title: "Mock interview", icon: "message-square", tone: "violet" },
     "case": { title: "Кейс", icon: "briefcase", tone: "cyan" },
     readiness: { title: "Готовность", icon: "gauge", tone: "blue" },
+    lab: { title: "Лабораторная", icon: "list-checks", tone: "green" },
+    drill: { title: "DutyOps drill", icon: "alert-triangle", tone: "violet" },
   };
 
   function fmtDate(ts) {
@@ -93,9 +97,35 @@
 
   function modeTitle(rec) {
     if (rec.kind === "readiness") return "Снимок готовности";
+    if (rec.kind === "lab" || rec.kind === "drill") {
+      var lr = (rec.details || [])[0] || {};
+      if (rec.kind === "lab") {
+        parts.push('<div class="card">' +
+          '<div class="kv"><span class="k">Попытка</span><span class="v">' + (lr.attempt || "—") + "</span></div>" +
+          '<div class="kv"><span class="k">Выполнение отмечено</span><span class="v">' + (lr.completed ? "да" : "нет") + "</span></div>" +
+          "</div>");
+      } else if ((rec.details || []).length) {
+        parts.push('<div class="card"><div class="h3">Ходы</div>' + rec.details.map(function (d) {
+          var ph = (CONTENT.dutyopsPhases || {})[d.phase] || d.phase;
+          return '<div class="kv"><span class="k">' + App.esc(ph) + '</span><span class="v">' + d.score + "/2</span></div>";
+        }).join("") + "</div>");
+      }
+      parts.push('<a class="row-card" href="labs.html?id=' + encodeURIComponent(rec.mode) + '">' +
+        '<span class="body"><span class="t">Открыть</span><span class="d">' + App.esc(modeTitle(rec)) + "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right"></span></a>');
+    }
+
     if (rec.kind === "case") {
       var c = App.byId(CONTENT.cases, rec.mode);
       return c ? c.title : rec.mode;
+    }
+    if (rec.kind === "lab") {
+      var lab = App.byId(CONTENT.labs || [], rec.mode);
+      return (lab ? lab.title : rec.mode) + (rec.total ? " · post-check" : "");
+    }
+    if (rec.kind === "drill") {
+      var dr = App.byId(CONTENT.dutyopsDrills || [], rec.mode);
+      return dr ? dr.title : rec.mode;
     }
     if (rec.kind === "mock") {
       if (rec.mode === "full") return "Полная сессия";
@@ -105,7 +135,7 @@
     var m = String(rec.mode).split(":");
     var names = { quick: "Быстрый тест", training: "Тренировка", exam: "Финальный экзамен",
       review: "Повторение", mistakes: "Работа над ошибками", weak: "Слабые темы",
-      topic: "По теме" };
+      topic: "По теме", diagnostic: "Диагностика уровня" };
     return (names[m[0]] || m[0]) + (m[1] ? ": " + App.topicTitle(m[1]) : "");
   }
 
@@ -151,10 +181,19 @@
       var d = dayLabel(rec.ts);
       if (d !== lastDay) { html += '<div class="day">' + App.esc(d) + "</div>"; lastDay = d; }
       var k = KIND[rec.kind] || KIND.quiz;
-      var tone = rec.kind === "readiness" ? "blue"
+      // Отметка выполнения лабораторной — не результат теста: у неё нет
+      // процента, и красный цвет «0%» вводил бы в заблуждение.
+      var labMark = rec.kind === "lab" && !rec.total;
+      var tone = rec.kind === "readiness" ? "blue" : labMark ? "green"
         : rec.pct >= 80 ? "green" : rec.pct >= 60 ? "amber" : "red";
+      var att = (rec.details || [])[0] || {};
       var sub = rec.kind === "readiness"
         ? "автоматический замер"
+        : rec.kind === "lab"
+          ? (rec.total ? "post-check " + rec.correct + " из " + rec.total : "отмечено выполнение") +
+            (att.attempt ? " · попытка " + att.attempt : "")
+        : rec.kind === "drill"
+          ? "лучших ходов " + rec.correct + " из " + rec.total
         : (rec.kind === "case"
             ? "самооценка " + Math.round(rec.pct / 25) + " из 4"
             : rec.correct + " из " + rec.total +
@@ -164,7 +203,7 @@
         '<span class="body"><span class="t">' + App.esc(modeTitle(rec)) + "</span>" +
         '<span class="d">' + App.esc(k.title) + " · " + App.esc(sub) + "</span>" +
         '<span class="d">' + App.esc(fmtDate(rec.ts)) + "</span></span>" +
-        '<span class="p">' + rec.pct + "%</span></button>";
+        '<span class="p">' + (labMark ? "✓" : rec.pct + "%") + "</span></button>";
     });
     document.getElementById("items").innerHTML = html;
     Icons.hydrate();

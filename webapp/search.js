@@ -21,6 +21,8 @@
     mock: { title: "Mock", icon: "message-square", href: "mock.html?id=" },
     "case": { title: "Кейс", icon: "briefcase", href: "cases.html?id=" },
     step: { title: "Шаг плана", icon: "map", href: "roadmap.html?id=" },
+    lab: { title: "Лабораторная", icon: "list-checks", href: "labs.html?id=" },
+    drill: { title: "DutyOps", icon: "alert-triangle", href: "labs.html?id=" },
     phrase: { title: "Фраза", icon: "message-square", href: "english.html?tab=phrases&id=" },
     eword: { title: "Слово", icon: "globe", href: "english.html?tab=words&id=" },
     edrill: { title: "Ответ вслух", icon: "mic", href: "english.html?tab=drills&id=" },
@@ -96,6 +98,24 @@
     (content.roadmap || []).filter(inTrack).forEach(function (s) {
       add("step", s.id, s.title, "Шаг " + s.order, [s.title],
         s.goal, (s.topic_ids || [])[0]);
+    });
+
+    // Лабораторные ищутся по названию, командам и темам: человек часто
+    // помнит инструмент («journalctl», «LogQL»), а не название лабы.
+    (content.labs || []).filter(inTrack).forEach(function (l) {
+      var topicTitles = (l.topic_ids || []).map(function (tid) {
+        var t = (content.topics || []).filter(function (x) { return x.id === tid; })[0];
+        return t ? t.title : "";
+      });
+      add("lab", l.id, l.title, "Лабораторная", [l.title].concat(l.commands_to_know || []),
+        [l.goal, topicTitles.join(" "), (l.tasks || []).join(" ")].join(" "),
+        (l.topic_ids || [])[0]);
+    });
+
+    (content.dutyopsDrills || []).filter(inTrack).forEach(function (d) {
+      add("drill", d.id, d.title, d.kind === "runbook" ? "Runbook" : "DutyOps drill",
+        [d.title], [d.scenario, (d.observations || []).join(" ")].join(" "),
+        (d.topic_ids || [])[0]);
     });
 
     // Английский сквозной: пустой track_ids значит «во всех треках», поэтому

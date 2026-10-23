@@ -337,3 +337,11 @@ label.field .lb{ display:block; font-size:var(--fs-sm); color:var(--hint);
 @media (prefers-reduced-motion: reduce){
   *{ transition:none !important; animation:none !important }
 }
+
+/* Вывод команды внутри вопроса: моноширинный блок, длинные строки скроллятся,
+   а не ломают колонки. */
+pre.out{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:var(--fs-xs);
+  line-height:1.5; background:var(--muted-fill); border:1px solid var(--border);
+  border-radius:var(--r-sm); padding:var(--sp-2) var(--sp-3); margin:var(--sp-2) 0;
+  overflow-x:auto; white-space:pre; font-weight:400 }
+.q-lead, .q-tail{ display:block }

@@ -145,9 +145,21 @@ class TestProgress(unittest.TestCase):
         self.assertEqual(self.bot.load_progress(4)["wrong"], [qid])
 
     def test_seen_list_is_capped(self):
+        """Окно «уже видел» ограничено, но вмещает весь банк.
+
+        Раньше окно было жёстко 500 — пока банк был меньше, это не мешало.
+        Когда вопросов стало больше 500, давно отвеченные выпадали из окна и
+        шли как невиданные. Теперь граница — max(500, размер банка): файл
+        прогресса по-прежнему не растёт бесконечно.
+        """
+        self.assertGreaterEqual(self.bot.SEEN_LIMIT, len(self.bot.QUESTIONS))
+        self.assertGreaterEqual(self.bot.SEEN_LIMIT, 500)
         for q in self.bot.QUESTIONS:
             self.bot.record_answer(5, q["id"], True)
-        self.assertLessEqual(len(self.bot.load_progress(5)["seen"]), 500)
+        self.assertEqual(len(self.bot.load_progress(5)["seen"]), len(self.bot.QUESTIONS))
+        for i in range(self.bot.SEEN_LIMIT + 50):
+            self.bot.record_answer(6, f"synthetic-{i}", True)
+        self.assertEqual(len(self.bot.load_progress(6)["seen"]), self.bot.SEEN_LIMIT)
 
     def test_corrupt_file_does_not_crash(self):
         path = Path(self.tmp) / "6.json"

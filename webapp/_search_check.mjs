@@ -139,5 +139,27 @@ const ALL = require("./_content_all.js");
       });
   });
 
+
+// ── трек DevOps: новые сущности и стек вакансии RedCore ──
+{
+  const DT = "devops-platform";
+  const DC = require("./_content_all.js").forTrack(DT);
+  const di = Search.buildIndex(DC, DT);
+  const dtypes = new Set(di.map((e) => e.type));
+  ok(dtypes.has("lab"), "в индексе DevOps есть лабораторные");
+  ok(dtypes.has("drill"), "в индексе DevOps есть DutyOps-упражнения");
+  const dfind = (q, o) => Search.query(di, q, o || {});
+  ["Nginx", "LogQL", "MongoDB", "ClickHouse", "Terraform", "Ansible", "EKS", "Cloudflare", "NATS",
+   "Prometheus", "Grafana", "Redis", "journalctl", "kubectl"].forEach((q) => {
+    ok(dfind(q).length > 0, `DevOps: поиск находит «${q}»`);
+  });
+  ok(dfind("nginx", { types: ["lab"] }).length > 0, "DevOps: лабораторную можно найти по технологии");
+  ok(dfind("502", { types: ["lab", "drill", "case"] }).length > 0, "DevOps: 502 находится в практике");
+  ok(dfind("зеркал").length > 0, "DevOps: русский запрос про зеркала находит материал");
+  ok(dfind("репликация").length > 0 || dfind("реплик").length > 0, "DevOps: русский термин находится");
+  // У SEO-трека лабораторных нет — индекс не должен тянуть чужие.
+  ok(!index.some((e) => e.type === "lab" || e.type === "drill"), "SEO: в индексе нет DevOps-практики");
+}
+
 if (failed) { console.error(`\n_search_check: провалено проверок ${failed}`); process.exit(1); }
 console.log(`_search_check: OK (записей в индексе ${index.length})`);

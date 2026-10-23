@@ -35,7 +35,12 @@
     "Данные карт и PCI DSS",
     "Интеграции и API",
     "Работа в команде",
-    "Поддержка и обращения"
+    "Поддержка и обращения",
+    "Nginx и прокси",
+    "CDN и защита периметра",
+    "Очереди и кэш",
+    "Дежурство и инциденты",
+    "Git"
   ],
   "terms": [
     {
@@ -6877,6 +6882,2524 @@
         "ubuntu-cli-tutorial"
       ],
       "difficulty": 2
+    },
+    {
+      "id": "t-inode",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "inode",
+      "aliases": [
+        "индексный дескриптор",
+        "айнод",
+        "df -i",
+        "no space left on device"
+      ],
+      "definition_simple": "Служебная запись файловой системы о файле: владелец, права, размер и где лежат данные.",
+      "definition_interview": "У каждого файла есть inode, а их число на разделе задаётся при создании файловой системы. Если inode закончились, новые файлы не создаются, хотя место в байтах ещё есть.",
+      "example": "df -h показывает 40% занято, а запись падает с No space left on device; df -i показывает IUse% 100% — миллионы мелких файлов сессий в /var/lib/php/sessions.",
+      "common_confusion": "Смотрят только df -h и ищут большие файлы. При исчерпании inode виноваты не большие файлы, а очень много маленьких.",
+      "question": "Запись на диск падает с No space left on device, а df -h показывает свободное место. Что проверите?",
+      "answer": "df -i: если IUse% около 100%, закончились inode. Дальше ищу каталог с огромным числом мелких файлов и чищу его или настраиваю их ротацию.",
+      "source_refs": [
+        "man-df",
+        "linux-man-pages"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-umask",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "umask",
+      "aliases": [
+        "маска прав",
+        "права по умолчанию",
+        "UMask"
+      ],
+      "definition_simple": "Маска, которая убирает биты прав у новых файлов и каталогов.",
+      "definition_interview": "Задаёт, какие права НЕ получат создаваемые файлы. При umask 022 файлы создаются как 644, каталоги как 755; при 027 — 640 и 750, и остальные пользователи доступа не имеют.",
+      "example": "Служба создаёт сокет или лог, к которому nginx не может обратиться; в unit-файле стоит UMask=0077, и файл получается доступен только владельцу.",
+      "common_confusion": "Думают, что umask прибавляет права. Она только вычитает: файл из umask 000 всё равно не станет исполняемым сам по себе.",
+      "question": "Какие права получит новый файл при umask 027?",
+      "answer": "640: владелец читает и пишет, группа читает, остальные ничего. Базовые 666 для файла минус биты из маски.",
+      "source_refs": [
+        "linux-man-pages",
+        "man-chmod"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-oom-killer",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "OOM killer",
+      "aliases": [
+        "out of memory killer",
+        "oom-killer",
+        "убийца процессов",
+        "Out of memory: Killed process"
+      ],
+      "definition_simple": "Механизм ядра, который убивает процесс, когда памяти не хватает совсем.",
+      "definition_interview": "Когда ядро не может выделить память, оно выбирает жертву по oom_score (обычно самый крупный процесс) и завершает её сигналом SIGKILL. Внутри cgroup с лимитом памяти то же происходит при достижении лимита группы.",
+      "example": "Служба внезапно исчезла без ошибок в своём логе; journalctl -k или dmesg показывает Out of memory: Killed process 2314 (java).",
+      "common_confusion": "Ищут причину в логах приложения. SIGKILL нельзя перехватить, поэтому приложение ничего о своей смерти не пишет — след остаётся только в журнале ядра.",
+      "question": "Процесс пропал, в его логах тишина. Где искать подтверждение OOM?",
+      "answer": "В журнале ядра: journalctl -k или dmesg, строка Out of memory: Killed process. Затем выяснить, кто съел память — сам процесс или сосед.",
+      "source_refs": [
+        "linux-man-pages",
+        "journalctl-man"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-load-average",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "Load average",
+      "aliases": [
+        "la",
+        "средняя нагрузка",
+        "uptime",
+        "нагрузка системы"
+      ],
+      "definition_simple": "Три числа — сколько процессов в среднем хотели процессор за 1, 5 и 15 минут.",
+      "definition_interview": "В Linux учитываются процессы, готовые к выполнению, и процессы в непрерываемом ожидании (состояние D, чаще всего ввод-вывод). Значение сравнивают с числом ядер: 8 на 8-ядерной машине и на 2-ядерной означают разное.",
+      "example": "uptime показывает load average: 12.3, 9.1, 4.0 на 4 ядрах, но CPU почти свободен; в top высокий wa — процессы ждут диск.",
+      "common_confusion": "Читают высокий load average как «процессор перегружен». Он может расти из-за медленного диска или сетевой файловой системы при простаивающем CPU.",
+      "question": "Load average 10 на четырёх ядрах, а загрузка CPU 15%. Что это может значить?",
+      "answer": "Очередь растёт не из-за CPU, а из-за ожидания ввода-вывода: процессы в состоянии D. Смотрю iowait в top и нагрузку на диски.",
+      "source_refs": [
+        "linux-man-pages",
+        "man-ps"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-file-descriptor",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "Файловый дескриптор",
+      "aliases": [
+        "file descriptor",
+        "fd",
+        "too many open files",
+        "ulimit -n",
+        "LimitNOFILE"
+      ],
+      "definition_simple": "Номер, под которым процесс держит открытый файл, сокет или канал.",
+      "definition_interview": "Каждое соединение и каждый открытый файл занимают дескриптор, а их число ограничено на процесс (ulimit -n, LimitNOFILE в systemd). При исчерпании вызовы падают с EMFILE: Too many open files.",
+      "example": "Под нагрузкой прокси пишет accept() failed (24: Too many open files); ls /proc/PID/fd | wc -l упирается в 1024 — лимит по умолчанию для службы.",
+      "common_confusion": "Поднимают ulimit в своей shell-сессии и ждут, что служба это увидит. Для службы systemd лимит задаётся в unit-файле, а не в профиле пользователя.",
+      "question": "Сервис пишет Too many open files. Как проверить, что дело в лимите?",
+      "answer": "Сравнить число открытых дескрипторов в /proc/PID/fd с Max open files из /proc/PID/limits. Если упёрлись — поднять LimitNOFILE и заодно проверить, не течёт ли дескрипторы приложение.",
+      "source_refs": [
+        "linux-man-pages",
+        "systemd-exec"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-cgroups",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics",
+        "containers"
+      ],
+      "category": "Linux и системы",
+      "term": "cgroups",
+      "aliases": [
+        "control groups",
+        "контрольные группы",
+        "cgroup v2",
+        "memory.max"
+      ],
+      "definition_simple": "Механизм ядра, который ограничивает и считает ресурсы группы процессов.",
+      "definition_interview": "Через cgroups systemd, Docker и Kubernetes задают лимиты CPU и памяти. При выходе за лимит памяти группы ядро убивает процесс внутри неё, даже если на машине память ещё есть.",
+      "example": "Контейнер с --memory=512m падает с кодом 137, хотя free на хосте показывает гигабайты свободной памяти: сработал лимит cgroup, а не нехватка на узле.",
+      "common_confusion": "Смотрят free на хосте и делают вывод, что памяти хватает. Для контейнера значим лимит его cgroup, а не общая память машины.",
+      "question": "Почему контейнер может быть убит за память, если на хосте её много?",
+      "answer": "Потому что у него свой лимит в cgroup. Ядро применяет OOM внутри группы, как только она достигла memory.max.",
+      "source_refs": [
+        "linux-man-pages",
+        "k8s-resources",
+        "iximiuz-containers"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-logrotate",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "logrotate",
+      "aliases": [
+        "ротация логов",
+        "copytruncate",
+        "postrotate",
+        "log rotation"
+      ],
+      "definition_simple": "Утилита, которая по расписанию переименовывает, сжимает и удаляет старые логи.",
+      "definition_interview": "Конфиги лежат в /etc/logrotate.d. После ротации процессу нужно начать писать в новый файл: либо сигнал на переоткрытие в postrotate, либо copytruncate, если приложение переоткрывать файлы не умеет.",
+      "example": "Для nginx в postrotate отправляют сигнал USR1 мастер-процессу, и он переоткрывает логи без перезапуска.",
+      "common_confusion": "Настраивают ротацию без переоткрытия файла. Процесс продолжает писать в удалённый или переименованный файл, и место на диске не освобождается.",
+      "question": "Ротация отработала, а диск всё равно забит. Что могло пойти не так?",
+      "answer": "Процесс держит старый файл открытым и пишет в него. Проверяю lsof +L1, исправляю postrotate на сигнал переоткрытия или использую copytruncate.",
+      "source_refs": [
+        "linux-man-pages",
+        "ubuntu-server-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-swap",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "linux-basics"
+      ],
+      "category": "Linux и системы",
+      "term": "Swap",
+      "aliases": [
+        "подкачка",
+        "своп",
+        "файл подкачки",
+        "swappiness"
+      ],
+      "definition_simple": "Место на диске, куда ядро вытесняет редко используемые страницы памяти.",
+      "definition_interview": "Swap даёт запас перед OOM, но доступ к нему на порядки медленнее RAM. Активная подкачка (ненулевые si/so в vmstat) означает, что рабочему набору не хватает памяти.",
+      "example": "free -h показывает Swap used 3.8G, а vmstat 1 — постоянные si/so: сервис отвечает медленно, потому что страницы гоняются между диском и памятью.",
+      "common_confusion": "Считают занятый swap проблемой сам по себе. Плохо не то, что он занят, а то, что в него постоянно пишут и читают.",
+      "question": "Swap занят на 2 ГБ. Это авария?",
+      "answer": "Не обязательно. Смотрю vmstat: если si/so около нуля, вытеснены холодные страницы; если идёт постоянный обмен, памяти не хватает и надо искать потребителя.",
+      "source_refs": [
+        "man-free",
+        "linux-man-pages"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-dns-cname",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "CNAME",
+      "aliases": [
+        "canonical name",
+        "алиас",
+        "cname record",
+        "псевдоним домена"
+      ],
+      "definition_simple": "Запись DNS, которая говорит: это имя — псевдоним другого имени.",
+      "definition_interview": "Резолвер, получив CNAME, продолжает поиск по целевому имени. На имени с CNAME не может быть других записей, поэтому классический CNAME нельзя поставить на корень зоны.",
+      "example": "www.example.com CNAME example.cdn-provider.net: при смене адресов у провайдера ничего менять не нужно.",
+      "common_confusion": "Пытаются поставить CNAME на example.com рядом с MX и NS. Это нарушает правила DNS; провайдеры решают задачу своими механизмами вроде выравнивания CNAME.",
+      "question": "Почему нельзя повесить CNAME на example.com, где уже есть MX?",
+      "answer": "Потому что имя с CNAME не может иметь других записей, а у корня зоны всегда есть NS и SOA. Для корня используют A/AAAA или механизм провайдера.",
+      "source_refs": [
+        "rfc-1035-dns",
+        "cloudflare-dns-docs",
+        "howdns-works"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-dns-a-aaaa",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "Записи A и AAAA",
+      "aliases": [
+        "a record",
+        "aaaa record",
+        "ipv4",
+        "ipv6",
+        "адресная запись"
+      ],
+      "definition_simple": "A связывает имя с адресом IPv4, AAAA — с адресом IPv6.",
+      "definition_interview": "Клиент с IPv6 обычно сначала пробует AAAA. Если запись AAAA есть, а IPv6 до сервера на деле не работает, часть клиентов получает задержки или ошибки, хотя по IPv4 всё в порядке.",
+      "example": "dig +short example.com A и dig +short example.com AAAA — проверяю оба ответа и потом curl -4 и curl -6 по отдельности.",
+      "common_confusion": "Проверяют доступность только по IPv4 и не замечают, что у части пользователей сайт не открывается из-за сломанного IPv6.",
+      "question": "Сайт у одних пользователей открывается, у других висит. Как исключить IPv6?",
+      "answer": "Посмотреть, есть ли AAAA, и сравнить curl -4 и curl -6 к тому же адресу. Если по IPv6 таймаут — чинить маршрут или убрать AAAA до починки.",
+      "source_refs": [
+        "rfc-1035-dns",
+        "dig-manpage"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-nxdomain",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "NXDOMAIN",
+      "aliases": [
+        "name error",
+        "rcode 3",
+        "домен не существует",
+        "status: NXDOMAIN"
+      ],
+      "definition_simple": "Ответ DNS: такого имени нет.",
+      "definition_interview": "Авторитетный сервер подтвердил, что имени не существует. Такой отрицательный ответ тоже кэшируется на время, указанное в SOA зоны, поэтому созданная запись может появиться у клиентов не сразу.",
+      "example": "dig api.example.com показывает status: NXDOMAIN — запись не создана, опечатка в имени или домен не делегирован.",
+      "common_confusion": "Путают с SERVFAIL. NXDOMAIN — уверенное «нет такого имени», SERVFAIL — «не смог получить ответ».",
+      "question": "Запись создали минуту назад, а у клиента всё ещё NXDOMAIN. Почему?",
+      "answer": "Резолвер закэшировал отрицательный ответ до создания записи. Надо дождаться истечения отрицательного TTL или проверить напрямую у авторитетного сервера через dig @ns.",
+      "source_refs": [
+        "rfc-1035-dns",
+        "dig-manpage"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-servfail",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "SERVFAIL",
+      "aliases": [
+        "server failure",
+        "rcode 2",
+        "status: SERVFAIL"
+      ],
+      "definition_simple": "Ответ DNS: резолвер не смог получить ответ.",
+      "definition_interview": "Означает сбой по пути разрешения: авторитетные серверы недоступны, делегирование указывает на несуществующие NS или не прошла проверка DNSSEC. Имя при этом может существовать.",
+      "example": "Публичный резолвер отдаёт SERVFAIL, а dig @ns1.provider.net example.com отвечает нормально — проблема в DNSSEC или в том, как резолвер видит делегирование.",
+      "common_confusion": "Считают SERVFAIL признаком, что запись удалена. Удалённая запись даёт NXDOMAIN; SERVFAIL указывает на поломку цепочки.",
+      "question": "Как отличить проблему авторитетного DNS от проблемы резолвера при SERVFAIL?",
+      "answer": "Спросить авторитетный сервер напрямую через dig @ns и пройти цепочку через dig +trace. Если напрямую отвечает, а через резолвер нет — смотреть DNSSEC и делегирование.",
+      "source_refs": [
+        "rfc-1035-dns",
+        "dig-manpage",
+        "cloudflare-dns-docs"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-sni",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "SNI",
+      "aliases": [
+        "server name indication",
+        "servername",
+        "-servername"
+      ],
+      "definition_simple": "Имя сайта, которое клиент передаёт в начале TLS-рукопожатия.",
+      "definition_interview": "По SNI сервер на одном IP выбирает, какой сертификат отдать. Без SNI или с неверным именем сервер отдаёт сертификат по умолчанию, и проверка имени падает.",
+      "example": "openssl s_client -connect 203.0.113.10:443 -servername shop.example.com — проверка того сертификата, который увидит браузер по этому имени.",
+      "common_confusion": "Проверяют TLS по IP-адресу и видят «чужой» сертификат, делая вывод, что сертификат на сайте неправильный.",
+      "question": "Зачем при проверке через openssl s_client указывать -servername?",
+      "answer": "Чтобы сервер выбрал сертификат для нужного имени. Без этого можно получить сертификат по умолчанию и сделать неверный вывод.",
+      "source_refs": [
+        "rfc-8446-tls13",
+        "openssl-s-client"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-cert-chain",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking",
+        "edge-cloudflare"
+      ],
+      "category": "Сети",
+      "term": "Цепочка сертификатов",
+      "aliases": [
+        "certificate chain",
+        "intermediate",
+        "промежуточный сертификат",
+        "fullchain",
+        "unable to get local issuer certificate"
+      ],
+      "definition_simple": "Последовательность сертификатов от сертификата сайта до доверенного корневого.",
+      "definition_interview": "Сервер должен отдавать свой сертификат вместе с промежуточными; корневой уже есть у клиента. Если промежуточный не отдан, часть клиентов не может построить цепочку и рвёт соединение.",
+      "example": "В браузере сайт открывается, а curl и мобильное приложение падают с unable to get local issuer certificate: в конфиге указан cert.pem вместо fullchain.pem.",
+      "common_confusion": "Проверяют только в браузере. Браузер может достроить цепочку сам, а curl, другие сервисы и старые клиенты — нет.",
+      "question": "Браузер открывает сайт, а curl ругается на issuer. В чём вероятная причина?",
+      "answer": "Сервер не отдаёт промежуточный сертификат. Проверяю openssl s_client -showcerts и подключаю полную цепочку.",
+      "source_refs": [
+        "openssl-s-client",
+        "mdn-tls",
+        "howhttps-works"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-mtls",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking",
+        "security-pipeline"
+      ],
+      "category": "Сети",
+      "term": "mTLS",
+      "aliases": [
+        "mutual tls",
+        "взаимный tls",
+        "клиентский сертификат",
+        "client certificate"
+      ],
+      "definition_simple": "TLS, в котором сертификат предъявляет не только сервер, но и клиент.",
+      "definition_interview": "Сервер проверяет клиентский сертификат по своему доверенному центру и пускает только его владельцев. Применяется между сервисами и между CDN и origin, чтобы origin принимал трафик только от своего прокси.",
+      "example": "Origin принимает соединения только с клиентским сертификатом прокси: прямой запрос curl к origin без сертификата завершается отказом на этапе TLS.",
+      "common_confusion": "Считают, что HTTPS уже даёт проверку клиента. Обычный TLS подтверждает только сервер.",
+      "question": "Чем mTLS отличается от обычного HTTPS?",
+      "answer": "В обычном HTTPS подлинность подтверждает только сервер. В mTLS клиент тоже предъявляет сертификат, и сервер отказывает тем, кто его не имеет.",
+      "source_refs": [
+        "rfc-8446-tls13",
+        "mdn-tls"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-nginx-upstream",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy",
+        "traffic-delivery"
+      ],
+      "category": "Nginx и прокси",
+      "term": "upstream (Nginx)",
+      "aliases": [
+        "upstream",
+        "бэкенд",
+        "пул серверов",
+        "max_fails",
+        "fail_timeout"
+      ],
+      "definition_simple": "Именованная группа серверов, на которые Nginx пересылает запросы.",
+      "definition_interview": "В блоке upstream перечисляют серверы и способ балансировки. Открытый Nginx исключает сервер пассивно: после max_fails неудачных попыток за fail_timeout он временно перестаёт слать туда запросы. Активные проверки здоровья в открытой версии отсутствуют.",
+      "example": "upstream app { server 10.0.1.5:8080 max_fails=3 fail_timeout=10s; server 10.0.1.6:8080; } и в location: proxy_pass http://app;",
+      "common_confusion": "Ждут, что Nginx сам заранее обнаружит упавший бэкенд. Без активных проверок он узнаёт об этом только по неудачным реальным запросам.",
+      "question": "Как Nginx без дополнительных модулей понимает, что сервер в upstream недоступен?",
+      "answer": "Только по ошибкам на реальных запросах: после max_fails неудач за fail_timeout сервер временно исключается, затем Nginx пробует его снова.",
+      "source_refs": [
+        "nginx-upstream-module",
+        "nginx-proxy-module"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-proxy-pass",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "category": "Nginx и прокси",
+      "term": "proxy_pass",
+      "aliases": [
+        "reverse proxy",
+        "проксирование",
+        "обратный прокси"
+      ],
+      "definition_simple": "Директива Nginx, которая пересылает запрос на указанный адрес или upstream.",
+      "definition_interview": "Важно наличие URI в адресе: proxy_pass http://app; передаёт путь как есть, а proxy_pass http://app/; заменяет совпавший префикс location на /. Ошибка со слэшем — частая причина внезапных 404 от бэкенда.",
+      "example": "location /api/ { proxy_pass http://backend/; } — запрос /api/users уходит на бэкенд как /users.",
+      "common_confusion": "Считают слэш в конце косметикой. Он меняет путь, который получает бэкенд.",
+      "question": "Чем отличаются proxy_pass http://app; и proxy_pass http://app/; в location /api/?",
+      "answer": "Первый передаст путь /api/users без изменений, второй заменит /api/ на / и бэкенд получит /users.",
+      "source_refs": [
+        "nginx-proxy-module",
+        "nginx-beginners-guide"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-nginx-location",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "category": "Nginx и прокси",
+      "term": "location (Nginx)",
+      "aliases": [
+        "location",
+        "маршрутизация по пути",
+        "location matching"
+      ],
+      "definition_simple": "Блок, который задаёт, как обрабатывать запросы с определённым путём.",
+      "definition_interview": "Nginx сначала ищет точное совпадение (=), затем запоминает самый длинный префикс, после чего проверяет регулярные выражения по порядку; префикс с ^~ отменяет проверку регулярок. Поэтому порядок в файле важен только для регулярных выражений.",
+      "example": "Запрос /static/app.js попадает не в location /static/, а в location ~ \\.js$, потому что регулярное выражение сработало после префикса.",
+      "common_confusion": "Думают, что выигрывает первый location в файле. Для префиксов выигрывает самый длинный, а регулярные выражения могут перехватить запрос после них.",
+      "question": "Есть location /static/ и location ~ \\.js$. Куда попадёт /static/app.js и как это изменить?",
+      "answer": "В регулярное выражение. Чтобы остаться в префиксном блоке, его записывают как location ^~ /static/.",
+      "source_refs": [
+        "nginx-beginners-guide",
+        "freecodecamp-nginx-handbook"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-nginx-server-block",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "category": "Nginx и прокси",
+      "term": "server block и server_name",
+      "aliases": [
+        "server block",
+        "server_name",
+        "виртуальный хост",
+        "virtual host",
+        "default_server"
+      ],
+      "definition_simple": "Блок server описывает один сайт; server_name задаёт, на какие имена он отвечает.",
+      "definition_interview": "Nginx выбирает server по порту и заголовку Host. Если имя не совпало ни с одним server_name, запрос обработает default_server для этого listen, а без него — первый блок с этим портом.",
+      "example": "Новый домен отдаёт чужой сайт: для него не добавили server_name, и запросы ушли в блок по умолчанию.",
+      "common_confusion": "Ожидают ошибку при неизвестном имени. Nginx молча отдаст сайт по умолчанию, что легко принять за неверный DNS.",
+      "question": "Домен указывает на правильный сервер, но открывается другой сайт. Что проверить в Nginx?",
+      "answer": "Есть ли этот домен в server_name нужного блока и какой блок помечен default_server. nginx -T покажет итоговую конфигурацию.",
+      "source_refs": [
+        "nginx-beginners-guide",
+        "freecodecamp-nginx-handbook"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-worker-connections",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "category": "Nginx и прокси",
+      "term": "worker_connections",
+      "aliases": [
+        "worker_processes",
+        "worker_rlimit_nofile",
+        "worker_connections are not enough"
+      ],
+      "definition_simple": "Сколько одновременных соединений может держать один рабочий процесс Nginx.",
+      "definition_interview": "В лимит входят и соединения с клиентами, и соединения к бэкендам, поэтому при проксировании клиентов помещается примерно вдвое меньше. Значение упирается ещё и в лимит файловых дескрипторов процесса.",
+      "example": "В error.log появляется worker_connections are not enough: при 2 воркерах по 1024 соединения прокси держит около тысячи клиентов, а не две.",
+      "common_confusion": "Поднимают worker_connections и забывают про лимит дескрипторов; Nginx начинает писать Too many open files.",
+      "question": "Почему прокси с worker_connections 1024 упирается раньше, чем в 1024 клиента на воркер?",
+      "answer": "Каждый проксируемый запрос занимает два соединения: от клиента и к бэкенду. Плюс лимит дескрипторов процесса тоже должен быть не меньше.",
+      "source_refs": [
+        "nginx-beginners-guide",
+        "freecodecamp-nginx-handbook"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-nginx-499",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "nginx-proxy"
+      ],
+      "category": "Nginx и прокси",
+      "term": "499 (Nginx)",
+      "aliases": [
+        "499",
+        "client closed request",
+        "клиент закрыл соединение"
+      ],
+      "definition_simple": "Код в логе Nginx: клиент закрыл соединение, не дождавшись ответа.",
+      "definition_interview": "Это не стандартный HTTP-код и клиент его не получает — Nginx пишет его только в access.log. Рост 499 часто означает медленный бэкенд: клиенты или вышестоящий прокси сдаются раньше, чем приходит ответ.",
+      "example": "После выката доля 499 выросла с 0.1% до 8%, а $upstream_response_time у этих запросов 29–30 секунд — клиентский таймаут 30 секунд срабатывает раньше ответа.",
+      "common_confusion": "Считают 499 ошибкой клиента, которую можно игнорировать. Массовый рост 499 — симптом медленного сервера.",
+      "question": "В логах Nginx много 499. О чём это говорит и что проверить?",
+      "answer": "Клиенты не дожидаются ответа. Смотрю время ответа upstream у этих запросов и таймауты клиента или прокси перед Nginx.",
+      "source_refs": [
+        "nginx-log-module",
+        "nginx-proxy-module"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-git-flow",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "category": "Git",
+      "term": "Git Flow",
+      "aliases": [
+        "gitflow",
+        "develop",
+        "release branch",
+        "hotfix branch",
+        "модель ветвления"
+      ],
+      "definition_simple": "Модель ветвления с долгоживущими main и develop и отдельными ветками фич, релизов и срочных исправлений.",
+      "definition_interview": "Фичи вливаются в develop, релиз готовится в release-ветке и сливается в main с тегом, hotfix ответвляется от main и возвращается в обе ветки. Модель тяжеловата для частых выкатов, поэтому многие команды выбирают trunk-based подход.",
+      "example": "Срочное исправление: ветка hotfix/1.4.1 от main, исправление, слияние в main с тегом v1.4.1 и обратно в develop.",
+      "common_confusion": "Забывают влить hotfix обратно в develop, и следующий релиз возвращает исправленную ошибку.",
+      "question": "Почему hotfix в Git Flow сливают и в main, и в develop?",
+      "answer": "В main — чтобы выпустить исправление, в develop — чтобы следующий релиз его не потерял.",
+      "source_refs": [
+        "atlassian-gitflow",
+        "git-branching"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-fast-forward",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "git-vcs"
+      ],
+      "category": "Git",
+      "term": "Fast-forward",
+      "aliases": [
+        "ff",
+        "--ff-only",
+        "перемотка",
+        "fast-forward merge"
+      ],
+      "definition_simple": "Слияние, при котором ветка просто передвигается вперёд, без коммита слияния.",
+      "definition_interview": "Возможно, когда целевая ветка не ушла вперёд со времени ответвления. Флаг --ff-only заставляет git отказаться от слияния, если перемотка невозможна, — так история остаётся линейной и предсказуемой.",
+      "example": "git pull --ff-only на сервере с конфигами: если кто-то правил файлы прямо там, git откажется сливать вместо того, чтобы создать неожиданный коммит слияния.",
+      "common_confusion": "Считают, что fast-forward что-то переписывает. Он не меняет коммиты, только переносит указатель ветки.",
+      "question": "Когда git может выполнить fast-forward?",
+      "answer": "Когда в целевой ветке нет коммитов, которых нет в сливаемой. Тогда указатель просто сдвигается на последний коммит.",
+      "source_refs": [
+        "git-branching",
+        "pro-git-book"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-mtu",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "networking"
+      ],
+      "category": "Сети",
+      "term": "MTU",
+      "aliases": [
+        "maximum transmission unit",
+        "размер пакета",
+        "PMTUD",
+        "fragmentation needed"
+      ],
+      "definition_simple": "Максимальный размер пакета, который проходит через сетевой интерфейс без деления.",
+      "definition_interview": "Для Ethernet обычно 1500 байт, в туннелях и VPN меньше. Если по пути MTU меньше, а сообщения ICMP о необходимости фрагментации блокируются, мелкие пакеты проходят, а крупные теряются.",
+      "example": "TCP-соединение устанавливается, короткий curl отвечает, а TLS-рукопожатие или большой ответ зависают; ping -M do -s 1472 до цели не проходит, а с меньшим размером проходит.",
+      "common_confusion": "При зависаниях на больших ответах ищут проблему в приложении. Симптом «маленькое работает, большое висит» указывает на MTU по пути.",
+      "question": "Соединение есть, маленькие запросы работают, большие ответы зависают. Какую сетевую причину проверите?",
+      "answer": "Несовпадение MTU по пути при заблокированном ICMP. Проверяю ping с запретом фрагментации и уменьшаю размер, пока пакеты не пойдут.",
+      "source_refs": [
+        "man-ip",
+        "linux-man-pages"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-ci-artifact-cache",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "category": "CI/CD",
+      "term": "Артефакт и кэш в CI",
+      "aliases": [
+        "artifacts",
+        "cache",
+        "ci artifact",
+        "ci cache",
+        "артефакт сборки"
+      ],
+      "definition_simple": "Артефакт — результат job для следующих шагов и людей; кэш — ускорение повторных сборок.",
+      "definition_interview": "Артефакты гарантированно передаются между стадиями и хранятся заданный срок. Кэш (например, зависимости) — оптимизация без гарантии: его может не оказаться, и job обязан работать и без него.",
+      "example": "Job build кладёт собранный бинарник в artifacts, job test его скачивает; каталог .npm лежит в cache с ключом по хэшу package-lock.json.",
+      "common_confusion": "Передают результат сборки через cache. На другом раннере или после очистки кэша следующая стадия не найдёт файлов и упадёт.",
+      "question": "Тесты иногда не находят собранный файл, хотя build прошёл. В чём вероятная ошибка?",
+      "answer": "Результат сборки передаётся через cache, а не через artifacts. Кэш не гарантирован; то, что нужно следующей стадии, объявляют артефактом.",
+      "source_refs": [
+        "gitlab-ci-artifacts",
+        "gitlab-ci-caching"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ci-runner",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ci-cd"
+      ],
+      "category": "CI/CD",
+      "term": "Runner",
+      "aliases": [
+        "gitlab runner",
+        "раннер",
+        "агент сборки",
+        "executor",
+        "self-hosted runner"
+      ],
+      "definition_simple": "Программа на машине, которая забирает job из CI и выполняет его.",
+      "definition_interview": "Runner подбирается к job по тегам и выполняет его через executor: shell, docker, kubernetes. Job, для которого нет свободного раннера с подходящими тегами, висит в состоянии pending.",
+      "example": "Pipeline висит: job требует тег docker-arm, а единственный раннер с этим тегом выключен.",
+      "common_confusion": "Ищут ошибку в скрипте job, хотя он даже не начался. Если job в pending, проблема в раннерах, а не в коде.",
+      "question": "Job не стартует и висит в pending. Что проверите?",
+      "answer": "Есть ли онлайн-раннер с тегами этого job и не заняты ли все его слоты. До скрипта дело ещё не дошло.",
+      "source_refs": [
+        "gitlab-ci-quick-start",
+        "gitlab-ci-yaml"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-masked-variable",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ci-cd",
+        "security-pipeline"
+      ],
+      "category": "CI/CD",
+      "term": "Маскированная переменная",
+      "aliases": [
+        "masked variable",
+        "protected variable",
+        "секретная переменная CI",
+        "masked"
+      ],
+      "definition_simple": "Переменная CI, значение которой заменяется звёздочками в логах job.",
+      "definition_interview": "Маскирование только скрывает точное значение в выводе. Оно не мешает скрипту отправить секрет наружу или вывести его в изменённом виде, поэтому секреты ещё и делают protected — доступными только защищённым веткам и тегам.",
+      "example": "Токен деплоя помечен masked и protected: в merge request из чужой ветки job его не получает, а в логах main он виден как [MASKED].",
+      "common_confusion": "Считают маскирование защитой секрета. Любой, кто может менять .gitlab-ci.yml в ветке с доступом к переменной, может её вытащить.",
+      "question": "Достаточно ли пометить токен как masked?",
+      "answer": "Нет. Masked прячет значение в логах, но не ограничивает доступ. Нужны protected-переменные, ограниченные права токена и контроль того, кто меняет pipeline.",
+      "source_refs": [
+        "gitlab-ci-variables",
+        "owasp-cicd-top10"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-docker-healthcheck",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "containers"
+      ],
+      "category": "Контейнеры",
+      "term": "HEALTHCHECK (Docker)",
+      "aliases": [
+        "healthcheck",
+        "health check",
+        "unhealthy",
+        "healthy",
+        "проверка здоровья контейнера"
+      ],
+      "definition_simple": "Команда, которой Docker периодически проверяет, что приложение в контейнере работает.",
+      "definition_interview": "Статус контейнера становится starting, healthy или unhealthy. Сам Docker Engine не перезапускает unhealthy-контейнер — статус используют depends_on с condition: service_healthy в Compose, оркестраторы и мониторинг.",
+      "example": "HEALTHCHECK CMD curl -fsS http://localhost:8080/health || exit 1 — а в образе нет curl, и контейнер навсегда unhealthy, хотя приложение работает.",
+      "common_confusion": "Ждут, что unhealthy-контейнер перезапустится сам. Restart policy реагирует на завершение процесса, а не на статус проверки.",
+      "question": "Контейнер помечен unhealthy, но работает часами и не перезапускается. Почему?",
+      "answer": "Docker Engine только выставляет статус. Перезапуск по нему делает оркестратор или внешний механизм; restart policy срабатывает лишь при выходе процесса.",
+      "source_refs": [
+        "dockerfile-reference",
+        "docker-cli-inspect"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-restart-policy",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "containers"
+      ],
+      "category": "Контейнеры",
+      "term": "Restart policy",
+      "aliases": [
+        "--restart",
+        "unless-stopped",
+        "on-failure",
+        "always",
+        "политика перезапуска"
+      ],
+      "definition_simple": "Правило, перезапускать ли контейнер после остановки процесса.",
+      "definition_interview": "Варианты: no, on-failure[:N], always, unless-stopped. Между попытками Docker увеличивает задержку, поэтому падающий контейнер выглядит как Restarting с растущими паузами.",
+      "example": "docker ps показывает Restarting (1) 5 seconds ago; docker logs --tail 50 на этом контейнере показывает ошибку подключения к базе при старте.",
+      "common_confusion": "Ставят always и считают проблему решённой. Перезапуск скрывает падение, но не устраняет причину.",
+      "question": "Контейнер в Restarting. С чего начнёте?",
+      "answer": "С логов последнего запуска и кода выхода: docker logs и docker inspect, поле State.ExitCode. Перезапуск лишь повторяет падение.",
+      "source_refs": [
+        "docker-cli-logs",
+        "docker-cli-inspect"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-entrypoint-cmd",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "containers",
+        "images-registry"
+      ],
+      "category": "Контейнеры",
+      "term": "ENTRYPOINT и CMD",
+      "aliases": [
+        "entrypoint",
+        "cmd",
+        "exec form",
+        "shell form"
+      ],
+      "definition_simple": "ENTRYPOINT — что запускать, CMD — аргументы по умолчанию или команда, если ENTRYPOINT нет.",
+      "definition_interview": "При заданном ENTRYPOINT значение CMD подставляется как его аргументы, а аргументы docker run заменяют CMD. Форма важна: в shell-форме PID 1 становится sh, который не передаёт SIGTERM приложению, и остановка затягивается до SIGKILL.",
+      "example": "ENTRYPOINT [\"/app/server\"] и CMD [\"--port\", \"8080\"]: docker run image --port 9090 заменит только аргументы.",
+      "common_confusion": "Пишут ENTRYPOINT /app/server в shell-форме и не понимают, почему docker stop ждёт 10 секунд и убивает контейнер.",
+      "question": "Почему docker stop долго ждёт, а потом убивает контейнер?",
+      "answer": "Чаще всего приложение запущено через sh в shell-форме и не получает SIGTERM. Переписать на exec-форму или использовать init, корректно передающий сигналы.",
+      "source_refs": [
+        "dockerfile-reference",
+        "man-signal"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-pod-pending",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "k8s-operations"
+      ],
+      "category": "Kubernetes",
+      "term": "Pending",
+      "aliases": [
+        "под в pending",
+        "FailedScheduling",
+        "Insufficient cpu",
+        "Insufficient memory",
+        "unschedulable"
+      ],
+      "definition_simple": "Под создан, но ещё не запущен на узле.",
+      "definition_interview": "Чаще всего планировщик не нашёл узел: не хватает запрошенных ресурсов, мешают taint, nodeSelector или affinity, не привязан PVC. Причина видна в Events у kubectl describe pod.",
+      "example": "Events: 0/3 nodes are available: 3 Insufficient memory — requests пода больше свободного запаса на любом узле.",
+      "common_confusion": "Смотрят логи пода. У пода в Pending контейнер ещё не стартовал, логов нет, ответ в событиях планировщика.",
+      "question": "Под висит в Pending. Где искать причину?",
+      "answer": "В Events через kubectl describe pod: там будет FailedScheduling с причиной — ресурсы, taint, селекторы или неготовый том.",
+      "source_refs": [
+        "k8s-debug-pods",
+        "k8s-assign-pod-node"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-imagepullbackoff",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "k8s-operations",
+        "images-registry"
+      ],
+      "category": "Kubernetes",
+      "term": "ImagePullBackOff",
+      "aliases": [
+        "ErrImagePull",
+        "image pull",
+        "не скачивается образ",
+        "imagePullSecrets"
+      ],
+      "definition_simple": "Kubernetes не может скачать образ и повторяет попытки с растущей паузой.",
+      "definition_interview": "Сначала появляется ErrImagePull, затем ImagePullBackOff. Типичные причины: опечатка в имени или теге, нет прав на приватный реестр, реестр недоступен с узла, лимит запросов к реестру.",
+      "example": "describe pod показывает Failed to pull image registry.example.com/app:1.4.3: not found — CI опубликовал тег 1.4.3-rc1, а в манифест попал 1.4.3.",
+      "common_confusion": "Перезапускают под в надежде, что пройдёт. Без исправления имени, тега или доступа к реестру повтор даёт ту же ошибку.",
+      "question": "Под в ImagePullBackOff. Что проверите по порядку?",
+      "answer": "Точное сообщение в Events, существование образа с этим тегом в реестре, imagePullSecrets или права узла на реестр, сетевой доступ узла к реестру.",
+      "source_refs": [
+        "k8s-debug-pods",
+        "k8s-pods"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-pvc",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "k8s-operations",
+        "kubernetes"
+      ],
+      "category": "Kubernetes",
+      "term": "PVC и StorageClass",
+      "aliases": [
+        "PersistentVolumeClaim",
+        "PersistentVolume",
+        "pv",
+        "storageclass",
+        "постоянный том"
+      ],
+      "definition_simple": "PVC — заявка пода на постоянный диск; StorageClass описывает, как такой диск создавать.",
+      "definition_interview": "При динамическом выделении StorageClass создаёт PV под заявку. Если подходящего класса нет или он не указан и нет класса по умолчанию, PVC остаётся Pending, а вместе с ним и под. Диски вроде EBS привязаны к зоне доступности.",
+      "example": "PVC в Pending: в кластере нет StorageClass по умолчанию, а в заявке storageClassName не задан.",
+      "common_confusion": "Думают, что удаление пода удаляет данные. Данные живут в PV; что с ним станет после удаления PVC, решает reclaimPolicy.",
+      "question": "Под не стартует из-за тома, PVC в Pending. Что проверить?",
+      "answer": "kubectl describe pvc: есть ли StorageClass, работает ли провижионер, нет ли конфликта по зоне. Для режима WaitForFirstConsumer PVC ждёт, пока под будет запланирован.",
+      "source_refs": [
+        "k8s-persistent-volumes"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-ingress",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "kubernetes",
+        "traffic-delivery"
+      ],
+      "category": "Kubernetes",
+      "term": "Ingress",
+      "aliases": [
+        "ingress controller",
+        "ingress-nginx",
+        "маршрутизация http в кластер",
+        "ingressClassName"
+      ],
+      "definition_simple": "Объект с правилами, как HTTP-запросы по хосту и пути попадают в сервисы кластера.",
+      "definition_interview": "Сам объект ничего не делает: правила исполняет Ingress-контроллер. Цепочка диагностики: DNS → балансировщик контроллера → правило Ingress → Service → endpoints → поды.",
+      "example": "Ingress создан, а адрес не появляется: в кластере нет контроллера с указанным ingressClassName.",
+      "common_confusion": "Ищут проблему в Ingress, когда у Service нет endpoints. Контроллер честно шлёт трафик, но некуда — получается 503.",
+      "question": "Через Ingress приходит 503. Что проверить в кластере?",
+      "answer": "Есть ли у Service endpoints, то есть готовые поды с подходящими метками. Затем логи контроллера и соответствие host и path в правилах.",
+      "source_refs": [
+        "k8s-service",
+        "kubectl-quick-reference"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-iam-role",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "cloud-basics",
+        "aws-eks"
+      ],
+      "category": "Облако",
+      "term": "IAM role",
+      "aliases": [
+        "роль iam",
+        "assume role",
+        "sts",
+        "instance profile",
+        "временные учётные данные"
+      ],
+      "definition_simple": "Набор прав, который принимает сервис или человек и получает временные ключи.",
+      "definition_interview": "У роли нет постоянного пароля и ключей: доверенная сторона вызывает AssumeRole и получает учётные данные с ограниченным сроком. Политика доверия задаёт, кто может принять роль, а политики разрешений — что ей можно.",
+      "example": "EC2 получает доступ к S3 через instance profile с ролью, без ключей в конфиге приложения.",
+      "common_confusion": "Кладут долгоживущие access key пользователя на сервер. Роль убирает статический секрет, который можно украсть и забыть отозвать.",
+      "question": "Почему сервису в AWS лучше давать роль, а не ключи пользователя?",
+      "answer": "Роль выдаёт временные учётные данные, которые сами истекают, и права привязаны к ресурсу. Статические ключи живут годами и утекают.",
+      "source_refs": [
+        "aws-iam-intro",
+        "nist-least-privilege"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-sg-nacl",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "cloud-basics",
+        "aws-eks"
+      ],
+      "category": "Облако",
+      "term": "Security group и NACL",
+      "aliases": [
+        "security group",
+        "sg",
+        "network acl",
+        "nacl",
+        "сетевой экран aws"
+      ],
+      "definition_simple": "Security group — фильтр на уровне интерфейса, NACL — фильтр на уровне подсети.",
+      "definition_interview": "Security group stateful и только разрешает: ответный трафик проходит автоматически. NACL stateless, правила проверяются по номеру и могут запрещать, поэтому для ответов нужно разрешить эфемерные порты.",
+      "example": "Входящий 443 открыт и в SG, и в NACL, но ответы теряются: исходящие порты 1024–65535 в NACL не разрешены.",
+      "common_confusion": "Переносят логику SG на NACL и забывают про обратное направление.",
+      "question": "Порт открыт в security group, но соединение висит. Что ещё проверить в VPC?",
+      "answer": "NACL подсети в обе стороны, включая эфемерные порты для ответа, и таблицу маршрутов. SG ответы пропускает сам, NACL — нет.",
+      "source_refs": [
+        "aws-vpc-what-is"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-eks-node-group",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "aws-eks"
+      ],
+      "category": "Облако",
+      "term": "EKS node group",
+      "aliases": [
+        "managed node group",
+        "группа узлов",
+        "worker nodes",
+        "auto scaling group"
+      ],
+      "definition_simple": "Группа EC2-машин, которые работают узлами кластера EKS.",
+      "definition_interview": "Управляющий слой EKS ведёт AWS, а поды выполняются на узлах. Управляемая группа узлов создаёт инстансы через Auto Scaling group и помогает обновлять их по очереди. Размер группы и тип инстанса определяют, сколько подов поместится.",
+      "example": "Поды в Pending с Insufficient cpu: группа достигла maxSize, новые узлы не добавляются.",
+      "common_confusion": "Думают, что EKS управляет всем. Обновление и ёмкость узлов, их AMI и диски — ответственность команды.",
+      "question": "Что в EKS ведёт AWS, а что остаётся команде?",
+      "answer": "AWS отвечает за управляющий слой. Команда отвечает за узлы: их размер, обновление, масштабирование и то, что на них запущено.",
+      "source_refs": [
+        "aws-eks-what-is"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-irsa",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "aws-eks",
+        "config-secrets"
+      ],
+      "category": "Облако",
+      "term": "IRSA",
+      "aliases": [
+        "iam roles for service accounts",
+        "eks pod identity",
+        "role-arn",
+        "oidc provider"
+      ],
+      "definition_simple": "Способ дать поду в EKS собственную роль IAM через его ServiceAccount.",
+      "definition_interview": "ServiceAccount связывается с ролью IAM через OIDC-провайдер кластера, и под получает временные ключи только этой роли. Альтернатива — EKS Pod Identity. Без этого поды пользуются ролью узла, то есть правами всех подов на нём.",
+      "example": "У ServiceAccount аннотация eks.amazonaws.com/role-arn; под с ним может писать в один бакет S3, а соседние поды не могут.",
+      "common_confusion": "Добавляют права в роль узла. Тогда их получает любой под на этом узле.",
+      "question": "Чем плохо давать права подам через роль узла EKS?",
+      "answer": "Права получают все поды на узле. Через IRSA или Pod Identity у каждого сервиса своя роль с минимальными правами.",
+      "source_refs": [
+        "aws-eks-what-is",
+        "aws-iam-intro"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-vpc-cni",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "aws-eks"
+      ],
+      "category": "Облако",
+      "term": "Amazon VPC CNI",
+      "aliases": [
+        "aws-node",
+        "vpc cni",
+        "ip адреса подов",
+        "failed to assign an IP address"
+      ],
+      "definition_simple": "Сетевой плагин EKS, который выдаёт подам адреса прямо из подсети VPC.",
+      "definition_interview": "Каждый под получает настоящий IP подсети, поэтому подсеть может закончиться раньше, чем ресурсы узлов. Число подов на узле ограничено числом интерфейсов и адресов типа инстанса.",
+      "example": "Поды не стартуют с failed to assign an IP address to container: подсеть /24 исчерпана при свободных CPU и памяти.",
+      "common_confusion": "Ищут нехватку CPU и памяти, когда закончились адреса в подсети.",
+      "question": "Узлы недогружены, а новые поды не получают сеть. Что проверить в EKS?",
+      "answer": "Свободные адреса в подсетях узлов и лимит адресов на тип инстанса, логи aws-node. Решения — большие подсети или делегирование префиксов.",
+      "source_refs": [
+        "aws-eks-troubleshooting",
+        "aws-vpc-what-is"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-gcp-project",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "gcp-basics"
+      ],
+      "category": "Облако",
+      "term": "Проект GCP",
+      "aliases": [
+        "gcp project",
+        "project id",
+        "проект google cloud",
+        "глобальная vpc"
+      ],
+      "definition_simple": "Контейнер для ресурсов, прав и оплаты в Google Cloud.",
+      "definition_interview": "Ресурсы, включённые API, права IAM и биллинг привязаны к проекту. В отличие от AWS, сеть VPC в GCP глобальная, а подсети региональные.",
+      "example": "Команда gcloud создаёт машину не там: в конфигурации активен другой project, проверка — gcloud config list.",
+      "common_confusion": "Считают проект аналогом региона. Проект — граница прав и оплаты, а регионы выбираются для каждого ресурса.",
+      "question": "Как в GCP разделить окружения так, чтобы права и расходы не смешивались?",
+      "answer": "Отдельными проектами для prod и staging: у каждого свои права IAM и свой учёт расходов.",
+      "source_refs": [
+        "gcp-docs-overview",
+        "gcp-iam-overview"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-gcp-service-account",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "gcp-basics",
+        "config-secrets"
+      ],
+      "category": "Облако",
+      "term": "Сервисный аккаунт GCP",
+      "aliases": [
+        "service account",
+        "сервисная учётка",
+        "workload identity",
+        "json key"
+      ],
+      "definition_simple": "Учётная запись для программ, а не для людей.",
+      "definition_interview": "Сервису назначают сервисный аккаунт с нужными ролями. Ключ в JSON-файле — долгоживущий секрет, поэтому предпочитают привязанный к ресурсу аккаунт или Workload Identity, где ключ не хранится вообще.",
+      "example": "Под в GKE через Workload Identity работает от сервисного аккаунта с правом читать один бакет, без файла ключа в Secret.",
+      "common_confusion": "Выдают сервисному аккаунту роль Editor на проект «чтобы заработало». Утечка такой учётки даёт почти полный доступ.",
+      "question": "Почему JSON-ключ сервисного аккаунта считают риском?",
+      "answer": "Это бессрочный секрет, который копируют по серверам и репозиториям. Привязка аккаунта к ресурсу или Workload Identity выдаёт короткоживущие токены без файла.",
+      "source_refs": [
+        "gcp-iam-overview",
+        "owasp-secrets-cheatsheet"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-tf-state-lock",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "iac"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Блокировка state",
+      "aliases": [
+        "state lock",
+        "Error acquiring the state lock",
+        "force-unlock",
+        "use_lockfile",
+        "dynamodb lock"
+      ],
+      "definition_simple": "Защита от одновременных изменений одного state двумя запусками Terraform.",
+      "definition_interview": "Backend ставит блокировку на время plan и apply. В S3 это блокировка через файл в бакете (use_lockfile) или исторически через таблицу DynamoDB. Зависшую блокировку снимают terraform force-unlock только после проверки, что другой запуск действительно не идёт.",
+      "example": "Error acquiring the state lock с ID и именем того, кто держит блокировку: коллега запустил apply, или упавший job CI её не снял.",
+      "common_confusion": "Сразу делают force-unlock. Если второй apply ещё идёт, два процесса пишут state одновременно и портят его.",
+      "question": "Terraform пишет Error acquiring the state lock. Что сделаете?",
+      "answer": "Посмотрю, кто и когда взял блокировку, и проверю, что этот запуск завершён. Только после этого force-unlock с указанным ID.",
+      "source_refs": [
+        "terraform-state"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-tf-refresh-only",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "iac"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "plan -refresh-only",
+      "aliases": [
+        "refresh-only",
+        "terraform refresh",
+        "apply -refresh-only",
+        "сверка state"
+      ],
+      "definition_simple": "Режим, который показывает, чем реальная инфраструктура отличается от state, не предлагая её менять.",
+      "definition_interview": "terraform plan -refresh-only считывает реальное состояние ресурсов и показывает изменения, сделанные вне Terraform. apply -refresh-only записывает их в state; обычный plan после этого покажет, что нужно сделать, чтобы вернуться к коду.",
+      "example": "Кто-то вручную открыл порт в security group; plan -refresh-only показывает это изменение, и команда решает — внести его в код или откатить.",
+      "common_confusion": "Запускают обычный apply, чтобы «синхронизировать». Он молча вернёт ручное исправление, которое кто-то сделал во время инцидента.",
+      "question": "Как увидеть ручные изменения в облаке, ничего не меняя?",
+      "answer": "terraform plan -refresh-only: он сравнит реальное состояние со state и покажет расхождения без предложения изменить ресурсы.",
+      "source_refs": [
+        "terraform-plan",
+        "terraform-drift-tutorial"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-tf-module",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "iac"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Модуль Terraform",
+      "aliases": [
+        "module",
+        "terraform module",
+        "переиспользуемый модуль",
+        "source version"
+      ],
+      "definition_simple": "Каталог с конфигурацией Terraform, который подключают как готовый блок с параметрами.",
+      "definition_interview": "Модуль принимает variables, создаёт ресурсы и отдаёт outputs. Версию внешнего модуля фиксируют, иначе обновление модуля изменит инфраструктуру без изменений в вашем коде.",
+      "example": "module \"vpc\" { source = \"./modules/vpc\" cidr = \"10.20.0.0/16\" } — одинаковая сеть для staging и prod с разными параметрами.",
+      "common_confusion": "Подключают модуль из реестра без version. Новая версия модуля приносит неожиданный plan с пересозданием ресурсов.",
+      "question": "Зачем фиксировать версию модуля?",
+      "answer": "Чтобы инфраструктура менялась только тогда, когда меняется ваш код. Обновление модуля делают осознанно и смотрят plan.",
+      "source_refs": [
+        "terraform-modules"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ansible-inventory",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Inventory (Ansible)",
+      "aliases": [
+        "инвентарь",
+        "hosts",
+        "inventory",
+        "group_vars",
+        "host_vars"
+      ],
+      "definition_simple": "Список серверов и их групп, на которых Ansible выполняет задачи.",
+      "definition_interview": "Inventory задаёт хосты, группы и переменные для них (group_vars, host_vars). От него зависит, куда реально уедут изменения, поэтому перед запуском проверяют выборку через --limit и ansible-inventory --graph.",
+      "example": "ansible-playbook site.yml -l web_staging --check — проверка только на группе staging.",
+      "common_confusion": "Запускают playbook без --limit на inventory с prod-хостами, хотя хотели проверить один сервер.",
+      "question": "Как убедиться, на какие хосты попадёт запуск?",
+      "answer": "ansible-inventory --graph или ansible-playbook --list-hosts с тем же --limit. Сначала список хостов, потом запуск.",
+      "source_refs": [
+        "ansible-inventory",
+        "ansible-getting-started"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ansible-playbook",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Playbook",
+      "aliases": [
+        "плейбук",
+        "play",
+        "tasks",
+        "ansible-playbook"
+      ],
+      "definition_simple": "YAML-файл с описанием, что и на каких хостах настроить.",
+      "definition_interview": "Playbook состоит из plays: каждый выбирает хосты и выполняет задачи модулями по порядку. Задачи описывают желаемое состояние, и повторный запуск на настроенном сервере должен давать changed=0.",
+      "example": "Play для группы web ставит nginx модулем apt, кладёт конфиг модулем template и следит, чтобы служба была запущена.",
+      "common_confusion": "Пишут задачи через shell там, где есть модуль. Shell-задача сообщает changed при каждом запуске и ломает идемпотентность.",
+      "question": "Как понять, что playbook идемпотентен?",
+      "answer": "Запустить его второй раз на том же хосте: в итоге должно быть changed=0. Если нет — какие-то задачи меняют систему при каждом прогоне.",
+      "source_refs": [
+        "ansible-playbooks-intro"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-ansible-handler",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Handler (Ansible)",
+      "aliases": [
+        "handler",
+        "notify",
+        "обработчик",
+        "restart nginx"
+      ],
+      "definition_simple": "Задача, которая выполняется только если её вызвали и вызвавшая задача что-то изменила.",
+      "definition_interview": "Handler запускается по notify один раз в конце play, даже если его вызвали несколько задач. Если play падает раньше, handler не выполнится, и изменённый конфиг останется непрочитанным службой.",
+      "example": "Задача template меняет nginx.conf и делает notify: reload nginx; если конфиг не изменился, перезагрузки нет.",
+      "common_confusion": "Перезапускают службу отдельной задачей при каждом прогоне. Это лишние перезапуски и обрывы соединений без причины.",
+      "question": "Конфиг обновлён, а служба работает со старым. Почему handler мог не сработать?",
+      "answer": "Play упал после изменения, до момента запуска handlers. Помогает --force-handlers или meta: flush_handlers в нужном месте.",
+      "source_refs": [
+        "ansible-playbooks-intro"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ansible-check-mode",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "ansible-config"
+      ],
+      "category": "Инфраструктура как код",
+      "term": "Check mode (Ansible)",
+      "aliases": [
+        "--check",
+        "--diff",
+        "сухой прогон",
+        "dry run"
+      ],
+      "definition_simple": "Пробный запуск, который показывает, что изменилось бы, но ничего не меняет.",
+      "definition_interview": "С --check модули сообщают ожидаемые изменения, с --diff — что именно поменяется в файлах. Модули без поддержки check mode, в том числе command и shell, пропускаются, поэтому прогон может показать меньше, чем произойдёт на самом деле.",
+      "example": "ansible-playbook nginx.yml -l web01 --check --diff показывает разницу в конфиге до реального запуска.",
+      "common_confusion": "Считают check mode полной гарантией. Задачи, зависящие от результата пропущенного command, в пробном прогоне ведут себя иначе.",
+      "question": "Почему --check не гарантирует, что реальный запуск пройдёт так же?",
+      "answer": "Часть задач в check mode не выполняется, например command и shell, и последующие шаги не видят их результата.",
+      "source_refs": [
+        "ansible-check-mode"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-scrape-target",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Scrape target",
+      "aliases": [
+        "scrape",
+        "target",
+        "цель сбора",
+        "up",
+        "scrape_interval",
+        "/metrics"
+      ],
+      "definition_simple": "Адрес, с которого Prometheus по расписанию забирает метрики.",
+      "definition_interview": "Prometheus сам опрашивает цели по HTTP, обычно /metrics, раз в scrape_interval. Для каждой цели он пишет метрику up: 1 — опрос удался, 0 — нет. Состояние целей видно на странице Status → Targets.",
+      "example": "up{job=\"node\", instance=\"10.0.2.7:9100\"} == 0 — экспортер на узле недоступен, и метрики узла перестали обновляться.",
+      "common_confusion": "Видят пропавший график и ищут проблему в сервисе. Сначала проверяют, собирается ли вообще цель.",
+      "question": "График перестал обновляться. Что проверить в Prometheus первым делом?",
+      "answer": "Метрику up и страницу Targets: доступна ли цель и какая ошибка опроса. Без сбора метрик выводы о сервисе делать нельзя.",
+      "source_refs": [
+        "prometheus-configuration",
+        "prometheus-getting-started"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-exporter",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Exporter",
+      "aliases": [
+        "экспортер",
+        "node_exporter",
+        "blackbox_exporter",
+        "postgres_exporter"
+      ],
+      "definition_simple": "Программа, которая переводит метрики системы или сервиса в формат Prometheus.",
+      "definition_interview": "node_exporter отдаёт метрики машины, postgres_exporter — базы, blackbox_exporter проверяет доступность снаружи по HTTP, TCP или ICMP. Экспортер — отдельная цель scrape, и его падение выглядит как пропажа метрик.",
+      "example": "node_exporter на порту 9100 отдаёт node_filesystem_avail_bytes; по ней строят алерт на заполнение диска.",
+      "common_confusion": "Путают отсутствие метрик с нулевым значением. Если экспортер упал, ряда нет вовсе, и алерт на «меньше X» не сработает.",
+      "question": "Чем опасно падение экспортера для алертов?",
+      "answer": "Метрики перестают приходить, и выражение на их значение просто ничего не находит. Нужен отдельный алерт на up == 0 или absent().",
+      "source_refs": [
+        "prometheus-node-exporter-guide",
+        "prometheus-getting-started"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-promql-rate",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "category": "Наблюдаемость",
+      "term": "rate()",
+      "aliases": [
+        "rate",
+        "irate",
+        "increase",
+        "promql",
+        "скорость счётчика"
+      ],
+      "definition_simple": "Функция PromQL, которая превращает растущий счётчик в скорость в секунду.",
+      "definition_interview": "rate(counter[5m]) считает среднюю скорость роста за окно и корректно обрабатывает сброс счётчика при перезапуске. Окно должно охватывать несколько интервалов scrape, иначе точек не хватит и ряд будет рваным.",
+      "example": "sum by (status) (rate(http_requests_total[5m])) — запросы в секунду по кодам ответа.",
+      "common_confusion": "Строят график по самому счётчику и видят ступени и обвалы при перезапуске. Счётчик почти никогда не смотрят без rate или increase.",
+      "question": "Почему по счётчику http_requests_total строят rate, а не график значения?",
+      "answer": "Сам счётчик только растёт и сбрасывается при перезапуске. rate даёт скорость в секунду и учитывает сбросы.",
+      "source_refs": [
+        "prometheus-querying-basics",
+        "prometheus-metric-types"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-alertmanager",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus",
+        "incidents"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Alertmanager",
+      "aliases": [
+        "алертменеджер",
+        "silence",
+        "inhibition",
+        "group_by",
+        "маршрутизация алертов"
+      ],
+      "definition_simple": "Сервис, который принимает алерты от Prometheus, группирует их и доставляет людям.",
+      "definition_interview": "Prometheus только вычисляет правила. Alertmanager убирает дубли, группирует по меткам, маршрутизирует по командам и каналам, поддерживает silence на время работ и inhibition — подавление зависимых алертов.",
+      "example": "При падении узла inhibition подавляет алерты всех сервисов на нём, и дежурный получает один алерт вместо двадцати.",
+      "common_confusion": "Ставят silence на всё без срока и забывают о нём. Затем настоящий сбой проходит незамеченным.",
+      "question": "Чем silence отличается от удаления правила алерта?",
+      "answer": "Silence временно глушит уведомления по меткам и сам истекает. Правило продолжает вычисляться, и алерт виден в Prometheus.",
+      "source_refs": [
+        "prometheus-alertmanager"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-alert-for",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "category": "Наблюдаемость",
+      "term": "for в правиле алерта",
+      "aliases": [
+        "for",
+        "pending",
+        "firing",
+        "keep_firing_for",
+        "длительность условия"
+      ],
+      "definition_simple": "Сколько времени условие должно держаться, прежде чем алерт начнёт срабатывать.",
+      "definition_interview": "Пока условие верно меньше заданного for, алерт в состоянии pending; после — firing и уходит в Alertmanager. Это отсекает кратковременные всплески, но добавляет задержку обнаружения.",
+      "example": "expr: rate(http_requests_total{status=~\"5..\"}[5m]) > 1 и for: 10m — короткий всплеск ошибок на минуту не будит дежурного.",
+      "common_confusion": "Ставят for: 30m на алерт о полной недоступности. Сайт лежит полчаса, прежде чем кто-то узнает.",
+      "question": "Как выбрать значение for для алерта?",
+      "answer": "Исходя из цены задержки: для недоступности — минуты, для медленно растущих проблем — дольше. for гасит шум ценой времени обнаружения.",
+      "source_refs": [
+        "prometheus-alerting-rules"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-cardinality",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus",
+        "observability"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Кардинальность метрик",
+      "aliases": [
+        "cardinality",
+        "high cardinality",
+        "число рядов",
+        "time series",
+        "label explosion"
+      ],
+      "definition_simple": "Сколько разных временных рядов порождает метрика из-за сочетаний её меток.",
+      "definition_interview": "Каждое уникальное сочетание значений меток — отдельный ряд в памяти и на диске. Метки с неограниченными значениями (user_id, полный URL, request_id) быстро раздувают Prometheus до нехватки памяти.",
+      "example": "Разработчик добавил метку path с полным URL с идентификаторами — число рядов выросло с 20 тысяч до 2 миллионов, Prometheus начал падать по OOM.",
+      "common_confusion": "Считают, что больше меток — всегда лучше. Детали отдельного запроса принадлежат логам и трейсам, а не меткам.",
+      "question": "Почему нельзя добавлять user_id в метки метрик?",
+      "answer": "Каждый пользователь создаст свой ряд, их число растёт без предела и съедает память Prometheus. Такие данные ищут в логах.",
+      "source_refs": [
+        "prometheus-metric-types",
+        "otel-observability"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-grafana-variable",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "monitoring-prometheus"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Переменная дашборда",
+      "aliases": [
+        "dashboard variable",
+        "template variable",
+        "$instance",
+        "label_values"
+      ],
+      "definition_simple": "Выпадающий список на дашборде Grafana, значение которого подставляется в запросы панелей.",
+      "definition_interview": "Переменная типа query заполняется из источника, например label_values(up{job=\"node\"}, instance). Один дашборд обслуживает все серверы, а не копируется под каждый.",
+      "example": "В запросах стоит {instance=\"$instance\"}, и дежурный переключает сервер в списке, не правя панели.",
+      "common_confusion": "Копируют дашборд под каждый сервер, и через месяц копии расходятся.",
+      "question": "Зачем нужны переменные в дашборде Grafana?",
+      "answer": "Чтобы один дашборд показывал любой сервер или сервис по выбору из списка, а запросы панелей не дублировались.",
+      "source_refs": [
+        "grafana-dashboards"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-loki-stream-selector",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "logging-loki"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Селектор потока (LogQL)",
+      "aliases": [
+        "stream selector",
+        "log stream",
+        "метки потока",
+        "{app=\"nginx\"}"
+      ],
+      "definition_simple": "Часть запроса LogQL в фигурных скобках, выбирающая потоки логов по меткам.",
+      "definition_interview": "Loki индексирует только метки, а не текст, поэтому каждый запрос начинается с селектора. Меток должно быть немного и с малым числом значений; высококардинальные значения вроде request_id ищут фильтрами по тексту.",
+      "example": "{namespace=\"prod\", app=\"nginx\"} выбирает логи nginx в prod, дальше идут фильтры по содержимому.",
+      "common_confusion": "Делают request_id меткой. Каждое значение порождает новый поток, и Loki деградирует.",
+      "question": "Почему в Loki не делают метку из request_id?",
+      "answer": "Каждое уникальное значение создаёт отдельный поток, индекс разрастается. request_id ищут line filter по тексту внутри выбранных потоков.",
+      "source_refs": [
+        "loki-logql",
+        "grafana-loki-intro"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-loki-line-filter",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "logging-loki"
+      ],
+      "category": "Наблюдаемость",
+      "term": "Line filter (LogQL)",
+      "aliases": [
+        "line filter",
+        "|=",
+        "!=",
+        "|~",
+        "фильтр строк"
+      ],
+      "definition_simple": "Фильтр по тексту строки лога в запросе LogQL.",
+      "definition_interview": "|= ищет подстроку, != исключает, |~ и !~ работают с регулярными выражениями. Фильтры идут после селектора; сужать сначала метками, затем текстом — быстрее, чем перебирать всё регулярками.",
+      "example": "{app=\"api\"} |= \"timeout\" != \"healthcheck\" — таймауты без шума от проверок здоровья.",
+      "common_confusion": "Пишут запрос только из регулярного выражения по всем логам за неделю и ждут быстрого ответа.",
+      "question": "Как найти в логах сервиса строки с ошибкой, исключив проверки здоровья?",
+      "answer": "{app=\"api\"} |= \"error\" != \"/health\" — селектор сужает поток, фильтры отбирают строки.",
+      "source_refs": [
+        "loki-log-queries",
+        "loki-logql"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-pg-max-connections",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "category": "Базы данных",
+      "term": "max_connections",
+      "aliases": [
+        "too many clients already",
+        "исчерпание соединений",
+        "superuser_reserved_connections",
+        "pg_stat_activity"
+      ],
+      "definition_simple": "Сколько одновременных подключений принимает PostgreSQL.",
+      "definition_interview": "Каждое соединение — отдельный серверный процесс со своей памятью, поэтому лимит не поднимают бездумно. При исчерпании новые клиенты получают FATAL: sorry, too many clients already; часть слотов зарезервирована для суперпользователя.",
+      "example": "SELECT state, count(*) FROM pg_stat_activity GROUP BY state; — 180 соединений в idle от одного сервиса, который не возвращает их в пул.",
+      "common_confusion": "Сразу увеличивают max_connections. Обычно причина в приложении без пула или в утечке соединений, а изменение лимита требует перезапуска.",
+      "question": "Приложение получает too many clients already. Что посмотрите в первую очередь?",
+      "answer": "pg_stat_activity: кто держит соединения, в каком они состоянии и с каких адресов. Чаще всего виден один источник без пула.",
+      "source_refs": [
+        "postgres-connection-settings",
+        "postgres-monitoring-stats"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-pgbouncer",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "category": "Базы данных",
+      "term": "PgBouncer",
+      "aliases": [
+        "connection pooler",
+        "пул соединений",
+        "pool_mode",
+        "transaction pooling"
+      ],
+      "definition_simple": "Лёгкий прокси, который держит небольшой пул соединений к PostgreSQL и раздаёт их многим клиентам.",
+      "definition_interview": "В режиме transaction серверное соединение выдаётся на время транзакции, и сотни клиентов обходятся десятками соединений к базе. Цена — нельзя полагаться на состояние сессии: SET, временные таблицы и сессионные блокировки ведут себя иначе.",
+      "example": "Двести подов приложения подключаются к PgBouncer, а он держит 40 соединений к базе и не упирается в max_connections.",
+      "common_confusion": "Включают transaction-режим и получают странные ошибки в коде, который рассчитывает на постоянную сессию.",
+      "question": "Чем помогает PgBouncer и чем приходится платить?",
+      "answer": "Снижает число реальных соединений к базе. Платят ограничениями на сессионное состояние в режиме transaction.",
+      "source_refs": [
+        "postgres-connection-settings"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-pg-dump",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "category": "Базы данных",
+      "term": "pg_dump",
+      "aliases": [
+        "логический бэкап",
+        "pg_restore",
+        "pg_dumpall",
+        "дамп базы",
+        "-Fc"
+      ],
+      "definition_simple": "Утилита, которая выгружает одну базу PostgreSQL в файл для последующего восстановления.",
+      "definition_interview": "Делает согласованный снимок без остановки записи. Роли и другие глобальные объекты не входят — их выгружает pg_dumpall --globals-only. Формат -Fc восстанавливается через pg_restore с выбором объектов.",
+      "example": "pg_dump -Fc -d shop -f shop.dump, затем pg_restore -d shop_restore_test shop.dump на отдельном сервере и проверочный запрос к ключевой таблице.",
+      "common_confusion": "Считают бэкап готовым, как только появился файл. Не проверенный восстановлением дамп может оказаться пустым или неполным.",
+      "question": "Как доказать, что бэкап pg_dump рабочий?",
+      "answer": "Восстановить его в отдельную базу и проверить данные запросами. Файл без проверки восстановлением — только надежда.",
+      "source_refs": [
+        "postgres-pg-dump",
+        "postgres-backup"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-idle-in-transaction",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "category": "Базы данных",
+      "term": "idle in transaction",
+      "aliases": [
+        "idle in transaction",
+        "зависшая транзакция",
+        "idle_in_transaction_session_timeout"
+      ],
+      "definition_simple": "Соединение открыло транзакцию и ничего не делает, не завершив её.",
+      "definition_interview": "Такое соединение держит блокировки и старый снимок данных: другие запросы ждут, а VACUUM не может убрать мёртвые строки. Защита — idle_in_transaction_session_timeout и исправление кода, который забывает COMMIT.",
+      "example": "pg_stat_activity показывает state = idle in transaction и xact_start двухчасовой давности; от неё по цепочке ждут ALTER и десятки UPDATE.",
+      "common_confusion": "Считают idle безобидным. Простаивающее соединение и простаивающая транзакция — разные вещи: вторая держит блокировки.",
+      "question": "Почему опасно соединение в состоянии idle in transaction?",
+      "answer": "Оно держит блокировки и снимок, блокирует другие запросы и очистку. Его находят в pg_stat_activity и выясняют, какой код не закрыл транзакцию.",
+      "source_refs": [
+        "postgres-monitoring-stats",
+        "postgres-explicit-locking"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-mongo-replica-set",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "category": "Базы данных",
+      "term": "Replica set (MongoDB)",
+      "aliases": [
+        "набор реплик",
+        "primary",
+        "secondary",
+        "rs.status()",
+        "реплика-сет"
+      ],
+      "definition_simple": "Группа серверов MongoDB с одними данными: один принимает записи, остальные копируют.",
+      "definition_interview": "Записи идут на primary, secondary повторяют его изменения. Для выбора primary нужно большинство голосующих членов, поэтому делают нечётное число, обычно три: при двух потеря одного оставляет набор без primary.",
+      "example": "rs.status() показывает один PRIMARY и два SECONDARY с optimeDate, по которым видно отставание.",
+      "common_confusion": "Ставят два узла «для надёжности». При падении одного второй не наберёт большинство и останется только на чтение.",
+      "question": "Почему в replica set обычно три узла, а не два?",
+      "answer": "Выборам нужно большинство. Из трёх после потери одного остаются два из трёх; из двух — один из двух, это не большинство.",
+      "source_refs": [
+        "mongodb-replication",
+        "mongodb-deploy-replica-set"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-pg-wal",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "databases-ops"
+      ],
+      "category": "Базы данных",
+      "term": "WAL (PostgreSQL)",
+      "aliases": [
+        "write-ahead log",
+        "журнал предзаписи",
+        "pg_wal",
+        "архивирование wal",
+        "replication slot"
+      ],
+      "definition_simple": "Журнал, куда PostgreSQL сначала записывает каждое изменение, а потом применяет его к файлам данных.",
+      "definition_interview": "WAL обеспечивает восстановление после сбоя, физическую репликацию и восстановление на момент времени. Файлы WAL удаляются только когда они больше не нужны: если архивирование падает или реплика со слотом репликации отстала, каталог pg_wal растёт и может заполнить диск.",
+      "example": "Диск базы заполняется, а данных не прибавилось: du -sh pg_wal показывает 80 ГБ, в pg_replication_slots висит неактивный слот отключённой реплики.",
+      "common_confusion": "Удаляют файлы из pg_wal вручную, чтобы освободить место. Это может сделать базу невосстановимой; причину ищут в архивировании и слотах.",
+      "question": "Каталог pg_wal быстро растёт. Что проверите?",
+      "answer": "Неактивные слоты репликации в pg_replication_slots, ошибки archive_command в логах и отставание реплик. Файлы вручную не удаляю.",
+      "source_refs": [
+        "postgres-hot-standby",
+        "postgres-backup"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-oplog",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "category": "Базы данных",
+      "term": "Oplog",
+      "aliases": [
+        "operations log",
+        "local.oplog.rs",
+        "oplog window",
+        "окно oplog"
+      ],
+      "definition_simple": "Журнал операций primary, по которому secondary догоняют изменения.",
+      "definition_interview": "Oplog ограничен по размеру и перезаписывается по кругу. Окно oplog — сколько часов изменений он вмещает. Если secondary отстал больше окна, догнать его уже нельзя — нужна полная начальная синхронизация.",
+      "example": "rs.printReplicationInfo() показывает окно 6 часов; secondary был выключен на ночь и после включения ушёл в состояние, требующее повторной синхронизации.",
+      "common_confusion": "Не следят за окном oplog. Окно сужается при росте нагрузки, и плановое обслуживание вдруг становится дольше допустимого.",
+      "question": "Secondary был выключен 10 часов. Почему он не может догнать primary?",
+      "answer": "Нужных операций уже нет в oplog: окно меньше времени простоя. Узел приходится синхронизировать с нуля.",
+      "source_refs": [
+        "mongodb-replication",
+        "mongodb-backup-methods"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-write-concern",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "mongodb-ops"
+      ],
+      "category": "Базы данных",
+      "term": "Write concern",
+      "aliases": [
+        "w:majority",
+        "w:1",
+        "j:true",
+        "подтверждение записи"
+      ],
+      "definition_simple": "Сколько узлов должно подтвердить запись, прежде чем MongoDB ответит «готово».",
+      "definition_interview": "w:1 — подтверждает только primary; w:\"majority\" — большинство набора, и такая запись переживёт смену primary. С w:1 при падении primary запись может быть откачена, хотя клиент получил успех.",
+      "example": "Для заказов используют w:\"majority\", для служебной телеметрии допускают w:1 ради скорости.",
+      "common_confusion": "Думают, что успешный ответ всегда означает сохранённые данные. При w:1 запись может пропасть после выборов.",
+      "question": "Почему запись с w:1 может пропасть, если клиент получил успешный ответ?",
+      "answer": "Её подтвердил только primary. Если он упал до репликации, новый primary этой записи не имеет, и она откатывается.",
+      "source_refs": [
+        "mongodb-replication"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-ch-mergetree",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "category": "Базы данных",
+      "term": "MergeTree и куски данных",
+      "aliases": [
+        "mergetree",
+        "part",
+        "parts",
+        "кусок",
+        "merge",
+        "слияние кусков",
+        "ORDER BY"
+      ],
+      "definition_simple": "Основной движок таблиц ClickHouse: каждая вставка пишет кусок, фоновые слияния объединяют куски.",
+      "definition_interview": "Данные в куске отсортированы по ORDER BY, которое заодно служит разреженным индексом. Слияния идут в фоне и потребляют диск и CPU; число активных кусков — главный показатель здоровья вставок.",
+      "example": "SELECT table, count() FROM system.parts WHERE active GROUP BY table — сколько активных кусков у каждой таблицы.",
+      "common_confusion": "Считают ORDER BY просто сортировкой результата. В MergeTree он определяет, как данные лежат на диске и какие запросы будут быстрыми.",
+      "question": "Что происходит при каждом INSERT в таблицу MergeTree?",
+      "answer": "Создаётся новый кусок данных. Позже фоновые слияния объединяют мелкие куски в крупные.",
+      "source_refs": [
+        "clickhouse-mergetree",
+        "clickhouse-quick-start"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ch-too-many-parts",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "category": "Базы данных",
+      "term": "Too many parts",
+      "aliases": [
+        "TOO_MANY_PARTS",
+        "слишком много кусков",
+        "async_insert",
+        "мелкие вставки"
+      ],
+      "definition_simple": "Ошибка ClickHouse: кусков в партиции стало больше, чем успевают сливаться.",
+      "definition_interview": "Обычно вызвана частыми мелкими вставками по одной строке. Сначала ClickHouse замедляет вставки, затем отклоняет их. Лечат батчами по тысячам строк, буфером на стороне приложения или async_insert.",
+      "example": "Сервис пишет каждое событие отдельным INSERT, 200 раз в секунду — через час вставки падают с Too many parts.",
+      "common_confusion": "Поднимают лимит кусков. Это откладывает отказ и увеличивает нагрузку на слияния.",
+      "question": "Вставки в ClickHouse начали падать с Too many parts. Что вы проверите?",
+      "answer": "Частоту и размер вставок, число активных кусков в system.parts и очередь слияний в system.merges. Решение — укрупнить вставки.",
+      "source_refs": [
+        "clickhouse-mergetree",
+        "clickhouse-system-tables"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ch-system-tables",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "clickhouse-ops"
+      ],
+      "category": "Базы данных",
+      "term": "Системные таблицы ClickHouse",
+      "aliases": [
+        "system tables",
+        "system.parts",
+        "system.merges",
+        "system.query_log",
+        "system.replicas",
+        "system.mutations"
+      ],
+      "definition_simple": "Служебные таблицы, через которые ClickHouse показывает своё состояние.",
+      "definition_interview": "system.query_log — история запросов с длительностью и ошибками, system.parts — куски, system.merges — идущие слияния, system.mutations — изменения ALTER UPDATE и DELETE, system.replicas — состояние репликации.",
+      "example": "SELECT query, query_duration_ms FROM system.query_log WHERE type = 'QueryFinish' ORDER BY query_duration_ms DESC LIMIT 10 — самые долгие запросы.",
+      "common_confusion": "Диагностируют ClickHouse только снаружи по метрикам ОС. Большая часть ответов уже лежит в системных таблицах.",
+      "question": "Где в ClickHouse найти самые медленные запросы за последний час?",
+      "answer": "В system.query_log с фильтром по времени и сортировкой по query_duration_ms.",
+      "source_refs": [
+        "clickhouse-system-tables"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-redis-eviction",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "category": "Очереди и кэш",
+      "term": "Политика вытеснения Redis",
+      "aliases": [
+        "maxmemory-policy",
+        "eviction",
+        "allkeys-lru",
+        "noeviction",
+        "OOM command not allowed"
+      ],
+      "definition_simple": "Правило, какие ключи Redis удаляет, когда достигнут лимит памяти maxmemory.",
+      "definition_interview": "При noeviction Redis ничего не удаляет и отвечает ошибкой на записи. allkeys-lru вытесняет давно не используемые ключи — обычный выбор для кэша. Политики volatile-* трогают только ключи с TTL.",
+      "example": "Записи падают с OOM command not allowed when used memory > 'maxmemory': стоит noeviction, а приложение пишет кэш без TTL.",
+      "common_confusion": "Ставят volatile-lru и забывают выставлять TTL. Вытеснять нечего, и Redis ведёт себя как при noeviction.",
+      "question": "Redis для кэша отвечает OOM на запись. Что проверите?",
+      "answer": "maxmemory и maxmemory-policy в INFO memory и CONFIG GET. Для кэша обычно нужна allkeys-lru или TTL на ключах.",
+      "source_refs": [
+        "redis-eviction",
+        "redis-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-redis-persistence",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "category": "Очереди и кэш",
+      "term": "RDB и AOF",
+      "aliases": [
+        "rdb",
+        "aof",
+        "appendonly",
+        "appendfsync",
+        "снапшот redis",
+        "персистентность redis"
+      ],
+      "definition_simple": "Два способа Redis сохранять данные на диск: снимки и журнал команд.",
+      "definition_interview": "RDB — периодический снимок: быстро восстанавливается, но теряет изменения с последнего снимка. AOF записывает каждую изменяющую команду; при appendfsync everysec потеря — около секунды. Их часто включают вместе.",
+      "example": "После перезапуска Redis с одним RDB раз в 15 минут пропали последние 12 минут сессий пользователей.",
+      "common_confusion": "Считают Redis с включённым RDB надёжным хранилищем. Всё, что после последнего снимка, при падении теряется.",
+      "question": "Сколько данных можно потерять при падении Redis с одним RDB?",
+      "answer": "Всё, что изменилось после последнего снимка. Если это недопустимо, включают AOF с appendfsync everysec.",
+      "source_refs": [
+        "redis-persistence"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-nats-subject",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "category": "Очереди и кэш",
+      "term": "Subject и queue group (NATS)",
+      "aliases": [
+        "subject",
+        "queue group",
+        "wildcard",
+        "orders.*",
+        "orders.>",
+        "core nats"
+      ],
+      "definition_simple": "Subject — адрес сообщения в NATS; queue group — группа подписчиков, между которыми сообщения делятся.",
+      "definition_interview": "Subject состоит из частей через точку, * заменяет одну часть, > — все оставшиеся. В Core NATS сообщение получают те, кто подписан в момент публикации; без подписчиков оно теряется. В queue group каждое сообщение достаётся одному участнику.",
+      "example": "Три экземпляра обработчика подписаны на orders.created в группе workers — каждый заказ обрабатывается один раз, нагрузка делится.",
+      "common_confusion": "Ожидают от Core NATS хранения сообщений. Если обработчик лежал, сообщения за это время пропали; для хранения нужен JetStream.",
+      "question": "Обработчик был недоступен пять минут. Что стало с сообщениями Core NATS за это время?",
+      "answer": "Если других подписчиков не было, они потеряны: Core NATS доставляет только тем, кто подписан сейчас.",
+      "source_refs": [
+        "nats-subjects",
+        "nats-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-jetstream",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "redis-nats"
+      ],
+      "category": "Очереди и кэш",
+      "term": "JetStream",
+      "aliases": [
+        "nats jetstream",
+        "stream",
+        "consumer",
+        "ack",
+        "durable consumer"
+      ],
+      "definition_simple": "Подсистема NATS, которая хранит сообщения и позволяет их перечитывать и подтверждать.",
+      "definition_interview": "Stream сохраняет сообщения по subject, consumer читает их и подтверждает обработку. Неподтверждённое сообщение доставляется повторно, поэтому обработчик должен спокойно переживать дубли.",
+      "example": "Отставание durable consumer растёт: num_pending увеличивается, потому что обработчик падает на одном сообщении и не подтверждает его.",
+      "common_confusion": "Ждут ровно одной доставки. Повторная доставка — нормальная часть модели, обработку делают идемпотентной.",
+      "question": "Почему обработчик JetStream должен быть идемпотентным?",
+      "answer": "Неподтверждённое вовремя сообщение придёт снова. Без идемпотентности повтор создаст дубль действия.",
+      "source_refs": [
+        "nats-jetstream"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-edge-origin",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Edge и origin",
+      "aliases": [
+        "edge",
+        "origin",
+        "граница сети",
+        "исходный сервер",
+        "origin server",
+        "PoP"
+      ],
+      "definition_simple": "Edge — серверы CDN рядом с пользователем, origin — ваш сервер, откуда CDN берёт ответы.",
+      "definition_interview": "Пользователь соединяется с edge, edge отвечает из кэша или идёт на origin. Это два отдельных соединения со своим TLS и своими ошибками, поэтому при сбое сначала выясняют, на каком отрезке он возник.",
+      "example": "curl к домену даёт 522 от CDN, а curl напрямую к origin с нужным Host и --resolve отвечает 200 — проблема на пути между edge и origin, например фильтр по IP.",
+      "common_confusion": "Проверяют только домен целиком. Без раздельной проверки edge и origin нельзя понять, кто виноват.",
+      "question": "Как отделить проблему CDN от проблемы origin?",
+      "answer": "Запросить origin напрямую с правильным Host и SNI и сравнить с запросом через CDN. Разница показывает отрезок со сбоем.",
+      "source_refs": [
+        "cloudflare-reverse-proxy-learn",
+        "curl-manpage"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-proxied-record",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Проксируемая запись",
+      "aliases": [
+        "proxied",
+        "orange cloud",
+        "оранжевое облако",
+        "dns only",
+        "серое облако"
+      ],
+      "definition_simple": "Запись DNS в Cloudflare, для которой трафик идёт через прокси Cloudflare, а не прямо на сервер.",
+      "definition_interview": "Для проксируемой записи DNS отдаёт адреса Cloudflare, и включаются кэш, WAF и TLS на edge. В режиме DNS only отдаётся настоящий адрес origin, и защита Cloudflare к этому трафику не применяется.",
+      "example": "dig +short example.com возвращает адрес из диапазонов Cloudflare — запись проксируется; при DNS only там был бы адрес origin.",
+      "common_confusion": "Оставляют одну запись в DNS only, например для поддомена. Через неё раскрывается адрес origin и его можно атаковать в обход защиты.",
+      "question": "Почему опасно держать запись на origin в режиме DNS only?",
+      "answer": "Она раскрывает настоящий адрес сервера. Атакующий обращается к нему напрямую, минуя WAF и кэш.",
+      "source_refs": [
+        "cloudflare-dns-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-cache-purge",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Очистка кэша CDN",
+      "aliases": [
+        "purge",
+        "purge cache",
+        "инвалидация кэша",
+        "cf-cache-status",
+        "cache hit ratio"
+      ],
+      "definition_simple": "Принудительное удаление закэшированных копий, чтобы edge взял свежую версию с origin.",
+      "definition_interview": "Очищают по URL или целиком. Полная очистка разом отправляет весь трафик на origin, и под нагрузкой это само может стать инцидентом. Попадание в кэш видно по заголовку cf-cache-status: HIT, MISS, EXPIRED и другие.",
+      "example": "После выката пользователи видят старый JS; curl -sI показывает cf-cache-status: HIT и старый age — очищают конкретные URL.",
+      "common_confusion": "Делают полную очистку при любой проблеме. Origin получает всплеск запросов, и неработающим может стать весь сайт.",
+      "question": "Чем рискованна полная очистка кэша CDN?",
+      "answer": "Все запросы разом идут на origin, доля попаданий в кэш падает до нуля. Если origin не рассчитан на такую нагрузку, он ложится.",
+      "source_refs": [
+        "cloudflare-cache-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-waf-rule",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "security-pipeline"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Правило WAF",
+      "aliases": [
+        "waf",
+        "web application firewall",
+        "custom rule",
+        "managed challenge",
+        "rate limiting rule"
+      ],
+      "definition_simple": "Условие на edge, по которому запрос блокируют, проверяют или пропускают до origin.",
+      "definition_interview": "Правило сопоставляет поля запроса — путь, страну, заголовки, IP — и применяет действие: блок, проверку или пропуск. Ограничение частоты считает запросы от источника за интервал. Изменения проверяют сначала в режиме наблюдения на части трафика, если это доступно.",
+      "example": "После нового правила по стране резко вырос поток 403 от легитимных пользователей; в журнале событий безопасности видно, какое правило сработало.",
+      "common_confusion": "При внезапных 403 ищут ошибку в приложении. Ответ мог дать WAF, и запрос до origin вообще не дошёл.",
+      "question": "Пользователи получают 403, в логах origin этих запросов нет. Где смотреть?",
+      "answer": "В событиях безопасности WAF по времени и cf-ray: какое правило и почему сработало. Запрос был остановлен на edge.",
+      "source_refs": [
+        "cloudflare-waf-docs"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-cf-ray",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "dutyops-runbooks"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "cf-ray",
+      "aliases": [
+        "CF-RAY",
+        "ray id",
+        "идентификатор запроса cloudflare"
+      ],
+      "definition_simple": "Уникальный идентификатор запроса, который Cloudflare добавляет в заголовок ответа.",
+      "definition_interview": "По Ray ID запрос находят в событиях безопасности и логах Cloudflare; суффикс указывает код дата-центра, который его обработал. Для дежурного это способ связать жалобу пользователя с конкретным событием.",
+      "example": "curl -sI https://example.com | grep -i cf-ray показывает cf-ray: 8a1b2c3d4e5f6789-WAW — запрос обработан в Варшаве.",
+      "common_confusion": "Просят у пользователя скриншот «сайт не работает». Скриншот страницы ошибки с Ray ID и временем полезнее любого описания.",
+      "question": "Пользователь прислал страницу ошибки Cloudflare. Что из неё взять первым делом?",
+      "answer": "Ray ID и время: по ним событие находят в журнале Cloudflare и видят, какое правило или ошибка origin сработали.",
+      "source_refs": [
+        "cloudflare-5xx-errors"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-cf-52x",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Ошибки 52x Cloudflare",
+      "aliases": [
+        "520",
+        "521",
+        "522",
+        "523",
+        "524",
+        "525",
+        "526",
+        "cloudflare 5xx"
+      ],
+      "definition_simple": "Коды, которыми Cloudflare сообщает, что не смог нормально получить ответ от origin.",
+      "definition_interview": "521 — origin отказал в соединении, 522 — соединение не установилось за отведённое время, 523 — origin недостижим, 524 — соединение есть, но HTTP-ответ не пришёл вовремя, 525 — не удалось TLS-рукопожатие, 526 — сертификат origin не прошёл проверку, 520 — origin вернул пустой или непонятный ответ.",
+      "example": "После смены firewall на origin весь трафик через CDN получил 522: фильтр больше не пропускает диапазоны адресов Cloudflare.",
+      "common_confusion": "Ищут проблему в Cloudflare. Почти все 52x описывают отрезок между edge и origin, и чинить обычно нужно на стороне origin.",
+      "question": "Чем 521 отличается от 524?",
+      "answer": "521 — origin сразу отказал в соединении, сервис не слушает или фильтр отвергает. 524 — соединение есть, но приложение не успело ответить.",
+      "source_refs": [
+        "cloudflare-5xx-errors"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-ssl-full-strict",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "networking"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "SSL-режим Full (strict)",
+      "aliases": [
+        "full strict",
+        "flexible ssl",
+        "ssl mode",
+        "origin certificate",
+        "ERR_TOO_MANY_REDIRECTS"
+      ],
+      "definition_simple": "Режим, при котором Cloudflare шифрует соединение с origin и проверяет его сертификат.",
+      "definition_interview": "Flexible ходит к origin по HTTP, Full шифрует без проверки сертификата, Full (strict) требует действительный сертификат на origin. Flexible в сочетании с редиректом на HTTPS на origin даёт бесконечный цикл перенаправлений.",
+      "example": "Сайт в цикле ERR_TOO_MANY_REDIRECTS: режим Flexible, а Nginx на origin перенаправляет все HTTP-запросы на HTTPS.",
+      "common_confusion": "Включают Flexible, потому что «замочек в браузере есть». Отрезок до origin при этом не зашифрован.",
+      "question": "Почему режим Flexible вместе с редиректом на HTTPS на origin зацикливает сайт?",
+      "answer": "Cloudflare ходит к origin по HTTP, origin отвечает редиректом на HTTPS, браузер снова идёт к Cloudflare, и всё повторяется.",
+      "source_refs": [
+        "cloudflare-reverse-proxy-learn",
+        "cloudflare-5xx-errors"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-custom-hostnames",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "edge-cloudflare",
+        "traffic-delivery"
+      ],
+      "category": "CDN и защита периметра",
+      "term": "Custom Hostnames",
+      "aliases": [
+        "custom hostname",
+        "cloudflare for saas",
+        "fallback origin",
+        "доменная валидация"
+      ],
+      "definition_simple": "Механизм, позволяющий обслуживать через одну зону CDN множество чужих или дополнительных доменов.",
+      "definition_interview": "Домен добавляется как custom hostname, указывает CNAME на ваш адрес, проходит проверку владения и получает сертификат на edge. Пока проверка или выпуск сертификата не завершены, домен не обслуживается корректно.",
+      "example": "Новый домен отдаёт ошибку TLS: в панели custom hostname в статусе pending, потому что CNAME на нужный адрес ещё не создан.",
+      "common_confusion": "Считают, что достаточно добавить домен в панель. Без правильного DNS и пройденной проверки сертификат не выпускается. Как это используется у конкретной компании — неизвестно, уточнить у интервьюера.",
+      "question": "Домен добавлен как custom hostname, но по HTTPS не открывается. Что проверить?",
+      "answer": "Статус hostname и сертификата, DNS-запись, указывающую на ваш адрес, и прошла ли проверка владения.",
+      "source_refs": [
+        "cloudflare-custom-hostnames"
+      ],
+      "difficulty": 3
+    },
+    {
+      "id": "t-severity",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "Уровень серьёзности инцидента",
+      "aliases": [
+        "severity",
+        "sev",
+        "sev1",
+        "sev2",
+        "приоритет инцидента",
+        "P1"
+      ],
+      "definition_simple": "Шкала, которая говорит, насколько сбой бьёт по пользователям и как быстро нужно реагировать.",
+      "definition_interview": "Уровень определяют по влиянию: сколько пользователей и функций затронуто, есть ли потеря данных или денег. От уровня зависят, кого будить, как часто писать статус и нужен ли постмортем. Шкалу и пороги в конкретной компании уточняют у интервьюера.",
+      "example": "Недоступна оплата для всех — высший уровень, будят ответственных сразу; медленный отчёт во внутренней панели — низкий, разбирают в рабочее время.",
+      "common_confusion": "Определяют серьёзность по сложности поломки. Важно влияние на пользователей, а не то, насколько трудно чинить.",
+      "question": "По какому признаку определяют уровень серьёзности инцидента?",
+      "answer": "По влиянию на пользователей и бизнес: охват, критичность функции, потеря данных. Сложность ремонта на уровень не влияет.",
+      "source_refs": [
+        "pagerduty-incident-response",
+        "sre-workbook-incident-response"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-mttr-mttd",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "incidents",
+        "reliability-slo"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "MTTD и MTTR",
+      "aliases": [
+        "mttd",
+        "mttr",
+        "mean time to detect",
+        "mean time to recovery",
+        "время обнаружения",
+        "время восстановления"
+      ],
+      "definition_simple": "MTTD — среднее время до обнаружения сбоя, MTTR — среднее время до восстановления.",
+      "definition_interview": "Метрики показывают, где теряется время: в обнаружении (плохие алерты) или в восстановлении (нет runbook, долгий откат). Буква R расшифровывается по-разному — recover, repair, resolve, — поэтому определение договаривают заранее.",
+      "example": "Сбой начался в 02:10, алерт пришёл в 02:25, трафик восстановлен в 02:40: обнаружение 15 минут, восстановление ещё 15.",
+      "common_confusion": "Сравнивают MTTR разных команд без общего определения начала и конца. Цифры получаются несопоставимыми.",
+      "question": "Что улучшать, если MTTD большой, а MTTR маленький?",
+      "answer": "Обнаружение: алерты по симптомам пользователя и внешние проверки. Починка и так быстрая, теряется время до того, как о сбое узнали.",
+      "source_refs": [
+        "sre-workbook-incident-response",
+        "pagerduty-incident-response"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-status-update",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "Статус-апдейт",
+      "aliases": [
+        "status update",
+        "обновление статуса",
+        "incident update",
+        "сообщение в инцидентный канал"
+      ],
+      "definition_simple": "Короткое регулярное сообщение о ходе инцидента для всех заинтересованных.",
+      "definition_interview": "Хороший апдейт содержит что затронуто, что известно, что делается сейчас и когда будет следующее обновление. Его пишут по расписанию, даже если новостей нет, — тишина порождает дубли вопросов и параллельные расследования.",
+      "example": "«14:20. Часть пользователей получает 502 на api. Причина: недоступен один из upstream. Переключаем трафик на резерв. Следующий апдейт в 14:35».",
+      "common_confusion": "Пишут только когда починили. Остальные в это время пингуют дежурного и мешают работать.",
+      "question": "Что должно быть в каждом обновлении статуса инцидента?",
+      "answer": "Влияние, текущие факты, действие в процессе и время следующего обновления. Без догадок, выданных за факты.",
+      "source_refs": [
+        "atlassian-incident-communication",
+        "sre-workbook-incident-response"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-mitigation-fix",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "incidents",
+        "dutyops-runbooks"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "Mitigation и fix",
+      "aliases": [
+        "mitigation",
+        "fix",
+        "смягчение",
+        "устранение причины",
+        "workaround"
+      ],
+      "definition_simple": "Mitigation убирает влияние на пользователей сейчас, fix устраняет причину навсегда.",
+      "definition_interview": "В инциденте сначала mitigation: откат, переключение трафика, отключение функции. Исправление причины делают потом, спокойно и с тестами. Смешивание этапов растягивает простой.",
+      "example": "Сервис падает после выката: mitigation — откат за пять минут; fix — исправление в коде и новый релиз на следующий день.",
+      "common_confusion": "Чинят причину прямо в бою, пока пользователи страдают. Быстрее сначала убрать влияние, а разобраться потом.",
+      "question": "Почему в инциденте mitigation идёт раньше fix?",
+      "answer": "Цель — быстрее вернуть сервис пользователям. Fix требует понимания причины и проверки, а mitigation обычно известен и быстр.",
+      "source_refs": [
+        "sre-workbook-incident-response",
+        "pagerduty-incident-response"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-synthetic-monitoring",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "observability",
+        "traffic-delivery"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "Синтетический мониторинг",
+      "aliases": [
+        "synthetic monitoring",
+        "внешние проверки",
+        "blackbox",
+        "uptime check",
+        "probe"
+      ],
+      "definition_simple": "Регулярные искусственные запросы к сервису снаружи, как от пользователя.",
+      "definition_interview": "Проверки из разных регионов и сетей видят то, что не видит внутренний мониторинг: проблемы DNS, сертификата, CDN, региональную недоступность. Внутренние метрики могут быть зелёными, когда пользователи сайт не открывают.",
+      "example": "blackbox_exporter или внешний сервис раз в минуту запрашивает главную страницу из трёх регионов и проверяет код 200 и срок сертификата.",
+      "common_confusion": "Полагаются только на метрики сервера. Если запрос не доходит до сервера, сервер о проблеме не знает.",
+      "question": "Почему внутренних метрик недостаточно для контроля доступности сайта?",
+      "answer": "Они видят только дошедшие запросы. Сбои DNS, TLS, CDN или маршрутов в регионе ловят только проверки снаружи.",
+      "source_refs": [
+        "prometheus-node-exporter-guide",
+        "sre-monitoring"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-mirror-domain",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "traffic-delivery",
+        "dutyops-runbooks"
+      ],
+      "category": "Дежурство и инциденты",
+      "term": "Зеркальный домен",
+      "aliases": [
+        "mirror",
+        "зеркало",
+        "mirror domain",
+        "резервный домен",
+        "альтернативный домен"
+      ],
+      "definition_simple": "Дополнительный домен, ведущий к тому же продукту, на случай когда основной недоступен.",
+      "definition_interview": "Общая идея: зеркало имеет свои DNS-записи и сертификат, обычно стоит за тем же CDN и тем же origin. Дежурному важно уметь проверить зеркало по всей цепочке: DNS, TLS, ответ CDN, ответ origin, доступность из нужных регионов. Как устроены зеркала в конкретной компании — неизвестно, уточнить у интервьюера.",
+      "example": "Внешняя проверка из одного региона перестала открывать основной домен, а зеркало открывается — проблема не в origin, а в доступности домена из этого региона.",
+      "common_confusion": "Считают, что зеркало работает, раз работает основной домен. У зеркала свой DNS и свой сертификат, они ломаются отдельно.",
+      "question": "Как проверить, что зеркальный домен действительно обслуживает пользователей?",
+      "answer": "Пройти цепочку для самого зеркала: DNS, сертификат и SNI, ответ CDN, ответ origin, проверки из нужных регионов.",
+      "source_refs": [
+        "cloudflare-dns-docs",
+        "howdns-works"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-blast-radius",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "behavioral-devops",
+        "incidents"
+      ],
+      "category": "Interview English",
+      "term": "Blast radius",
+      "aliases": [
+        "радиус поражения",
+        "масштаб влияния",
+        "зона поражения"
+      ],
+      "definition_simple": "Насколько широко может разойтись ущерб от сбоя или изменения.",
+      "definition_interview": "Фраза из рабочего английского: «we limited the blast radius by rolling out to one region first». Показывает, что вы думаете о границах риска: канареечный выкат, отдельные аккаунты, ограниченные права.",
+      "example": "«The change had a small blast radius because it only touched the staging cluster.»",
+      "common_confusion": "Используют как синоним «серьёзности». Blast radius — про охват, а не про тяжесть: маленькая ошибка в общем конфиге может иметь огромный охват.",
+      "question": "Как по-английски объяснить, зачем вы выкатываете изменение сначала на один сервер?",
+      "answer": "«To limit the blast radius: if something goes wrong, only a small part of traffic is affected.»",
+      "source_refs": [
+        "martin-fowler-canary"
+      ],
+      "difficulty": 1
+    },
+    {
+      "id": "t-action-item",
+      "track_ids": [
+        "devops-platform"
+      ],
+      "topic_ids": [
+        "behavioral-devops",
+        "incidents"
+      ],
+      "category": "Interview English",
+      "term": "Action item",
+      "aliases": [
+        "задача по итогам",
+        "follow-up",
+        "action items",
+        "пункт плана"
+      ],
+      "definition_simple": "Конкретная задача с владельцем и сроком, вытекающая из разбора или встречи.",
+      "definition_interview": "В постмортеме ценят не выводы, а action items: «Add alert on upstream health, owner: me, due: next sprint». Без владельца и срока пункт не выполнится.",
+      "example": "«The main action item from the postmortem was to add an external check for the mirror domain.»",
+      "common_confusion": "Записывают пожелания вроде «be more careful». Это не action item: нет действия, которое можно проверить.",
+      "question": "Чем хороший action item отличается от просто вывода?",
+      "answer": "У него есть конкретное проверяемое действие, владелец и срок. «Be more careful» — вывод, «add alert X by Friday» — action item.",
+      "source_refs": [
+        "sre-postmortem",
+        "atlassian-blameless-postmortem"
+      ],
+      "difficulty": 1
     }
   ]
 }

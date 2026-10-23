@@ -1,0 +1,5474 @@
+{
+ "redcore-junior-seo": {
+  "empty": {
+   "compute": {
+    "available": true,
+    "percent": 0,
+    "rawPercent": 0,
+    "verdict": "Начало подготовки",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0,
+      "detail": {
+       "overall": 0,
+       "meanTopic": 0,
+       "freshness": 1,
+       "answered": 0,
+       "total": 120
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0,
+      "detail": {
+       "answered": 0,
+       "total": 46,
+       "coverage": 0,
+       "avgQuality": 0,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0,
+      "detail": {
+       "completed": 0,
+       "total": 12,
+       "criticalDone": 0,
+       "criticalTotal": 5,
+       "avgQuality": 0
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "mastered": 0,
+       "started": 0,
+       "total": 111
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "doneRequired": 0,
+       "totalRequired": 23,
+       "totalSteps": 24,
+       "activeDays": 0,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Как работает поиск, Поисковый интент, On-page SEO, Технический SEO, Индексация и Search Console, Сбор семантики",
+      "action": "Подтянуть тему «Как работает поиск»",
+      "topicId": "search-basics"
+     },
+     {
+      "key": "lowTopicCoverage",
+      "max": 64,
+      "reason": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 64,
+    "topics": [
+     {
+      "id": "clustering-mapping",
+      "title": "Кластеризация и mapping",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "performance-cwv",
+      "title": "Скорость и Core Web Vitals",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "internal-linking",
+      "title": "Внутренняя перелинковка",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "international-seo",
+      "title": "Международное SEO",
+      "required": false,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "content-briefs",
+      "title": "Контентные ТЗ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "competitor-analysis",
+      "title": "Конкурентный анализ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "sheets",
+      "title": "Google Sheets для SEO",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "dev-communication",
+      "title": "Работа с разработчиками",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "interview-seo",
+      "title": "Вопросы SEO-интервью",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "search-basics",
+      "title": "Как работает поиск",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "search-intent",
+      "title": "Поисковый интент",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "on-page",
+      "title": "On-page SEO",
+      "required": true,
+      "critical": true,
+      "questions": 18,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "html-http",
+      "title": "HTML и HTTP",
+      "required": true,
+      "critical": false,
+      "questions": 12,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "technical-seo",
+      "title": "Технический SEO",
+      "required": true,
+      "critical": true,
+      "questions": 24,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "indexing-gsc",
+      "title": "Индексация и Search Console",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "keyword-research",
+      "title": "Сбор семантики",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "analytics-ga4",
+      "title": "Аналитика и GA4",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "seo-tools",
+      "title": "Инструменты SEO",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "reporting",
+      "title": "Отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 6,
+      "mastery": 0,
+      "pct": 0
+     }
+    ],
+    "coverage": 0,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Как работает поиск, Поисковый интент, On-page SEO, Технический SEO, Индексация и Search Console, Сбор семантики",
+      "action": "Подтянуть тему «Как работает поиск»",
+      "topicId": "search-basics"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Как работает поиск, Поисковый интент, On-page SEO, Технический SEO, Индексация и Search Console, Сбор семантики",
+      "action": "Подтянуть тему «Как работает поиск»",
+      "topicId": "search-basics"
+     },
+     {
+      "kind": "cap",
+      "title": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана",
+      "topicId": null
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Как работает поиск» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-basics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поисковый интент» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «On-page SEO» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "on-page"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTML и HTTP» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "html-http"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Технический SEO» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "technical-seo"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Индексация и Search Console» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "indexing-gsc"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сбор семантики» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "keyword-research"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Аналитика и GA4» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "analytics-ga4"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инструменты SEO» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "seo-tools"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Отчётность» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "reporting"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Знания и повторение» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "knowledge"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Mock interview» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "mock"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Практические кейсы» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "cases"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 924,
+    "mocksLeft": 46,
+    "casesLeft": 12,
+    "stepsLeft": 23,
+    "workUnits": 1250,
+    "needPerDay": 42,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partial": {
+   "compute": {
+    "available": true,
+    "percent": 47,
+    "rawPercent": 47,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.3704085305934521,
+      "detail": {
+       "overall": 0.4,
+       "meanTopic": 0.4011041367390596,
+       "freshness": 0.925,
+       "answered": 80,
+       "total": 120
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.7591032608695651,
+      "detail": {
+       "answered": 23,
+       "total": 46,
+       "coverage": 1,
+       "avgQuality": 0.46467391304347827,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.4708333333333333,
+      "detail": {
+       "completed": 2,
+       "total": 12,
+       "criticalDone": 2,
+       "criticalTotal": 5,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.2990990990990991,
+      "detail": {
+       "mastered": 22,
+       "started": 56,
+       "total": 111
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2717391304347826,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 23,
+       "totalSteps": 24,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "clustering-mapping",
+      "title": "Кластеризация и mapping",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "performance-cwv",
+      "title": "Скорость и Core Web Vitals",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "internal-linking",
+      "title": "Внутренняя перелинковка",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "international-seo",
+      "title": "Международное SEO",
+      "required": false,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "content-briefs",
+      "title": "Контентные ТЗ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "competitor-analysis",
+      "title": "Конкурентный анализ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "sheets",
+      "title": "Google Sheets для SEO",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "dev-communication",
+      "title": "Работа с разработчиками",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "interview-seo",
+      "title": "Вопросы SEO-интервью",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "search-intent",
+      "title": "Поисковый интент",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0.275,
+      "pct": 28
+     },
+     {
+      "id": "analytics-ga4",
+      "title": "Аналитика и GA4",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0.3111111111111111,
+      "pct": 31
+     },
+     {
+      "id": "technical-seo",
+      "title": "Технический SEO",
+      "required": true,
+      "critical": true,
+      "questions": 24,
+      "mastery": 0.3838709677419355,
+      "pct": 38
+     },
+     {
+      "id": "keyword-research",
+      "title": "Сбор семантики",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0.39999999999999997,
+      "pct": 40
+     },
+     {
+      "id": "html-http",
+      "title": "HTML и HTTP",
+      "required": true,
+      "critical": false,
+      "questions": 12,
+      "mastery": 0.40869565217391307,
+      "pct": 41
+     },
+     {
+      "id": "on-page",
+      "title": "On-page SEO",
+      "required": true,
+      "critical": true,
+      "questions": 18,
+      "mastery": 0.4133333333333334,
+      "pct": 41
+     },
+     {
+      "id": "indexing-gsc",
+      "title": "Индексация и Search Console",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0.41600000000000004,
+      "pct": 42
+     },
+     {
+      "id": "reporting",
+      "title": "Отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 6,
+      "mastery": 0.41818181818181815,
+      "pct": 42
+     },
+     {
+      "id": "search-basics",
+      "title": "Как работает поиск",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0.4181818181818182,
+      "pct": 42
+     },
+     {
+      "id": "seo-tools",
+      "title": "Инструменты SEO",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0.5666666666666667,
+      "pct": 57
+     }
+    ],
+    "coverage": 0.9,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поисковый интент» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Аналитика и GA4» — 31%",
+      "action": "Пройти тест по теме",
+      "topicId": "analytics-ga4"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Технический SEO» — 38%",
+      "action": "Пройти тест по теме",
+      "topicId": "technical-seo"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сбор семантики» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "keyword-research"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTML и HTTP» — 41%",
+      "action": "Пройти тест по теме",
+      "topicId": "html-http"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «On-page SEO» — 41%",
+      "action": "Пройти тест по теме",
+      "topicId": "on-page"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Индексация и Search Console» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "indexing-gsc"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Отчётность» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "reporting"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Как работает поиск» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-basics"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 549,
+    "mocksLeft": 37,
+    "casesLeft": 10,
+    "stepsLeft": 19,
+    "workUnits": 816,
+    "needPerDay": 28,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partialWithMock": {
+   "compute": {
+    "available": true,
+    "percent": 47,
+    "rawPercent": 47,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.3704085305934521,
+      "detail": {
+       "overall": 0.4,
+       "meanTopic": 0.4011041367390596,
+       "freshness": 0.925,
+       "answered": 80,
+       "total": 120
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.7591032608695651,
+      "detail": {
+       "answered": 23,
+       "total": 46,
+       "coverage": 1,
+       "avgQuality": 0.46467391304347827,
+       "fullSessions": 1
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.4708333333333333,
+      "detail": {
+       "completed": 2,
+       "total": 12,
+       "criticalDone": 2,
+       "criticalTotal": 5,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.2990990990990991,
+      "detail": {
+       "mastered": 22,
+       "started": 56,
+       "total": 111
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2717391304347826,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 23,
+       "totalSteps": 24,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "clustering-mapping",
+      "title": "Кластеризация и mapping",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "performance-cwv",
+      "title": "Скорость и Core Web Vitals",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "internal-linking",
+      "title": "Внутренняя перелинковка",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "international-seo",
+      "title": "Международное SEO",
+      "required": false,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "content-briefs",
+      "title": "Контентные ТЗ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "competitor-analysis",
+      "title": "Конкурентный анализ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "sheets",
+      "title": "Google Sheets для SEO",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "dev-communication",
+      "title": "Работа с разработчиками",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "interview-seo",
+      "title": "Вопросы SEO-интервью",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "search-intent",
+      "title": "Поисковый интент",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0.275,
+      "pct": 28
+     },
+     {
+      "id": "analytics-ga4",
+      "title": "Аналитика и GA4",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0.3111111111111111,
+      "pct": 31
+     },
+     {
+      "id": "technical-seo",
+      "title": "Технический SEO",
+      "required": true,
+      "critical": true,
+      "questions": 24,
+      "mastery": 0.3838709677419355,
+      "pct": 38
+     },
+     {
+      "id": "keyword-research",
+      "title": "Сбор семантики",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0.39999999999999997,
+      "pct": 40
+     },
+     {
+      "id": "html-http",
+      "title": "HTML и HTTP",
+      "required": true,
+      "critical": false,
+      "questions": 12,
+      "mastery": 0.40869565217391307,
+      "pct": 41
+     },
+     {
+      "id": "on-page",
+      "title": "On-page SEO",
+      "required": true,
+      "critical": true,
+      "questions": 18,
+      "mastery": 0.4133333333333334,
+      "pct": 41
+     },
+     {
+      "id": "indexing-gsc",
+      "title": "Индексация и Search Console",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 0.41600000000000004,
+      "pct": 42
+     },
+     {
+      "id": "reporting",
+      "title": "Отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 6,
+      "mastery": 0.41818181818181815,
+      "pct": 42
+     },
+     {
+      "id": "search-basics",
+      "title": "Как работает поиск",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 0.4181818181818182,
+      "pct": 42
+     },
+     {
+      "id": "seo-tools",
+      "title": "Инструменты SEO",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 0.5666666666666667,
+      "pct": 57
+     }
+    ],
+    "coverage": 0.9,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поисковый интент» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-intent"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Поисковый интент, Технический SEO, Сбор семантики",
+      "action": "Подтянуть тему «Поисковый интент»",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поисковый интент» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-intent"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Аналитика и GA4» — 31%",
+      "action": "Пройти тест по теме",
+      "topicId": "analytics-ga4"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Технический SEO» — 38%",
+      "action": "Пройти тест по теме",
+      "topicId": "technical-seo"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сбор семантики» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "keyword-research"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTML и HTTP» — 41%",
+      "action": "Пройти тест по теме",
+      "topicId": "html-http"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «On-page SEO» — 41%",
+      "action": "Пройти тест по теме",
+      "topicId": "on-page"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Индексация и Search Console» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "indexing-gsc"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Отчётность» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "reporting"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Как работает поиск» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "search-basics"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 549,
+    "mocksLeft": 37,
+    "casesLeft": 10,
+    "stepsLeft": 19,
+    "workUnits": 816,
+    "needPerDay": 28,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "strong": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 120,
+       "total": 120
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 46,
+       "total": 46,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 12,
+       "total": 12,
+       "criticalDone": 5,
+       "criticalTotal": 5,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 111,
+       "started": 111,
+       "total": 111
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 23,
+       "totalRequired": 23,
+       "totalSteps": 24,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "clustering-mapping",
+      "title": "Кластеризация и mapping",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "performance-cwv",
+      "title": "Скорость и Core Web Vitals",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "internal-linking",
+      "title": "Внутренняя перелинковка",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "international-seo",
+      "title": "Международное SEO",
+      "required": false,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "content-briefs",
+      "title": "Контентные ТЗ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "competitor-analysis",
+      "title": "Конкурентный анализ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "sheets",
+      "title": "Google Sheets для SEO",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "dev-communication",
+      "title": "Работа с разработчиками",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "interview-seo",
+      "title": "Вопросы SEO-интервью",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "search-basics",
+      "title": "Как работает поиск",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "search-intent",
+      "title": "Поисковый интент",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "on-page",
+      "title": "On-page SEO",
+      "required": true,
+      "critical": true,
+      "questions": 18,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "html-http",
+      "title": "HTML и HTTP",
+      "required": true,
+      "critical": false,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "technical-seo",
+      "title": "Технический SEO",
+      "required": true,
+      "critical": true,
+      "questions": 24,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "indexing-gsc",
+      "title": "Индексация и Search Console",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "keyword-research",
+      "title": "Сбор семантики",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "analytics-ga4",
+      "title": "Аналитика и GA4",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "seo-tools",
+      "title": "Инструменты SEO",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "reporting",
+      "title": "Отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 6,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  },
+  "strongWithForeignLabs": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 120,
+       "total": 120
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 46,
+       "total": 46,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 12,
+       "total": 12,
+       "criticalDone": 5,
+       "criticalTotal": 5,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 111,
+       "started": 111,
+       "total": 111
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 23,
+       "totalRequired": 23,
+       "totalSteps": 24,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "clustering-mapping",
+      "title": "Кластеризация и mapping",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "performance-cwv",
+      "title": "Скорость и Core Web Vitals",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "internal-linking",
+      "title": "Внутренняя перелинковка",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "international-seo",
+      "title": "Международное SEO",
+      "required": false,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "content-briefs",
+      "title": "Контентные ТЗ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "competitor-analysis",
+      "title": "Конкурентный анализ",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "sheets",
+      "title": "Google Sheets для SEO",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "dev-communication",
+      "title": "Работа с разработчиками",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "interview-seo",
+      "title": "Вопросы SEO-интервью",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 0,
+      "mastery": null,
+      "pct": null
+     },
+     {
+      "id": "search-basics",
+      "title": "Как работает поиск",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "search-intent",
+      "title": "Поисковый интент",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "on-page",
+      "title": "On-page SEO",
+      "required": true,
+      "critical": true,
+      "questions": 18,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "html-http",
+      "title": "HTML и HTTP",
+      "required": true,
+      "critical": false,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "technical-seo",
+      "title": "Технический SEO",
+      "required": true,
+      "critical": true,
+      "questions": 24,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "indexing-gsc",
+      "title": "Индексация и Search Console",
+      "required": true,
+      "critical": true,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "keyword-research",
+      "title": "Сбор семантики",
+      "required": true,
+      "critical": true,
+      "questions": 12,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "analytics-ga4",
+      "title": "Аналитика и GA4",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "seo-tools",
+      "title": "Инструменты SEO",
+      "required": true,
+      "critical": false,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "reporting",
+      "title": "Отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 6,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  }
+ },
+ "qa-payments": {
+  "empty": {
+   "compute": {
+    "available": true,
+    "percent": 0,
+    "rawPercent": 0,
+    "verdict": "Начало подготовки",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0,
+      "detail": {
+       "overall": 0,
+       "meanTopic": 0,
+       "freshness": 1,
+       "answered": 0,
+       "total": 124
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0,
+      "detail": {
+       "answered": 0,
+       "total": 29,
+       "coverage": 0,
+       "avgQuality": 0,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0,
+      "detail": {
+       "completed": 0,
+       "total": 8,
+       "criticalDone": 0,
+       "criticalTotal": 4,
+       "avgQuality": 0
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "mastered": 0,
+       "started": 0,
+       "total": 54
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "doneRequired": 0,
+       "totalRequired": 21,
+       "totalSteps": 22,
+       "activeDays": 0,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Основы тестирования, Техники тест-дизайна, Как устроен платёж, Идемпотентность и повторы, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность, Тестирование API, Деньги и точность",
+      "action": "Подтянуть тему «Основы тестирования»",
+      "topicId": "qa-testing-basics"
+     },
+     {
+      "key": "lowTopicCoverage",
+      "max": 64,
+      "reason": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 64,
+    "topics": [
+     {
+      "id": "qa-testing-basics",
+      "title": "Основы тестирования",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-test-design",
+      "title": "Техники тест-дизайна",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-test-docs",
+      "title": "Тестовая документация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-payment-flow",
+      "title": "Как устроен платёж",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-payment-methods",
+      "title": "Способы оплаты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-3ds-auth",
+      "title": "3-D Secure и аутентификация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-idempotency",
+      "title": "Идемпотентность и повторы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-refunds",
+      "title": "Возвраты, отмены, чарджбэки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-webhooks",
+      "title": "Вебхуки и асинхронность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-api-testing",
+      "title": "Тестирование API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-money-precision",
+      "title": "Деньги и точность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-card-security",
+      "title": "Безопасность данных карт",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-integrations",
+      "title": "Интеграции и песочницы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-reconciliation",
+      "title": "Сверка и отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-sql-data",
+      "title": "SQL и проверка данных",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-logs-incidents",
+      "title": "Логи и разбор проблем",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-regression-release",
+      "title": "Регресс и релиз",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-automation",
+      "title": "Автоматизация тестов",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-metrics",
+      "title": "Метрики качества",
+      "required": false,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "qa-behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     }
+    ],
+    "coverage": 0,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Основы тестирования, Техники тест-дизайна, Как устроен платёж, Идемпотентность и повторы, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность, Тестирование API, Деньги и точность",
+      "action": "Подтянуть тему «Основы тестирования»",
+      "topicId": "qa-testing-basics"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Основы тестирования, Техники тест-дизайна, Как устроен платёж, Идемпотентность и повторы, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность, Тестирование API, Деньги и точность",
+      "action": "Подтянуть тему «Основы тестирования»",
+      "topicId": "qa-testing-basics"
+     },
+     {
+      "kind": "cap",
+      "title": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана",
+      "topicId": null
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Основы тестирования» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-testing-basics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Техники тест-дизайна» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Тестовая документация» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-docs"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Как устроен платёж» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-payment-flow"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Способы оплаты» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-payment-methods"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «3-D Secure и аутентификация» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-3ds-auth"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Идемпотентность и повторы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-idempotency"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Возвраты, отмены, чарджбэки» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-refunds"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Вебхуки и асинхронность» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-webhooks"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Тестирование API» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-api-testing"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Деньги и точность» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-money-precision"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Безопасность данных карт» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-card-security"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и песочницы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сверка и отчётность» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-reconciliation"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «SQL и проверка данных» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-sql-data"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Логи и разбор проблем» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-logs-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Регресс и релиз» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-regression-release"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Автоматизация тестов» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-automation"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики качества» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-metrics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Behavioral interview» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-behavioral"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Знания и повторение» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "knowledge"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Mock interview» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "mock"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Практические кейсы» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "cases"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 712,
+    "mocksLeft": 29,
+    "casesLeft": 8,
+    "stepsLeft": 21,
+    "workUnits": 947,
+    "needPerDay": 32,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partial": {
+   "compute": {
+    "available": true,
+    "percent": 48,
+    "rawPercent": 48,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.37644467622939115,
+      "detail": {
+       "overall": 0.4041152263374485,
+       "meanTopic": 0.4112452043570465,
+       "freshness": 0.925,
+       "answered": 82,
+       "total": 124
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.7562499999999999,
+      "detail": {
+       "answered": 15,
+       "total": 29,
+       "coverage": 1,
+       "avgQuality": 0.4583333333333333,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.525,
+      "detail": {
+       "completed": 2,
+       "total": 8,
+       "criticalDone": 2,
+       "criticalTotal": 4,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.2925925925925926,
+      "detail": {
+       "mastered": 10,
+       "started": 27,
+       "total": 54
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2833333333333333,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 21,
+       "totalSteps": 22,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "qa-test-design",
+      "title": "Техники тест-дизайна",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.25333333333333335,
+      "pct": 25
+     },
+     {
+      "id": "qa-idempotency",
+      "title": "Идемпотентность и повторы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.2625,
+      "pct": 26
+     },
+     {
+      "id": "qa-reconciliation",
+      "title": "Сверка и отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.26666666666666666,
+      "pct": 27
+     },
+     {
+      "id": "qa-integrations",
+      "title": "Интеграции и песочницы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.28,
+      "pct": 28
+     },
+     {
+      "id": "qa-money-precision",
+      "title": "Деньги и точность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.33999999999999997,
+      "pct": 34
+     },
+     {
+      "id": "qa-logs-incidents",
+      "title": "Логи и разбор проблем",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.3555555555555555,
+      "pct": 36
+     },
+     {
+      "id": "qa-metrics",
+      "title": "Метрики качества",
+      "required": false,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.36000000000000004,
+      "pct": 36
+     },
+     {
+      "id": "qa-behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.3777777777777778,
+      "pct": 38
+     },
+     {
+      "id": "qa-refunds",
+      "title": "Возвраты, отмены, чарджбэки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3866666666666667,
+      "pct": 39
+     },
+     {
+      "id": "qa-webhooks",
+      "title": "Вебхуки и асинхронность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.38947368421052636,
+      "pct": 39
+     },
+     {
+      "id": "qa-regression-release",
+      "title": "Регресс и релиз",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4,
+      "pct": 40
+     },
+     {
+      "id": "qa-card-security",
+      "title": "Безопасность данных карт",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.45,
+      "pct": 45
+     },
+     {
+      "id": "qa-payment-methods",
+      "title": "Способы оплаты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4727272727272727,
+      "pct": 47
+     },
+     {
+      "id": "qa-test-docs",
+      "title": "Тестовая документация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4857142857142857,
+      "pct": 49
+     },
+     {
+      "id": "qa-sql-data",
+      "title": "SQL и проверка данных",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "qa-payment-flow",
+      "title": "Как устроен платёж",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5076923076923077,
+      "pct": 51
+     },
+     {
+      "id": "qa-testing-basics",
+      "title": "Основы тестирования",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5166666666666667,
+      "pct": 52
+     },
+     {
+      "id": "qa-automation",
+      "title": "Автоматизация тестов",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5272727272727273,
+      "pct": 53
+     },
+     {
+      "id": "qa-api-testing",
+      "title": "Тестирование API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5428571428571428,
+      "pct": 54
+     },
+     {
+      "id": "qa-3ds-auth",
+      "title": "3-D Secure и аутентификация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.55,
+      "pct": 55
+     }
+    ],
+    "coverage": 0.7894736842105263,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Техники тест-дизайна» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Идемпотентность и повторы» — 26%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-idempotency"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сверка и отчётность» — 27%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-reconciliation"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и песочницы» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Деньги и точность» — 34%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-money-precision"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Логи и разбор проблем» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-logs-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики качества» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-metrics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Behavioral interview» — 38%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-behavioral"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Возвраты, отмены, чарджбэки» — 39%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-refunds"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Вебхуки и асинхронность» — 39%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-webhooks"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Регресс и релиз» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-regression-release"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Безопасность данных карт» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-card-security"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Способы оплаты» — 47%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-payment-methods"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Тестовая документация» — 49%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-docs"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 415,
+    "mocksLeft": 23,
+    "casesLeft": 6,
+    "stepsLeft": 17,
+    "workUnits": 600,
+    "needPerDay": 20,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partialWithMock": {
+   "compute": {
+    "available": true,
+    "percent": 48,
+    "rawPercent": 48,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.37644467622939115,
+      "detail": {
+       "overall": 0.4041152263374485,
+       "meanTopic": 0.4112452043570465,
+       "freshness": 0.925,
+       "answered": 82,
+       "total": 124
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.7562499999999999,
+      "detail": {
+       "answered": 15,
+       "total": 29,
+       "coverage": 1,
+       "avgQuality": 0.4583333333333333,
+       "fullSessions": 1
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.525,
+      "detail": {
+       "completed": 2,
+       "total": 8,
+       "criticalDone": 2,
+       "criticalTotal": 4,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.2925925925925926,
+      "detail": {
+       "mastered": 10,
+       "started": 27,
+       "total": 54
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2833333333333333,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 21,
+       "totalSteps": 22,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "qa-test-design",
+      "title": "Техники тест-дизайна",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.25333333333333335,
+      "pct": 25
+     },
+     {
+      "id": "qa-idempotency",
+      "title": "Идемпотентность и повторы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.2625,
+      "pct": 26
+     },
+     {
+      "id": "qa-reconciliation",
+      "title": "Сверка и отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.26666666666666666,
+      "pct": 27
+     },
+     {
+      "id": "qa-integrations",
+      "title": "Интеграции и песочницы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.28,
+      "pct": 28
+     },
+     {
+      "id": "qa-money-precision",
+      "title": "Деньги и точность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.33999999999999997,
+      "pct": 34
+     },
+     {
+      "id": "qa-logs-incidents",
+      "title": "Логи и разбор проблем",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.3555555555555555,
+      "pct": 36
+     },
+     {
+      "id": "qa-metrics",
+      "title": "Метрики качества",
+      "required": false,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.36000000000000004,
+      "pct": 36
+     },
+     {
+      "id": "qa-behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.3777777777777778,
+      "pct": 38
+     },
+     {
+      "id": "qa-refunds",
+      "title": "Возвраты, отмены, чарджбэки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3866666666666667,
+      "pct": 39
+     },
+     {
+      "id": "qa-webhooks",
+      "title": "Вебхуки и асинхронность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.38947368421052636,
+      "pct": 39
+     },
+     {
+      "id": "qa-regression-release",
+      "title": "Регресс и релиз",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4,
+      "pct": 40
+     },
+     {
+      "id": "qa-card-security",
+      "title": "Безопасность данных карт",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.45,
+      "pct": 45
+     },
+     {
+      "id": "qa-payment-methods",
+      "title": "Способы оплаты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4727272727272727,
+      "pct": 47
+     },
+     {
+      "id": "qa-test-docs",
+      "title": "Тестовая документация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4857142857142857,
+      "pct": 49
+     },
+     {
+      "id": "qa-sql-data",
+      "title": "SQL и проверка данных",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "qa-payment-flow",
+      "title": "Как устроен платёж",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5076923076923077,
+      "pct": 51
+     },
+     {
+      "id": "qa-testing-basics",
+      "title": "Основы тестирования",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5166666666666667,
+      "pct": 52
+     },
+     {
+      "id": "qa-automation",
+      "title": "Автоматизация тестов",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5272727272727273,
+      "pct": 53
+     },
+     {
+      "id": "qa-api-testing",
+      "title": "Тестирование API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.5428571428571428,
+      "pct": 54
+     },
+     {
+      "id": "qa-3ds-auth",
+      "title": "3-D Secure и аутентификация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.55,
+      "pct": 55
+     }
+    ],
+    "coverage": 0.7894736842105263,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Техники тест-дизайна» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-design"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Техники тест-дизайна, Идемпотентность и повторы, Деньги и точность, Возвраты, отмены, чарджбэки, Вебхуки и асинхронность",
+      "action": "Подтянуть тему «Техники тест-дизайна»",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Техники тест-дизайна» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-design"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Идемпотентность и повторы» — 26%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-idempotency"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сверка и отчётность» — 27%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-reconciliation"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и песочницы» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Деньги и точность» — 34%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-money-precision"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Логи и разбор проблем» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-logs-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики качества» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-metrics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Behavioral interview» — 38%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-behavioral"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Возвраты, отмены, чарджбэки» — 39%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-refunds"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Вебхуки и асинхронность» — 39%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-webhooks"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Регресс и релиз» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-regression-release"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Безопасность данных карт» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-card-security"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Способы оплаты» — 47%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-payment-methods"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Тестовая документация» — 49%",
+      "action": "Пройти тест по теме",
+      "topicId": "qa-test-docs"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 415,
+    "mocksLeft": 23,
+    "casesLeft": 6,
+    "stepsLeft": 17,
+    "workUnits": 600,
+    "needPerDay": 20,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "strong": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 124,
+       "total": 124
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 29,
+       "total": 29,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 8,
+       "total": 8,
+       "criticalDone": 4,
+       "criticalTotal": 4,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 54,
+       "started": 54,
+       "total": 54
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 21,
+       "totalRequired": 21,
+       "totalSteps": 22,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "qa-testing-basics",
+      "title": "Основы тестирования",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-test-design",
+      "title": "Техники тест-дизайна",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-test-docs",
+      "title": "Тестовая документация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-payment-flow",
+      "title": "Как устроен платёж",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-payment-methods",
+      "title": "Способы оплаты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-3ds-auth",
+      "title": "3-D Secure и аутентификация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-idempotency",
+      "title": "Идемпотентность и повторы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-refunds",
+      "title": "Возвраты, отмены, чарджбэки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-webhooks",
+      "title": "Вебхуки и асинхронность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-api-testing",
+      "title": "Тестирование API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-money-precision",
+      "title": "Деньги и точность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-card-security",
+      "title": "Безопасность данных карт",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-integrations",
+      "title": "Интеграции и песочницы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-reconciliation",
+      "title": "Сверка и отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-sql-data",
+      "title": "SQL и проверка данных",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-logs-incidents",
+      "title": "Логи и разбор проблем",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-regression-release",
+      "title": "Регресс и релиз",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-automation",
+      "title": "Автоматизация тестов",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-metrics",
+      "title": "Метрики качества",
+      "required": false,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  },
+  "strongWithForeignLabs": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 124,
+       "total": 124
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 29,
+       "total": 29,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 8,
+       "total": 8,
+       "criticalDone": 4,
+       "criticalTotal": 4,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 54,
+       "started": 54,
+       "total": 54
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 21,
+       "totalRequired": 21,
+       "totalSteps": 22,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "qa-testing-basics",
+      "title": "Основы тестирования",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-test-design",
+      "title": "Техники тест-дизайна",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-test-docs",
+      "title": "Тестовая документация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-payment-flow",
+      "title": "Как устроен платёж",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-payment-methods",
+      "title": "Способы оплаты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-3ds-auth",
+      "title": "3-D Secure и аутентификация",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-idempotency",
+      "title": "Идемпотентность и повторы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-refunds",
+      "title": "Возвраты, отмены, чарджбэки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-webhooks",
+      "title": "Вебхуки и асинхронность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-api-testing",
+      "title": "Тестирование API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-money-precision",
+      "title": "Деньги и точность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-card-security",
+      "title": "Безопасность данных карт",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-integrations",
+      "title": "Интеграции и песочницы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-reconciliation",
+      "title": "Сверка и отчётность",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-sql-data",
+      "title": "SQL и проверка данных",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-logs-incidents",
+      "title": "Логи и разбор проблем",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-regression-release",
+      "title": "Регресс и релиз",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-automation",
+      "title": "Автоматизация тестов",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-metrics",
+      "title": "Метрики качества",
+      "required": false,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "qa-behavioral",
+      "title": "Behavioral interview",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  }
+ },
+ "technical-engineer": {
+  "empty": {
+   "compute": {
+    "available": true,
+    "percent": 0,
+    "rawPercent": 0,
+    "verdict": "Начало подготовки",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0,
+      "detail": {
+       "overall": 0,
+       "meanTopic": 0,
+       "freshness": 1,
+       "answered": 0,
+       "total": 129
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0,
+      "detail": {
+       "answered": 0,
+       "total": 33,
+       "coverage": 0,
+       "avgQuality": 0,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0,
+      "detail": {
+       "completed": 0,
+       "total": 8,
+       "criticalDone": 0,
+       "criticalTotal": 4,
+       "avgQuality": 0
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "mastered": 0,
+       "started": 0,
+       "total": 86
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0,
+      "detail": {
+       "doneRequired": 0,
+       "totalRequired": 22,
+       "totalSteps": 22,
+       "activeDays": 0,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Обращение от заявки до закрытия, Воспроизведение проблемы, Чтение логов, HTTP и API, Сеть и доступность, SQL для поддержки, Инциденты и эскалация, Общение с клиентом",
+      "action": "Подтянуть тему «Обращение от заявки до закрытия»",
+      "topicId": "ts-ticket-flow"
+     },
+     {
+      "key": "lowTopicCoverage",
+      "max": 64,
+      "reason": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 64,
+    "topics": [
+     {
+      "id": "ts-support-role",
+      "title": "Роль инженера поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-ticket-flow",
+      "title": "Обращение от заявки до закрытия",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-reproduce",
+      "title": "Воспроизведение проблемы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-logs",
+      "title": "Чтение логов",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-http-api",
+      "title": "HTTP и API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-network",
+      "title": "Сеть и доступность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-linux",
+      "title": "Командная строка Linux",
+      "required": true,
+      "critical": false,
+      "questions": 10,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-sql",
+      "title": "SQL для поддержки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-devtools",
+      "title": "Инструменты браузера",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-integrations",
+      "title": "Интеграции и вебхуки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-incidents",
+      "title": "Инциденты и эскалация",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-monitoring",
+      "title": "Мониторинг и алерты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-rca",
+      "title": "Поиск первопричины",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-release",
+      "title": "Релизы, откаты и регрессии",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-privacy",
+      "title": "Персональные данные и доступы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-knowledge",
+      "title": "База знаний и runbook",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-communication",
+      "title": "Общение с клиентом",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-metrics",
+      "title": "Метрики поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-tools",
+      "title": "Инструменты работы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     },
+     {
+      "id": "ts-behavioral",
+      "title": "Поведенческие вопросы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0,
+      "pct": 0
+     }
+    ],
+    "coverage": 0,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Обращение от заявки до закрытия, Воспроизведение проблемы, Чтение логов, HTTP и API, Сеть и доступность, SQL для поддержки, Инциденты и эскалация, Общение с клиентом",
+      "action": "Подтянуть тему «Обращение от заявки до закрытия»",
+      "topicId": "ts-ticket-flow"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (0 из 3)",
+      "action": "Пройти ещё 3 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Обращение от заявки до закрытия, Воспроизведение проблемы, Чтение логов, HTTP и API, Сеть и доступность, SQL для поддержки, Инциденты и эскалация, Общение с клиентом",
+      "action": "Подтянуть тему «Обращение от заявки до закрытия»",
+      "topicId": "ts-ticket-flow"
+     },
+     {
+      "kind": "cap",
+      "title": "Охвачено 0% обязательных тем (нужно от 60%)",
+      "action": "Начать разбор новых тем плана",
+      "topicId": null
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Роль инженера поддержки» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-support-role"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Обращение от заявки до закрытия» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-ticket-flow"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Воспроизведение проблемы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-reproduce"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Чтение логов» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-logs"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTTP и API» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-http-api"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сеть и доступность» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Командная строка Linux» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-linux"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «SQL для поддержки» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-sql"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инструменты браузера» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-devtools"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и вебхуки» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инциденты и эскалация» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Мониторинг и алерты» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-monitoring"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поиск первопричины» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-rca"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Релизы, откаты и регрессии» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-release"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Персональные данные и доступы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-privacy"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «База знаний и runbook» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-knowledge"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Общение с клиентом» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-communication"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики поддержки» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-metrics"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инструменты работы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-tools"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поведенческие вопросы» — 0%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-behavioral"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Знания и повторение» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "knowledge"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Mock interview» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "mock"
+     },
+     {
+      "kind": "block",
+      "title": "Блок «Практические кейсы» — 0%",
+      "action": "Заняться этим блоком",
+      "blockKey": "cases"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 860,
+    "mocksLeft": 33,
+    "casesLeft": 8,
+    "stepsLeft": 22,
+    "workUnits": 1111,
+    "needPerDay": 38,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partial": {
+   "compute": {
+    "available": true,
+    "percent": 48,
+    "rawPercent": 48,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.3686149436674437,
+      "detail": {
+       "overall": 0.3973333333333333,
+       "meanTopic": 0.4002566045066045,
+       "freshness": 0.925,
+       "answered": 86,
+       "total": 129
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.745220588235294,
+      "detail": {
+       "answered": 17,
+       "total": 33,
+       "coverage": 1,
+       "avgQuality": 0.4338235294117647,
+       "fullSessions": 0
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.525,
+      "detail": {
+       "completed": 2,
+       "total": 8,
+       "criticalDone": 2,
+       "criticalTotal": 4,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.3,
+      "detail": {
+       "mastered": 17,
+       "started": 43,
+       "total": 86
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2772727272727272,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 22,
+       "totalSteps": 22,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "noFullMock",
+      "max": 74,
+      "reason": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview"
+     },
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "ts-knowledge",
+      "title": "База знаний и runbook",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.25,
+      "pct": 25
+     },
+     {
+      "id": "ts-behavioral",
+      "title": "Поведенческие вопросы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.275,
+      "pct": 28
+     },
+     {
+      "id": "ts-support-role",
+      "title": "Роль инженера поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.30000000000000004,
+      "pct": 30
+     },
+     {
+      "id": "ts-network",
+      "title": "Сеть и доступность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3333333333333333,
+      "pct": 33
+     },
+     {
+      "id": "ts-sql",
+      "title": "SQL для поддержки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3333333333333333,
+      "pct": 33
+     },
+     {
+      "id": "ts-tools",
+      "title": "Инструменты работы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.35000000000000003,
+      "pct": 35
+     },
+     {
+      "id": "ts-communication",
+      "title": "Общение с клиентом",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.36000000000000004,
+      "pct": 36
+     },
+     {
+      "id": "ts-integrations",
+      "title": "Интеграции и вебхуки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.36363636363636365,
+      "pct": 36
+     },
+     {
+      "id": "ts-incidents",
+      "title": "Инциденты и эскалация",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.37333333333333335,
+      "pct": 37
+     },
+     {
+      "id": "ts-reproduce",
+      "title": "Воспроизведение проблемы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.39999999999999997,
+      "pct": 40
+     },
+     {
+      "id": "ts-linux",
+      "title": "Командная строка Linux",
+      "required": true,
+      "critical": false,
+      "questions": 10,
+      "mastery": 0.4153846153846154,
+      "pct": 42
+     },
+     {
+      "id": "ts-ticket-flow",
+      "title": "Обращение от заявки до закрытия",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.4266666666666667,
+      "pct": 43
+     },
+     {
+      "id": "ts-logs",
+      "title": "Чтение логов",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.4266666666666667,
+      "pct": 43
+     },
+     {
+      "id": "ts-rca",
+      "title": "Поиск первопричины",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4444444444444444,
+      "pct": 44
+     },
+     {
+      "id": "ts-monitoring",
+      "title": "Мониторинг и алерты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.44999999999999996,
+      "pct": 45
+     },
+     {
+      "id": "ts-http-api",
+      "title": "HTTP и API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.45333333333333337,
+      "pct": 45
+     },
+     {
+      "id": "ts-metrics",
+      "title": "Метрики поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.475,
+      "pct": 48
+     },
+     {
+      "id": "ts-devtools",
+      "title": "Инструменты браузера",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "ts-release",
+      "title": "Релизы, откаты и регрессии",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "ts-privacy",
+      "title": "Персональные данные и доступы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.575,
+      "pct": 57
+     }
+    ],
+    "coverage": 0.9,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Нет ни одной полной сессии mock interview",
+      "action": "Пройти полное mock interview",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «База знаний и runbook» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-knowledge"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поведенческие вопросы» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-behavioral"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Роль инженера поддержки» — 30%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-support-role"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сеть и доступность» — 33%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «SQL для поддержки» — 33%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-sql"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инструменты работы» — 35%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-tools"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Общение с клиентом» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-communication"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и вебхуки» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инциденты и эскалация» — 37%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Воспроизведение проблемы» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-reproduce"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Командная строка Linux» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-linux"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Обращение от заявки до закрытия» — 43%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-ticket-flow"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Чтение логов» — 43%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-logs"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поиск первопричины» — 44%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-rca"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Мониторинг и алерты» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-monitoring"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTTP и API» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-http-api"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики поддержки» — 48%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-metrics"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 506,
+    "mocksLeft": 27,
+    "casesLeft": 6,
+    "stepsLeft": 18,
+    "workUnits": 707,
+    "needPerDay": 24,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "partialWithMock": {
+   "compute": {
+    "available": true,
+    "percent": 48,
+    "rawPercent": 48,
+    "verdict": "База формируется",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 0.3686149436674437,
+      "detail": {
+       "overall": 0.3973333333333333,
+       "meanTopic": 0.4002566045066045,
+       "freshness": 0.925,
+       "answered": 86,
+       "total": 129
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 0.745220588235294,
+      "detail": {
+       "answered": 17,
+       "total": 33,
+       "coverage": 1,
+       "avgQuality": 0.4338235294117647,
+       "fullSessions": 1
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 0.525,
+      "detail": {
+       "completed": 2,
+       "total": 8,
+       "criticalDone": 2,
+       "criticalTotal": 4,
+       "avgQuality": 0.78125
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 0.3,
+      "detail": {
+       "mastered": 17,
+       "started": 43,
+       "total": 86
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 0.2772727272727272,
+      "detail": {
+       "doneRequired": 4,
+       "totalRequired": 22,
+       "totalSteps": 22,
+       "activeDays": 7,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [
+     {
+      "key": "fewCases",
+      "max": 79,
+      "reason": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса"
+     },
+     {
+      "key": "weakCriticalTopic",
+      "max": 69,
+      "reason": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     }
+    ],
+    "appliedCap": null,
+    "capMax": 69,
+    "topics": [
+     {
+      "id": "ts-knowledge",
+      "title": "База знаний и runbook",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.25,
+      "pct": 25
+     },
+     {
+      "id": "ts-behavioral",
+      "title": "Поведенческие вопросы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.275,
+      "pct": 28
+     },
+     {
+      "id": "ts-support-role",
+      "title": "Роль инженера поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.30000000000000004,
+      "pct": 30
+     },
+     {
+      "id": "ts-network",
+      "title": "Сеть и доступность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3333333333333333,
+      "pct": 33
+     },
+     {
+      "id": "ts-sql",
+      "title": "SQL для поддержки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.3333333333333333,
+      "pct": 33
+     },
+     {
+      "id": "ts-tools",
+      "title": "Инструменты работы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.35000000000000003,
+      "pct": 35
+     },
+     {
+      "id": "ts-communication",
+      "title": "Общение с клиентом",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.36000000000000004,
+      "pct": 36
+     },
+     {
+      "id": "ts-integrations",
+      "title": "Интеграции и вебхуки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.36363636363636365,
+      "pct": 36
+     },
+     {
+      "id": "ts-incidents",
+      "title": "Инциденты и эскалация",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.37333333333333335,
+      "pct": 37
+     },
+     {
+      "id": "ts-reproduce",
+      "title": "Воспроизведение проблемы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.39999999999999997,
+      "pct": 40
+     },
+     {
+      "id": "ts-linux",
+      "title": "Командная строка Linux",
+      "required": true,
+      "critical": false,
+      "questions": 10,
+      "mastery": 0.4153846153846154,
+      "pct": 42
+     },
+     {
+      "id": "ts-ticket-flow",
+      "title": "Обращение от заявки до закрытия",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.4266666666666667,
+      "pct": 43
+     },
+     {
+      "id": "ts-logs",
+      "title": "Чтение логов",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.4266666666666667,
+      "pct": 43
+     },
+     {
+      "id": "ts-rca",
+      "title": "Поиск первопричины",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.4444444444444444,
+      "pct": 44
+     },
+     {
+      "id": "ts-monitoring",
+      "title": "Мониторинг и алерты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.44999999999999996,
+      "pct": 45
+     },
+     {
+      "id": "ts-http-api",
+      "title": "HTTP и API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 0.45333333333333337,
+      "pct": 45
+     },
+     {
+      "id": "ts-metrics",
+      "title": "Метрики поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.475,
+      "pct": 48
+     },
+     {
+      "id": "ts-devtools",
+      "title": "Инструменты браузера",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "ts-release",
+      "title": "Релизы, откаты и регрессии",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.5,
+      "pct": 50
+     },
+     {
+      "id": "ts-privacy",
+      "title": "Персональные данные и доступы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 0.575,
+      "pct": 57
+     }
+    ],
+    "coverage": 0.9,
+    "gaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «База знаний и runbook» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-knowledge"
+     }
+    ],
+    "allGaps": [
+     {
+      "kind": "cap",
+      "title": "Завершено меньше трёх практических кейсов (2 из 3)",
+      "action": "Пройти ещё 1 кейса",
+      "topicId": null
+     },
+     {
+      "kind": "cap",
+      "title": "Критическая тема ниже 40%: Сеть и доступность, SQL для поддержки, Общение с клиентом, Инциденты и эскалация, Воспроизведение проблемы",
+      "action": "Подтянуть тему «Сеть и доступность»",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «База знаний и runbook» — 25%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-knowledge"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поведенческие вопросы» — 28%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-behavioral"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Роль инженера поддержки» — 30%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-support-role"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Сеть и доступность» — 33%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-network"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «SQL для поддержки» — 33%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-sql"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инструменты работы» — 35%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-tools"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Общение с клиентом» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-communication"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Интеграции и вебхуки» — 36%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-integrations"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Инциденты и эскалация» — 37%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-incidents"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Воспроизведение проблемы» — 40%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-reproduce"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Командная строка Linux» — 42%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-linux"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Обращение от заявки до закрытия» — 43%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-ticket-flow"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Чтение логов» — 43%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-logs"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Поиск первопричины» — 44%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-rca"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Мониторинг и алерты» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-monitoring"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «HTTP и API» — 45%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-http-api"
+     },
+     {
+      "kind": "topic",
+      "title": "Тема «Метрики поддержки» — 48%",
+      "action": "Пройти тест по теме",
+      "topicId": "ts-metrics"
+     }
+    ]
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 506,
+    "mocksLeft": 27,
+    "casesLeft": 6,
+    "stepsLeft": 18,
+    "workUnits": 707,
+    "needPerDay": 24,
+    "goal": 15,
+    "onTrack": false
+   }
+  },
+  "strong": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 129,
+       "total": 129
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 33,
+       "total": 33,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 8,
+       "total": 8,
+       "criticalDone": 4,
+       "criticalTotal": 4,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 86,
+       "started": 86,
+       "total": 86
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 22,
+       "totalRequired": 22,
+       "totalSteps": 22,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "ts-support-role",
+      "title": "Роль инженера поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-ticket-flow",
+      "title": "Обращение от заявки до закрытия",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-reproduce",
+      "title": "Воспроизведение проблемы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-logs",
+      "title": "Чтение логов",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-http-api",
+      "title": "HTTP и API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-network",
+      "title": "Сеть и доступность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-linux",
+      "title": "Командная строка Linux",
+      "required": true,
+      "critical": false,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-sql",
+      "title": "SQL для поддержки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-devtools",
+      "title": "Инструменты браузера",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-integrations",
+      "title": "Интеграции и вебхуки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-incidents",
+      "title": "Инциденты и эскалация",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-monitoring",
+      "title": "Мониторинг и алерты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-rca",
+      "title": "Поиск первопричины",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-release",
+      "title": "Релизы, откаты и регрессии",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-privacy",
+      "title": "Персональные данные и доступы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-knowledge",
+      "title": "База знаний и runbook",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-communication",
+      "title": "Общение с клиентом",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-metrics",
+      "title": "Метрики поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-tools",
+      "title": "Инструменты работы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-behavioral",
+      "title": "Поведенческие вопросы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  },
+  "strongWithForeignLabs": {
+   "compute": {
+    "available": true,
+    "percent": 100,
+    "rawPercent": 100,
+    "verdict": "Готов к собеседованию",
+    "blocks": [
+     {
+      "key": "knowledge",
+      "title": "Знания и повторение",
+      "weight": 35,
+      "score": 1,
+      "detail": {
+       "overall": 1,
+       "meanTopic": 1,
+       "freshness": 1,
+       "answered": 129,
+       "total": 129
+      }
+     },
+     {
+      "key": "mock",
+      "title": "Mock interview",
+      "weight": 25,
+      "score": 1,
+      "detail": {
+       "answered": 33,
+       "total": 33,
+       "coverage": 1,
+       "avgQuality": 1,
+       "fullSessions": 2
+      }
+     },
+     {
+      "key": "cases",
+      "title": "Практические кейсы",
+      "weight": 20,
+      "score": 1,
+      "detail": {
+       "completed": 8,
+       "total": 8,
+       "criticalDone": 4,
+       "criticalTotal": 4,
+       "avgQuality": 1
+      }
+     },
+     {
+      "key": "glossary",
+      "title": "Словарь",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "mastered": 86,
+       "started": 86,
+       "total": 86
+      }
+     },
+     {
+      "key": "plan",
+      "title": "План и регулярность",
+      "weight": 10,
+      "score": 1,
+      "detail": {
+       "doneRequired": 22,
+       "totalRequired": 22,
+       "totalSteps": 22,
+       "activeDays": 14,
+       "window": 14
+      }
+     }
+    ],
+    "caps": [],
+    "appliedCap": null,
+    "capMax": 100,
+    "topics": [
+     {
+      "id": "ts-support-role",
+      "title": "Роль инженера поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-ticket-flow",
+      "title": "Обращение от заявки до закрытия",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-reproduce",
+      "title": "Воспроизведение проблемы",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-logs",
+      "title": "Чтение логов",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-http-api",
+      "title": "HTTP и API",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-network",
+      "title": "Сеть и доступность",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-linux",
+      "title": "Командная строка Linux",
+      "required": true,
+      "critical": false,
+      "questions": 10,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-sql",
+      "title": "SQL для поддержки",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-devtools",
+      "title": "Инструменты браузера",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-integrations",
+      "title": "Интеграции и вебхуки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-incidents",
+      "title": "Инциденты и эскалация",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-monitoring",
+      "title": "Мониторинг и алерты",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-rca",
+      "title": "Поиск первопричины",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-release",
+      "title": "Релизы, откаты и регрессии",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-privacy",
+      "title": "Персональные данные и доступы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-knowledge",
+      "title": "База знаний и runbook",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-communication",
+      "title": "Общение с клиентом",
+      "required": true,
+      "critical": true,
+      "questions": 8,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-metrics",
+      "title": "Метрики поддержки",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-tools",
+      "title": "Инструменты работы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     },
+     {
+      "id": "ts-behavioral",
+      "title": "Поведенческие вопросы",
+      "required": true,
+      "critical": false,
+      "questions": 5,
+      "mastery": 1,
+      "pct": 100
+     }
+    ],
+    "coverage": 1,
+    "gaps": [],
+    "allGaps": []
+   },
+   "plan": {
+    "date": "2026-08-26",
+    "daysLeft": 30,
+    "past": false,
+    "reviewsLeft": 0,
+    "mocksLeft": 0,
+    "casesLeft": 0,
+    "stepsLeft": 0,
+    "workUnits": 0,
+    "needPerDay": 0,
+    "goal": 15,
+    "onTrack": true
+   }
+  }
+ }
+}

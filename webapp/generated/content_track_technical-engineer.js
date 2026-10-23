@@ -413,6 +413,7 @@
    "track_id":"technical-engineer"
   }
  ],
+ "dutyopsDrills":[],
  "englishDrills":[
   {
    "category":"О себе",
@@ -5526,6 +5527,7 @@
    ]
   }
  ],
+ "labs":[],
  "lessons":[
   {
    "common_mistakes":[

@@ -237,5 +237,214 @@ ok(planDone.onTrack, "закрытый план всегда в графике")
   ok(r.percent >= 0 && r.percent <= 100, `процент в границах 0..100 (случай ${i})`);
 });
 
+
+// ════════════════════════════════════════════════════════════════════════
+// ПРОФИЛЬ DEVOPS (RedCore Junior DevOps / DutyOps)
+// ════════════════════════════════════════════════════════════════════════
+{
+  const DT = "devops-platform";
+  const DC = ALL.forTrack(DT);
+  const P = R.profileFor(DT);
+  const dbase = (extra) => Object.assign({
+    content: DC, trackId: DT, srs: {}, profile: {}, days: {},
+    today: TODAY, nowMs: NOW, fullMockSessions: 0,
+  }, extra || {});
+
+  eq(P.id, "devops", "devops-platform считается по своему профилю");
+  eq(R.profileFor("redcore-junior-seo").id, "default", "SEO-трек — по общему профилю");
+  eq(R.profileFor("qa-payments").id, "default", "QA-трек — по общему профилю");
+  eq(R.profileFor("technical-engineer").id, "default", "Technical Engineer — по общему профилю");
+  eq(Object.values(P.weights).reduce((a, b) => a + b, 0), 100, "DevOps: сумма весов 100");
+  eq(P.weights, { knowledge: 25, mock: 15, cases: 20, glossary: 5, plan: 5, labs: 30 },
+    "DevOps: веса блоков по ТЗ");
+  eq(R.WEIGHTS.knowledge, 35, "общие веса не изменились");
+
+  const labsAll = DC.labs.filter((l) => l.track_id === DT);
+  const drillsAll = DC.dutyopsDrills.filter((d) => d.track_id === DT);
+
+  function dStrong(over) {
+    const srs = {};
+    DC.questions.filter((q) => q.track_id === DT).forEach((q) => { srs["q:" + q.id] = { box: 5, due: NOW + 1e9 }; });
+    DC.glossary.filter((t) => !t.track_ids || t.track_ids.includes(DT)).forEach((t) => { srs["t:" + t.id] = { box: 5, due: NOW + 1e9 }; });
+    const mock = {}, cases = {}, roadmap = {}, labs = {}, drills = {};
+    DC.mockQuestions.filter((m) => m.track_id === DT).forEach((m) => { mock[m.id] = { rating: 4, count: 3, ts: NOW }; });
+    DC.cases.filter((c) => c.track_id === DT).forEach((c) => { cases[c.id] = { rating: 4, count: 2, ts: NOW }; });
+    DC.roadmap.filter((s) => s.track_id === DT).forEach((s) => { roadmap[s.id] = { done: true }; });
+    labsAll.forEach((l) => { labs[l.id] = { attempts: 2, completed: true, post_check_score: 1, ts: NOW }; });
+    drillsAll.forEach((d) => { drills[d.id] = { best: 100, last: 100, attempts: 2, ts: NOW }; });
+    const days = {};
+    for (let i = 0; i < 14; i++) days[R.shiftDay(TODAY, -i)] = 20;
+    const st = dbase({ srs, days, fullMockSessions: 2,
+      profile: { mock, cases, roadmap, labs, drills, diagnostic: { ts: NOW, pct: 80 } } });
+    return over ? over(st) || st : st;
+  }
+
+  const dEmpty = R.compute(dbase());
+  eq(dEmpty.percent, 0, "DevOps: на пустом прогрессе 0%");
+  eq(dEmpty.profile, "devops", "DevOps: в ответе указан профиль");
+  eq(dEmpty.blocks.map((b) => b.key), ["knowledge", "mock", "cases", "glossary", "plan", "labs"],
+    "DevOps: первые пять блоков на прежних местах, лабораторные шестыми");
+  ["noDiagnostic", "fewLabs", "coreLabDomainMissing", "fewIncidents", "noFullMock",
+   "weakCriticalTopic", "lowTopicCoverage"].forEach((k) => {
+    ok(dEmpty.caps.some((c) => c.key === k), `DevOps: на пустом прогрессе есть ограничитель ${k}`);
+  });
+
+  const dTop = R.compute(dStrong());
+  ok(dTop.percent >= 95, `DevOps: полностью проработанное состояние даёт высокий процент (${dTop.percent})`);
+  eq(dTop.caps.length, 0, "DevOps: у проработанного состояния нет ограничителей");
+
+  // самооценка не влияет
+  const sa = {};
+  (DC.tracks.find((t) => t.id === DT).self_assessment_areas || []).forEach((a) => { sa[a.id] = 5; });
+  const half = (st) => { st.profile.labs = {}; return st; };
+  const withSA = R.compute(dStrong((st) => { half(st); st.profile.selfAssessment = sa; }));
+  const noSA = R.compute(dStrong(half));
+  eq(withSA.percent, noSA.percent, "DevOps: максимальная самооценка не меняет процент");
+  eq(withSA.rawPercent, noSA.rawPercent, "DevOps: самооценка не меняет и набранный балл");
+
+  // одни тесты не дают высокой готовности
+  const quizOnly = R.compute(dStrong((st) => {
+    st.profile = { diagnostic: { ts: NOW } }; st.fullMockSessions = 0;
+  }));
+  ok(quizOnly.percent <= 40,
+    `DevOps: только тесты и словарь не дают высокой готовности (получено ${quizOnly.percent})`);
+  ok(quizOnly.caps.some((c) => c.key === "fewLabs"), "DevOps: без лабораторных срабатывает fewLabs");
+
+  // ноль лабораторных → ограничитель
+  const noLabs = R.compute(dStrong((st) => { st.profile.labs = {}; }));
+  ok(noLabs.percent <= P.caps.fewLabs, `DevOps: без лабораторных не выше ${P.caps.fewLabs} (${noLabs.percent})`);
+  ok(noLabs.appliedCap && noLabs.appliedCap.max === P.caps.fewLabs, "DevOps: сработал потолок fewLabs");
+
+  // нет ни одной лабораторной в core-домене Kubernetes
+  const noK8s = R.compute(dStrong((st) => {
+    labsAll.filter((l) => l.lab_domain === "kubernetes").forEach((l) => { delete st.profile.labs[l.id]; });
+  }));
+  const kcap = noK8s.caps.find((c) => c.key === "coreLabDomainMissing");
+  ok(kcap && /Kubernetes/.test(kcap.reason), "DevOps: ограничитель называет незакрытый домен Kubernetes");
+  ok(kcap && kcap.labId && /k8s/.test(kcap.labId), "DevOps: ограничитель предлагает конкретную лабораторную");
+  ok(noK8s.percent <= P.caps.coreLabDomainMissing, `DevOps: без Kubernetes-лабы не выше ${P.caps.coreLabDomainMissing}`);
+  ok(noK8s.appliedCap && noK8s.appliedCap.key === "coreLabDomainMissing",
+    "DevOps: UI может объяснить, почему максимум 69%");
+
+  // полная сессия mock снимает свой ограничитель
+  const noMockD = R.compute(dStrong((st) => { st.fullMockSessions = 0; }));
+  ok(noMockD.caps.some((c) => c.key === "noFullMock"), "DevOps: без полной сессии mock есть ограничитель");
+  ok(noMockD.percent <= P.caps.noFullMock, `DevOps: без полной сессии mock не выше ${P.caps.noFullMock}`);
+  const withMockD = R.compute(dStrong((st) => { st.fullMockSessions = 1; }));
+  ok(!withMockD.caps.some((c) => c.key === "noFullMock"), "DevOps: полная сессия mock снимает ограничитель");
+
+  // критическая тема ниже 50%
+  const crit = DC.tracks.find((t) => t.id === DT).critical_topic_ids[0];
+  const weakD = R.compute(dStrong((st) => {
+    DC.questions.filter((q) => q.topic === crit).forEach((q) => { st.srs["q:" + q.id] = { box: 2, due: NOW + 1e9 }; });
+  }));
+  ok(weakD.caps.some((c) => c.key === "weakCriticalTopic" && c.topicId === crit),
+    "DevOps: критическая тема ниже 50% даёт ограничитель");
+  ok(weakD.percent <= P.caps.weakCriticalTopic, `DevOps: слабая критическая тема — не выше ${P.caps.weakCriticalTopic}`);
+
+  // без диагностики
+  const noDiag = R.compute(dStrong((st) => { delete st.profile.diagnostic; }));
+  ok(noDiag.percent <= P.caps.noDiagnostic && noDiag.appliedCap.key === "noDiagnostic",
+    `DevOps: без диагностики не выше ${P.caps.noDiagnostic}`);
+
+  // мало инцидентов
+  const fewInc = R.compute(dStrong((st) => { st.profile.cases = {}; st.profile.drills = {}; }));
+  ok(fewInc.caps.some((c) => c.key === "fewIncidents") && fewInc.percent <= P.caps.fewIncidents,
+    `DevOps: меньше ${P.minIncidents} разобранных инцидентов — не выше ${P.caps.fewIncidents}`);
+
+  // ограничитель показывается сработавшим, только если реально срезал балл
+  ok(dEmpty.appliedCap === null, "DevOps: на нуле ограничитель не помечается сработавшим");
+
+  // уверенность в лабораторной
+  eq(R.labConfidence(null), 0, "лаба: нет записи — 0");
+  eq(R.labConfidence({ completed: false, post_check_score: 1 }), 0, "лаба: post-check без выполнения — 0");
+  eq(R.labConfidence({ completed: true }), 0.4, "лаба: одна отметка «готово» — только 40%");
+  eq(Math.round(R.labConfidence({ completed: true, post_check_score: 1 }) * 100), 80, "лаба: + post-check");
+  eq(R.labConfidence({ completed: true, post_check_score: 1, attempts: 2 }), 1, "лаба: + повтор — 100%");
+  const oneMark = R.compute(dStrong((st) => {
+    Object.keys(st.profile.labs).forEach((k) => { st.profile.labs[k] = { completed: true, attempts: 1 }; });
+  }));
+  const labBlock = (r) => r.blocks.find((b) => b.key === "labs").score;
+  ok(labBlock(oneMark) < labBlock(dTop), "DevOps: отметки без post-check дают меньше, чем подтверждённые лабы");
+
+  // сироты SRS не ломают расчёт
+  const orphan = R.compute(dStrong((st) => { st.srs["q:удалённый-вопрос"] = { box: 5, due: 1 }; }));
+  eq(orphan.percent, dTop.percent, "DevOps: SRS-запись удалённого вопроса не влияет на расчёт");
+
+  // ── покрытие требований ──
+  const vac = DC.vacancies.find((v) => v.id === DC.tracks.find((t) => t.id === DT).vacancy_id);
+  const covEmpty = R.requirementCoverage({ vacancy: vac, requirements: {} });
+  eq(covEmpty.percent, 0, "покрытие: без доказательств 0%");
+  eq(covEmpty.unconfirmedRequired, covEmpty.requiredTotal, "покрытие: все обязательные не подтверждены");
+  ok(covEmpty.hardGaps >= 1, "покрытие: требование-опыт даёт hard gap");
+  const exp = vac.requirements.find((r) => r.kind === "experience");
+  const skill = vac.requirements.find((r) => r.kind === "skill" && r.importance === "required");
+  const covLearn = R.requirementCoverage({ vacancy: vac, requirements: {
+    [exp.id]: { status: "learning" }, [skill.id]: { status: "learning" } } });
+  eq(covLearn.rows.find((r) => r.id === exp.id).effective, "unverified_experience",
+    "покрытие: опыт учёбой не закрывается");
+  eq(covLearn.rows.find((r) => r.id === exp.id).value, 0, "покрытие: учёба по опыту даёт 0");
+  eq(covLearn.rows.find((r) => r.id === skill.id).value, 0.25, "покрытие: «учу» по навыку — 25%");
+  const covClaim = R.requirementCoverage({ vacancy: vac, requirements: {
+    [skill.id]: { status: "confirmed", evidence: "" }, [exp.id]: { status: "confirmed", evidence: "  " } } });
+  eq(covClaim.rows.find((r) => r.id === skill.id).effective, "learning",
+    "покрытие: «подтверждено» без доказательства засчитывается только как учёба");
+  eq(covClaim.rows.find((r) => r.id === exp.id).effective, "unverified_experience",
+    "покрытие: опыт без доказательства не засчитывается");
+  const covOk = R.requirementCoverage({ vacancy: vac, requirements: {
+    [skill.id]: { status: "confirmed", evidence: "Настраивал сам на VPS" },
+    [exp.id]: { status: "partial", evidence: "1 год админом в компании N" } } });
+  eq(covOk.rows.find((r) => r.id === skill.id).value, 1, "покрытие: подтверждено с доказательством — 100%");
+  eq(covOk.rows.find((r) => r.id === exp.id).value, 0.55, "покрытие: частично с доказательством — 55%");
+  eq(covOk.hardGaps, covEmpty.hardGaps - 1, "покрытие: подтверждённый частично опыт снимает hard gap");
+  const den = vac.requirements.reduce((a, r) => a + R.REQ_WEIGHT[r.importance], 0);
+  eq(covOk.percent, Math.round((3 * 1 + 3 * 0.55) / den * 100), "покрытие: веса required ×3 / plus ×2");
+
+  // покрытие и готовность не смешиваются
+  const rA = R.compute(dStrong(half));
+  const rB = R.compute(dStrong((st) => {
+    half(st);
+    st.profile.requirements = {};
+    vac.requirements.forEach((r) => { st.profile.requirements[r.id] = { status: "confirmed", evidence: "x" }; });
+  }));
+  eq(rA.percent, rB.percent, "готовность не зависит от покрытия требований");
+
+  // матрица навыков: отдельные колонки
+  const mx = R.skillMatrix({ vacancy: vac, coverage: covOk, topics: dTop.topics, labs: DC.labs,
+    labState: {}, trackId: DT, mocks: DC.mockQuestions, mockState: {} });
+  eq(mx.length, vac.skill_matrix.length, "матрица: строка на каждый домен");
+  ok(mx.every((d) => "learningPct" in d && "labsDone" in d && "interviewPct" in d && "evidence" in d),
+    "матрица: цель, доказательство, освоенность, лабы и интервью — раздельно");
+
+  // план к дате учитывает лабораторные
+  const dPlan = R.examPlan({ content: DC, trackId: DT, srs: {}, profile: {},
+    examDate: "2026-08-26", today: TODAY, goal: 15 });
+  ok(dPlan.labsLeft > 0 && dPlan.drillsLeft > 0, "DevOps: план к дате считает лабораторные и drills");
+  const planNoLabs = dPlan.workUnits - dPlan.labsLeft * P.actionCost.lab - dPlan.drillsLeft * P.actionCost.drill;
+  ok(planNoLabs > 0 && dPlan.workUnits > planNoLabs, "DevOps: лабораторные добавляют условные единицы работы");
+  const dPlanDone = R.examPlan({ content: DC, trackId: DT, srs: dTop && dStrong().srs,
+    profile: dStrong().profile, examDate: "2026-08-26", today: TODAY, goal: 15 });
+  eq(dPlanDone.labsLeft, 0, "DevOps: на закрытом плане лабораторных не остаётся");
+  const seoPlan = R.examPlan({ content: CONTENT, trackId: TRACK, srs: {}, profile: {},
+    examDate: "2026-08-26", today: TODAY, goal: 15 });
+  eq(seoPlan.labsLeft, 0, "общий профиль: лабораторных в плане нет");
+
+  // диагностика
+  const d1 = R.diagnosticSelect(DC, DT, 7), d2 = R.diagnosticSelect(DC, DT, 7);
+  eq(d1, d2, "диагностика: одинаковый seed — одинаковый набор");
+  const cfg = DC.tracks.find((t) => t.id === DT).diagnostic;
+  eq(d1.length, cfg.question_count + cfg.scenario_count, "диагностика: 48 вопросов + 8 сценариев");
+  eq(new Set(d1).size, d1.length, "диагностика: без повторов");
+  eq(R.diagnosticSelect(CONTENT, TRACK, 7), [], "диагностика есть только там, где описана");
+  const byId = Object.fromEntries(DC.questions.map((q) => [q.id, q]));
+  const answers = d1.map((id) => ({ id, topic: byId[id].topic,
+    correct: ["linux-basics", "networking"].includes(byId[id].topic) }));
+  const rep = R.diagnosticReport({ content: DC, trackId: DT, answers });
+  ok(rep.strong.some((x) => x.id === "linux"), "диагностика: сильный домен определяется");
+  ok(rep.critical.some((x) => x.id === "nginx"), "диагностика: провал P0-домена — критический пробел");
+  ok(rep.nextActions.length > 0 && rep.nextActions.length <= 5, "диагностика: до 5 следующих действий");
+  ok(rep.fastSteps.length >= 1, "диагностика: быстрый путь по сильным доменам");
+}
+
 if (failed) { console.error(`\n_readiness_check: провалено проверок ${failed}`); process.exit(1); }
 console.log("_readiness_check: OK");

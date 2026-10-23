@@ -1107,6 +1107,1000 @@
           "next_action": "Опишите, как устроено дежурство, которое вы считаете здоровым"
         }
       ]
+    },
+    {
+      "id": "redcore-junior-devops-tatech-23211",
+      "track_id": "devops-platform",
+      "title": "Tech / DevOps Engineer (Junior)",
+      "company": "RedCore",
+      "level": "Junior",
+      "work_format": "Удалённо · юрлицо PL COM",
+      "vacancy_ref": "TATECH-23211",
+      "summary": "Junior DevOps в роли DutyOps: дежурный мониторинг инфраструктуры, разбор сбоев по runbook, наблюдение за доставкой трафика к продукту через зеркала и её восстановление в пределах полномочий, связь в инцидентных каналах. Технический профиль широкий: Linux и сети, Nginx, Prometheus/Grafana/LogQL, PostgreSQL, MongoDB, ClickHouse, Docker, CI/CD, Terraform, Ansible, AWS, GCP, Kubernetes и EKS. Внутреннее устройство инфраструктуры RedCore публично не описано — всё, что касается их зеркал и процессов, помечено в тренажёре как «неизвестно — уточнить у интервьюера».",
+      "main_tasks": [
+        "Дежурный (DutyOps) мониторинг инфраструктуры",
+        "Разбор и устранение сбоев инфраструктуры по runbook",
+        "Мониторинг доставки трафика к продукту через зеркала",
+        "Восстановление доставки трафика в пределах полномочий DutyOps",
+        "Коммуникация в инцидентных и SOS-каналах",
+        "Оптимизация процессов DutyOps"
+      ],
+      "tools": [
+        "Linux",
+        "Nginx",
+        "Prometheus",
+        "Grafana",
+        "Loki / LogQL",
+        "PostgreSQL",
+        "MongoDB",
+        "ClickHouse",
+        "Docker",
+        "Kubernetes",
+        "EKS",
+        "Terraform",
+        "Ansible",
+        "AWS",
+        "GCP",
+        "Git",
+        "Bash",
+        "Python",
+        "Cloudflare",
+        "Redis",
+        "NATS",
+        "Jira"
+      ],
+      "interview_topics": [
+        "linux-basics",
+        "networking",
+        "nginx-proxy",
+        "monitoring-prometheus",
+        "logging-loki",
+        "databases-ops",
+        "mongodb-ops",
+        "clickhouse-ops",
+        "containers",
+        "ci-cd",
+        "iac",
+        "ansible-config",
+        "kubernetes",
+        "k8s-operations",
+        "aws-eks",
+        "gcp-basics",
+        "scripting",
+        "git-vcs",
+        "incidents",
+        "dutyops-runbooks",
+        "traffic-delivery",
+        "edge-cloudflare"
+      ],
+      "source_url": "https://redcore.group/vacancy/tatech-23211/",
+      "source_title": "RedCore — Tech / DevOps Engineer, Junior, PL COM, Remote (TATECH-23211)",
+      "source_verified_at": null,
+      "source_status": "needs_review",
+      "source_snapshot_at": "2026-10-23",
+      "source_note": "Текст требований перенесён из постановки задачи. При обновлении 2026-10-23 страница вакансии не открылась из рабочей среды, поэтому сверка с живым текстом не выполнена: статус needs_review. Сверьте страницу и, если текст совпадает, поставьте source_status=verified и дату проверки.",
+      "requirements": [
+        {
+          "id": "rc-req-linux-admin-exp",
+          "requirement": "Опыт администрирования Linux от 2 лет",
+          "importance": "required",
+          "kind": "experience",
+          "source_section": "requirements",
+          "domain_id": "linux",
+          "topic_ids": [
+            "linux-basics"
+          ],
+          "lab_ids": [],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Только реальная работа: где, сколько времени, какие серверы и сервисы были на вас. Учебные стенды и лабораторные это требование не закрывают",
+          "gap": "",
+          "next_action": "Честно сформулируйте свой опыт и подготовьте ответ на вопрос «почему вас стоит рассмотреть без двух лет»"
+        },
+        {
+          "id": "rc-req-linux-cli",
+          "requirement": "Установка и настройка ПО из командной строки Linux",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "linux",
+          "topic_ids": [
+            "linux-basics"
+          ],
+          "lab_ids": [
+            "lab-linux-systemd-002",
+            "lab-linux-permissions-003",
+            "lab-linux-disk-004"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Сервер или стенд, где вы ставили и настраивали службы: systemd-юниты, пакеты, права, журнал",
+          "gap": "",
+          "next_action": "Пройдите лабораторные по systemd, правам и диску и сохраните заметку с командами"
+        },
+        {
+          "id": "rc-req-tcpip",
+          "requirement": "TCP/IP",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "networking",
+          "topic_ids": [
+            "networking"
+          ],
+          "lab_ids": [
+            "lab-net-port-009",
+            "lab-net-routing-011"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Случай, когда вы находили причину недоступности на уровне порта, маршрута или соединения",
+          "gap": "",
+          "next_action": "Пройдите лабораторные «порт не слушается» и «маршрутизация» и проговорите вывод ss и ip route"
+        },
+        {
+          "id": "rc-req-http",
+          "requirement": "HTTP и HTTPS",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "networking",
+          "topic_ids": [
+            "networking",
+            "nginx-proxy"
+          ],
+          "lab_ids": [
+            "lab-net-chain-007",
+            "lab-net-tls-010"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Разбор ошибки по коду ответа и заголовкам: curl -v, цепочка сертификатов, редиректы",
+          "gap": "",
+          "next_action": "Пройдите цепочку domain → DNS → TCP → TLS → HTTP и разберите сертификат через openssl s_client"
+        },
+        {
+          "id": "rc-req-dns",
+          "requirement": "DNS",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "networking",
+          "topic_ids": [
+            "networking",
+            "traffic-delivery"
+          ],
+          "lab_ids": [
+            "lab-net-dns-008"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Ситуация, где вы находили проблему в записи, TTL или резолвере",
+          "gap": "",
+          "next_action": "Сломайте резолвинг на стенде и найдите причину через dig и resolvectl"
+        },
+        {
+          "id": "rc-req-nginx",
+          "requirement": "Проксирование через Nginx",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "nginx",
+          "topic_ids": [
+            "nginx-proxy"
+          ],
+          "lab_ids": [
+            "lab-nginx-proxy-012",
+            "lab-nginx-502-013",
+            "lab-nginx-upstream-014"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Конфигурация reverse proxy, которую вы писали сами, и разбор 502 или 504 по error_log",
+          "gap": "",
+          "next_action": "Поднимите Nginx перед приложением и разберите 502 по журналу ошибок"
+        },
+        {
+          "id": "rc-req-prometheus",
+          "requirement": "Prometheus",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "monitoring",
+          "topic_ids": [
+            "monitoring-prometheus",
+            "observability"
+          ],
+          "lab_ids": [
+            "lab-mon-scrape-024",
+            "lab-mon-alert-025"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Сбор метрик и правило тревоги, которые вы настраивали: что мерили и почему с такими порогами",
+          "gap": "",
+          "next_action": "Настройте scrape для node_exporter и напишите правило тревоги с for"
+        },
+        {
+          "id": "rc-req-grafana",
+          "requirement": "Grafana",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "monitoring",
+          "topic_ids": [
+            "monitoring-prometheus"
+          ],
+          "lab_ids": [
+            "lab-mon-grafana-026"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Дашборд, который вы собрали сами, и объяснение, на какой вопрос отвечает каждая панель",
+          "gap": "",
+          "next_action": "Соберите дашборд из четырёх панелей по своим метрикам и сохраните его JSON"
+        },
+        {
+          "id": "rc-req-logql",
+          "requirement": "Язык запросов к логам (LogQL)",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "logging",
+          "topic_ids": [
+            "logging-loki"
+          ],
+          "lab_ids": [
+            "lab-log-loki-027"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Запросы, которыми вы находили ошибки в логах: селектор меток, фильтр, парсер, агрегация",
+          "gap": "",
+          "next_action": "Поднимите Loki с Promtail или Alloy и найдите всплеск ошибок запросом rate по отфильтрованным строкам"
+        },
+        {
+          "id": "rc-req-postgresql",
+          "requirement": "PostgreSQL",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "postgresql",
+          "topic_ids": [
+            "databases-ops"
+          ],
+          "lab_ids": [
+            "lab-db-pg-backup-028",
+            "lab-db-pg-connections-029"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Резервная копия, которую вы восстанавливали, и разбор проблемы с соединениями или блокировками",
+          "gap": "",
+          "next_action": "Сделайте pg_dump, восстановите его в чистую базу и проверьте данные"
+        },
+        {
+          "id": "rc-req-mongodb",
+          "requirement": "MongoDB",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "mongodb",
+          "topic_ids": [
+            "mongodb-ops"
+          ],
+          "lab_ids": [
+            "lab-db-mongo-rs-030"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Replica set, который вы поднимали или сопровождали, и что происходило при потере primary",
+          "gap": "",
+          "next_action": "Поднимите локальный replica set из трёх узлов и остановите primary"
+        },
+        {
+          "id": "rc-req-clickhouse",
+          "requirement": "ClickHouse",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "clickhouse",
+          "topic_ids": [
+            "clickhouse-ops"
+          ],
+          "lab_ids": [
+            "lab-db-clickhouse-031"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Установка, запросы к системным таблицам, разбор нехватки диска или памяти",
+          "gap": "",
+          "next_action": "Поставьте ClickHouse локально и найдите самые тяжёлые таблицы и запросы через system.*"
+        },
+        {
+          "id": "rc-req-db-ops",
+          "requirement": "Установка, поддержка и кластеризация СУБД",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "postgresql",
+          "topic_ids": [
+            "databases-ops",
+            "mongodb-ops",
+            "clickhouse-ops"
+          ],
+          "lab_ids": [
+            "lab-db-mongo-rs-030",
+            "lab-db-pg-backup-028"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Конкретная база, которую вы ставили и сопровождали: реплики, резервные копии, обновления, и что было при сбое",
+          "gap": "",
+          "next_action": "Соберите учебный кластер (replica set MongoDB или реплику PostgreSQL) и опишите, как проверяли переключение"
+        },
+        {
+          "id": "rc-req-cicd",
+          "requirement": "Понимание CI/CD",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "git-cicd",
+          "topic_ids": [
+            "ci-cd",
+            "security-pipeline"
+          ],
+          "lab_ids": [
+            "lab-ci-gitlab-019",
+            "lab-ci-failure-020"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Конвейер, который вы настраивали сами, с объяснением стадий, секретов и артефактов",
+          "gap": "",
+          "next_action": "Соберите конвейер build → test → package в GitLab CI и разберите одно намеренное падение"
+        },
+        {
+          "id": "rc-req-terraform",
+          "requirement": "Понимание Terraform",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "terraform",
+          "topic_ids": [
+            "iac"
+          ],
+          "lab_ids": [
+            "lab-iac-tf-state-032",
+            "lab-iac-tf-drift-033"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Код Terraform, который вы применяли, и случай, когда plan показал неожиданное изменение",
+          "gap": "",
+          "next_action": "Пройдите plan → apply → state на локальном провайдере и создайте дрейф руками"
+        },
+        {
+          "id": "rc-req-ansible",
+          "requirement": "Понимание Ansible",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "ansible",
+          "topic_ids": [
+            "ansible-config"
+          ],
+          "lab_ids": [
+            "lab-iac-ansible-034"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Playbook, который вы писали, и как убеждались в его идемпотентности",
+          "gap": "",
+          "next_action": "Напишите playbook для настройки Nginx и добейтесь changed=0 на втором прогоне"
+        },
+        {
+          "id": "rc-req-git",
+          "requirement": "Git: ветвление и Git Flow",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "git-cicd",
+          "topic_ids": [
+            "git-vcs"
+          ],
+          "lab_ids": [
+            "lab-git-conflict-018"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Работа в общем репозитории: ветки, review, разрешение конфликтов, релизные теги",
+          "gap": "",
+          "next_action": "Разрешите конфликт слияния на стенде и выпустите аннотированный тег"
+        },
+        {
+          "id": "rc-req-aws",
+          "requirement": "AWS",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "aws",
+          "topic_ids": [
+            "aws-eks",
+            "cloud-basics"
+          ],
+          "lab_ids": [
+            "lab-cloud-aws-arch-041",
+            "lab-cloud-aws-iam-042"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Ресурсы, которые вы создавали в AWS: IAM, VPC, EC2, S3 — и как контролировали расходы",
+          "gap": "",
+          "next_action": "Нарисуйте архитектуру сервиса в AWS и объясните каждое решение; платный аккаунт для этого не нужен"
+        },
+        {
+          "id": "rc-req-gcp",
+          "requirement": "GCP",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "gcp",
+          "topic_ids": [
+            "gcp-basics",
+            "cloud-basics"
+          ],
+          "lab_ids": [
+            "lab-cloud-gcp-044"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Проекты и ресурсы GCP, с которыми вы работали, и соответствие их сервисам AWS",
+          "gap": "",
+          "next_action": "Составьте таблицу соответствия сервисов AWS и GCP для типового веб-сервиса"
+        },
+        {
+          "id": "rc-req-k8s",
+          "requirement": "Kubernetes",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "kubernetes",
+          "topic_ids": [
+            "kubernetes",
+            "k8s-operations"
+          ],
+          "lab_ids": [
+            "lab-k8s-deploy-035",
+            "lab-k8s-crashloop-036",
+            "lab-k8s-oom-probes-037",
+            "lab-k8s-pending-038"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Приложение, которое вы разворачивали в кластере, и разбор состояний Pending, CrashLoopBackOff, OOMKilled",
+          "gap": "",
+          "next_action": "Разверните приложение в kind или minikube и доведите под до CrashLoopBackOff и обратно"
+        },
+        {
+          "id": "rc-req-eks",
+          "requirement": "EKS",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "eks",
+          "topic_ids": [
+            "aws-eks",
+            "kubernetes"
+          ],
+          "lab_ids": [
+            "lab-cloud-eks-043"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Кластер EKS, с которым вы работали: узлы, доступ через IAM, сеть подов",
+          "gap": "",
+          "next_action": "Разберите архитектуру EKS и прогоните тот же манифест локально в kind"
+        },
+        {
+          "id": "rc-req-docker",
+          "requirement": "Docker",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "docker",
+          "topic_ids": [
+            "containers",
+            "images-registry"
+          ],
+          "lab_ids": [
+            "lab-docker-multistage-021",
+            "lab-docker-network-022",
+            "lab-docker-restart-023"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Dockerfile, который вы писали и оптимизировали сами, и разбор контейнера в restart loop",
+          "gap": "",
+          "next_action": "Переведите проект на многостадийную сборку и разберите контейнер с неверным healthcheck"
+        },
+        {
+          "id": "rc-req-scripting",
+          "requirement": "Простые скрипты автоматизации на Bash и Python",
+          "importance": "required",
+          "kind": "skill",
+          "source_section": "requirements",
+          "domain_id": "scripting",
+          "topic_ids": [
+            "scripting"
+          ],
+          "lab_ids": [
+            "lab-script-healthcheck-015",
+            "lab-script-idempotent-016",
+            "lab-script-python-017"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Скрипт, который реально использовался: что автоматизировал, как обрабатывал ошибки",
+          "gap": "",
+          "next_action": "Напишите health-check на Bash с понятными кодами выхода и парсер логов на Python"
+        },
+        {
+          "id": "rc-req-cloudflare",
+          "requirement": "Cloudflare",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "cloudflare",
+          "topic_ids": [
+            "edge-cloudflare",
+            "traffic-delivery"
+          ],
+          "lab_ids": [
+            "lab-edge-cloudflare-045"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Домены за Cloudflare, которые вы настраивали: режим проксирования, SSL, правила кэша",
+          "gap": "",
+          "next_action": "Разберите упражнение с 52x-ошибками и неверным режимом SSL"
+        },
+        {
+          "id": "rc-req-custom-hostnames",
+          "requirement": "Cloudflare Custom Hostnames",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "cloudflare",
+          "topic_ids": [
+            "edge-cloudflare",
+            "traffic-delivery"
+          ],
+          "lab_ids": [
+            "lab-edge-cloudflare-045"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Подключение клиентских доменов к своему сервису через Custom Hostnames и проверку сертификатов",
+          "gap": "",
+          "next_action": "Прочитайте документацию Cloudflare for SaaS и опишите путь запроса с клиентским доменом"
+        },
+        {
+          "id": "rc-req-waf-cdn",
+          "requirement": "DNS, WAF и CDN на периметре",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "cloudflare",
+          "topic_ids": [
+            "edge-cloudflare",
+            "traffic-delivery",
+            "networking"
+          ],
+          "lab_ids": [
+            "lab-edge-cloudflare-045"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Правило WAF или кэша, которое вы настраивали, и как проверяли, что оно не режет легитимный трафик",
+          "gap": "",
+          "next_action": "Разберите, чем отличается ответ из кэша CDN от ответа origin по заголовкам"
+        },
+        {
+          "id": "rc-req-nats",
+          "requirement": "NATS",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "nats",
+          "topic_ids": [
+            "redis-nats"
+          ],
+          "lab_ids": [
+            "lab-msg-nats-046"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Сервис, где вы использовали NATS: subjects, очереди, JetStream",
+          "gap": "",
+          "next_action": "Поднимите nats-server локально и проверьте publish/subscribe и queue group"
+        },
+        {
+          "id": "rc-req-redis",
+          "requirement": "Redis",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "redis",
+          "topic_ids": [
+            "redis-nats"
+          ],
+          "lab_ids": [
+            "lab-cache-redis-047"
+          ],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Redis, который вы сопровождали: персистентность, вытеснение, мониторинг памяти",
+          "gap": "",
+          "next_action": "Поднимите Redis с AOF, заполните память и посмотрите, как работает политика вытеснения"
+        },
+        {
+          "id": "rc-req-jira",
+          "requirement": "Jira",
+          "importance": "desirable",
+          "kind": "skill",
+          "source_section": "plus",
+          "domain_id": "dutyops",
+          "topic_ids": [
+            "dutyops-runbooks"
+          ],
+          "lab_ids": [],
+          "status": "not_started",
+          "evidence": "",
+          "evidence_hint": "Работа с задачами и инцидентами в трекере: как оформляли тикет, чтобы его можно было подхватить",
+          "gap": "",
+          "next_action": "Оформите тикет по учебному инциденту: симптомы, влияние, что проверено, следующий шаг"
+        }
+      ],
+      "depth_levels": {
+        "L0": "слышал",
+        "L1": "объясню назначение",
+        "L2": "могу установить и настроить базово",
+        "L3": "могу диагностировать типовой сбой",
+        "L4": "могу самостоятельно эксплуатировать"
+      },
+      "skill_matrix": [
+        {
+          "id": "linux",
+          "title": "Linux",
+          "priority": "P0",
+          "target": "L4",
+          "lab_domain": "linux",
+          "topic_ids": [
+            "linux-basics"
+          ],
+          "roadmap_ref": "3. Linux & Scripting; 5. Server Management"
+        },
+        {
+          "id": "networking",
+          "title": "Сеть: TCP/IP, DNS, HTTP, TLS",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "networking",
+          "topic_ids": [
+            "networking"
+          ],
+          "roadmap_ref": "4. Networking & Security"
+        },
+        {
+          "id": "nginx",
+          "title": "Nginx",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "nginx",
+          "topic_ids": [
+            "nginx-proxy"
+          ],
+          "roadmap_ref": "5. Server Management"
+        },
+        {
+          "id": "scripting",
+          "title": "Bash и Python",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "scripting",
+          "topic_ids": [
+            "scripting"
+          ],
+          "roadmap_ref": "2. Programming language; 3. Linux & Scripting"
+        },
+        {
+          "id": "git-cicd",
+          "title": "Git и CI/CD",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "git-cicd",
+          "topic_ids": [
+            "git-vcs",
+            "ci-cd",
+            "security-pipeline"
+          ],
+          "roadmap_ref": "1. Git; 9. CI/CD; Bonus: DevSecOps"
+        },
+        {
+          "id": "docker",
+          "title": "Docker",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "docker",
+          "topic_ids": [
+            "containers",
+            "images-registry"
+          ],
+          "roadmap_ref": "6. Containers"
+        },
+        {
+          "id": "dutyops",
+          "title": "DutyOps и инциденты",
+          "priority": "P0",
+          "target": "L3",
+          "lab_domain": "dutyops",
+          "topic_ids": [
+            "incidents",
+            "dutyops-runbooks",
+            "traffic-delivery"
+          ],
+          "roadmap_ref": "10. Monitoring & Observability; 12. Software Engineering Practices"
+        },
+        {
+          "id": "monitoring",
+          "title": "Prometheus и Grafana",
+          "priority": "P1",
+          "target": "L3",
+          "lab_domain": "monitoring",
+          "topic_ids": [
+            "monitoring-prometheus",
+            "observability"
+          ],
+          "roadmap_ref": "10. Monitoring & Observability"
+        },
+        {
+          "id": "logging",
+          "title": "Логи: Loki и LogQL",
+          "priority": "P1",
+          "target": "L3",
+          "lab_domain": "monitoring",
+          "topic_ids": [
+            "logging-loki"
+          ],
+          "roadmap_ref": "10. Monitoring & Observability"
+        },
+        {
+          "id": "postgresql",
+          "title": "PostgreSQL",
+          "priority": "P1",
+          "target": "L3",
+          "lab_domain": "databases",
+          "topic_ids": [
+            "databases-ops"
+          ],
+          "roadmap_ref": "5. Server Management"
+        },
+        {
+          "id": "mongodb",
+          "title": "MongoDB",
+          "priority": "P1",
+          "target": "L2",
+          "lab_domain": "databases",
+          "topic_ids": [
+            "mongodb-ops"
+          ],
+          "roadmap_ref": "5. Server Management"
+        },
+        {
+          "id": "clickhouse",
+          "title": "ClickHouse",
+          "priority": "P1",
+          "target": "L2",
+          "lab_domain": "databases",
+          "topic_ids": [
+            "clickhouse-ops"
+          ],
+          "roadmap_ref": "5. Server Management"
+        },
+        {
+          "id": "terraform",
+          "title": "Terraform",
+          "priority": "P1",
+          "target": "L2–L3",
+          "lab_domain": "iac",
+          "topic_ids": [
+            "iac"
+          ],
+          "roadmap_ref": "8. Infrastructure as Code"
+        },
+        {
+          "id": "ansible",
+          "title": "Ansible",
+          "priority": "P1",
+          "target": "L2–L3",
+          "lab_domain": "iac",
+          "topic_ids": [
+            "ansible-config"
+          ],
+          "roadmap_ref": "8. Infrastructure as Code"
+        },
+        {
+          "id": "kubernetes",
+          "title": "Kubernetes",
+          "priority": "P1",
+          "target": "L3",
+          "lab_domain": "kubernetes",
+          "topic_ids": [
+            "kubernetes",
+            "k8s-operations"
+          ],
+          "roadmap_ref": "7. Container Orchestration"
+        },
+        {
+          "id": "eks",
+          "title": "EKS",
+          "priority": "P1",
+          "target": "L2",
+          "lab_domain": "cloud",
+          "topic_ids": [
+            "aws-eks"
+          ],
+          "roadmap_ref": "7. Container Orchestration; 11. Cloud provider"
+        },
+        {
+          "id": "aws",
+          "title": "AWS",
+          "priority": "P1",
+          "target": "L2–L3",
+          "lab_domain": "cloud",
+          "topic_ids": [
+            "aws-eks",
+            "cloud-basics"
+          ],
+          "roadmap_ref": "11. Cloud provider"
+        },
+        {
+          "id": "gcp",
+          "title": "GCP",
+          "priority": "P1",
+          "target": "L2",
+          "lab_domain": "cloud",
+          "topic_ids": [
+            "gcp-basics"
+          ],
+          "roadmap_ref": "11. Cloud provider"
+        },
+        {
+          "id": "cloudflare",
+          "title": "Cloudflare: DNS, CDN, WAF",
+          "priority": "P2",
+          "target": "L2",
+          "lab_domain": "edge",
+          "topic_ids": [
+            "edge-cloudflare"
+          ],
+          "roadmap_ref": "4. Networking & Security"
+        },
+        {
+          "id": "redis",
+          "title": "Redis",
+          "priority": "P2",
+          "target": "L2–L3",
+          "lab_domain": "messaging",
+          "topic_ids": [
+            "redis-nats"
+          ],
+          "roadmap_ref": "5. Server Management"
+        },
+        {
+          "id": "nats",
+          "title": "NATS",
+          "priority": "P2",
+          "target": "L1–L2",
+          "lab_domain": "messaging",
+          "topic_ids": [
+            "redis-nats"
+          ],
+          "roadmap_ref": "—"
+        }
+      ],
+      "evidence_prompts": [
+        {
+          "id": "ev-linux-host",
+          "title": "Production Linux-хост",
+          "hint": "Сервер, за который вы отвечали в реальной работе: что на нём работало, что вы настраивали и обновляли, как узнавали о проблемах",
+          "requirement_ids": [
+            "rc-req-linux-admin-exp",
+            "rc-req-linux-cli"
+          ]
+        },
+        {
+          "id": "ev-docker-service",
+          "title": "Сервис в Docker",
+          "hint": "Свой Dockerfile или compose: многостадийная сборка, healthcheck, как выкатывали и откатывали",
+          "requirement_ids": [
+            "rc-req-docker"
+          ]
+        },
+        {
+          "id": "ev-ci-pipeline",
+          "title": "CI-конвейер",
+          "hint": "Конвейер, который вы настраивали: стадии, секреты, артефакты, что останавливает выкат",
+          "requirement_ids": [
+            "rc-req-cicd",
+            "rc-req-git"
+          ]
+        },
+        {
+          "id": "ev-reverse-proxy",
+          "title": "Reverse proxy",
+          "hint": "Nginx или другой прокси перед приложением: конфигурация, TLS, разбор 502/504",
+          "requirement_ids": [
+            "rc-req-nginx",
+            "rc-req-http"
+          ]
+        },
+        {
+          "id": "ev-db-backup",
+          "title": "Резервная копия и восстановление БД",
+          "hint": "Какую базу копировали, как часто, когда и как проверяли восстановление",
+          "requirement_ids": [
+            "rc-req-postgresql",
+            "rc-req-db-ops",
+            "rc-req-mongodb"
+          ]
+        },
+        {
+          "id": "ev-monitoring",
+          "title": "Дашборд и тревоги",
+          "hint": "Метрики и правило тревоги, которые вы настраивали: что мерили, какой порог и почему",
+          "requirement_ids": [
+            "rc-req-prometheus",
+            "rc-req-grafana",
+            "rc-req-logql"
+          ]
+        },
+        {
+          "id": "ev-incident",
+          "title": "Разбор сбоя",
+          "hint": "Сбой, который вы расследовали: что сломалось, что делали лично вы, как вернули сервис и что изменили после",
+          "requirement_ids": [
+            "rc-req-linux-admin-exp"
+          ]
+        },
+        {
+          "id": "ev-automation",
+          "title": "Скрипт автоматизации",
+          "hint": "Bash или Python, который реально использовался: что автоматизировал, как обрабатывал ошибки, сколько времени сэкономил",
+          "requirement_ids": [
+            "rc-req-scripting"
+          ]
+        },
+        {
+          "id": "ev-terraform",
+          "title": "Terraform или Ansible",
+          "hint": "Код инфраструктуры, который вы применяли: где хранилось состояние, как проверяли plan, был ли дрейф",
+          "requirement_ids": [
+            "rc-req-terraform",
+            "rc-req-ansible"
+          ]
+        },
+        {
+          "id": "ev-kubernetes",
+          "title": "Kubernetes",
+          "hint": "Кластер и приложение, с которыми работали: учебный стенд или production — укажите честно; какие сбои разбирали",
+          "requirement_ids": [
+            "rc-req-k8s",
+            "rc-req-eks"
+          ]
+        }
+      ]
     }
   ]
 }

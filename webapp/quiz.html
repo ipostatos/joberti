@@ -44,6 +44,12 @@
 
   <div class="card" id="dueCard"></div>
 
+  <button class="row-card hidden" data-mode="diagnostic" id="diagRow">
+    <span class="ic-tile red" data-icon="target"></span>
+    <span class="body"><span class="t">Проверить мой текущий уровень</span><span class="d" id="diagDesc">—</span></span>
+    <span class="chev emi plain" data-icon="chevron-right"></span>
+  </button>
+
   <div class="section-title">Режимы</div>
   <button class="row-card" data-mode="quick">
     <span class="ic-tile blue" data-icon="play"></span>
@@ -157,6 +163,17 @@
         (weak.length > 2 ? " и ещё " + (weak.length - 2) : "")
         : "Слабых тем нет";
 
+    // Диагностика есть только у треков, где она описана (сейчас DevOps).
+    var dcfg = App.diagnosticConfig();
+    var diagRow = document.getElementById("diagRow");
+    diagRow.classList.toggle("hidden", !dcfg);
+    if (dcfg) {
+      var ds = App.diagnosticState();
+      document.getElementById("diagDesc").textContent = ds && ds.ts
+        ? "Последний результат " + ds.pct + "% · пройти заново"
+        : (dcfg.question_count + dcfg.scenario_count) + " вопросов по требованиям вакансии · разбор в конце";
+    }
+
     var dueCard = document.getElementById("dueCard");
     if (r.available) {
       dueCard.innerHTML = '<div class="kv"><span class="k">Готовность по знаниям</span>' +
@@ -198,6 +215,12 @@
     var size = MODE_SIZES[mode] || 10;
     var pool;
 
+    if (mode === "diagnostic") {
+      // Выборка по доменам вакансии: по несколько вопросов на каждый и
+      // отдельная порция сценариев разбора сбоя. Seed — время старта.
+      var ids = Readiness.diagnosticSelect(CONTENT, App.trackId(), Date.now() % 100000);
+      return ids.map(function (id) { return App.byId(all, id); }).filter(Boolean);
+    }
     if (mode === "single") {
       // Переход из поиска: один конкретный вопрос. Без этой ветки ссылка
       // quiz.html?id=… открывала бы просто меню тестов — тупик.
@@ -243,7 +266,7 @@
       answers: [],
       startedAt: Date.now(),
       // Экзамен показывает разбор только в конце — так проверка ближе к реальной.
-      instantFeedback: mode !== "exam",
+      instantFeedback: mode !== "exam" && mode !== "diagnostic",
     };
     if (window.setBusy) setBusy(true);
     elMenu.classList.add("hidden");
@@ -259,7 +282,7 @@
     document.getElementById("progBar").style.width =
       Math.round(session.i / session.list.length * 100) + "%";
     document.getElementById("qTopic").textContent = App.topicTitle(q.topic);
-    document.getElementById("qText").textContent = q.question;
+    document.getElementById("qText").innerHTML = App.questionHtml(q.question);
     document.getElementById("afterAnswer").classList.add("hidden");
 
     // Перемешиваем варианты детерминированно по id вопроса: при возврате к
@@ -386,6 +409,16 @@
     if (window.Sync) { Sync.push(); Sync.pushHistory(); }
 
     if (total >= 25 && correct === total) Progress.setFlag("flawless", true);
+
+    var diagReport = null;
+    if (session.mode === "diagnostic") {
+      diagReport = Readiness.diagnosticReport({
+        content: CONTENT, trackId: App.trackId(), answers: session.answers,
+        labState: Progress.profile().labs || {},
+      });
+      App.saveDiagnostic(diagReport, null);
+      if (window.Sync) Sync.push();
+    }
     // Фиксируем только что заработанные достижения флагами сразу: история
     // обрезается до 100 записей, и достижение, увиденное лишь на экране
     // достижений, могло бы «отозваться», не будучи зафиксированным.
@@ -421,13 +454,15 @@
           '<span class="v">' + d.ok + "/" + d.n + " · " + p + "%</span></div>";
       }).join("");
 
+    if (diagReport) renderDiagnostic(diagReport);
+
     var wrong = session.answers.filter(function (a) { return !a.correct; });
     document.getElementById("resWrong").innerHTML = wrong.length
       ? '<div class="section-title">Разбор ошибок</div>' + wrong.map(function (a) {
           var q = App.byId(all, a.id);
           if (!q) return "";
           return '<div class="card"><div class="small" style="font-weight:700; margin-bottom:6px">' +
-            App.esc(q.question) + "</div>" +
+            App.questionHtml(q.question) + "</div>" +
             '<div class="small" style="color:var(--bad)">Ваш ответ: ' +
             App.esc(q.options[a.chosen]) + "</div>" +
             '<div class="small" style="color:var(--ok)">Верно: ' +
@@ -444,10 +479,66 @@
     window.scrollTo(0, 0);
   }
 
+  // ── отчёт диагностики ──
+  function renderDiagnostic(rep) {
+    var rows = rep.domains.slice().sort(function (a, b) { return a.pct - b.pct; });
+    var steps = App.steps();
+    var fast = rep.fastSteps.map(function (id) { return App.byId(steps, id); }).filter(Boolean);
+    var domains = App.labDomains().filter(function (d) { return d.core; });
+    var self = (App.diagnosticState() || {}).selfLabs || {};
+    var html = '<div class="h3">По доменам вакансии</div>' + rows.map(function (r) {
+      var tone = r.pct >= 75 ? "ok" : r.pct >= 50 ? "warn" : "bad";
+      return '<div class="kv"><span class="k">' + App.esc(r.title) + ' <span class="xs muted">' +
+        App.esc(r.priority) + " · цель " + App.esc(r.target) + "</span></span>" +
+        '<span class="v" style="color:var(--' + tone + ')">' + r.correct + "/" + r.asked + " · " + r.pct + "%</span></div>";
+    }).join("");
+    html += '<div class="divider"></div><div class="h3">Сильные темы</div>' +
+      (rep.strong.length ? '<p class="small">' + rep.strong.map(function (r) { return App.esc(r.title); }).join(", ") + "</p>"
+        : '<p class="small muted">Пока нет доменов с результатом от 75%.</p>');
+    html += '<div class="h3">Слабые темы</div>' +
+      (rep.weak.length ? '<p class="small">' + rep.weak.map(function (r) { return App.esc(r.title); }).join(", ") + "</p>"
+        : '<p class="small muted">Доменов ниже 50% нет.</p>');
+    html += '<div class="h3">Критические пробелы</div>' +
+      (rep.critical.length ? '<p class="small" style="color:var(--bad)">' +
+        rep.critical.map(function (r) { return App.esc(r.title); }).join(", ") +
+        " — без этого интервью может сломаться (P0)</p>"
+        : '<p class="small muted">Среди P0-доменов провалов нет.</p>');
+    html += '<div class="h3">Следующие 5 действий</div>' + (rep.nextActions.length
+      ? rep.nextActions.map(function (a, i) {
+          return '<a class="kv" style="text-decoration:none;color:inherit" href="' + App.esc(a.href) + '">' +
+            '<span class="k">' + (i + 1) + ". " + App.esc(a.title) + '</span><span class="v">→</span></a>';
+        }).join("")
+      : '<p class="small muted">Слабых доменов нет — переходите к лабораторным и mock interview.</p>');
+    html += '<div class="h3" style="margin-top:var(--sp-3)">Быстрый путь</div>' + (fast.length
+      ? '<p class="small">Эти шаги плана можно пройти ускоренно — сразу тест и лабораторная: ' +
+        fast.map(function (s) { return App.esc(s.title); }).join(", ") + ".</p>"
+      : '<p class="small muted">Пока проходите план по порядку: ускорять нечего.</p>');
+    html += '<div class="divider"></div><div class="h3">Что вы уже делали руками</div>' +
+      '<p class="xs muted" style="margin-bottom:var(--sp-2)">Отметки помогают выбрать, какую лабораторную ' +
+      "пройти первой для подтверждения. В готовность и покрытие требований они не входят: " +
+      "подтверждает только сама лабораторная.</p>" +
+      '<div class="chip-row" style="flex-wrap:wrap; overflow:visible" id="selfLabs">' + domains.map(function (d) {
+        return '<button class="chip' + (self[d.id] ? " on" : "") + '" data-self="' + App.esc(d.id) + '">' +
+          App.esc(d.title) + "</button>";
+      }).join("") + "</div>";
+    var box = document.getElementById("resTopics");
+    box.innerHTML = html;
+    document.getElementById("selfLabs").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-self]");
+      if (!b) return;
+      var cur = Object.assign({}, (App.diagnosticState() || {}).selfLabs || {});
+      var k = b.getAttribute("data-self");
+      if (cur[k]) delete cur[k]; else cur[k] = true;
+      App.saveDiagnosticSelfLabs(cur);
+      b.classList.toggle("on", !!cur[k]);
+    });
+  }
+
   function modeTitle(mode, topicId) {
     if (mode === "topic") return "Тема: " + App.topicTitle(topicId);
     return { quick: "Быстрый тест", training: "Тренировка", exam: "Финальный экзамен",
-      review: "Повторение", mistakes: "Работа над ошибками", weak: "Слабые темы" }[mode] || mode;
+      review: "Повторение", mistakes: "Работа над ошибками", weak: "Слабые темы",
+      diagnostic: "Диагностика уровня" }[mode] || mode;
   }
 
   // ── события меню ──

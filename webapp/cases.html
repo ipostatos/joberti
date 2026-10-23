@@ -72,6 +72,25 @@
     return (Progress.profile().cases || {})[id] || null;
   }
 
+  // Предупреждение об ограничителе зависит от профиля трека: в DevOps кейсы
+  // считаются вместе с DutyOps drills, и порог другой.
+  function capNote(r, done) {
+    var P = App.readinessProfile();
+    if (P.id === "devops") {
+      var inc = r.available ? r.blocks[2].detail.incidentsCompleted : done;
+      return inc < P.minIncidents
+        ? '<div class="small" style="color:var(--warn); margin-top:var(--sp-2)">' +
+          "Пока разобрано меньше " + P.minIncidents + " инцидентов (кейсы и DutyOps drills вместе), " +
+          "готовность не поднимется выше " + P.caps.fewIncidents + "%.</div>"
+        : "";
+    }
+    return done < Readiness.MIN_CASES
+      ? '<div class="small" style="color:var(--warn); margin-top:var(--sp-2)">' +
+        "Пока пройдено меньше трёх кейсов, готовность не поднимется выше " +
+        Readiness.CAPS.fewCases + "%.</div>"
+      : "";
+  }
+
   // ── список ──
   function renderList() {
     var done = cases.filter(function (c) { return stateOf(c.id); }).length;
@@ -89,11 +108,7 @@
       critDone + " из " + crit.length + "</span></div>" +
       (r.available ? '<div class="kv"><span class="k">Блок в готовности</span><span class="v">' +
         Math.round(r.blocks[2].score * 100) + "%</span></div>" : "") +
-      (done < Readiness.MIN_CASES
-        ? '<div class="small" style="color:var(--warn); margin-top:var(--sp-2)">' +
-          "Пока пройдено меньше трёх кейсов, готовность не поднимется выше " +
-          Readiness.CAPS.fewCases + "%.</div>"
-        : "");
+      capNote(r, done);
 
     var rows = cases.filter(function (c) {
       var st = stateOf(c.id);
@@ -211,6 +226,35 @@
 
       html += '<div class="card"><div class="h3">Разбор</div>' +
         '<p class="small" style="line-height:1.65">' + App.esc(c.solution) + "</p></div>";
+
+      // Разбор по фазам инцидента: от влияния до сообщения в канал.
+      var inc = c.incident;
+      if (inc) {
+        var txt = function (t, v) {
+          return '<div style="margin-bottom:var(--sp-2)"><div class="xs muted">' + t + "</div>" +
+            '<div class="small" style="line-height:1.55">' + App.esc(v) + "</div></div>";
+        };
+        var lst = function (t, v) {
+          return '<div style="margin-bottom:var(--sp-2)"><div class="xs muted">' + t + "</div>" +
+            '<ul class="points">' + li(v) + "</ul></div>";
+        };
+        html += '<div class="card"><div class="h3">Разбор как инцидента</div>' +
+          txt("Влияние", inc.impact) + lst("Триаж", inc.triage) + lst("Гипотезы", inc.hypotheses) +
+          lst("Чем подтвердить", inc.evidence) + txt("Сдерживание", inc.containment) +
+          txt("Восстановление", inc.recovery) + txt("Корневая причина", inc.root_cause) +
+          lst("Предотвращение", inc.prevention) +
+          '<div class="xs muted">Первое сообщение в канал</div>' +
+          '<ul class="artifacts"><li style="white-space:pre-wrap">' + App.esc(inc.communication) + "</li></ul></div>";
+      }
+      var rl = (c.related_lab_ids || []).map(function (id) {
+        return App.byId(CONTENT.labs || [], id);
+      }).filter(Boolean);
+      if (rl.length) {
+        html += '<div class="card"><div class="h3">Отработать руками</div><div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+          rl.map(function (l) {
+            return '<a class="chip" href="labs.html?id=' + encodeURIComponent(l.id) + '">' + App.esc(l.title) + "</a>";
+          }).join("") + "</div></div>";
+      }
 
       html += '<div class="card"><div class="h3">Оцените себя</div>' +
         '<p class="small muted">Сравните свой разбор с эталонным. Оценка влияет на ' +

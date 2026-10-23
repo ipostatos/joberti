@@ -57,7 +57,7 @@ class AttemptIn(BaseModel):
     @field_validator("kind")
     @classmethod
     def _kind(cls, v: str) -> str:
-        allowed = {"quiz", "mock", "case", "readiness"}
+        allowed = {"quiz", "mock", "case", "readiness", "lab", "drill"}
         return v if v in allowed else "quiz"
 
     @field_validator("weakTopics")

@@ -25,6 +25,28 @@
       .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
+  // Текст вопроса. У вопросов «разбор вывода команды» в середине лежит вывод
+  // терминала: его показываем моноширинным блоком, иначе колонки df или ss
+  // разъезжаются. Первая строка — контекст, последняя — сам вопрос.
+  function questionHtml(text) {
+    var src = String(text == null ? "" : text);
+    // Вывод, явно огороженный тройными кавычками, — моноширинным блоком,
+    // остальное — текстом.
+    if (src.indexOf("```") !== -1) {
+      return src.split(/```[^\n]*\n?/).map(function (part, i) {
+        part = part.replace(/^\n+|\n+$/g, "");
+        if (!part) return "";
+        return i % 2 ? '<pre class="out">' + esc(part) + "</pre>"
+          : '<span class="q-lead">' + esc(part).replace(/\n/g, "<br>") + "</span>";
+      }).join("");
+    }
+    var lines = src.split("\n");
+    if (lines.length < 3) return esc(src).replace(/\n/g, "<br>");
+    return '<span class="q-lead">' + esc(lines[0]) + "</span>" +
+      '<pre class="out">' + esc(lines.slice(1, -1).join("\n")) + "</pre>" +
+      '<span class="q-tail">' + esc(lines[lines.length - 1]) + "</span>";
+  }
+
   function param(name) {
     try {
       return new URLSearchParams(global.location.search).get(name);
@@ -131,6 +153,21 @@
     });
   }
   function sourceById(id) { return byId(C.sources || [], id); }
+
+  // ── практика DevOps: лабораторные и DutyOps ──────────────────────────────
+  function labs() {
+    var id = trackId();
+    return (C.labs || []).filter(function (l) { return l.track_id === id; });
+  }
+  function dutyDrills() {
+    var id = trackId();
+    return (C.dutyopsDrills || []).filter(function (d) { return d.track_id === id; });
+  }
+  function labDomains() {
+    var t = track();
+    return (t && t.lab_domains) || [];
+  }
+  function hasLabs() { return labs().length > 0; }
 
   // ── английский для IT ────────────────────────────────────────────────────
   //
@@ -391,6 +428,179 @@
     };
   }
 
+  // ── лабораторные ─────────────────────────────────────────────────────────
+  //
+  // Mini App не может проверить внешнюю Linux/Kubernetes/облачную среду. Поэтому
+  // выполнение складывается из трёх честных частей: чек-лист критериев,
+  // короткая заметка-доказательство и post-check вопросы. Никакой «AI-проверки»
+  // текста заметки нет: она хранится как есть и в расчёт не входит.
+  var LAB_NOTE_MAX = 1000;
+
+  function labState(labId) {
+    var e = (Progress.profile().labs || {})[labId];
+    return e || { attempts: 0, completed: false, post_check_score: null,
+      evidence_note: "", checklist: {}, ts: 0 };
+  }
+
+  function setLabChecklist(labId, index, on) {
+    Progress.patchProfile(function (p) {
+      p.labs = p.labs || {};
+      var e = p.labs[labId] || {};
+      e.checklist = e.checklist || {};
+      if (on) e.checklist[String(index)] = true;
+      else delete e.checklist[String(index)];
+      e.ts = Date.now();
+      p.labs[labId] = e;
+    });
+    if (Sync) Sync.schedulePush();
+  }
+
+  function saveLabNote(labId, note) {
+    Progress.patchProfile(function (p) {
+      p.labs = p.labs || {};
+      var e = p.labs[labId] || {};
+      e.evidence_note = String(note || "").slice(0, LAB_NOTE_MAX);
+      e.ts = Date.now();
+      p.labs[labId] = e;
+    });
+    if (Sync) Sync.schedulePush();
+  }
+
+  // Отметить прохождение. Засчитывается только при отмеченном чек-листе:
+  // кнопка «готово» без проверки критериев была бы самооценкой.
+  function completeLab(labId) {
+    var lab = byId(C.labs || [], labId);
+    if (!lab) return false;
+    var st = labState(labId);
+    var need = (lab.success_criteria || []).length;
+    var have = Object.keys(st.checklist || {}).length;
+    if (have < need) return false;
+    var attempt = 0;
+    Progress.patchProfile(function (p) {
+      p.labs = p.labs || {};
+      var e = p.labs[labId] || {};
+      e.attempts = (e.attempts || 0) + 1;
+      attempt = e.attempts;
+      e.completed = true;
+      e.ts = Date.now();
+      p.labs[labId] = e;
+    });
+    Progress.recordAction(1);
+    Progress.addAttempt({
+      kind: "lab", mode: labId, total: 0, correct: 0, pct: 0,
+      details: [{ attempt: attempt, completed: true }],
+    });
+    afterChange();
+    return true;
+  }
+
+  // Post-check: ответы идут в SRS как обычный тест, лучший результат
+  // сохраняется — он повышает уверенность в лабораторной.
+  function recordLabPostCheck(labId, answers) {
+    if (!answers.length) return null;
+    var correct = answers.filter(function (a) { return a.correct; }).length;
+    var score = correct / answers.length;
+    SRS.gradeMany(answers.map(function (a) { return { id: qid(a.id), correct: !!a.correct }; }));
+    var attempt = 0;
+    Progress.patchProfile(function (p) {
+      p.labs = p.labs || {};
+      var e = p.labs[labId] || {};
+      var prev = typeof e.post_check_score === "number" ? e.post_check_score : null;
+      e.post_check_score = prev === null ? score : Math.max(prev, score);
+      attempt = e.attempts || 0;
+      e.ts = Date.now();
+      p.labs[labId] = e;
+    });
+    Progress.recordAction(answers.length);
+    Progress.addAttempt({
+      kind: "lab", mode: labId, total: answers.length, correct: correct,
+      pct: Math.round(score * 100),
+      details: [{ attempt: attempt, completed: !!labState(labId).completed, postCheck: true }],
+    });
+    afterChange();
+    return score;
+  }
+
+  function labsDoneCount() {
+    var st = Progress.profile().labs || {};
+    return labs().filter(function (l) { return st[l.id] && st[l.id].completed; }).length;
+  }
+
+  // ── DutyOps drills ───────────────────────────────────────────────────────
+  // pct — доля набранных баллов за ход рассуждения (0..100).
+  function recordDrill(drillId, pct, details) {
+    var v = Math.max(0, Math.min(100, Math.round(pct)));
+    Progress.patchProfile(function (p) {
+      p.drills = p.drills || {};
+      var e = p.drills[drillId] || {};
+      e.best = typeof e.best === "number" ? Math.max(e.best, v) : v;
+      e.last = v;
+      e.attempts = (e.attempts || 0) + 1;
+      e.ts = Date.now();
+      p.drills[drillId] = e;
+    });
+    Progress.recordAction(1);
+    Progress.addAttempt({ kind: "drill", mode: drillId, total: (details || []).length,
+      correct: (details || []).filter(function (d) { return d.score === 2; }).length,
+      pct: v, details: details || null });
+    afterChange();
+  }
+
+  function drillState(drillId) {
+    return (Progress.profile().drills || {})[drillId] || null;
+  }
+
+  // ── диагностика ──────────────────────────────────────────────────────────
+  function diagnosticConfig() {
+    var t = track();
+    return (t && t.diagnostic) || null;
+  }
+  function diagnosticState() { return Progress.profile().diagnostic || null; }
+
+  function saveDiagnostic(report, selfLabs) {
+    Progress.patchProfile(function (p) {
+      var prev = p.diagnostic || {};
+      var domains = {};
+      (report.domains || []).forEach(function (d) { if (d.pct != null) domains[d.id] = d.pct; });
+      p.diagnostic = {
+        ts: Date.now(),
+        count: (prev.count || 0) + 1,
+        total: report.total, correct: report.correct, pct: report.pct,
+        domains: domains,
+        selfLabs: selfLabs || prev.selfLabs || {},
+      };
+    });
+    afterChange();
+  }
+
+  // Отметки «делал руками» из диагностики — только подсказка для быстрого
+  // пути. В готовность и покрытие требований они НЕ входят.
+  function saveDiagnosticSelfLabs(selfLabs) {
+    Progress.patchProfile(function (p) {
+      if (!p.diagnostic) return;
+      p.diagnostic.selfLabs = selfLabs || {};
+    });
+    if (Sync) Sync.schedulePush();
+  }
+
+  // ── доказательства из портфолио ──────────────────────────────────────────
+  var PORTFOLIO_FIELDS = ["project", "owned", "changed", "verified", "result", "link"];
+  function savePortfolio(promptId, fields) {
+    Progress.patchProfile(function (p) {
+      p.portfolio = p.portfolio || {};
+      var e = p.portfolio[promptId] || {};
+      PORTFOLIO_FIELDS.forEach(function (k) {
+        if (fields[k] !== undefined) e[k] = String(fields[k] || "").slice(0, 2000);
+      });
+      e.updatedAt = Date.now();
+      p.portfolio[promptId] = e;
+    });
+    if (Sync) Sync.schedulePush();
+  }
+  function portfolioState(promptId) {
+    return (Progress.profile().portfolio || {})[promptId] || {};
+  }
+
   function markLessonRead(lessonId) {
     Progress.patchProfile(function (p) {
       p.lessons = p.lessons || {};
@@ -480,13 +690,23 @@
     var studyTotal = (step.study_items || []).length;
     var studyDone = (step.study_items || []).filter(isLessonRead).length;
 
-    var quizTopics = [], caseIds = [], mockIds = [];
+    var quizTopics = [], caseIds = [], mockIds = [], labIds = [], drillIds = [];
     (step.practice_items || []).forEach(function (item) {
       var parts = String(item).split(":");
       if (parts[0] === "quiz") quizTopics.push(parts[1]);
       else if (parts[0] === "case") caseIds.push(parts[1]);
       else if (parts[0] === "mock") mockIds.push(parts[1]);
+      else if (parts[0] === "lab") labIds.push(parts[1]);
+      else if (parts[0] === "drill") drillIds.push(parts[1]);
     });
+    var labsDone = labIds.filter(function (id) {
+      var e = (p.labs || {})[id];
+      return e && e.completed;
+    }).length;
+    var drillsDone = drillIds.filter(function (id) {
+      var e = (p.drills || {})[id];
+      return e && typeof e.best === "number";
+    }).length;
 
     var quizBest = 0;
     quizTopics.forEach(function (t) {
@@ -514,6 +734,10 @@
       caseIds: caseIds,
       mocksAnswered: mocksAnswered,
       mockIds: mockIds,
+      labsDone: labsDone,
+      labIds: labIds,
+      drillsDone: drillsDone,
+      drillIds: drillIds,
     };
   }
 
@@ -532,6 +756,9 @@
     if (rule.mock_answered_min && pr.mocksAnswered < rule.mock_answered_min) return false;
     if (rule.stories_filled_min && storyFilledCount() < rule.stories_filled_min) return false;
     if (rule.full_mock_sessions_min && fullMockSessions() < rule.full_mock_sessions_min) return false;
+    if (rule.lab_completed_min && pr.labsDone < rule.lab_completed_min) return false;
+    if (rule.drill_completed_min && pr.drillsDone < rule.drill_completed_min) return false;
+    if (rule.diagnostic_done && !(diagnosticState() && diagnosticState().ts)) return false;
     return true;
   }
 
@@ -607,6 +834,84 @@
     });
   }
 
+  function readinessProfile() { return Readiness.profileFor(trackId()); }
+
+  // Покрытие требований вакансии — отдельно от готовности.
+  function requirementCoverage(r) {
+    var v = vacancy();
+    if (!v) return null;
+    var rr = r || readiness();
+    var p = Progress.profile();
+    return Readiness.requirementCoverage({
+      vacancy: v, requirements: p.requirements || {}, topics: rr.topics || [],
+      labs: labs(), labState: p.labs || {},
+    });
+  }
+
+  function skillMatrix(r, cov) {
+    var v = vacancy();
+    if (!v || !(v.skill_matrix || []).length) return [];
+    var rr = r || readiness();
+    var p = Progress.profile();
+    return Readiness.skillMatrix({
+      vacancy: v, coverage: cov || requirementCoverage(rr), topics: rr.topics || [],
+      labs: C.labs || [], labState: p.labs || {}, trackId: trackId(),
+      mocks: C.mockQuestions || [], mockState: p.mock || {},
+    });
+  }
+
+  // План на сегодня для треков с практикой: не больше четырёх конкретных
+  // действий — повтор, лабораторная, чтение, mock. Двенадцать кнопок разом
+  // не помогают выбрать, что делать.
+  function todayPlan(r) {
+    var rr = r || readiness();
+    var out = [];
+    var due = reviewDue();
+    if (due > 0) {
+      var n = Math.min(due, 15);
+      out.push({ kind: "review", title: "Повторить " + n + " " + plural(n, "карточку", "карточки", "карточек"),
+        href: "quiz.html?mode=review" });
+    }
+    var st = Progress.profile().labs || {};
+    var cap = rr.appliedCap;
+    var lab = null;
+    if (cap && cap.labId) lab = byId(C.labs || [], cap.labId);
+    if (!lab) {
+      var step = currentStep();
+      var pr = step ? stepProgress(step) : null;
+      var fromStep = pr ? pr.labIds.filter(function (id) { return !(st[id] && st[id].completed); }) : [];
+      lab = fromStep.length ? byId(C.labs || [], fromStep[0]) : null;
+    }
+    if (!lab) {
+      lab = labs().filter(function (l) {
+        return l.priority === "core" && !(st[l.id] && st[l.id].completed);
+      })[0] || null;
+    }
+    if (lab) out.push({ kind: "lab", title: "Лабораторная: " + lab.title,
+      href: "labs.html?id=" + encodeURIComponent(lab.id) });
+    var cs = currentStep();
+    var unread = cs ? (cs.study_items || []).filter(function (lid) { return !isLessonRead(lid); }) : [];
+    var lesson = unread.length ? byId(C.lessons || [], unread[0]) : null;
+    if (lesson) out.push({ kind: "read", title: "Прочитать: " + lesson.title,
+      href: "lesson.html?id=" + encodeURIComponent(lesson.id) });
+    var mockState = Progress.profile().mock || {};
+    var weakTopic = (rr.topics || []).filter(function (t) { return t.critical; })[0];
+    var mq = null;
+    if (cs) {
+      var ids = stepProgress(cs).mockIds.filter(function (id) { return !mockState[id]; });
+      if (ids.length) mq = byId(C.mockQuestions || [], ids[0]);
+    }
+    if (!mq && weakTopic) {
+      mq = mocks().filter(function (m) {
+        return (m.topic_ids || []).indexOf(weakTopic.id) !== -1 && !mockState[m.id];
+      })[0] || null;
+    }
+    if (!mq) mq = mocks().filter(function (m) { return !mockState[m.id]; })[0] || null;
+    if (mq) out.push({ kind: "mock", title: "Mock: " + mq.question,
+      href: "mock.html?id=" + encodeURIComponent(mq.id) });
+    return out.slice(0, 4);
+  }
+
   function setExamDate(iso) {
     Progress.setExamDate(iso);
     // Метка времени нужна слиянию: без неё нельзя понять, какая из двух дат
@@ -665,10 +970,10 @@
     // Сработавший ограничитель — самое ценное действие: он держит процент.
     if (r.available && r.appliedCap) {
       var cap = r.appliedCap;
-      var href = "roadmap.html";
+      var href = cap.href || "roadmap.html";
       if (cap.key === "noFullMock") href = "mock.html?mode=full";
       else if (cap.key === "fewCases") href = "cases.html";
-      else if (cap.key === "weakCriticalTopic" && cap.topicId) href = "quiz.html?topic=" + cap.topicId;
+      else if (cap.key === "weakCriticalTopic" && cap.topicId) href = "quiz.html?topic=" + encodeURIComponent(cap.topicId);
       return { label: "Что держит готовность", title: cap.action,
         hint: cap.reason, href: href, cta: "Перейти" };
     }
@@ -821,12 +1126,21 @@
 
   var App = {
     C: C,
-    esc: esc, param: param, plural: plural, shuffle: shuffle, hashCode: hashCode, byId: byId,
+    esc: esc, questionHtml: questionHtml, param: param, plural: plural, shuffle: shuffle, hashCode: hashCode, byId: byId,
     activeTracks: activeTracks, trackId: trackId, track: track, vacancy: vacancy,
     topics: topics, topicById: topicById, topicTitle: topicTitle,
     questions: questions, questionsOfTopic: questionsOfTopic,
     lessons: lessons, mocks: mocks, cases: cases, steps: steps, terms: terms,
     sourceById: sourceById,
+    labs: labs, dutyDrills: dutyDrills, labDomains: labDomains, hasLabs: hasLabs,
+    labState: labState, setLabChecklist: setLabChecklist, saveLabNote: saveLabNote,
+    completeLab: completeLab, recordLabPostCheck: recordLabPostCheck, labsDoneCount: labsDoneCount,
+    recordDrill: recordDrill, drillState: drillState,
+    diagnosticConfig: diagnosticConfig, diagnosticState: diagnosticState,
+    saveDiagnostic: saveDiagnostic, saveDiagnosticSelfLabs: saveDiagnosticSelfLabs,
+    savePortfolio: savePortfolio, portfolioState: portfolioState, PORTFOLIO_FIELDS: PORTFOLIO_FIELDS,
+    readinessProfile: readinessProfile, requirementCoverage: requirementCoverage,
+    skillMatrix: skillMatrix, todayPlan: todayPlan,
     phrases: phrases, words: words, drills: drills, writings: writings,
     engResources: engResources,
     qid: qid, tid: tid, ewid: ewid, ewrid: ewrid, edid: edid, ephid: ephid,

@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -62,7 +63,42 @@ ENGLISH_MIN_PER_TRACK = {
 ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
-REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
+REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable",
+                        "unverified_experience"}
+# Вид требования: навык можно подтянуть учёбой, опыт — только подтвердить.
+REQUIREMENT_KINDS = {"skill", "experience"}
+QUESTION_KINDS = {"scenario", "command_output", "troubleshooting_order", "concept"}
+LAB_PRIORITIES = {"core", "important", "optional"}
+LAB_ENVIRONMENTS = {"local-linux", "local-docker", "local-kind", "paper", "cloud-optional"}
+SOURCE_ORIGINS = {"official", "milanm-devops-roadmap", "secondary"}
+VACANCY_SOURCE_STATUSES = {"verified", "needs_review"}
+COMPLETION_RULE_KEYS = {
+    "lesson_read", "quiz_score_min", "case_completed_min", "mock_answered_min",
+    "stories_filled_min", "full_mock_sessions_min",
+    "lab_completed_min", "drill_completed_min", "diagnostic_done",
+}
+DRILL_PHASES_REQUIRED = {"first_check", "second_check", "escalation", "communication"}
+RUNBOOK_PHASES = ["trigger", "scope", "first_checks", "safe_actions", "escalation_boundary",
+                  "recovery", "verification", "communication", "aftercare"]
+INCIDENT_FIELDS = ["impact", "triage", "hypotheses", "evidence", "containment", "recovery",
+                   "root_cause", "prevention", "communication"]
+
+# Деструктивные команды в лабораторных допустимы только на одноразовом стенде:
+# такая лабораторная обязана сказать об этом в safety_notes словом «одноразов…».
+DESTRUCTIVE_RE = re.compile(
+    r"rm\s+-[a-z]*r[a-z]*f|rm\s+-[a-z]*f[a-z]*r|\bdd\s+if=|\bmkfs|terraform\s+destroy|"
+    r"kubectl\s+delete|drop\s+database|\btruncate\b|iptables\s+-F|docker\s+(?:rm|system\s+prune)\s+-[a-z]*f",
+    re.IGNORECASE)
+
+# Приёмочные минимумы трека RedCore DevOps (devops-platform). Отдельно от
+# MIN_COUNTS_PER_TRACK: остальные треки к ним не обязаны.
+DEVOPS_TRACK = "devops-platform"
+DEVOPS_TARGETS = {
+    "lessons": 34, "questions": 220, "glossary_terms": 140, "library_resources": 60,
+    "mock_questions": 50, "cases": 20, "labs": 32, "roadmap_steps": 30, "stories": 10,
+}
+# Доли типов вопросов в банке DevOps: сценарии, разбор вывода команд, порядок диагностики.
+DEVOPS_KIND_SHARES = {"scenario": 0.30, "command_output": 0.20, "troubleshooting_order": 0.10}
 IMPORTANCE = {"required", "desirable", "nice_to_have"}
 VERIFICATION = {"verified", "needs_review"}
 
@@ -207,6 +243,21 @@ def validate_lessons(rep: Report, c) -> None:
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_question_ids"), q_ids, where, "related_question_ids")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
+        check_refs(rep, x.get("related_lab_ids"), set(c.labs_by_id), where, "related_lab_ids")
+        # Уроки DevOps-трека устроены как операционные: модель, механика,
+        # команды, сбои и порядок диагностики.
+        if x.get("track_id") == DEVOPS_TRACK:
+            for f in ("mental_model", "under_the_hood", "dutyops_relevance"):
+                rep.check(isinstance(x.get(f), str) and x[f].strip(),
+                          f"{where}: DevOps-урок без поля '{f}'")
+            rep.check(len(x.get("commands") or []) >= 3, f"{where}: меньше 3 commands")
+            for i, cmd in enumerate(x.get("commands") or []):
+                rep.check(isinstance(cmd, dict) and cmd.get("cmd") and cmd.get("what"),
+                          f"{where}: commands[{i}] должен содержать cmd и what")
+            rep.check(len(x.get("failure_modes") or []) >= 2, f"{where}: меньше 2 failure_modes")
+            rep.check(len(x.get("troubleshooting_sequence") or []) >= 3,
+                      f"{where}: меньше 3 шагов troubleshooting_sequence")
+            rep.check(len(x.get("source_refs") or []) >= 1, f"{where}: урок без источников")
 
 
 def validate_glossary(rep: Report, c) -> None:
@@ -251,6 +302,12 @@ def validate_library(rep: Report, c) -> None:
                   f"{where}: read_before_interview должен быть bool")
         if x.get("verification_status") == "verified":
             rep.check(bool(x.get("last_verified")), f"{where}: verified без last_verified")
+        if "source_origin" in x:
+            rep.check(x["source_origin"] in SOURCE_ORIGINS,
+                      f"{where}: недопустимый source_origin '{x.get('source_origin')}'")
+            if x["source_origin"] == "milanm-devops-roadmap":
+                rep.check(bool(x.get("reference_commit")),
+                          f"{where}: ресурс из DevOps-Roadmap без reference_commit")
         # URL ресурса обязан совпадать с URL источника: иначе библиотека и
         # список источников разъедутся и audit_sources проверит не то.
         src = c.sources_by_id.get(x.get("source_ref"))
@@ -312,6 +369,11 @@ def validate_questions(rep: Report, c) -> None:
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
         check_refs(rep, x.get("related_lesson_ids"), l_ids, where, "related_lesson_ids")
+        check_refs(rep, x.get("related_lab_ids"), set(c.labs_by_id), where, "related_lab_ids")
+        if "kind" in x:
+            rep.check(x["kind"] in QUESTION_KINDS, f"{where}: недопустимый kind '{x.get('kind')}'")
+        elif x.get("track_id") == DEVOPS_TRACK:
+            rep.err(f"{where}: у вопроса DevOps-трека нет kind")
 
         key = normalize_text(x.get("question", ""))
         if key in seen:
@@ -437,6 +499,18 @@ def validate_cases(rep: Report, c) -> None:
                   f"{where}: rubric должен содержать уровни 0..4")
         check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
         rep.check(isinstance(x.get("critical"), bool), f"{where}: critical должен быть bool")
+        check_refs(rep, x.get("related_lab_ids"), set(c.labs_by_id), where, "related_lab_ids")
+        inc = x.get("incident")
+        if inc is not None or x.get("track_id") == DEVOPS_TRACK:
+            if not isinstance(inc, dict):
+                rep.err(f"{where}: у кейса DevOps-трека нет разбора incident")
+            else:
+                for f in INCIDENT_FIELDS:
+                    v = inc.get(f)
+                    rep.check(bool(v) and (not isinstance(v, str) or v.strip()),
+                              f"{where}: incident.{f} пустой")
+                rep.check(len(inc.get("hypotheses") or []) >= 2,
+                          f"{where}: incident.hypotheses — меньше 2 гипотез")
     rep.check(any(x.get("critical") for x in c.cases),
               "cases: ни один кейс не отмечен как критический")
 
@@ -467,6 +541,19 @@ def validate_roadmap(rep: Report, c) -> None:
         check_refs(rep, x.get("prerequisites"), step_ids, where, "prerequisites")
         check_refs(rep, x.get("study_items"), lesson_ids, where, "study_items")
         rep.check(bool(x.get("completion_rule")), f"{where}: нет completion_rule")
+        unknown = set(x.get("completion_rule") or {}) - COMPLETION_RULE_KEYS
+        rep.check(not unknown, f"{where}: неизвестные условия completion_rule {sorted(unknown)}")
+        rule = x.get("completion_rule") or {}
+        items = x.get("practice_items") or []
+        # Условие по лабораторным или drills без них в шаге — шаг невыполним.
+        if rule.get("lab_completed_min"):
+            n = sum(1 for i in items if str(i).startswith("lab:"))
+            rep.check(n >= rule["lab_completed_min"],
+                      f"{where}: lab_completed_min={rule['lab_completed_min']}, а лабораторных в шаге {n}")
+        if rule.get("drill_completed_min"):
+            n = sum(1 for i in items if str(i).startswith("drill:"))
+            rep.check(n >= rule["drill_completed_min"],
+                      f"{where}: drill_completed_min={rule['drill_completed_min']}, а drills в шаге {n}")
 
         for item in x.get("practice_items") or []:
             if ":" not in item:
@@ -484,6 +571,18 @@ def validate_roadmap(rep: Report, c) -> None:
             elif kind == "mock":
                 if ref not in mock_ids:
                     rep.err(f"{where}: неизвестный mock-вопрос '{ref}'")
+            elif kind == "lab":
+                lab = c.labs_by_id.get(ref)
+                if not lab:
+                    rep.err(f"{where}: неизвестная лабораторная '{ref}'")
+                elif lab.get("track_id") != x.get("track_id"):
+                    rep.err(f"{where}: лабораторная '{ref}' из другого трека")
+            elif kind == "drill":
+                dr = c.drills_by_id.get(ref)
+                if not dr:
+                    rep.err(f"{where}: неизвестный drill '{ref}'")
+                elif dr.get("track_id") != x.get("track_id"):
+                    rep.err(f"{where}: drill '{ref}' из другого трека")
             else:
                 rep.err(f"{where}: неизвестный тип practice_item '{kind}'")
 
@@ -533,16 +632,203 @@ def validate_vacancies(rep: Report, c) -> None:
             rep.check(r.get("importance") in IMPORTANCE, f"{rw}: недопустимый importance")
             rep.check(r.get("status") in REQUIREMENT_STATUSES, f"{rw}: недопустимый status")
             check_refs(rep, r.get("topic_ids"), topic_ids, rw, "topic_ids")
+            check_refs(rep, r.get("lab_ids"), set(c.labs_by_id), rw, "lab_ids")
+            if "kind" in r:
+                rep.check(r["kind"] in REQUIREMENT_KINDS, f"{rw}: недопустимый kind '{r.get('kind')}'")
+            if r.get("domain_id") is not None:
+                rep.check(r["domain_id"] in {d.get("id") for d in v.get("skill_matrix") or []},
+                          f"{rw}: domain_id '{r.get('domain_id')}' нет в skill_matrix")
             # Доказательство из портфолио заполняет пользователь. Заранее
             # проставленный статус с пустым evidence — выдуманное достижение.
             if r.get("status") in {"confirmed", "partial"} and not (r.get("evidence") or "").strip():
                 rep.err(f"{rw}: статус '{r['status']}' без evidence — "
                         f"приложение не должно выдумывать достижения пользователя")
 
+        # Источник вакансии: адрес, статус сверки и дата. verified без даты —
+        # это выдача непроверенного текста за проверенный.
+        if "source_url" in v:
+            rep.check(str(v.get("source_url", "")).startswith("https://"),
+                      f"{where}: source_url должен быть https")
+            rep.check(v.get("source_status") in VACANCY_SOURCE_STATUSES,
+                      f"{where}: недопустимый source_status '{v.get('source_status')}'")
+            rep.check(bool(v.get("source_title")), f"{where}: нет source_title")
+            if v.get("source_status") == "verified":
+                rep.check(bool(re.match(r"^\d{4}-\d{2}-\d{2}$", str(v.get("source_verified_at") or ""))),
+                          f"{where}: source_status=verified без даты source_verified_at")
+            else:
+                rep.check(bool(v.get("source_note")),
+                          f"{where}: непроверенный источник без source_note — почему не сверен")
+        req_ids_all = {r.get("id") for r in v.get("requirements") or []}
+        check_unique_ids(rep, v.get("evidence_prompts") or [], f"{where} evidence_prompts")
+        for ep in v.get("evidence_prompts") or []:
+            require_fields(rep, ep, ["id", "title", "hint"], f"{where} / evidence '{ep.get('id')}'")
+            check_refs(rep, ep.get("requirement_ids"), req_ids_all, f"{where} / evidence '{ep.get('id')}'",
+                       "requirement_ids")
+        sm = v.get("skill_matrix") or []
+        check_unique_ids(rep, sm, f"{where} skill_matrix")
+        track = c.tracks_by_id.get(v.get("track_id")) or {}
+        lab_domains = {d.get("id") for d in track.get("lab_domains") or []}
+        for d in sm:
+            dw = f"{where} / domain '{d.get('id')}'"
+            require_fields(rep, d, ["id", "title", "priority", "target"], dw)
+            rep.check(d.get("priority") in {"P0", "P1", "P2"}, f"{dw}: priority должен быть P0/P1/P2")
+            rep.check(bool(re.match(r"^L[0-4](–L[0-4])?$", str(d.get("target") or ""))),
+                      f"{dw}: target должен быть уровнем L0..L4")
+            check_refs(rep, d.get("topic_ids"), topic_ids, dw, "topic_ids")
+            if d.get("lab_domain"):
+                rep.check(d["lab_domain"] in lab_domains, f"{dw}: lab_domain нет в lab_domains трека")
+
     # У активного трека обязана быть вакансия.
     for t in c.active_tracks():
         rep.check(any(v.get("id") == t.get("vacancy_id") for v in c.vacancies),
                   f"track '{t['id']}': vacancy_id '{t.get('vacancy_id')}' не найден")
+
+
+def validate_labs(rep: Report, c) -> None:
+    check_unique_ids(rep, c.labs, "labs")
+    topic_ids, src_ids = set(c.topics_by_id), set(c.sources_by_id)
+    q_by_id, l_ids, lab_ids = c.questions_by_id, set(c.lessons_by_id), set(c.labs_by_id)
+    for x in c.labs:
+        where = f"lab '{x.get('id')}'"
+        require_fields(rep, x, ["id", "track_id", "title", "lab_domain", "priority", "environment",
+                                "goal", "evidence_prompt"], where)
+        track = c.tracks_by_id.get(x.get("track_id"))
+        rep.check(track is not None, f"{where}: неизвестный track_id")
+        domains = {d.get("id") for d in (track or {}).get("lab_domains") or []}
+        rep.check(x.get("lab_domain") in domains, f"{where}: lab_domain '{x.get('lab_domain')}' не объявлен у трека")
+        rep.check(x.get("priority") in LAB_PRIORITIES, f"{where}: недопустимый priority")
+        rep.check(x.get("environment") in LAB_ENVIRONMENTS, f"{where}: недопустимый environment")
+        rep.check(isinstance(x.get("difficulty"), int) and 1 <= x["difficulty"] <= 3,
+                  f"{where}: difficulty должен быть 1..3")
+        rep.check(isinstance(x.get("estimated_minutes"), int) and x["estimated_minutes"] > 0,
+                  f"{where}: estimated_minutes должен быть > 0")
+        rep.check(bool(x.get("topic_ids")), f"{where}: нет topic_ids")
+        check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
+        for f, n in (("setup", 1), ("tasks", 2), ("success_criteria", 3), ("safety_notes", 1),
+                     ("commands_to_know", 1), ("source_refs", 1)):
+            rep.check(len(x.get(f) or []) >= n, f"{where}: в '{f}' меньше {n}")
+        check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
+        check_refs(rep, x.get("related_lesson_ids"), l_ids, where, "related_lesson_ids")
+        check_refs(rep, x.get("prerequisites"), lab_ids, where, "prerequisites")
+        pc = x.get("post_check_question_ids") or []
+        rep.check(len(pc) >= 1, f"{where}: нет post-check вопросов")
+        for qid in pc:
+            q = q_by_id.get(qid)
+            if not q:
+                rep.err(f"{where}: post-check вопрос '{qid}' не найден")
+            elif q.get("track_id") != x.get("track_id"):
+                rep.err(f"{where}: post-check вопрос '{qid}' из другого трека")
+        blob = " ".join(str(s) for f in ("setup", "tasks", "cleanup_steps", "hints")
+                        for s in (x.get(f) or []))
+        if DESTRUCTIVE_RE.search(blob):
+            notes = " ".join(x.get("safety_notes") or []).lower()
+            rep.check("одноразов" in notes,
+                      f"{where}: деструктивная команда без предупреждения об одноразовом стенде")
+        if x.get("environment") == "cloud-optional":
+            # Облако может выставить счёт: предупреждение, уборка и бесплатный путь обязательны.
+            rep.check(bool(x.get("cost_warning")), f"{where}: облачная лабораторная без cost_warning")
+            rep.check(len(x.get("cleanup_steps") or []) >= 1, f"{where}: облачная лабораторная без cleanup_steps")
+            rep.check(bool(x.get("local_alternative")), f"{where}: облачная лабораторная без local_alternative")
+            rep.check(x.get("priority") != "core",
+                      f"{where}: облачная лабораторная не может быть core — базовая готовность без платного аккаунта")
+
+
+def validate_dutyops(rep: Report, c) -> None:
+    check_unique_ids(rep, c.dutyops, "dutyops")
+    topic_ids, src_ids = set(c.topics_by_id), set(c.sources_by_id)
+    phases = set(c.raw["dutyops"].get("phases", {}))
+    for x in c.dutyops:
+        where = f"drill '{x.get('id')}'"
+        require_fields(rep, x, ["id", "track_id", "kind", "title", "scenario", "escalation_boundary",
+                                "communication_example"], where)
+        rep.check(x.get("track_id") in c.tracks_by_id, f"{where}: неизвестный track_id")
+        rep.check(x.get("kind") in {"drill", "runbook"}, f"{where}: kind должен быть drill или runbook")
+        check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
+        check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
+        check_refs(rep, x.get("related_lab_ids"), set(c.labs_by_id), where, "related_lab_ids")
+        check_refs(rep, x.get("related_case_ids"), set(c.cases_by_id), where, "related_case_ids")
+        rep.check(len(x.get("observations") or []) >= 2, f"{where}: меньше 2 observations")
+        rep.check(len(x.get("reference_sequence") or []) >= 3, f"{where}: меньше 3 шагов reference_sequence")
+        steps = x.get("steps") or []
+        seen_phases = []
+        for i, st in enumerate(steps):
+            sw = f"{where} step[{i}]"
+            rep.check(st.get("phase") in phases, f"{sw}: неизвестная фаза '{st.get('phase')}'")
+            seen_phases.append(st.get("phase"))
+            opts = st.get("options") or []
+            rep.check(3 <= len(opts) <= 4, f"{sw}: нужно 3..4 варианта")
+            scores = [o.get("score") for o in opts]
+            rep.check(all(s in (0, 1, 2) for s in scores), f"{sw}: score должен быть 0, 1 или 2")
+            # Ровно один лучший вариант: оценивается ход рассуждения, а не угадывание.
+            rep.check(scores.count(2) == 1, f"{sw}: должен быть ровно один вариант со score 2")
+            rep.check(0 in scores, f"{sw}: нет ни одного неверного варианта (score 0)")
+            for o in opts:
+                rep.check(bool((o.get("text") or "").strip()) and bool((o.get("feedback") or "").strip()),
+                          f"{sw}: вариант без text или feedback")
+        if x.get("kind") == "drill":
+            missing = DRILL_PHASES_REQUIRED - set(seen_phases)
+            rep.check(not missing, f"{where}: в drill нет фаз {sorted(missing)}")
+        else:
+            rep.check(seen_phases == RUNBOOK_PHASES,
+                      f"{where}: runbook должен идти по разделам {RUNBOOK_PHASES}")
+            rb = x.get("runbook") or {}
+            rep.check(set(rb) == set(RUNBOOK_PHASES), f"{where}: эталонный runbook неполный")
+
+
+def validate_devops_track(rep: Report, c) -> None:
+    """Приёмка трека RedCore DevOps: объёмы, типы вопросов, покрытие критических тем."""
+    t = c.tracks_by_id.get(DEVOPS_TRACK)
+    if not t or t.get("status") != "active":
+        return
+    T = DEVOPS_TRACK
+    topics = {x["id"] for x in c.topics_of(T)}
+    lib = [x for x in c.library if set(x.get("topic_ids") or []) & topics]
+    counts = {
+        "lessons": sum(1 for x in c.lessons if x.get("track_id") == T),
+        "questions": sum(1 for x in c.questions if x.get("track_id") == T),
+        "glossary_terms": sum(1 for x in c.glossary if T in (x.get("track_ids") or [])),
+        "library_resources": len(lib),
+        "mock_questions": sum(1 for x in c.mock_questions if x.get("track_id") == T),
+        "cases": sum(1 for x in c.cases if x.get("track_id") == T),
+        "labs": sum(1 for x in c.labs if x.get("track_id") == T),
+        "roadmap_steps": sum(1 for x in c.roadmap if x.get("track_id") == T),
+        "stories": sum(1 for x in c.stories if x.get("track_id") == T),
+    }
+    for k, n in DEVOPS_TARGETS.items():
+        rep.check(counts[k] >= n, f"track '{T}': '{k}' = {counts[k]}, приёмочный минимум {n}")
+
+    qs = [x for x in c.questions if x.get("track_id") == T]
+    for kind, share in DEVOPS_KIND_SHARES.items():
+        got = sum(1 for q in qs if q.get("kind") == kind) / max(1, len(qs))
+        rep.check(got >= share, f"track '{T}': вопросов вида '{kind}' {got:.0%}, нужно от {share:.0%}")
+
+    # Каждая критическая тема: урок, не меньше 8 вопросов, практика (лаба или
+    # кейс) и материал в библиотеке. Иначе её нельзя ни выучить, ни проверить.
+    for tid in t.get("critical_topic_ids") or []:
+        has_lesson = any(x.get("topic_id") == tid and x.get("track_id") == T for x in c.lessons)
+        nq = sum(1 for q in qs if q.get("topic") == tid)
+        has_practice = any(tid in (x.get("topic_ids") or []) for x in c.labs if x.get("track_id") == T) or \
+            any(tid in (x.get("topic_ids") or []) for x in c.cases if x.get("track_id") == T)
+        has_source = any(tid in (x.get("topic_ids") or []) for x in lib)
+        rep.check(has_lesson, f"track '{T}': критическая тема '{tid}' без урока")
+        rep.check(nq >= 8, f"track '{T}': критическая тема '{tid}' — вопросов {nq}, нужно от 8")
+        rep.check(has_practice, f"track '{T}': критическая тема '{tid}' без лабораторной и кейса")
+        rep.check(has_source, f"track '{T}': критическая тема '{tid}' без материала в библиотеке")
+
+    # Все обязательные требования вакансии покрыты темами трека.
+    v = next((x for x in c.vacancies if x.get("id") == t.get("vacancy_id")), None)
+    if v:
+        for r in v.get("requirements") or []:
+            if r.get("importance") == "required":
+                rep.check(bool(set(r.get("topic_ids") or []) & topics),
+                          f"track '{T}': требование '{r.get('id')}' не привязано ни к одной теме трека")
+        # Каждый core-домен лабораторных закрывается хотя бы одной core-лабой:
+        # иначе ограничитель готовности по доменам невыполним.
+        for d in t.get("lab_domains") or []:
+            if d.get("core"):
+                rep.check(any(l.get("lab_domain") == d["id"] and l.get("priority") == "core"
+                              and l.get("track_id") == T for l in c.labs),
+                          f"track '{T}': core-домен '{d['id']}' без core-лабораторной")
 
 
 def validate_stories(rep: Report, c) -> None:
@@ -892,6 +1178,9 @@ def run() -> Report:
     validate_stories(rep, c)
     validate_achievements(rep, c)
     validate_english(rep, c)
+    validate_labs(rep, c)
+    validate_dutyops(rep, c)
+    validate_devops_track(rep, c)
     validate_counts(rep, c)
     validate_no_reference_leftovers(rep, c)
     return rep

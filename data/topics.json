@@ -287,7 +287,7 @@
       "title": "Надёжность и SLO",
       "short": "SLI, SLO, бюджет ошибок, доступность в девятках, что считать простоем",
       "required": true,
-      "critical": true
+      "critical": false
     },
     {
       "id": "incidents",
@@ -296,7 +296,7 @@
       "title": "Инциденты и дежурства",
       "short": "Обнаружение, эскалация, коммуникация во время аварии, постмортем без поиска виноватых",
       "required": true,
-      "critical": false
+      "critical": true
     },
     {
       "id": "deployment-strategies",
@@ -329,8 +329,8 @@
       "id": "databases-ops",
       "track_id": "devops-platform",
       "order": 17,
-      "title": "Базы данных в эксплуатации",
-      "short": "Резервные копии и проверка восстановления, миграции, реплики, блокировки",
+      "title": "PostgreSQL и базы данных в эксплуатации",
+      "short": "Резервные копии и восстановление, соединения, блокировки, реплики — на примере PostgreSQL",
       "required": true,
       "critical": false
     },
@@ -718,6 +718,114 @@
       "order": 20,
       "title": "Поведенческие вопросы",
       "short": "сложный клиент, своя ошибка, спор с разработкой, рассказ о себе",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "nginx-proxy",
+      "track_id": "devops-platform",
+      "order": 21,
+      "title": "Nginx и reverse proxy",
+      "short": "Проксирование, upstream, таймауты, 502/504 и чтение error_log",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "monitoring-prometheus",
+      "track_id": "devops-platform",
+      "order": 22,
+      "title": "Prometheus и Grafana",
+      "short": "Сбор метрик, PromQL, правила тревог, targets, дашборды без «магии»",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "logging-loki",
+      "track_id": "devops-platform",
+      "order": 23,
+      "title": "Логи: Loki и LogQL",
+      "short": "Метки потоков, фильтры, парсеры и метрические запросы по логам",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "mongodb-ops",
+      "track_id": "devops-platform",
+      "order": 24,
+      "title": "MongoDB в эксплуатации",
+      "short": "Replica set, выборы primary, oplog, резервные копии и восстановление",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "clickhouse-ops",
+      "track_id": "devops-platform",
+      "order": 25,
+      "title": "ClickHouse в эксплуатации",
+      "short": "MergeTree, части и слияния, системные таблицы, диск и память",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "ansible-config",
+      "track_id": "devops-platform",
+      "order": 26,
+      "title": "Ansible и конфигурация",
+      "short": "Inventory, playbook, идемпотентность, check mode, handlers",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "aws-eks",
+      "track_id": "devops-platform",
+      "order": 27,
+      "title": "AWS и EKS",
+      "short": "IAM, VPC, EC2, S3, ECR и управляемый Kubernetes без лишних счетов",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "gcp-basics",
+      "track_id": "devops-platform",
+      "order": 28,
+      "title": "Google Cloud: основы",
+      "short": "Проекты, IAM, VPC, Compute Engine, GKE — соответствие сервисам AWS",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "edge-cloudflare",
+      "track_id": "devops-platform",
+      "order": 29,
+      "title": "Cloudflare: DNS, CDN, WAF",
+      "short": "Проксирование через edge, кэш, WAF, 52x-ошибки и Custom Hostnames",
+      "required": true,
+      "critical": false
+    },
+    {
+      "id": "redis-nats",
+      "track_id": "devops-platform",
+      "order": 30,
+      "title": "Redis и NATS",
+      "short": "Кэш и персистентность Redis, публикация и подписка в NATS",
+      "required": false,
+      "critical": false
+    },
+    {
+      "id": "dutyops-runbooks",
+      "track_id": "devops-platform",
+      "order": 31,
+      "title": "DutyOps: мониторинг и runbooks",
+      "short": "Дежурный мониторинг, работа по runbook, граница полномочий, эскалация",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "traffic-delivery",
+      "track_id": "devops-platform",
+      "order": 32,
+      "title": "Доставка трафика и зеркала",
+      "short": "DNS, CDN, origin, health checks, failover и восстановление доставки",
       "required": true,
       "critical": false
     }

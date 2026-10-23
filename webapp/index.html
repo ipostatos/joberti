@@ -34,6 +34,13 @@
   .weak .pct{ font-size:var(--fs-xs); color:var(--hint); width:34px; text-align:right }
   .exam{ display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-sm);
     margin-top:var(--sp-3); cursor:pointer }
+  .today{ list-style:none; padding:0; margin:var(--sp-2) 0 0; counter-reset:t }
+  .today li a{ display:flex; gap:var(--sp-2); align-items:flex-start; padding:7px 0; color:inherit;
+    text-decoration:none; font-size:var(--fs-sm); line-height:1.45; border-bottom:1px solid var(--border) }
+  .today li:last-child a{ border-bottom:0 }
+  .today .n{ flex:0 0 20px; height:20px; border-radius:50%; background:var(--muted-fill);
+    color:var(--hint); font-size:var(--fs-xs); font-weight:700; display:inline-flex;
+    align-items:center; justify-content:center }
 </style>
 </head>
 <body>
@@ -92,6 +99,21 @@
   <input type="date" id="examInput" style="position:absolute; width:1px; height:1px; opacity:0; border:0; padding:0">
 </div>
 
+<!-- ПАНЕЛЬ ТРЕКА С ПРАКТИКОЙ (DevOps): готовность и покрытие требований — раздельно -->
+<div class="card hidden" id="opsCard">
+  <div class="h3" id="opsTitle" style="margin-bottom:var(--sp-2)"></div>
+  <div class="stats">
+    <div><div class="k">Готовность</div><div class="v" id="opsReady">—</div></div>
+    <div><div class="k">Покрытие требований</div><div class="v" id="opsCov">—</div></div>
+    <div><div class="k">Пробелы опыта</div><div class="v" id="opsGaps">—</div></div>
+  </div>
+  <div class="xs muted" id="opsDays" style="margin-top:6px"></div>
+  <div class="h3" style="margin:var(--sp-3) 0 0">Сегодня</div>
+  <ol class="today" id="opsToday"></ol>
+  <div class="h3" style="margin:var(--sp-3) 0 0">Главные пробелы</div>
+  <ol class="today" id="opsTopGaps"></ol>
+</div>
+
 <div class="section-title">Подготовка</div>
 <div class="grid">
   <a class="cell" href="roadmap.html">
@@ -118,6 +140,11 @@
     <span class="ic-tile cyan" data-icon="briefcase"></span>
     <span class="t">Кейсы</span>
     <span class="d" id="caseCount">—</span>
+  </a>
+  <a class="cell hidden" href="labs.html" id="labsCell">
+    <span class="ic-tile green" data-icon="list-checks"></span>
+    <span class="t">Лабы и DutyOps</span>
+    <span class="d" id="labsCount">—</span>
   </a>
   <a class="cell" href="glossary.html">
     <span class="ic-tile slate" data-icon="file-text"></span>
@@ -256,15 +283,20 @@
       document.getElementById("readyPct").textContent = r.percent + "%";
       document.getElementById("readyVerdict").textContent = r.verdict;
 
-      var answered = r.blocks[0].detail.answered || 0;
-      var total = r.blocks[0].detail.total || 0;
+      var kb = blockOf(r, "knowledge"), cbk = blockOf(r, "cases"), lbk = blockOf(r, "labs");
+      var answered = kb.detail.answered || 0;
+      var total = kb.detail.total || 0;
       document.getElementById("readySub").textContent =
         "Изучено " + answered + " из " + total + " вопросов · " +
-        "кейсов " + r.blocks[2].detail.completed + " из " + r.blocks[2].detail.total;
+        "кейсов " + cbk.detail.completed + " из " + cbk.detail.total +
+        (lbk ? " · лабораторных " + lbk.detail.completed + " из " + lbk.detail.total : "");
 
       if (r.appliedCap) {
         note.classList.remove("hidden");
-        note.textContent = "Ограничение " + r.capMax + "%: " + r.appliedCap.reason;
+        note.textContent = r.profile === "devops"
+          ? "Почему сейчас максимум " + r.capMax + "%: " + r.appliedCap.reason.charAt(0).toLowerCase() +
+            r.appliedCap.reason.slice(1) + "."
+          : "Ограничение " + r.capMax + "%: " + r.appliedCap.reason;
       } else {
         note.classList.add("hidden");
       }
@@ -315,9 +347,9 @@
     document.getElementById("learnCount").textContent = App.lessons().length + " уроков";
     document.getElementById("quizCount").textContent = App.questions().length + " вопросов";
     document.getElementById("mockCount").textContent = App.mocks().length + " вопросов";
-    var doneCases = r.available ? r.blocks[2].detail.completed : 0;
+    var doneCases = r.available ? blockOf(r, "cases").detail.completed : 0;
     document.getElementById("caseCount").textContent = doneCases + " из " + App.cases().length;
-    var gStats = r.available ? r.blocks[3].detail : { mastered: 0, total: App.terms().length };
+    var gStats = r.available ? blockOf(r, "glossary").detail : { mastered: 0, total: App.terms().length };
     document.getElementById("termCount").textContent = gStats.mastered + " из " + gStats.total + " освоено";
     var eng = App.englishStats();
     document.getElementById("engCount").textContent =
@@ -327,6 +359,8 @@
       CONTENT.library.length + " материалов · " +
       CONTENT.library.filter(function (x) { return x.read_before_interview; }).length +
       " обязательных к прочтению";
+    renderOps(r, t, v);
+
     if (v) {
       var reqs = v.requirements || [];
       var closed = reqs.filter(function (x) {
@@ -347,6 +381,44 @@
     });
 
     Icons.hydrate();
+  }
+
+  function blockOf(r, key) {
+    return (r.blocks || []).filter(function (b) { return b.key === key; })[0] || null;
+  }
+
+  // Панель трека с практикой. Готовность (учебная) и покрытие требований
+  // (по доказательствам) показываются РЯДОМ, но не смешиваются.
+  function renderOps(r, t, v) {
+    var card = document.getElementById("opsCard");
+    var has = App.hasLabs();
+    card.classList.toggle("hidden", !has);
+    document.getElementById("labsCell").classList.toggle("hidden", !has);
+    if (!has) return;
+    document.getElementById("labsCount").textContent =
+      App.labsDoneCount() + " из " + App.labs().length + " лаб · " + App.dutyDrills().length + " drills";
+    document.getElementById("opsTitle").textContent = t ? t.title : "";
+    var cov = App.requirementCoverage(r);
+    document.getElementById("opsReady").textContent = r.available ? r.percent + "%" : "—";
+    document.getElementById("opsCov").textContent = cov ? cov.percent + "%" : "—";
+    document.getElementById("opsGaps").textContent = cov ? String(cov.hardGaps) : "—";
+    var plan = App.examPlan();
+    var days = plan && !plan.past ? "До интервью " + plan.daysLeft + " " +
+      App.plural(plan.daysLeft, "день", "дня", "дней") + " · норма " + plan.needPerDay +
+      " ед. работы в день" : "Дата интервью не задана";
+    document.getElementById("opsDays").textContent = days +
+      (cov ? " · неподтверждённых обязательных требований: " + cov.unconfirmedRequired : "");
+    var today = App.todayPlan(r);
+    document.getElementById("opsToday").innerHTML = today.length ? today.map(function (x, i) {
+      return '<li><a href="' + App.esc(x.href) + '"><span class="n">' + (i + 1) + "</span><span>" +
+        App.esc(x.title) + "</span></a></li>";
+    }).join("") : '<li class="small muted">На сегодня всё сделано</li>';
+    var gaps = (r.gaps || []).slice(0, 3);
+    document.getElementById("opsTopGaps").innerHTML = gaps.length ? gaps.map(function (g, i) {
+      var href = g.href || (g.topicId ? "quiz.html?topic=" + encodeURIComponent(g.topicId) : "roadmap.html");
+      return '<li><a href="' + App.esc(href) + '"><span class="n">' + (i + 1) + "</span><span>" +
+        App.esc(g.title) + "</span></a></li>";
+    }).join("") : '<li class="small muted">Явных пробелов нет</li>';
   }
 
   function renderExam() {

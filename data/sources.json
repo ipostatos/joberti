@@ -2080,6 +2080,797 @@
       "type": "course",
       "verified": true,
       "verified_at": "2026-08-01"
+    },
+    {
+      "id": "nginx-proxy-module",
+      "title": "Module ngx_http_proxy_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_proxy_module.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nginx-upstream-module",
+      "title": "Module ngx_http_upstream_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_upstream_module.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nginx-beginners-guide",
+      "title": "Beginner's Guide",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/beginners_guide.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nginx-log-module",
+      "title": "Module ngx_http_log_module",
+      "publisher": "nginx documentation",
+      "url": "https://nginx.org/en/docs/http/ngx_http_log_module.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "prometheus-getting-started",
+      "title": "Getting started",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/getting_started/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "prometheus-querying-basics",
+      "title": "Querying basics",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "prometheus-alertmanager",
+      "title": "Alertmanager",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/alerting/latest/alertmanager/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "prometheus-configuration",
+      "title": "Configuration",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "prometheus-node-exporter-guide",
+      "title": "Monitoring Linux host metrics with the Node Exporter",
+      "publisher": "Prometheus Documentation",
+      "url": "https://prometheus.io/docs/guides/node-exporter/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "grafana-dashboards",
+      "title": "Dashboards",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "loki-logql",
+      "title": "Query Loki",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "loki-log-queries",
+      "title": "Log queries",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/log_queries/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "loki-metric-queries",
+      "title": "Metric queries",
+      "publisher": "Grafana Labs Documentation",
+      "url": "https://grafana.com/docs/loki/latest/query/metric_queries/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "mongodb-replication",
+      "title": "Replication",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/replication/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "mongodb-backup-methods",
+      "title": "Backup Methods for a Self-Managed Deployment",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/core/backups/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "mongodb-deploy-replica-set",
+      "title": "Deploy a Self-Managed Replica Set",
+      "publisher": "MongoDB Docs",
+      "url": "https://www.mongodb.com/docs/manual/tutorial/deploy-replica-set/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "clickhouse-quick-start",
+      "title": "Quick install",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/getting-started/quick-start/oss",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "clickhouse-mergetree",
+      "title": "MergeTree table engine",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/engines/table-engines/mergetree-family/mergetree",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "clickhouse-system-tables",
+      "title": "System Tables Overview",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/operations/system-tables/overview",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "clickhouse-replication",
+      "title": "Replicated* table engines",
+      "publisher": "ClickHouse Docs",
+      "url": "https://clickhouse.com/docs/engines/table-engines/mergetree-family/replication",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "postgres-pg-dump",
+      "title": "pg_dump",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/app-pgdump.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "postgres-connection-settings",
+      "title": "Connections and Authentication",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/runtime-config-connection.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "postgres-monitoring-stats",
+      "title": "The Cumulative Statistics System",
+      "publisher": "PostgreSQL Documentation",
+      "url": "https://www.postgresql.org/docs/current/monitoring-stats.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "ansible-getting-started",
+      "title": "Getting started with Ansible",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/getting_started/index.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "ansible-playbooks-intro",
+      "title": "Ansible playbooks",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_intro.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "ansible-check-mode",
+      "title": "Validating tasks: check mode and diff mode",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "ansible-inventory",
+      "title": "How to build your inventory",
+      "publisher": "Ansible Community Documentation",
+      "url": "https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "terraform-drift-tutorial",
+      "title": "Manage resource drift",
+      "publisher": "HashiCorp Developer",
+      "url": "https://developer.hashicorp.com/terraform/tutorials/state/resource-drift",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "terraform-tutorials",
+      "title": "Terraform tutorials",
+      "publisher": "HashiCorp Developer",
+      "url": "https://developer.hashicorp.com/terraform/tutorials",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-eks-what-is",
+      "title": "What is Amazon EKS?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-eks-troubleshooting",
+      "title": "Troubleshoot problems with Amazon EKS clusters and nodes",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-vpc-what-is",
+      "title": "What is Amazon VPC?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-iam-intro",
+      "title": "What is IAM?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-ecr-what-is",
+      "title": "What is Amazon Elastic Container Registry?",
+      "publisher": "AWS Documentation",
+      "url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "aws-well-architected",
+      "title": "AWS Well-Architected",
+      "publisher": "AWS",
+      "url": "https://aws.amazon.com/architecture/well-architected/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gcp-docs-overview",
+      "title": "Google Cloud overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/docs/overview",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gcp-architecture-framework",
+      "title": "Google Cloud Well-Architected Framework",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/architecture/framework",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gcp-gke-overview",
+      "title": "GKE overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gcp-iam-overview",
+      "title": "IAM overview",
+      "publisher": "Google Cloud Documentation",
+      "url": "https://docs.cloud.google.com/iam/docs/overview",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-dns-docs",
+      "title": "Cloudflare DNS",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/dns/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-waf-docs",
+      "title": "Cloudflare Web Application Firewall (WAF)",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/waf/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-cache-docs",
+      "title": "Cloudflare Cache (CDN)",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/cache/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-custom-hostnames",
+      "title": "Custom hostnames - Cloudflare for SaaS",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/domain-support/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-5xx-errors",
+      "title": "Cloudflare 5xx errors",
+      "publisher": "Cloudflare Docs",
+      "url": "https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-5xx-errors/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-reverse-proxy-learn",
+      "title": "What is a reverse proxy?",
+      "publisher": "Cloudflare Learning",
+      "url": "https://www.cloudflare.com/learning/cdn/glossary/reverse-proxy/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "cloudflare-load-balancing-learn",
+      "title": "What is load balancing?",
+      "publisher": "Cloudflare Learning",
+      "url": "https://www.cloudflare.com/learning/performance/what-is-load-balancing/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nats-docs",
+      "title": "NATS Documentation",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nats-subjects",
+      "title": "Subject-Based Messaging",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/concepts/subjects",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "nats-jetstream",
+      "title": "JetStream",
+      "publisher": "NATS Docs",
+      "url": "https://docs.nats.io/concepts/jetstream",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "redis-persistence",
+      "title": "Redis persistence",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "redis-eviction",
+      "title": "Key eviction",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/develop/reference/eviction/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "redis-docs",
+      "title": "Redis Docs",
+      "publisher": "Redis Docs",
+      "url": "https://redis.io/docs/latest/index.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "man-ss",
+      "title": "ss(8) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "man-ip",
+      "title": "ip(8) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "man-du",
+      "title": "du(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "man-free",
+      "title": "free(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "man-chown",
+      "title": "chown(1) — Linux manual page",
+      "publisher": "man7.org",
+      "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "curl-manpage",
+      "title": "curl man page",
+      "publisher": "curl",
+      "url": "https://curl.se/docs/manpage.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "openssl-s-client",
+      "title": "openssl-s_client",
+      "publisher": "OpenSSL Documentation",
+      "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "dig-manpage",
+      "title": "Manual Pages — BIND 9 documentation (dig)",
+      "publisher": "BIND 9 Documentation (ISC)",
+      "url": "https://bind9.readthedocs.io/en/stable/manpages.html",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "python-subprocess",
+      "title": "subprocess — Subprocess management",
+      "publisher": "Python Documentation",
+      "url": "https://docs.python.org/3/library/subprocess.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "python-logging",
+      "title": "logging — Logging facility for Python",
+      "publisher": "Python Documentation",
+      "url": "https://docs.python.org/3/library/logging.html",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gitlab-ci-quick-start",
+      "title": "Tutorial: Create and run your first GitLab CI/CD pipeline",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/quick_start/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gitlab-ci-variables",
+      "title": "CI/CD variables",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/variables/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gitlab-ci-artifacts",
+      "title": "Job artifacts",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/jobs/job_artifacts/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "gitlab-ci-caching",
+      "title": "Caching in GitLab CI/CD",
+      "publisher": "GitLab Docs",
+      "url": "https://docs.gitlab.com/ci/caching/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "atlassian-gitflow",
+      "title": "Gitflow Workflow",
+      "publisher": "Atlassian",
+      "url": "https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "pro-git-book",
+      "title": "Pro Git book",
+      "publisher": "Pro Git",
+      "url": "https://git-scm.com/book/en/v2",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "learn-git-branching",
+      "title": "Learn Git Branching",
+      "publisher": "Learn Git Branching",
+      "url": "https://learngitbranching.js.org/",
+      "type": "practice",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "docker-compose-docs",
+      "title": "Docker Compose",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/compose/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "docker-cli-logs",
+      "title": "docker container logs",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "docker-cli-inspect",
+      "title": "docker inspect",
+      "publisher": "Docker Docs",
+      "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "k8s-persistent-volumes",
+      "title": "Persistent Volumes",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "k8s-network-policies",
+      "title": "Network Policies",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "k8s-assign-pod-node",
+      "title": "Assigning Pods to Nodes",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+      "type": "official_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "kubectl-quick-reference",
+      "title": "kubectl Quick Reference",
+      "publisher": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/reference/kubectl/quick-reference/",
+      "type": "cheatsheet",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "kind-quick-start",
+      "title": "Quick Start - kind",
+      "publisher": "kind (Kubernetes SIGs)",
+      "url": "https://kind.sigs.k8s.io/docs/user/quick-start/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "minikube-start",
+      "title": "minikube start",
+      "publisher": "minikube (Kubernetes SIGs)",
+      "url": "https://minikube.sigs.k8s.io/docs/start/",
+      "type": "tool_documentation",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "devops-roadmap-milanm",
+      "title": "DevOps Roadmap",
+      "publisher": "GitHub · milanm",
+      "url": "https://github.com/milanm/DevOps-Roadmap",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "sre-workbook-incident-response",
+      "title": "Incident Response",
+      "publisher": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/incident-response/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "sre-workbook-on-call",
+      "title": "On-Call",
+      "publisher": "Google SRE Workbook",
+      "url": "https://sre.google/workbook/on-call/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "pagerduty-incident-response",
+      "title": "PagerDuty Incident Response Documentation",
+      "publisher": "PagerDuty",
+      "url": "https://response.pagerduty.com/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "howdns-works",
+      "title": "How DNS works",
+      "publisher": "DNSimple",
+      "url": "https://howdns.works/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "howhttps-works",
+      "title": "How HTTPS works",
+      "publisher": "DNSimple",
+      "url": "https://howhttps.works/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "iximiuz-containers",
+      "title": "Learning Containers From The Bottom Up",
+      "publisher": "iximiuz.com",
+      "url": "https://iximiuz.com/en/posts/container-learning-path/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "devops-with-kubernetes",
+      "title": "DevOps with Kubernetes",
+      "publisher": "MOOC.fi · University of Helsinki",
+      "url": "https://devopswithkubernetes.com/",
+      "type": "course",
+      "verified": false
+    },
+    {
+      "id": "martin-fowler-ci",
+      "title": "Continuous Integration",
+      "publisher": "martinfowler.com",
+      "url": "https://martinfowler.com/articles/continuousIntegration.html",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
+    },
+    {
+      "id": "freecodecamp-nginx-handbook",
+      "title": "The NGINX Handbook",
+      "publisher": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/news/the-nginx-handbook/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-23"
     }
   ]
 }
