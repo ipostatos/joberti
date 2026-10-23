@@ -35379,12 +35379,12 @@
      ]
     }
    ],
-   "source_note":"Текст требований перенесён из постановки задачи. При обновлении 2026-10-23 страница вакансии не открылась из рабочей среды, поэтому сверка с живым текстом не выполнена: статус needs_review. Сверьте страницу и, если текст совпадает, поставьте source_status=verified и дату проверки.",
+   "source_note":"Сверено 2026-10-23 с опубликованной страницей RedCore TATECH-23211: уровень Junior, PL COM, Remote; требования, стек и обязанности DutyOps соответствуют данным трека. Внутренние детали инфраструктуры, зеркал, SLA и границ полномочий публично не описаны и в тренажёре остаются вопросами к интервьюеру.",
    "source_snapshot_at":"2026-10-23",
-   "source_status":"needs_review",
+   "source_status":"verified",
    "source_title":"RedCore — Tech / DevOps Engineer, Junior, PL COM, Remote (TATECH-23211)",
    "source_url":"https://redcore.group/vacancy/tatech-23211/",
-   "source_verified_at":null,
+   "source_verified_at":"2026-10-23",
    "summary":"Junior DevOps в роли DutyOps: дежурный мониторинг инфраструктуры, разбор сбоев по runbook, наблюдение за доставкой трафика к продукту через зеркала и её восстановление в пределах полномочий, связь в инцидентных каналах. Технический профиль широкий: Linux и сети, Nginx, Prometheus/Grafana/LogQL, PostgreSQL, MongoDB, ClickHouse, Docker, CI/CD, Terraform, Ansible, AWS, GCP, Kubernetes и EKS. Внутреннее устройство инфраструктуры RedCore публично не описано — всё, что касается их зеркал и процессов, помечено в тренажёре как «неизвестно — уточнить у интервьюера».",
    "title":"Tech / DevOps Engineer (Junior)",
    "tools":[
