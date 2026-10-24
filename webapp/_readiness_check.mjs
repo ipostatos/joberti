@@ -232,6 +232,147 @@ const planDone = R.examPlan({
 eq(planDone.workUnits, 0, "на закрытом плане работы не остаётся");
 ok(planDone.onTrack, "закрытый план всегда в графике");
 
+// ═══ ГОТОВНОСТЬ К ВАКАНСИИ ═══════════════════════════════════════════════
+//
+// Второй процент отвечает на другой вопрос, поэтому проверяется отдельно:
+// веса, ограничители, и главное — что английский не может поднять готовность
+// к профессии, но обязан быть виден в готовности к вакансии.
+
+const vsum = Object.keys(R.VACANCY_WEIGHTS)
+  .reduce((a, k) => a + R.VACANCY_WEIGHTS[k], 0);
+eq(vsum, 100, "сумма весов блоков готовности к вакансии равна 100");
+
+const VACANCY = (CONTENT.vacancies || []).filter((v) => v.track_id === TRACK)[0];
+ok(!!VACANCY, "у трека есть описанная вакансия");
+const REQS = VACANCY.requirements || [];
+const REQUIRED = REQS.filter((r) => r.importance === "required");
+ok(REQUIRED.length >= 10, `обязательных требований ${REQUIRED.length}`);
+
+// Вакансия выровнена под объявление: удалённый формат и обязательный английский.
+ok(/удал/i.test(VACANCY.work_format),
+  `формат работы должен быть удалённым, получено «${VACANCY.work_format}»`);
+ok(/польш/i.test(VACANCY.work_format),
+  "формат работы должен упоминать право работы в Польше");
+eq(VACANCY.external_ref, "TAG-2147", "вакансия ссылается на объявление");
+const LANG = (VACANCY.language_requirements || []).filter((l) => l.importance === "required");
+ok(LANG.length === 1, "у вакансии ровно одно обязательное языковое требование");
+const enReq = REQS.filter((r) => r.id === LANG[0].requirement_id)[0];
+ok(enReq && enReq.importance === "required",
+  "требование по английскому обязано быть required, а не desirable");
+// Core Web Vitals остаются в программе, но не отсекают.
+const cwv = REQS.filter((r) => r.id === "req-cwv")[0];
+ok(cwv && cwv.importance !== "required",
+  "Core Web Vitals не должны быть обязательным требованием вакансии");
+// Инструменты и off-page присутствуют как обязательная компетенция.
+ok(REQS.some((r) => r.id === "req-seo-tools" && r.importance === "required"),
+  "обязательная компетенция по инструментам отсутствует");
+ok(REQS.some((r) => r.id === "req-off-page" && r.importance === "required"),
+  "обязательное требование по off-page отсутствует");
+
+function vacancyState(overrides) {
+  return Object.assign(base({
+    requirements: REQS.map((r) => ({
+      id: r.id, importance: r.importance, competency: r.competency || null,
+      status: "not_started", evidence: "",
+    })),
+    languageRequirements: VACANCY.language_requirements || [],
+    storiesFilled: 0,
+    english: { drills: 10, drillsDone: 0, writingTasks: 10, writingPassed: 0,
+               words: 50, wordsProdLearned: 0 },
+  }), overrides || {});
+}
+
+const vEmpty = R.computeVacancy(vacancyState());
+ok(vEmpty.available, "готовность к вакансии считается на активном треке");
+eq(vEmpty.percent, 0, "на пустом состоянии готовность к вакансии равна нулю");
+ok(vEmpty.caps.some((c) => c.key === "requiredNotStarted"),
+  "нетронутые обязательные требования ограничивают процент");
+ok(vEmpty.caps.some((c) => c.key === "englishNotMet"),
+  "незакрытое обязательное требование по английскому ограничивает процент");
+ok(vEmpty.allGaps.some((g) => g.kind === "warning"),
+  "отсутствие доказательств должно быть предупреждением, а не потолком");
+
+// Незаполненный трек не получает и этого процента.
+const vDraft = R.computeVacancy(vacancyState({
+  content: draftContent, trackId: draftId,
+}));
+ok(!vDraft.available, "неактивный трек не получает готовности к вакансии");
+
+// ── всё закрыто, кроме английского ──
+function closedAll(evidence) {
+  return REQS.map((r) => ({
+    id: r.id, importance: r.importance, competency: r.competency || null,
+    status: "confirmed", evidence: evidence ? "подтверждено пользователем" : "",
+  }));
+}
+
+const strongVacancy = vacancyState(Object.assign({}, strongState(), {
+  requirements: closedAll(true),
+  languageRequirements: VACANCY.language_requirements || [],
+  storiesFilled: 6,
+  english: { drills: 10, drillsDone: 10, writingTasks: 10, writingPassed: 10,
+             words: 50, wordsProdLearned: 50 },
+}));
+const vStrong = R.computeVacancy(strongVacancy);
+ok(vStrong.percent >= 90,
+  `полностью закрытая вакансия даёт высокий процент (получено ${vStrong.percent})`);
+eq(vStrong.caps.length, 0, "у закрытой вакансии нет ограничителей");
+
+// Английский не закрыт — процент обязан просесть и ограничитель сработать.
+const noEnglish = Object.assign({}, strongVacancy, {
+  requirements: closedAll(true).map((r) =>
+    r.id === LANG[0].requirement_id ? Object.assign({}, r, { status: "learning" }) : r),
+});
+const vNoEn = R.computeVacancy(noEnglish);
+ok(vNoEn.caps.some((c) => c.key === "englishNotMet"),
+  "невыполненное требование по английскому обязано срабатывать ограничителем");
+ok(vNoEn.percent <= R.VACANCY_CAPS.englishNotMet,
+  `без английского готовность к вакансии не выше ${R.VACANCY_CAPS.englishNotMet} ` +
+  `(получено ${vNoEn.percent})`);
+ok(vNoEn.percent < vStrong.percent,
+  "незакрытый язык обязан снижать готовность к вакансии");
+
+// ── и при этом английский НЕ поднимает готовность к профессии ──
+const skillNoEnglish = R.compute(strongState());
+const skillWithEnglish = R.compute(Object.assign(strongState(), {
+  english: { drills: 10, drillsDone: 10, writingTasks: 10, writingPassed: 10,
+             words: 50, wordsProdLearned: 50 },
+}));
+eq(skillWithEnglish.percent, skillNoEnglish.percent,
+  "английский не имеет права поднимать готовность к профессии");
+
+// ── знание без доказательств: два процента обязаны разойтись ──
+const knownButUnproven = R.computeVacancy(vacancyState(Object.assign({}, strongState(), {
+  requirements: closedAll(false).map((r) => Object.assign({}, r, { status: "not_started" })),
+  languageRequirements: VACANCY.language_requirements || [],
+  storiesFilled: 0,
+  english: { drills: 10, drillsDone: 0, writingTasks: 10, writingPassed: 0,
+             words: 50, wordsProdLearned: 0 },
+})));
+const skillStrong = R.compute(strongState());
+ok(knownButUnproven.percent < skillStrong.percent,
+  "человек, знающий предмет без единого доказательства, не может быть готов " +
+  "к вакансии так же, как к профессии");
+
+// «Не применимо» не держит процент внизу: это осознанное решение человека.
+const withNA = R.computeVacancy(vacancyState({
+  requirements: REQS.map((r) => ({
+    id: r.id, importance: r.importance, competency: r.competency || null,
+    status: "not_applicable", evidence: "",
+  })),
+}));
+ok(!withNA.caps.some((c) => c.key === "requiredNotStarted"),
+  "требования «не применимо» не должны считаться незакрытыми");
+
+// Воспроизводимость: чистая функция.
+eq(R.computeVacancy(vacancyState()).percent, vEmpty.percent,
+  "одинаковый вход даёт одинаковую готовность к вакансии");
+
+[vEmpty, vStrong, vNoEn, knownButUnproven].forEach((r, i) => {
+  ok(r.percent >= 0 && r.percent <= 100,
+    `готовность к вакансии в границах 0..100 (случай ${i})`);
+});
+
 // ── процент никогда не выходит за границы ──
 [empty, r1, strong, noMock, fewCases, weakCrit, lowCov].forEach((r, i) => {
   ok(r.percent >= 0 && r.percent <= 100, `процент в границах 0..100 (случай ${i})`);

@@ -68,6 +68,7 @@ class TestCounts(unittest.TestCase):
             "search-basics": 12, "search-intent": 10, "on-page": 18,
             "technical-seo": 24, "html-http": 12, "keyword-research": 12,
             "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
+            "off-page-seo": 12,
         }
         actual = {}
         seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
@@ -245,6 +246,27 @@ class TestQuestionQuality(unittest.TestCase):
             self.assertEqual(len(correct), 1,
                              "конфликт: " + ", ".join(g["id"] for g in group))
 
+    def test_levels_are_valid_and_reach_diagnostics(self):
+        """Уровни L1..L4 из спецификации.
+
+        Поле необязательное: старый банк размечается постепенно. Но полностью
+        размеченная тема обязана доходить до L4 — иначе разметка украшение, а
+        банк остаётся на «узнал и объяснил».
+        """
+        by_topic = {}
+        for q in self.c.questions:
+            if "level" in q:
+                with self.subTest(q=q["id"]):
+                    self.assertIn(q["level"], validate_content.QUESTION_LEVELS)
+            by_topic.setdefault(q["topic"], []).append(q)
+        for topic, pool in by_topic.items():
+            levelled = [q for q in pool if q.get("level")]
+            if not levelled or len(levelled) != len(pool):
+                continue
+            with self.subTest(topic=topic):
+                self.assertTrue(any(q["level"] == "L4" for q in levelled),
+                                f"тема {topic} размечена по уровням, но без диагностики")
+
     def test_options_are_distinct(self):
         for q in self.c.questions:
             with self.subTest(q=q["id"]):
@@ -332,6 +354,65 @@ class TestReferences(unittest.TestCase):
                     )
 
 
+class TestFreshness(unittest.TestCase):
+    """Метки свежести: они должны работать, а не украшать схему."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.c = load_all()
+        cls.vol = {t["id"]: t.get("volatility", validate_content.DEFAULT_VOLATILITY)
+                   for t in cls.c.topics}
+
+    def test_volatility_values_are_valid(self):
+        for t in self.c.topics:
+            with self.subTest(topic=t["id"]):
+                self.assertIn(t.get("volatility", validate_content.DEFAULT_VOLATILITY),
+                              validate_content.VOLATILITY_LEVELS)
+
+    def test_ga4_gsc_and_tools_are_high_volatility(self):
+        """Именно там формулировки и интерфейсы устаревают быстрее всего."""
+        for tid in ("analytics-ga4", "indexing-gsc", "seo-tools"):
+            with self.subTest(topic=tid):
+                self.assertEqual(self.vol.get(tid), "high")
+
+    def test_vacancy_data_is_watched(self):
+        """Объявление правит работодатель, а не мы: дата сверки обязательна."""
+        for t in self.c.active_tracks():
+            v = next((x for x in self.c.vacancies if x["id"] == t.get("vacancy_id")), None)
+            if v is None or v.get("volatility") != "high":
+                continue
+            with self.subTest(vacancy=v["id"]):
+                self.assertTrue(v.get("content_reviewed_at"))
+
+    def test_high_volatility_records_carry_review_date(self):
+        high = {tid for tid, v in self.vol.items() if v == "high"}
+        collections = [
+            ("lesson", self.c.lessons, lambda x: [x.get("topic_id")]),
+            ("question", self.c.questions, lambda x: [x.get("topic")]),
+            ("term", self.c.glossary, lambda x: x.get("topic_ids") or []),
+            ("mock", self.c.mock_questions, lambda x: x.get("topic_ids") or []),
+            ("case", self.c.cases, lambda x: x.get("topic_ids") or []),
+        ]
+        for kind, items, topics_of in collections:
+            for x in items:
+                if not high & {t for t in topics_of(x) if t}:
+                    continue
+                with self.subTest(kind=kind, item=x["id"]):
+                    self.assertTrue(x.get("content_reviewed_at"),
+                                    "запись высоковолатильной темы без даты сверки")
+
+    def test_review_dates_are_not_in_the_future(self):
+        from datetime import date
+        for key in ("lessons", "questions", "glossary", "mock_questions", "cases"):
+            for x in getattr(self.c, key):
+                d = x.get("content_reviewed_at")
+                if not d:
+                    continue
+                with self.subTest(item=x["id"]):
+                    self.assertRegex(d, r"^\d{4}-\d{2}-\d{2}$")
+                    self.assertLessEqual(date.fromisoformat(d), date.today())
+
+
 class TestNoUserDataInvented(unittest.TestCase):
     """Приложение не должно придумывать достижения пользователя."""
 
@@ -347,6 +428,46 @@ class TestNoUserDataInvented(unittest.TestCase):
                                      "доказательство из портфолио заполняет пользователь")
                     self.assertEqual(r.get("status"), "not_started",
                                      "статус требования не может быть проставлен заранее")
+
+    def test_model_answers_do_not_claim_experience(self):
+        """Эталон мок-интервью не заявляет опыт кандидата.
+
+        «Год занимаюсь SEO» в эталоне — выдуманное достижение: человек заучит
+        чужую биографию и развалится на первом уточняющем вопросе. Личный
+        материал живёт отдельным полем и заполняется пользователем.
+        """
+        for m in self.c.mock_questions:
+            for field in ("model_answer_short", "model_answer_full"):
+                blob = str(m.get(field) or "").lower()
+                for marker in validate_content.FABRICATED_EXPERIENCE:
+                    with self.subTest(mock=m["id"], field=field, marker=marker):
+                        self.assertNotIn(marker, blob)
+
+    def test_personal_answers_ask_for_own_material(self):
+        """Каркас личного ответа обязан говорить, что вписать своё."""
+        for m in self.c.mock_questions:
+            kind = m.get("answer_kind")
+            if kind is None:
+                continue
+            with self.subTest(mock=m["id"]):
+                self.assertIn(kind, validate_content.ANSWER_KINDS)
+                if kind == "personal":
+                    self.assertTrue((m.get("personal_evidence_prompt") or "").strip(),
+                                    "personal без personal_evidence_prompt")
+                else:
+                    self.assertIsNone(m.get("personal_evidence_prompt"))
+
+    def test_active_track_mocks_are_classified(self):
+        """Трек под конкретную вакансию размечен целиком.
+
+        Частичная разметка хуже отсутствия: экран показал бы «каркас ответа»
+        на одних вопросах и «эталон» на других без всякой логики.
+        """
+        for m in self.c.mock_questions:
+            if m["track_id"] != "redcore-junior-seo":
+                continue
+            with self.subTest(mock=m["id"]):
+                self.assertIn(m.get("answer_kind"), validate_content.ANSWER_KINDS)
 
     def test_story_templates_are_empty(self):
         for s in self.c.stories:

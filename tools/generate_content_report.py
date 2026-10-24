@@ -186,6 +186,57 @@ def build(track_id: str | None = None) -> str:
     w("\nЧасть записей без источника — норма: вопросы про поведение на "
       "собеседовании и коммуникацию не опираются на документацию.\n")
 
+    # ── свежесть ──
+    # Отвечает на вопрос «что пора перечитать», пока это не спросил пользователь,
+    # увидевший в приложении интерфейс GA4 позапрошлого года.
+    vol = {t["id"]: t.get("volatility", "low") for t in c.topics}
+    high_topics = sorted(tid for tid, v in vol.items() if v == "high")
+    med_topics = sorted(tid for tid, v in vol.items() if v == "medium")
+
+    def topics_of(kind, x):
+        if kind == "lesson":
+            return [x.get("topic_id")]
+        if kind == "question":
+            return [x.get("topic")]
+        return x.get("topic_ids") or []
+
+    collections = [
+        ("lesson", c.lessons), ("question", c.questions), ("term", c.glossary),
+        ("mock", c.mock_questions), ("case", c.cases),
+    ]
+    dates: Counter = Counter()
+    missing = 0
+    tracked = 0
+    for kind, items in collections:
+        for x in items:
+            tids = [t for t in topics_of(kind, x) if t]
+            if not any(vol.get(t) == "high" for t in tids):
+                continue
+            tracked += 1
+            d = x.get("content_reviewed_at")
+            if d:
+                dates[d] += 1
+            else:
+                missing += 1
+
+    w("## Свежесть контента\n")
+    w("Волатильность объявлена на теме, дата сверки — на записи. Записи "
+      "высоковолатильных тем обязаны нести `content_reviewed_at`.\n")
+    w(f"- высоковолатильные темы: {', '.join(f'`{t}`' for t in high_topics) or '—'}")
+    w(f"- среднего уровня: {', '.join(f'`{t}`' for t in med_topics) or '—'}")
+    w(f"- записей под наблюдением: {tracked}, без даты сверки: {missing}")
+    if dates:
+        w("\n| Дата сверки | Записей |")
+        w("|---|---:|")
+        for d, n in sorted(dates.items()):
+            w(f"| {d} | {n} |")
+    vac_dates = [(v["id"], v.get("content_reviewed_at"))
+                 for v in c.vacancies if v.get("volatility") == "high"]
+    if vac_dates:
+        w("\nВакансии под наблюдением: " +
+          ", ".join(f"`{i}` — {d or 'нет даты'}" for i, d in vac_dates))
+    w("")
+
     # ── план ──
     steps = c.roadmap
     required = [s for s in steps if s.get("required")]

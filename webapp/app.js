@@ -460,6 +460,17 @@
     if (Sync) Sync.schedulePush();
   }
 
+  // Сколько требований вакансии человек подкрепил доказательством из своего
+  // опыта. Знание и доказательство — разные вещи: процент по тестам не отвечает
+  // на вопрос «что вы можете показать», а на собеседовании спрашивают именно это.
+  function requirementsEvidencedCount() {
+    var v = vacancy();
+    if (!v) return 0;
+    return (v.requirements || []).filter(function (r) {
+      return (requirementState(r).evidence || "").trim();
+    }).length;
+  }
+
   // Требование с учётом пользовательских правок поверх данных вакансии.
   function requirementState(req) {
     var p = Progress.profile();
@@ -532,6 +543,8 @@
     if (rule.mock_answered_min && pr.mocksAnswered < rule.mock_answered_min) return false;
     if (rule.stories_filled_min && storyFilledCount() < rule.stories_filled_min) return false;
     if (rule.full_mock_sessions_min && fullMockSessions() < rule.full_mock_sessions_min) return false;
+    if (rule.requirements_evidenced_min &&
+        requirementsEvidencedCount() < rule.requirements_evidenced_min) return false;
     return true;
   }
 
@@ -592,6 +605,37 @@
       today: Progress.dayKey(now),
       nowMs: (now || new Date()).getTime(),
       fullMockSessions: fullMockSessions(),
+    });
+  }
+
+  // Готовность к ВАКАНСИИ — второй процент, отвечающий на другой вопрос:
+  // не «знаю ли я предмет», а «готов ли я к этой вакансии». Состояние
+  // требований сливается здесь: readiness.js хранилище не читает.
+  function vacancyReadiness(now) {
+    var v = vacancy();
+    var reqs = ((v && v.requirements) || []).map(function (r) {
+      var st = requirementState(r);
+      return {
+        id: r.id,
+        importance: r.importance,
+        competency: r.competency || null,
+        status: st.status,
+        evidence: st.evidence,
+      };
+    });
+    return Readiness.computeVacancy({
+      content: C,
+      trackId: trackId(),
+      srs: SRS.stateMap(),
+      profile: Progress.profile(),
+      days: Progress.days(),
+      today: Progress.dayKey(now),
+      nowMs: (now || new Date()).getTime(),
+      fullMockSessions: fullMockSessions(),
+      requirements: reqs,
+      languageRequirements: (v && v.language_requirements) || [],
+      storiesFilled: storyFilledCount(),
+      english: englishStats(),
     });
   }
 
@@ -841,10 +885,12 @@
     toggleLibraryRead: toggleLibraryRead, saveLibraryNote: saveLibraryNote,
     saveStory: saveStory, storyFilledCount: storyFilledCount,
     saveRequirement: saveRequirement, requirementState: requirementState,
+    requirementsEvidencedCount: requirementsEvidencedCount,
     stepProgress: stepProgress, stepDone: stepDone, stepUnlocked: stepUnlocked,
     recomputeRoadmap: recomputeRoadmap, currentStep: currentStep,
     fullMockSessions: fullMockSessions,
-    readiness: readiness, examPlan: examPlan, setExamDate: setExamDate,
+    readiness: readiness, vacancyReadiness: vacancyReadiness,
+    examPlan: examPlan, setExamDate: setExamDate,
     dueIds: dueIds, reviewDue: reviewDue, mistakeIds: mistakeIds,
     nextAction: nextAction,
     achievements: achievements, trackWeakTopicRecovery: trackWeakTopicRecovery,

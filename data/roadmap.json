@@ -594,7 +594,7 @@
     {
       "id": "step-24-final-mock",
       "track_id": "redcore-junior-seo",
-      "order": 24,
+      "order": 27,
       "title": "Финальное mock interview",
       "goal": "Пройти полную сессию и получить разбор по блокам",
       "topic_ids": [
@@ -607,7 +607,9 @@
       "prerequisites": [
         "step-22-interview-questions",
         "step-23-behavioral",
-        "step-08-indexing-gsc"
+        "step-08-indexing-gsc",
+        "step-25-igaming-context",
+        "step-26-vacancy-evidence"
       ],
       "study_items": [],
       "practice_items": [
@@ -2358,6 +2360,90 @@
       ],
       "completion_rule": {
         "full_mock_sessions_min": 1
+      }
+    },
+    {
+      "id": "step-24-off-page",
+      "track_id": "redcore-junior-seo",
+      "order": 24,
+      "title": "Off-page SEO и ссылочный профиль",
+      "goal": "Оценивать доноров по существу и разворачивать «купим ссылки» в план работ",
+      "topic_ids": [
+        "off-page-seo"
+      ],
+      "estimated_minutes": 70,
+      "required": true,
+      "prerequisites": [
+        "step-13-ahrefs-semrush",
+        "step-18-competitor-analysis"
+      ],
+      "study_items": [
+        "lesson-off-page-basics",
+        "lesson-link-gap-outreach"
+      ],
+      "practice_items": [
+        "quiz:off-page-seo",
+        "case:case-link-buying-013",
+        "mock:mock-offpage-001",
+        "mock:mock-offpage-002"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "quiz_score_min": 80,
+        "case_completed_min": 1,
+        "mock_answered_min": 2
+      }
+    },
+    {
+      "id": "step-25-igaming-context",
+      "track_id": "redcore-junior-seo",
+      "order": 25,
+      "title": "Контекст iGaming",
+      "goal": "Понимать нишу работодателя и отвечать на «почему iGaming» профессионально",
+      "topic_ids": [
+        "igaming-context"
+      ],
+      "estimated_minutes": 40,
+      "required": true,
+      "prerequisites": [
+        "step-24-off-page"
+      ],
+      "study_items": [
+        "lesson-igaming-context"
+      ],
+      "practice_items": [
+        "mock:mock-motivation-005",
+        "mock:mock-fundamentals-009"
+      ],
+      "completion_rule": {
+        "lesson_read": true,
+        "mock_answered_min": 2
+      }
+    },
+    {
+      "id": "step-26-vacancy-evidence",
+      "track_id": "redcore-junior-seo",
+      "order": 26,
+      "title": "Доказательства по требованиям вакансии",
+      "goal": "Связать знание с тем, что можно показать: требование, доказательство, история",
+      "topic_ids": [
+        "interview-seo"
+      ],
+      "estimated_minutes": 60,
+      "required": true,
+      "prerequisites": [
+        "step-23-behavioral",
+        "step-25-igaming-context"
+      ],
+      "study_items": [],
+      "practice_items": [
+        "mock:mock-portfolio-001",
+        "mock:mock-portfolio-002"
+      ],
+      "completion_rule": {
+        "mock_answered_min": 2,
+        "stories_filled_min": 5,
+        "requirements_evidenced_min": 6
       }
     }
   ]

@@ -1159,6 +1159,81 @@
       "example_en": "The migration runs during the maintenance window on Sunday.",
       "example_ru": "Миграция идёт в окно работ в воскресенье.",
       "dict_url": ""
+    },
+    {
+      "id": "ev-backlink",
+      "term": "backlink",
+      "category": "SEO",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 1,
+      "ipa": "/ˈbæklɪŋk/",
+      "ru_hint": "БЭК-линк",
+      "meaning": "внешняя входящая ссылка на ваш сайт",
+      "wrong": "«бэклИнк» с ударением на второй слог",
+      "example_en": "We gained twelve backlinks from industry blogs last quarter.",
+      "example_ru": "За квартал мы получили двенадцать внешних ссылок с отраслевых блогов."
+    },
+    {
+      "id": "ev-referring-domain",
+      "term": "referring domain",
+      "category": "SEO",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "ipa": "/rɪˈfɜːrɪŋ dəˈmeɪn/",
+      "ru_hint": "ри-ФЁ-ринг до-МЭЙН",
+      "meaning": "уникальный сайт-источник ссылок",
+      "wrong": "«рЕферринг» с ударением на первый слог",
+      "example_en": "We count referring domains, not the total number of links.",
+      "example_ru": "Мы считаем ссылающиеся домены, а не общее число ссылок."
+    },
+    {
+      "id": "ev-outreach",
+      "term": "outreach",
+      "category": "SEO",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "ipa": "/ˈaʊtriːtʃ/",
+      "ru_hint": "АУТ-рич",
+      "meaning": "адресная работа с площадками ради упоминания",
+      "wrong": "«аутрИч» с ударением на второй слог",
+      "example_en": "Most outreach emails get no reply, and that is normal.",
+      "example_ru": "Большая часть писем в аутриче остаётся без ответа, и это норма."
+    },
+    {
+      "id": "ev-sponsored",
+      "term": "sponsored",
+      "category": "SEO",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "ipa": "/ˈspɒnsəd/",
+      "ru_hint": "СПОН-сэд, два слога",
+      "meaning": "помеченный как оплаченное размещение",
+      "wrong": "«спонсОред» в три слога с ударением на второй",
+      "example_en": "Paid placements should be marked as sponsored.",
+      "example_ru": "Оплаченные размещения помечают значением sponsored."
+    },
+    {
+      "id": "ev-disavow",
+      "term": "disavow",
+      "category": "SEO",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 3,
+      "ipa": "/ˌdɪsəˈvaʊ/",
+      "ru_hint": "дис-э-ВАУ",
+      "meaning": "отклонить ссылки, чтобы поисковик их не учитывал",
+      "wrong": "«дисавОв» с «в» на конце: там звук «ау»",
+      "example_en": "We only disavow links when there is a manual action.",
+      "example_ru": "Мы отклоняем ссылки только при ручных мерах."
     }
   ]
 }

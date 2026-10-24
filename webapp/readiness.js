@@ -453,6 +453,221 @@
     };
   }
 
+  // ── готовность к ВАКАНСИИ ────────────────────────────────────────────────
+  //
+  // Второй процент, отвечающий на другой вопрос. Готовность к профессии
+  // (compute выше) говорит «знаю ли я предмет». Готовность к вакансии говорит
+  // «готов ли я к ЭТОЙ вакансии»: закрыты ли её обязательные требования, есть
+  // ли чем их подтвердить, отработаны ли инструменты, добран ли обязательный
+  // язык, отрепетированы ли ответы и собраны ли истории.
+  //
+  // Знание входит сюда одним блоком из двадцати баллов, а не подменяет собой
+  // весь расчёт: человек может знать предмет и не иметь ни одного
+  // доказательства — и это ровно тот разрыв, который должен быть виден.
+  //
+  // Английский НЕ входит в расчёт готовности к профессии и не может поднять
+  // её ни на балл. Здесь он и блок, и ограничитель: невыполненное
+  // обязательное требование вакансии по языку обязано быть видно.
+
+  var VACANCY_WEIGHTS = {
+    knowledge: 20,
+    requirements: 25,
+    evidence: 15,
+    tools: 10,
+    english: 10,
+    mock: 10,
+    stories: 10,
+  };
+
+  var VACANCY_CAPS = {
+    requiredNotStarted: 80,   // хотя бы одно обязательное требование не начато
+    noFullMock: 79,           // нет ни одной полной сессии mock interview
+    englishNotMet: 74,        // обязательное языковое требование не закрыто
+  };
+
+  var STORIES_TARGET = 5;         // историй STAR, закрывающих типовые вопросы
+  var LOW_EVIDENCE = 0.5;         // ниже этой доли доказательств — предупреждение
+
+  var CLOSED = { confirmed: true, partial: true };
+
+  function shareOf(list, predicate) {
+    if (!list.length) return null;
+    var n = 0;
+    for (var i = 0; i < list.length; i++) if (predicate(list[i])) n++;
+    return n / list.length;
+  }
+
+  // Практика английского: три оси одинакового веса. Ни одна не обязательна —
+  // человек мог подтвердить язык работой, а не тренажёром, — поэтому пустой
+  // раздел просто не участвует, а не обнуляет блок.
+  function englishPractice(stats) {
+    if (!stats) return 0;
+    var parts = [];
+    if (stats.drills) parts.push(clamp01((stats.drillsDone || 0) / stats.drills));
+    if (stats.writingTasks) parts.push(clamp01((stats.writingPassed || 0) / stats.writingTasks));
+    if (stats.words) parts.push(clamp01((stats.wordsProdLearned || 0) / stats.words));
+    if (!parts.length) return 0;
+    var sum = 0;
+    for (var i = 0; i < parts.length; i++) sum += parts[i];
+    return sum / parts.length;
+  }
+
+  function computeVacancy(input) {
+    var c = input.content;
+    var trackId = input.trackId;
+    var track = (c.tracks || []).filter(function (t) { return t.id === trackId; })[0];
+    var vacancy = null;
+    if (track && track.vacancy_id) {
+      vacancy = (c.vacancies || []).filter(function (v) {
+        return v.id === track.vacancy_id;
+      })[0] || null;
+    }
+
+    if (!track || track.status !== "active" || !vacancy) {
+      return {
+        available: false,
+        reason: vacancy ? "Трек ещё не наполнен" : "Для трека не описана вакансия",
+        percent: null, verdict: null, blocks: [], caps: [], gaps: [],
+      };
+    }
+
+    // Состояние требований приходит слитым снаружи: readiness.js не читает
+    // хранилище. Если его не передали — считаем по данным вакансии как есть.
+    var states = input.requirements;
+    if (!states || !states.length) {
+      states = (vacancy.requirements || []).map(function (r) {
+        return {
+          id: r.id, importance: r.importance, competency: r.competency || null,
+          status: r.status || "not_started", evidence: r.evidence || "",
+        };
+      });
+    }
+
+    var counted = states.filter(function (r) {
+      // «Не применимо» человек ставит осознанно, и держать этим требованием
+      // процент внизу значило бы спорить с его решением.
+      return r.status !== "not_applicable";
+    });
+    var required = counted.filter(function (r) { return r.importance === "required"; });
+    var tools = counted.filter(function (r) { return r.competency === "tools"; });
+
+    function closed(r) { return !!CLOSED[r.status]; }
+    function evidenced(r) { return !!String(r.evidence || "").trim(); }
+
+    var reqShare = shareOf(required, closed);
+    var evidenceShare = shareOf(required, evidenced);
+    var toolsShare = shareOf(tools, closed);
+
+    // Язык: обязательное требование вакансии плюс фактическая практика.
+    var langs = input.languageRequirements || vacancy.language_requirements || [];
+    var mandatoryLang = langs.filter(function (l) {
+      return l.importance === "required";
+    });
+    var byId = {};
+    states.forEach(function (r) { byId[r.id] = r; });
+    var langMet = mandatoryLang.length
+      ? mandatoryLang.every(function (l) {
+          var r = byId[l.requirement_id];
+          return !!(r && CLOSED[r.status]);
+        })
+      : true;
+    var practice = englishPractice(input.english);
+    var englishScore = mandatoryLang.length
+      ? clamp01(0.6 * (langMet ? 1 : 0) + 0.4 * practice)
+      : practice;
+
+    var skill = compute(input);
+    var mb = mockBlock({
+      content: c, trackId: trackId,
+      profile: input.profile || {},
+      fullMockSessions: input.fullMockSessions || 0,
+    });
+
+    var storiesFilled = input.storiesFilled || 0;
+    var storiesScore = clamp01(storiesFilled / STORIES_TARGET);
+
+    var blocks = [
+      { key: "knowledge", title: "Знание предмета", weight: VACANCY_WEIGHTS.knowledge,
+        score: skill.available ? skill.percent / 100 : 0,
+        detail: { percent: skill.available ? skill.percent : null } },
+      { key: "requirements", title: "Обязательные требования", weight: VACANCY_WEIGHTS.requirements,
+        score: reqShare == null ? 0 : reqShare,
+        detail: { closed: required.filter(closed).length, total: required.length } },
+      { key: "evidence", title: "Доказательства", weight: VACANCY_WEIGHTS.evidence,
+        score: evidenceShare == null ? 0 : evidenceShare,
+        detail: { evidenced: required.filter(evidenced).length, total: required.length } },
+      { key: "tools", title: "Инструменты", weight: VACANCY_WEIGHTS.tools,
+        score: toolsShare == null ? 0 : toolsShare,
+        detail: { closed: tools.filter(closed).length, total: tools.length } },
+      { key: "english", title: "Английский", weight: VACANCY_WEIGHTS.english,
+        score: englishScore,
+        detail: { required: mandatoryLang.length > 0, met: langMet, practice: practice } },
+      { key: "mock", title: "Mock interview", weight: VACANCY_WEIGHTS.mock,
+        score: mb.score, detail: mb.detail },
+      { key: "stories", title: "Истории STAR", weight: VACANCY_WEIGHTS.stories,
+        score: storiesScore, detail: { filled: storiesFilled, target: STORIES_TARGET } },
+    ];
+
+    var raw = Math.round(blocks.reduce(function (a, b) {
+      return a + b.weight * b.score;
+    }, 0));
+
+    var caps = [];
+    var notStarted = required.filter(function (r) { return r.status === "not_started"; });
+    if (notStarted.length) {
+      caps.push({ key: "requiredNotStarted", max: VACANCY_CAPS.requiredNotStarted,
+        reason: "Обязательных требований не начато: " + notStarted.length,
+        action: "Разобрать требования вакансии и проставить статус" });
+    }
+    if (!input.fullMockSessions) {
+      caps.push({ key: "noFullMock", max: VACANCY_CAPS.noFullMock,
+        reason: "Нет ни одной полной сессии mock interview",
+        action: "Пройти полное mock interview" });
+    }
+    if (mandatoryLang.length && !langMet) {
+      caps.push({ key: "englishNotMet", max: VACANCY_CAPS.englishNotMet,
+        reason: "Обязательное требование по английскому не закрыто",
+        action: "Подтвердить уровень языка и описать, чем он подтверждается" });
+    }
+
+    var capMax = caps.reduce(function (m, x) { return Math.min(m, x.max); }, 100);
+    var percent = Math.min(raw, capMax);
+    var appliedCap = caps.filter(function (x) { return x.max === capMax; })[0] || null;
+    if (appliedCap && raw <= capMax) appliedCap = null;
+
+    var gaps = caps.map(function (x) {
+      return { kind: "cap", title: x.reason, action: x.action };
+    });
+    // Массовое отсутствие доказательств — предупреждение, а не потолок:
+    // знание без портфолио бывает честным состоянием, и наказывать за него
+    // процентом неправильно. Но не сказать об этом нельзя.
+    if (evidenceShare != null && evidenceShare < LOW_EVIDENCE) {
+      gaps.push({
+        kind: "warning",
+        title: "У большинства обязательных требований нет доказательства",
+        action: "Описать, чем подтверждается каждое требование",
+      });
+    }
+
+    return {
+      available: true,
+      percent: percent,
+      rawPercent: raw,
+      verdict: verdictFor(percent),
+      blocks: blocks,
+      caps: caps,
+      appliedCap: appliedCap,
+      capMax: capMax,
+      requiredTotal: required.length,
+      requiredClosed: required.filter(closed).length,
+      evidenceShare: evidenceShare,
+      englishRequired: mandatoryLang.length > 0,
+      englishMet: langMet,
+      gaps: gaps.slice(0, 3),
+      allGaps: gaps,
+    };
+  }
+
   // ── план к дате собеседования ────────────────────────────────────────────
   //
   // Считаем не только тесты: обязательные элементы разных типов имеют разный
@@ -533,6 +748,9 @@
   var Readiness = {
     WEIGHTS: WEIGHTS,
     CAPS: CAPS,
+    VACANCY_WEIGHTS: VACANCY_WEIGHTS,
+    VACANCY_CAPS: VACANCY_CAPS,
+    STORIES_TARGET: STORIES_TARGET,
     VERDICTS: VERDICTS,
     MIN_CASES: MIN_CASES,
     WEAK_CRITICAL: WEAK_CRITICAL,
@@ -540,6 +758,7 @@
     MIN_TOPIC_COVERAGE: MIN_TOPIC_COVERAGE,
     ACTION_COST: ACTION_COST,
     compute: compute,
+    computeVacancy: computeVacancy,
     examPlan: examPlan,
     verdictFor: verdictFor,
     shiftDay: shiftDay,

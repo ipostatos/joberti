@@ -13,7 +13,9 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -61,10 +63,53 @@ ENGLISH_MIN_PER_TRACK = {
 # Свои, не сквозные записи: без них трек получает только общий английский.
 ENGLISH_MIN_TRACK_OWN = {"english_vocab": 6, "english_drills": 2}
 
+# Уровни владения темой (docs/REDCORE_CONTENT_SPEC.md §3). Поле необязательное:
+# старый банк размечается постепенно, но размеченная тема обязана доходить до
+# диагностики — ради неё уровни и вводились.
+QUESTION_LEVELS = {"L1", "L2", "L3", "L4"}
+
+# ── свежесть контента ──────────────────────────────────────────────────────
+#
+# Факты стареют неравномерно, поэтому волатильность объявляется на ТЕМЕ:
+# устаревает предметная область, а не отдельная формулировка. Дата сверки живёт
+# на записи. Аннотировать всё подряд запрещено: поле без реального смысла
+# превращается в шум, поэтому требуется оно только там, где тема помечена
+# как high.
+VOLATILITY_LEVELS = {"low", "medium", "high"}
+DEFAULT_VOLATILITY = "low"
+
+# Через сколько дней сверка считается просроченной. Это предупреждение, а не
+# ошибка: CI не должен краснеть от того, что прошло время.
+REVIEW_MAX_AGE_DAYS = {"high": 90, "medium": 180}
+
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
 TRACK_STATUSES = {"active", "coming_soon", "draft"}
 REQUIREMENT_STATUSES = {"confirmed", "partial", "learning", "not_started", "not_applicable"}
 IMPORTANCE = {"required", "desirable", "nice_to_have"}
+# Компетенция помечается в данных, а не выводится кодом из списка тем: расчёт
+# готовности к вакансии не должен знать наизусть, какая тема «про инструменты».
+COMPETENCIES = {"tools", "english"}
 VERIFICATION = {"verified", "needs_review"}
+
+# Эталонный ответ мок-интервью не имеет права заявлять опыт кандидата.
+# «Год занимаюсь SEO» в model_answer — это выдуманное достижение: человек
+# заучит чужую биографию и развалится на первом уточняющем вопросе.
+# Список намеренно узкий и буквальный: широкая эвристика ловила бы обороты
+# вроде «я бы проверил», которые описывают подход, а не опыт.
+FABRICATED_EXPERIENCE = [
+    "год занимаюсь", "года занимаюсь", "лет занимаюсь",
+    "год работаю", "года работаю", "лет работаю",
+    "начал с собственного", "начала с собственного",
+    "я вёл проект", "я вела проект", "на прошлой работе я",
+    "посмотрел ваши", "посмотрела ваши",
+    "у меня опыт", "мой опыт работы",
+    "i have been working", "for about a year", "i worked with clients",
+]
+
+# Каркас личного ответа против готового эталона. Значения объявляются рядом с
+# данными, в mock_questions.json → answer_kinds.
+ANSWER_KINDS = {"generic", "personal"}
 
 # Морская предметная область референсного проекта. Ни одно из этих слов не
 # должно попасть в новый контент — иначе где-то остался копипаст.
@@ -309,6 +354,10 @@ def validate_questions(rep: Report, c) -> None:
                   f"{where}: difficulty должен быть 1..3")
         rep.check(x.get("verification_status") in VERIFICATION,
                   f"{where}: недопустимый verification_status")
+        if "level" in x:
+            rep.check(x["level"] in QUESTION_LEVELS,
+                      f"{where}: недопустимый level '{x.get('level')}' "
+                      f"(допустимы {', '.join(sorted(QUESTION_LEVELS))})")
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
         check_refs(rep, x.get("related_term_ids"), t_ids, where, "related_term_ids")
         check_refs(rep, x.get("related_lesson_ids"), l_ids, where, "related_lesson_ids")
@@ -344,6 +393,20 @@ def validate_questions(rep: Report, c) -> None:
                 rep.err(f"индекс правильного ответа {i} встречается в {share:.0%} вопросов")
             elif share < 0.10:
                 rep.warn(f"индекс правильного ответа {i} встречается лишь в {share:.0%} вопросов")
+
+    # Тема, размеченная по уровням, обязана доходить до диагностики. Без L4
+    # разметка превращается в украшение: банк остаётся «узнал — объяснил», а
+    # спрашивают на собеседовании именно «вот данные, что проверишь первым».
+    by_topic: dict[str, list] = {}
+    for x in c.questions:
+        by_topic.setdefault(x.get("topic"), []).append(x)
+    for topic, pool in sorted(by_topic.items()):
+        levelled = [x for x in pool if x.get("level")]
+        if not levelled or len(levelled) != len(pool):
+            continue                      # тема размечена частично — ещё в работе
+        rep.check(any(x["level"] == "L4" for x in levelled),
+                  f"тема '{topic}': все вопросы размечены по уровням, но нет ни "
+                  f"одного уровня L4 — тема не доходит до диагностики")
 
     # ── те же метрики ПО КАЖДОМУ АКТИВНОМУ ТРЕКУ ──
     # Пользователь видит вопросы только своего трека, поэтому общая доля по
@@ -392,6 +455,32 @@ def validate_mock(rep: Report, c) -> None:
                   f"{where}: rubric должен содержать уровни 0..4")
         check_refs(rep, x.get("topic_ids"), topic_ids, where, "topic_ids")
         check_refs(rep, x.get("source_refs"), src_ids, where, "source_refs")
+
+        # Эталон против личного материала. Поле необязательное: разметка идёт
+        # трек за треком. Но «personal» без подсказки о личном материале
+        # означает пустой экран там, где человек должен вписать своё.
+        kind = x.get("answer_kind")
+        if kind is not None:
+            rep.check(kind in ANSWER_KINDS,
+                      f"{where}: недопустимый answer_kind '{kind}'")
+            if kind == "personal":
+                rep.check(bool((x.get("personal_evidence_prompt") or "").strip()),
+                          f"{where}: answer_kind=personal без personal_evidence_prompt — "
+                          f"каркас есть, а куда вписать своё, человеку не сказано")
+            elif kind == "generic" and x.get("personal_evidence_prompt"):
+                rep.err(f"{where}: personal_evidence_prompt у generic-ответа — "
+                        f"либо ответ личный, либо подсказка лишняя")
+
+        # Приложение не придумывает опыт пользователя. Проверяется по обоим
+        # эталонам: короткий заучивают, развёрнутый читают.
+        for field in ("model_answer_short", "model_answer_full"):
+            blob = str(x.get(field) or "").lower()
+            for marker in FABRICATED_EXPERIENCE:
+                if marker in blob:
+                    rep.err(f"{where}: в {field} заявлен опыт кандидата "
+                            f"(«{marker}») — приложение не выдумывает достижения, "
+                            f"личный материал живёт в personal_evidence_prompt")
+
         key = normalize_text(x.get("question", ""))
         if key in seen:
             rep.err(f"{where}: дубль вопроса '{seen[key]}'")
@@ -538,6 +627,27 @@ def validate_vacancies(rep: Report, c) -> None:
             if r.get("status") in {"confirmed", "partial"} and not (r.get("evidence") or "").strip():
                 rep.err(f"{rw}: статус '{r['status']}' без evidence — "
                         f"приложение не должно выдумывать достижения пользователя")
+            if r.get("competency") is not None:
+                rep.check(r["competency"] in COMPETENCIES,
+                          f"{rw}: недопустимая competency '{r['competency']}'")
+
+        # Языковое требование живёт отдельным блоком: расчёт готовности к
+        # вакансии обязан отличать обязательный язык от желательного, а
+        # разбирать это из текста требования означало бы гадать по строке.
+        for i, lang in enumerate(v.get("language_requirements") or []):
+            lw = f"{where} / language_requirements[{i}]"
+            require_fields(rep, lang, ["language", "importance", "requirement_id"], lw)
+            rep.check(lang.get("importance") in IMPORTANCE,
+                      f"{lw}: недопустимый importance")
+            linked = lang.get("requirement_id")
+            rep.check(linked in req_ids,
+                      f"{lw}: requirement_id '{linked}' не найден среди требований")
+            if lang.get("importance") == "required" and linked in req_ids:
+                target = next(r for r in v["requirements"] if r["id"] == linked)
+                rep.check(target.get("importance") == "required",
+                          f"{lw}: язык объявлен обязательным, а требование "
+                          f"'{linked}' помечено как '{target.get('importance')}' — "
+                          f"вакансия противоречит сама себе")
 
     # У активного трека обязана быть вакансия.
     for t in c.active_tracks():
@@ -859,6 +969,98 @@ def validate_counts(rep: Report, c) -> None:
                 rep.err(f"track '{t['id']}': критическая тема '{tid}' без вопросов теста")
 
 
+def _parse_review_date(rep: Report, value, where: str):
+    """Разобрать content_reviewed_at. Возвращает date или None при ошибке."""
+    if not DATE_RE.match(str(value)):
+        rep.err(f"{where}: content_reviewed_at '{value}' не в формате ГГГГ-ММ-ДД")
+        return None
+    try:
+        d = date.fromisoformat(str(value))
+    except ValueError:
+        rep.err(f"{where}: content_reviewed_at '{value}' не является датой")
+        return None
+    if d > date.today():
+        rep.err(f"{where}: content_reviewed_at '{value}' в будущем — "
+                f"сверка не могла состояться")
+        return None
+    return d
+
+
+def validate_freshness(rep: Report, c) -> None:
+    """Метки свежести: формат, обязательность и просрочка.
+
+    Волатильность объявляется на теме, дата сверки — на записи. Запись,
+    относящаяся к высоковолатильной теме, обязана нести дату: без неё нельзя
+    ответить на вопрос «когда это последний раз сверяли с документацией», а
+    именно в GA4 и Search Console формулировки устаревают быстрее всего.
+    """
+    volatility = {}
+    for t in c.topics:
+        v = t.get("volatility", DEFAULT_VOLATILITY)
+        rep.check(v in VOLATILITY_LEVELS,
+                  f"topic '{t.get('id')}': недопустимая volatility '{v}'")
+        volatility[t["id"]] = v
+
+    high = {tid for tid, v in volatility.items() if v == "high"}
+    today = date.today()
+
+    def worst_level(topic_ids):
+        levels = [volatility.get(t, DEFAULT_VOLATILITY) for t in topic_ids]
+        for lvl in ("high", "medium"):
+            if lvl in levels:
+                return lvl
+        return DEFAULT_VOLATILITY
+
+    # Коллекция → как достать темы записи.
+    collections = [
+        ("lesson", c.lessons, lambda x: [x.get("topic_id")]),
+        ("question", c.questions, lambda x: [x.get("topic")]),
+        ("term", c.glossary, lambda x: x.get("topic_ids") or []),
+        ("mock", c.mock_questions, lambda x: x.get("topic_ids") or []),
+        ("case", c.cases, lambda x: x.get("topic_ids") or []),
+    ]
+
+    stale = []
+    for kind, items, topics_of in collections:
+        for x in items:
+            where = f"{kind} '{x.get('id')}'"
+            tids = [t for t in topics_of(x) if t]
+            value = x.get("content_reviewed_at")
+            if value is None:
+                if high & set(tids):
+                    rep.err(f"{where}: тема высоковолатильна, но нет "
+                            f"content_reviewed_at — непонятно, когда запись "
+                            f"последний раз сверяли с документацией")
+                continue
+            d = _parse_review_date(rep, value, where)
+            if d is None:
+                continue
+            limit = REVIEW_MAX_AGE_DAYS.get(worst_level(tids))
+            if limit and (today - d).days > limit:
+                stale.append((where, value, (today - d).days, limit))
+
+    # Вакансия высоковолатильна по определению: объявление правят без нас.
+    for v in c.vacancies:
+        where = f"vacancy '{v.get('id')}'"
+        level = v.get("volatility")
+        if level is not None:
+            rep.check(level in VOLATILITY_LEVELS,
+                      f"{where}: недопустимая volatility '{level}'")
+        value = v.get("content_reviewed_at")
+        if value is None:
+            if level == "high":
+                rep.err(f"{where}: volatility=high без content_reviewed_at")
+            continue
+        d = _parse_review_date(rep, value, where)
+        if d is not None:
+            limit = REVIEW_MAX_AGE_DAYS.get(level or DEFAULT_VOLATILITY)
+            if limit and (today - d).days > limit:
+                stale.append((where, value, (today - d).days, limit))
+
+    for where, value, age, limit in stale:
+        rep.warn(f"{where}: сверено {value} — {age} дней назад при норме {limit}")
+
+
 def validate_no_reference_leftovers(rep: Report, c) -> None:
     """Ни морской предметной области, ни ключей хранилища референса."""
     import json as _json
@@ -893,6 +1095,7 @@ def run() -> Report:
     validate_achievements(rep, c)
     validate_english(rep, c)
     validate_counts(rep, c)
+    validate_freshness(rep, c)
     validate_no_reference_leftovers(rep, c)
     return rep
 

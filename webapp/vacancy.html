@@ -93,23 +93,45 @@
       '<span class="ic-tile red" data-icon="target"></span>' +
       '<div class="body"><h1>' + App.esc(v.title) + "</h1>" +
       '<div class="muted small">' + App.esc(v.company) + " · " + App.esc(v.level) +
-      " · " + App.esc(v.work_format) + "</div></div></div>");
+      " · " + App.esc(v.work_format) +
+      (v.external_ref ? " · " + App.esc(v.external_ref) : "") +
+      "</div></div></div>");
 
     parts.push('<div class="card"><p class="small" style="line-height:1.65">' +
       App.esc(v.summary) + "</p></div>");
 
-    parts.push('<div class="card">' +
-      '<div class="h3">Разрыв по обязательным требованиям</div>' +
-      '<div class="meter ' + (closedReq === required.length ? "ok" : "warn") + '">' +
-      '<i style="width:' + Math.round(closedReq / Math.max(1, required.length) * 100) + '%"></i></div>' +
-      '<div class="small muted" style="margin-top:6px">' + closedReq + " из " +
-      required.length + " закрыто</div>" +
+    // Два процента рядом. Знание предмета и готовность к конкретной вакансии
+    // расходятся закономерно: можно знать SEO и не иметь ни одного
+    // доказательства, которое можно показать. Разрыв между полосами и есть
+    // самое полезное, что показывает этот экран.
+    var skill = App.readiness();
+    var vac = App.vacancyReadiness();
+    parts.push('<div class="card"><div class="h3">Готовность</div>' +
+      '<div class="small muted">Знание предмета</div>' +
+      '<div class="meter"><i style="width:' +
+      (skill.available ? skill.percent : 0) + '%"></i></div>' +
+      '<div class="small muted" style="margin-top:4px">' +
+      (skill.available ? skill.percent + "% · " + App.esc(skill.verdict)
+                       : "трек ещё не наполнен") + "</div>" +
+      '<div class="small muted" style="margin-top:var(--sp-3)">К этой вакансии</div>' +
+      '<div class="meter ' + (vac.available && vac.percent >= 70 ? "ok" : "warn") + '">' +
+      '<i style="width:' + (vac.available ? vac.percent : 0) + '%"></i></div>' +
+      '<div class="small muted" style="margin-top:4px">' +
+      (vac.available ? vac.percent + "% · " + App.esc(vac.verdict)
+                     : App.esc(vac.reason || "нет данных")) + "</div>" +
+      (vac.available && vac.appliedCap
+        ? '<div class="line" style="margin-top:var(--sp-3)"><b>Держит процент:</b> ' +
+          App.esc(vac.appliedCap.reason) + "</div>"
+        : "") +
       '<div class="stats" style="margin-top:var(--sp-3)">' +
-      '<div><div class="k">Подтверждено</div><div class="v" style="color:var(--ok)">' +
-      stats.confirmed + "</div></div>" +
-      '<div><div class="k">Частично</div><div class="v" style="color:var(--warn)">' +
-      stats.partial + "</div></div>" +
-      '<div><div class="k">Не начато</div><div class="v">' + stats.not_started + "</div></div>" +
+      '<div><div class="k">Обязательных закрыто</div><div class="v">' +
+      closedReq + "/" + required.length + "</div></div>" +
+      '<div><div class="k">С доказательством</div><div class="v">' +
+      required.filter(function (r) {
+        return (App.requirementState(r).evidence || "").trim();
+      }).length + "/" + required.length + "</div></div>" +
+      '<div><div class="k">Не начато</div><div class="v">' + stats.not_started +
+      "</div></div>" +
       "</div></div>");
 
     parts.push('<div class="card"><div class="h3">Основные задачи</div>' +
