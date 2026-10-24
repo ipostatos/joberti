@@ -12,13 +12,21 @@
 """
 from __future__ import annotations
 
+import math
+import re
+
 # ОБЯЗАНЫ совпадать с webapp/sync.js и webapp/progress.js.
 MAX_HISTORY_DAYS = 365
 MAX_ATTEMPTS = 100
 MAX_BOX = 5
 
 # Порядок статусов требования вакансии: при слиянии побеждает более продвинутый.
-REQ_STATUS_RANK = ["not_started", "not_applicable", "learning", "partial", "confirmed"]
+# unverified_experience — опыт, заявленный без доказательства: сильнее «не
+# начато», но слабее «учу».
+REQ_STATUS_RANK = ["not_started", "not_applicable", "unverified_experience",
+                   "learning", "partial", "confirmed"]
+LAB_NOTE_MAX = 1000
+PORTFOLIO_FIELDS = ("project", "owned", "changed", "verified", "result", "link")
 
 STORY_FIELDS = ("situation", "task", "action", "result", "reflection")
 
@@ -339,6 +347,140 @@ def merge_english(a, b) -> dict:
     }
 
 
+# ── лабораторные ───────────────────────────────────────────────────────────
+
+def _norm_score(v):
+    if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v):
+        return None
+    return 0 if v < 0 else 1 if v > 1 else v
+
+
+def _int0(v) -> int:
+    try:
+        n = int(v)
+    except (TypeError, ValueError):
+        return 0
+    return n if n >= 0 else 0
+
+
+def _norm_lab(e) -> dict:
+    e = _d(e)
+    return {
+        "attempts": _int0(e.get("attempts")),
+        "completed": bool(e.get("completed")),
+        "post_check_score": _norm_score(e.get("post_check_score")),
+        "evidence_note": str(e.get("evidence_note") or "")[:LAB_NOTE_MAX],
+        "checklist": {k: True for k, v in _d(e.get("checklist")).items() if v},
+        "ts": _int0(e.get("ts")),
+    }
+
+
+def merge_labs(a, b) -> dict:
+    """Зеркало mergeLabs из webapp/sync.js.
+
+    Попытки — максимум, выполнено — ИЛИ (слияние не может отнять
+    подтверждённое выполнение), лучший post-check — максимум, заметка — у
+    более свежей записи, пункты чек-листа — объединение.
+    """
+    a, b = _d(a), _d(b)
+    out = {}
+    for k in _keys(a, b):
+        x, y = _norm_lab(a.get(k)), _norm_lab(b.get(k))
+        newer, older = (y, x) if y["ts"] >= x["ts"] else (x, y)
+        scores = [s for s in (x["post_check_score"], y["post_check_score"]) if s is not None]
+        out[k] = {
+            "attempts": max(x["attempts"], y["attempts"]),
+            "completed": x["completed"] or y["completed"],
+            "post_check_score": max(scores) if scores else None,
+            "evidence_note": newer["evidence_note"] or older["evidence_note"] or "",
+            "checklist": {c: True for c in _keys(x["checklist"], y["checklist"])},
+            "ts": max(x["ts"], y["ts"]),
+        }
+    return out
+
+
+# ── DutyOps drills ─────────────────────────────────────────────────────────
+
+def _clamp_pct(v):
+    """Как parseInt(v, 10) в sync.js, затем границы 0..100. Не число — None."""
+    if v is None or isinstance(v, bool):
+        return None
+    if isinstance(v, float):
+        if not math.isfinite(v):
+            return None
+        n = int(v)
+    elif isinstance(v, int):
+        n = v
+    else:
+        m = re.match(r"\s*([+-]?\d+)", str(v))
+        if not m:
+            return None
+        n = int(m.group(1))
+    return 0 if n < 0 else 100 if n > 100 else n
+
+
+def merge_drills(a, b) -> dict:
+    a, b = _d(a), _d(b)
+    out = {}
+    for k in _keys(a, b):
+        x, y = _d(a.get(k)), _d(b.get(k))
+        bx, by = _clamp_pct(x.get("best")), _clamp_pct(y.get("best"))
+        tx, ty = _num(x, "ts"), _num(y, "ts")
+        newer, older = (y, x) if ty >= tx else (x, y)
+        last = _clamp_pct(newer.get("last"))
+        if last is None:
+            last = _clamp_pct(older.get("last"))
+        best = by if bx is None else bx if by is None else max(bx, by)
+        out[k] = {
+            "best": best,
+            "last": last,
+            "attempts": max(_num(x, "attempts"), _num(y, "attempts")),
+            "ts": max(tx, ty),
+        }
+    return out
+
+
+def merge_diagnostic(a, b):
+    """Результат целиком от более свежего прохождения; число прохождений — максимум."""
+    x = a if isinstance(a, dict) else None
+    y = b if isinstance(b, dict) else None
+    if x is None and y is None:
+        return None
+    if x is None:
+        w = y
+    elif y is None:
+        w = x
+    else:
+        w = y if _num(y, "ts") >= _num(x, "ts") else x
+    domains = {}
+    for k in sorted(_d(w.get("domains"))):
+        v = _clamp_pct(w["domains"][k])
+        if v is not None:
+            domains[k] = v
+    return {
+        "ts": _num(w, "ts"),
+        "count": max(_num(x, "count"), _num(y, "count"), 1),
+        "total": max(0, _num(w, "total")),
+        "correct": max(0, _num(w, "correct")),
+        "pct": _clamp_pct(w.get("pct")) or 0,
+        "domains": domains,
+        "selfLabs": {k: True for k, v in _d(w.get("selfLabs")).items() if v},
+    }
+
+
+def merge_portfolio(a, b) -> dict:
+    """Доказательства из портфолио: целиком побеждает более свежая редакция."""
+    a, b = _d(a), _d(b)
+    out = {}
+    for k in _keys(a, b):
+        x, y = _d(a.get(k)), _d(b.get(k))
+        w = y if _num(y, "updatedAt") >= _num(x, "updatedAt") else x
+        rec = {f: str(w.get(f) or "")[:2000] for f in PORTFOLIO_FIELDS}
+        rec["updatedAt"] = max(_num(x, "updatedAt"), _num(y, "updatedAt"))
+        out[k] = rec
+    return out
+
+
 # ── профиль ────────────────────────────────────────────────────────────────
 
 def merge_profile(a, b) -> dict:
@@ -379,6 +521,10 @@ def merge_profile(a, b) -> dict:
         "quizBest": merge_quiz_best(a.get("quizBest"), b.get("quizBest")),
         "weakTopicsSeen": merge_seen(a.get("weakTopicsSeen"), b.get("weakTopicsSeen")),
         "english": merge_english(a.get("english"), b.get("english")),
+        "labs": merge_labs(a.get("labs"), b.get("labs")),
+        "drills": merge_drills(a.get("drills"), b.get("drills")),
+        "portfolio": merge_portfolio(a.get("portfolio"), b.get("portfolio")),
+        "diagnostic": merge_diagnostic(a.get("diagnostic"), b.get("diagnostic")),
     }
     if out["trackId"] is None:
         del out["trackId"]

@@ -86,6 +86,8 @@ export const FIXTURES = {
      { r1: { status: "learning", evidence: "" } }],
     [{ r1: { status: "not_started" } }, { r2: { status: "learning" } }],
     [{}, {}],
+    [{"r1": {"status": "unverified_experience", "evidence": ""}}, {"r1": {"status": "learning"}}],
+    [{"r1": {"status": "unverified_experience"}}, {"r1": {"status": "not_started"}}],
   ],
   library: [
     [{ l1: { read: true, note: "старая" } }, { l1: { read: false, note: "новая" } }],
@@ -119,6 +121,30 @@ export const FIXTURES = {
     // запись без id, null и объект без id — всё это должно отсеиваться
     [[{ noId: 1 }, null, { ts: 5 }], [{ id: "ok", ts: 5 }]],
     [[], []],
+  ],
+  labs: [
+    [{"l1": {"attempts": 1, "completed": true, "post_check_score": 0.5, "evidence_note": "старая", "checklist": {"0": true}, "ts": 10}}, {"l1": {"attempts": 2, "completed": false, "post_check_score": 1, "evidence_note": "новая", "checklist": {"1": true}, "ts": 20}}],
+    [{"l1": {"attempts": 3, "completed": true, "post_check_score": 0.8, "evidence_note": "свежая", "ts": 50}}, {"l1": {"attempts": 1, "completed": false, "post_check_score": null, "evidence_note": "", "ts": 5}}],
+    [{"l1": {"attempts": "x", "completed": 1, "post_check_score": 7, "evidence_note": null, "checklist": {"2": false}, "ts": -1}}, {}],
+    [{"l1": {"post_check_score": true}}, {"l2": {"completed": true, "ts": 3}}],
+    [{}, {}],
+  ],
+  drills: [
+    [{"d1": {"best": 60, "last": 60, "attempts": 1, "ts": 10}}, {"d1": {"best": 40, "last": 40, "attempts": 2, "ts": 20}}],
+    [{"d1": {"best": "90", "last": "abc", "ts": 5}}, {"d1": {"best": 150, "last": 70, "attempts": 1, "ts": 1}}],
+    [{"d1": {}}, {}],
+    [{}, {}],
+  ],
+  diagnostic: [
+    [{"ts": 10, "count": 1, "total": 56, "correct": 30, "pct": 54, "domains": {"linux": 80, "nginx": 20}, "selfLabs": {"docker": true, "k8s": false}}, {"ts": 20, "count": 1, "total": 56, "correct": 40, "pct": 71, "domains": {"linux": 90}}],
+    [{"ts": 30, "count": 3, "pct": 50, "domains": {"a": "70", "b": "x"}}, {"ts": 20, "count": 1}],
+    [null, null],
+    [null, {"ts": 5, "pct": 200}],
+  ],
+  portfolio: [
+    [{"p1": {"project": "A", "owned": "A", "updatedAt": 10}}, {"p1": {"project": "B", "link": "https://example.com/repo", "updatedAt": 20}}],
+    [{"p1": {"project": "A", "updatedAt": 30}}, {"p1": {"project": "B", "updatedAt": 20}}],
+    [{}, {}],
   ],
   profile: [
     [
@@ -193,6 +219,10 @@ export const FIXTURES = {
           phrases: { ph: { learned: true, checked: 1 } },
           writing: { wr: { attempts: 1, passed: true, ts: 1 } },
         },
+        labs: {"lab": {"attempts": 1, "completed": true, "post_check_score": 0.5, "evidence_note": "n", "checklist": {"0": true}, "ts": 1}},
+        drills: {"dr": {"best": 50, "last": 50, "attempts": 1, "ts": 1}},
+        portfolio: {"pf": {"project": "p", "owned": "o", "changed": "c", "verified": "v", "result": "r", "link": "l", "updatedAt": 1}},
+        diagnostic: {"ts": 1, "count": 1, "total": 2, "correct": 1, "pct": 50, "domains": {"linux": 50}, "selfLabs": {}},
       },
       {},
     ],
@@ -205,7 +235,7 @@ export const FIXTURES = {
 export const PROFILE_KEYS = [
   "trackId", "onboarded", "selfAssessment", "requirements", "roadmap",
   "glossary", "mock", "cases", "library", "stories", "lessons", "quizBest",
-  "weakTopicsSeen", "english",
+  "weakTopicsSeen", "english", "labs", "drills", "portfolio", "diagnostic",
 ];
 
 function run() {
@@ -219,6 +249,10 @@ function run() {
   out.stories = FIXTURES.stories.map(([a, b]) => Sync.mergeStories(a, b));
   out.examDate = FIXTURES.examDate.map(([a, b]) => Sync.mergeExamDate(a, b));
   out.history = FIXTURES.history.map(([a, b]) => Sync.mergeHistory(a, b));
+  out.labs = FIXTURES.labs.map(([a, b]) => Sync.mergeLabs(a, b));
+  out.drills = FIXTURES.drills.map(([a, b]) => Sync.mergeDrills(a, b));
+  out.diagnostic = FIXTURES.diagnostic.map(([a, b]) => Sync.mergeDiagnostic(a, b));
+  out.portfolio = FIXTURES.portfolio.map(([a, b]) => Sync.mergePortfolio(a, b));
   out.profile = FIXTURES.profile.map(([a, b]) => Sync.mergeProfile(a, b));
   return out;
 }

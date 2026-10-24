@@ -991,6 +991,7 @@
    "track_id":"redcore-junior-seo"
   }
  ],
+ "dutyopsDrills":[],
  "englishDrills":[
   {
    "category":"О себе",
@@ -7438,6 +7439,7 @@
    ]
   }
  ],
+ "labs":[],
  "lessons":[
   {
    "common_mistakes":[

@@ -8,24 +8,26 @@
 |---|---:|
 | tracks | 4 |
 | active_tracks | 4 |
-| topics | 84 |
-| vacancies | 4 |
-| sources | 236 |
-| lessons | 95 |
-| glossary_terms | 282 |
-| library_resources | 224 |
-| questions | 541 |
-| mock_questions | 142 |
-| cases | 42 |
-| roadmap_steps | 95 |
+| topics | 96 |
+| vacancies | 5 |
+| sources | 324 |
+| lessons | 113 |
+| glossary_terms | 370 |
+| library_resources | 312 |
+| questions | 693 |
+| mock_questions | 172 |
+| cases | 66 |
+| roadmap_steps | 109 |
 | projects | 4 |
-| story_templates | 31 |
+| story_templates | 37 |
 | achievements | 24 |
-| english_phrases | 68 |
-| english_vocab | 81 |
-| english_drills | 26 |
+| english_phrases | 76 |
+| english_vocab | 93 |
+| english_drills | 34 |
 | english_writing | 41 |
 | english_resources | 9 |
+| labs | 48 |
+| dutyops_drills | 15 |
 
 ## Трек: Junior SEO Specialist (`redcore-junior-seo`) — статус `active`
 
@@ -205,56 +207,80 @@ ts-behavioral          ############............   5
 
 Пробелов не обнаружено.
 
-## Трек: DevOps / Platform Engineer (`devops-platform`) — статус `active`
+## Трек: RedCore Junior DevOps / DutyOps (`devops-platform`) — статус `active`
 
 ### Покрытие тем
 
 | Тема | Крит. | Обяз. | Тесты | Уроки | Термины | Материалы | Mock | Кейсы |
 |---|:-:|:-:|---:|---:|---:|---:|---:|---:|
-| Linux и командная строка `linux-basics` | да | да | 14 | 2 | 15 | 20 | 1 | 0 |
-| Сети и протоколы `networking` | да | да | 8 | 1 | 5 | 8 | 2 | 1 |
-| Git и работа с кодом `git-vcs` |  | да | 3 | 1 | 2 | 6 | 0 | 0 |
-| CI/CD `ci-cd` | да | да | 8 | 1 | 4 | 5 | 2 | 1 |
-| Контейнеры и Docker `containers` | да | да | 8 | 1 | 3 | 6 | 1 | 0 |
-| Образы и реестры `images-registry` |  | да | 4 | 1 | 4 | 5 | 1 | 1 |
-| Kubernetes `kubernetes` | да | да | 8 | 1 | 4 | 4 | 1 | 1 |
-| Эксплуатация Kubernetes `k8s-operations` |  | да | 5 | 1 | 4 | 3 | 1 | 2 |
-| Инфраструктура как код `iac` | да | да | 8 | 1 | 4 | 4 | 1 | 0 |
-| Конфигурация и секреты `config-secrets` |  | да | 3 | 1 | 3 | 5 | 1 | 1 |
-| Наблюдаемость `observability` | да | да | 8 | 1 | 5 | 8 | 2 | 1 |
-| Надёжность и SLO `reliability-slo` | да | да | 8 | 1 | 4 | 4 | 1 | 1 |
-| Инциденты и дежурства `incidents` |  | да | 3 | 1 | 4 | 5 | 1 | 1 |
-| Стратегии выката `deployment-strategies` |  | да | 4 | 1 | 4 | 3 | 2 | 1 |
-| Облачные основы `cloud-basics` |  | да | 2 | 1 | 2 | 3 | 0 | 0 |
-| Безопасность конвейера `security-pipeline` |  | да | 3 | 1 | 5 | 11 | 1 | 1 |
-| Базы данных в эксплуатации `databases-ops` |  | да | 3 | 1 | 3 | 4 | 2 | 2 |
-| Скрипты и автоматизация `scripting` |  | да | 3 | 1 | 2 | 10 | 1 | 0 |
+| Linux и командная строка `linux-basics` | да | да | 26 | 3 | 23 | 27 | 3 | 4 |
+| Сети и протоколы `networking` | да | да | 18 | 2 | 14 | 17 | 4 | 7 |
+| Git и работа с кодом `git-vcs` |  | да | 7 | 1 | 4 | 9 | 0 | 0 |
+| CI/CD `ci-cd` | да | да | 12 | 2 | 7 | 11 | 2 | 2 |
+| Контейнеры и Docker `containers` | да | да | 12 | 1 | 7 | 11 | 2 | 1 |
+| Образы и реестры `images-registry` |  | да | 6 | 1 | 6 | 6 | 1 | 3 |
+| Kubernetes `kubernetes` | да | да | 14 | 1 | 6 | 13 | 3 | 5 |
+| Эксплуатация Kubernetes `k8s-operations` |  | да | 11 | 1 | 7 | 7 | 1 | 4 |
+| Инфраструктура как код `iac` | да | да | 12 | 1 | 7 | 7 | 2 | 3 |
+| Конфигурация и секреты `config-secrets` |  | да | 3 | 1 | 5 | 6 | 1 | 1 |
+| Наблюдаемость `observability` | да | да | 8 | 1 | 7 | 14 | 5 | 6 |
+| Надёжность и SLO `reliability-slo` |  | да | 8 | 1 | 5 | 6 | 1 | 1 |
+| Инциденты и дежурства `incidents` | да | да | 9 | 2 | 11 | 10 | 6 | 8 |
+| Стратегии выката `deployment-strategies` |  | да | 4 | 1 | 4 | 3 | 2 | 2 |
+| Облачные основы `cloud-basics` |  | да | 6 | 1 | 4 | 6 | 2 | 0 |
+| Безопасность конвейера `security-pipeline` |  | да | 3 | 1 | 8 | 14 | 1 | 1 |
+| PostgreSQL и базы данных в эксплуатации `databases-ops` |  | да | 8 | 2 | 8 | 8 | 3 | 3 |
+| Скрипты и автоматизация `scripting` |  | да | 9 | 2 | 2 | 12 | 1 | 0 |
 | Стоимость и ёмкость `cost-capacity` |  |  | 2 | 1 | 1 | 1 | 0 | 1 |
-| Behavioral interview `behavioral-devops` |  | да | 3 | 1 | 6 | 5 | 8 | 0 |
+| Behavioral interview `behavioral-devops` |  | да | 3 | 1 | 8 | 5 | 16 | 0 |
+| Nginx и reverse proxy `nginx-proxy` | да | да | 9 | 1 | 6 | 6 | 3 | 2 |
+| Prometheus и Grafana `monitoring-prometheus` | да | да | 9 | 1 | 7 | 7 | 2 | 2 |
+| Логи: Loki и LogQL `logging-loki` |  | да | 6 | 1 | 2 | 3 | 1 | 1 |
+| MongoDB в эксплуатации `mongodb-ops` |  | да | 6 | 1 | 3 | 3 | 1 | 1 |
+| ClickHouse в эксплуатации `clickhouse-ops` |  | да | 6 | 1 | 3 | 4 | 1 | 1 |
+| Ansible и конфигурация `ansible-config` |  | да | 6 | 1 | 4 | 4 | 1 | 2 |
+| AWS и EKS `aws-eks` |  | да | 4 | 1 | 5 | 5 | 2 | 2 |
+| Google Cloud: основы `gcp-basics` |  | да | 6 | 1 | 2 | 4 | 1 | 0 |
+| Cloudflare: DNS, CDN, WAF `edge-cloudflare` |  | да | 6 | 1 | 9 | 6 | 2 | 1 |
+| Redis и NATS `redis-nats` |  |  | 6 | 1 | 4 | 6 | 0 | 0 |
+| DutyOps: мониторинг и runbooks `dutyops-runbooks` | да | да | 9 | 1 | 5 | 3 | 4 | 3 |
+| Доставка трафика и зеркала `traffic-delivery` |  | да | 6 | 1 | 7 | 7 | 3 | 4 |
 
 ### Распределение вопросов по темам
 
 ```
-linux-basics           ########################  14
-networking             ##############..........   8
-git-vcs                #####...................   3
-ci-cd                  ##############..........   8
-containers             ##############..........   8
-images-registry        #######.................   4
-kubernetes             ##############..........   8
-k8s-operations         #########...............   5
-iac                    ##############..........   8
-config-secrets         #####...................   3
-observability          ##############..........   8
-reliability-slo        ##############..........   8
-incidents              #####...................   3
-deployment-strategies  #######.................   4
-cloud-basics           ###.....................   2
-security-pipeline      #####...................   3
-databases-ops          #####...................   3
-scripting              #####...................   3
-cost-capacity          ###.....................   2
-behavioral-devops      #####...................   3
+linux-basics           ########################  26
+networking             #################.......  18
+git-vcs                ######..................   7
+ci-cd                  ###########.............  12
+containers             ###########.............  12
+images-registry        ######..................   6
+kubernetes             #############...........  14
+k8s-operations         ##########..............  11
+iac                    ###########.............  12
+config-secrets         ###.....................   3
+observability          #######.................   8
+reliability-slo        #######.................   8
+incidents              ########................   9
+deployment-strategies  ####....................   4
+cloud-basics           ######..................   6
+security-pipeline      ###.....................   3
+databases-ops          #######.................   8
+scripting              ########................   9
+cost-capacity          ##......................   2
+behavioral-devops      ###.....................   3
+nginx-proxy            ########................   9
+monitoring-prometheus  ########................   9
+logging-loki           ######..................   6
+mongodb-ops            ######..................   6
+clickhouse-ops         ######..................   6
+ansible-config         ######..................   6
+aws-eks                ####....................   4
+gcp-basics             ######..................   6
+edge-cloudflare        ######..................   6
+redis-nats             ######..................   6
+dutyops-runbooks       ########................   9
+traffic-delivery       ######..................   6
 ```
 
 ### Пробелы
@@ -268,27 +294,29 @@ behavioral-devops      #####...................   3
 | Junior SEO Specialist `redcore-junior-seo` | 68 | 51 | 16 | 39 | 27 |
 | QA Engineer — платежи `qa-payments` | 64 | 49 | 13 | 38 | 17 |
 | Technical Engineer `technical-engineer` | 64 | 47 | 14 | 37 | 15 |
-| DevOps / Platform Engineer `devops-platform` | 64 | 46 | 13 | 38 | 14 |
+| RedCore Junior DevOps / DutyOps `devops-platform` | 72 | 58 | 21 | 38 | 42 |
 
 ## Распределение по сложности
 
 | Коллекция | 1 | 2 | 3 |
 |---|---:|---:|---:|
-| Вопросы | 125 | 317 | 99 |
-| Термины | 94 | 157 | 31 |
-| Mock | 22 | 87 | 33 |
-| Кейсы | 0 | 26 | 16 |
-| Материалы | 64 | 126 | 34 |
+| Вопросы | 168 | 418 | 107 |
+| Термины | 114 | 208 | 48 |
+| Mock | 24 | 108 | 40 |
+| Кейсы | 1 | 44 | 21 |
+| Материалы | 101 | 174 | 37 |
 
 ## Источники
 
-- всего: 236
-- проверено (`verified: true`): 236
-- требуют ручной проверки: 0
+- всего: 324
+- проверено (`verified: true`): 323
+- требуют ручной проверки: 1
 - не используются нигде: 9
-- материалов библиотеки со статусом needs_review: 0
+- материалов библиотеки со статусом needs_review: 1
 
 Неиспользуемые источники: `cisco-english-for-it1`, `cisco-english-for-it2`, `github-english-it-professionals`, `github-english-it-unhan`, `speak-tech-english`, `mdn-home`, `github-skills`, `youglish`, `cambridge-write-improve`
+
+Непроверенные источники: `devops-with-kubernetes`
 
 ### Топ-10 самых цитируемых источников
 
@@ -301,9 +329,9 @@ behavioral-devops      #####...................   3
 | `google-seo-starter-guide` — SEO Starter Guide | 26 |
 | `google-helpful-content` — Creating helpful, reliable, people-first content | 24 |
 | `stripe-payment-intents` — PaymentIntent lifecycle | 24 |
+| `linux-man-pages` — Linux man-pages | 22 |
 | `google-spam-policies` — Spam policies for Google web search | 22 |
 | `stripe-webhooks` — Webhooks | 18 |
-| `google-crawl-budget` — Large site owner's guide to managing your crawl budget | 17 |
 
 ## Записи без источника
 
@@ -328,6 +356,6 @@ behavioral-devops      #####...................   3
 
 ## План подготовки
 
-- шагов всего: 95, обязательных: 92
-- суммарная оценка времени: 5490 мин (~91.5 ч), из них обязательных 5360 мин (~89.3 ч)
+- шагов всего: 109, обязательных: 105
+- суммарная оценка времени: 7030 мин (~117.2 ч), из них обязательных 6840 мин (~114.0 ч)
 

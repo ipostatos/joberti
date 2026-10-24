@@ -24,7 +24,7 @@
 
 ## Что проверяется автоматически
 
-`tools/validate_content.py` — более 2300 проверок. Основное:
+`tools/validate_content.py` — более 16 000 проверок. Основное:
 
 * уникальность идентификаторов в каждой коллекции;
 * существование всех перекрёстных ссылок;
@@ -394,14 +394,15 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 ```
 
 `practice_items` — префиксованные ссылки: `quiz:<topic_id>`, `case:<case_id>`,
-`mock:<mock_id>`. Все проверяются на существование; тема в `quiz:` обязана
+`mock:<mock_id>`, а в DevOps-треке ещё `lab:<lab_id>` и `drill:<drill_id>`. Все проверяются на существование; тема в `quiz:` обязана
 иметь вопросы.
 
 `prerequisites` обязаны идти **раньше** по `order` и не образовывать циклов.
 
 Возможные ключи `completion_rule`: `lesson_read`, `quiz_score_min`,
 `case_completed_min`, `mock_answered_min`, `stories_filled_min`,
-`full_mock_sessions_min`, `requirements_evidenced_min`.
+`full_mock_sessions_min`, `requirements_evidenced_min`, `lab_completed_min`,
+`drill_completed_min`, `diagnostic_done`.
 
 `requirements_evidenced_min` — сколько требований вакансии человек подкрепил
 доказательством из своего опыта. Знание и доказательство разные вещи: процент по
@@ -440,7 +441,8 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 ```
 
 `importance`: `required` | `desirable` | `nice_to_have`.
-`status`: `confirmed` | `partial` | `learning` | `not_started` | `not_applicable`.
+`status`: `confirmed` | `partial` | `learning` | `not_started` | `not_applicable` |
+`unverified_experience`.
 `competency` (необязательно): `tools` | `english`.
 
 **`language_requirements`** — язык отдельным блоком, а не строкой внутри
@@ -491,6 +493,122 @@ URL обязан быть https. `verified: true` требует `verified_at`.
 разъехались бы при слиянии с другого устройства. Поэтому `requirement_id`
 обязан существовать в вакансии трека: иначе проект нечем закрыть, а
 ограничитель готовности останется включённым навсегда.
+
+### `labs.json` — лабораторные
+
+```json
+{
+  "id": "lab-linux-systemd-002",
+  "track_id": "devops-platform",
+  "title": "Сломанный systemd unit",
+  "lab_domain": "linux",
+  "priority": "core",
+  "environment": "local-linux",
+  "difficulty": 2,
+  "estimated_minutes": 40,
+  "topic_ids": ["linux-basics"],
+  "goal": "…",
+  "setup": ["…"],
+  "tasks": ["…", "…"],
+  "commands_to_know": ["systemctl status", "journalctl -u"],
+  "success_criteria": ["…", "…", "…"],
+  "evidence_prompt": "Что записать как доказательство",
+  "post_check_question_ids": ["q-devops-lab-002-1", "q-devops-lab-002-2"],
+  "safety_notes": ["…"],
+  "cleanup_steps": ["…"],
+  "hints": ["…"],
+  "interview_angle": "Как рассказать об этом на собеседовании",
+  "source_refs": ["…"],
+  "related_lesson_ids": ["…"]
+}
+```
+
+`priority`: `core` | `important` | `optional`. `environment`: `local-linux` |
+`local-docker` | `local-kind` | `paper` | `cloud-optional`. `lab_domain` обязан
+быть объявлен в `tracks.json → lab_domains`; в каждом домене с `core: true`
+должна быть хотя бы одна core-лабораторная.
+
+Правила:
+
+* **Никакой имитации автопроверки.** Приложение не видит среду пользователя:
+  `goal` и `evidence_prompt` не обещают «автоматически проверим».
+  Выполнение = отмеченные `success_criteria` + заметка + post-check.
+* **Post-check** — вопросы из `questions.json` того же трека; каждый
+  проверяет то, что делалось в лабораторной.
+* **Деструктивные команды** (`rm -rf`, `dd`, `mkfs`, `terraform destroy`,
+  `kubectl delete`, `DROP DATABASE`) допустимы только на одноразовом стенде, и
+  `safety_notes` обязан сказать об этом словом «одноразовый» — проверяет
+  валидатор.
+* **Облако необязательно.** `cloud-optional` не бывает `core` и обязан иметь
+  `cost_warning`, `cleanup_steps` и `local_alternative`.
+* Вывод команд в заданиях — воспроизводимый, а не «на глаз».
+
+### `dutyops.json` — DutyOps-упражнения
+
+```json
+{
+  "id": "drill-dutyops-502-001",
+  "track_id": "devops-platform",
+  "kind": "drill",
+  "title": "…",
+  "topic_ids": ["…"],
+  "difficulty": 2,
+  "estimated_minutes": 20,
+  "scenario": "…",
+  "observations": ["…"],
+  "steps": [
+    {
+      "id": "s1",
+      "phase": "first_check",
+      "prompt": "…",
+      "options": [
+        { "text": "…", "score": 2, "feedback": "…" },
+        { "text": "…", "score": 1, "feedback": "…" },
+        { "text": "…", "score": 0, "feedback": "…" }
+      ]
+    }
+  ],
+  "reference_sequence": ["…"],
+  "escalation_boundary": "Что дежурный делает сам, а что эскалирует",
+  "communication_example": "Пример сообщения в инцидентный канал",
+  "unknowns": ["Порядок эскалации в RedCore — неизвестно, уточнить у интервьюера"],
+  "related_lab_ids": ["…"],
+  "related_case_ids": ["…"],
+  "source_refs": ["…"]
+}
+```
+
+`kind`: `drill` | `runbook`. В каждом шаге 3–4 варианта, ровно один с
+`score: 2` и хотя бы один с `score: 0`: оценивается последовательность
+решений. Drill обязан пройти фазы `first_check`, `second_check`, `escalation`,
+`communication`. У runbook шаги идут строго в порядке `trigger`, `scope`,
+`first_checks`, `safe_actions`, `escalation_boundary`, `recovery`,
+`verification`, `communication`, `aftercare`. Каждый пункт `unknowns`
+содержит «уточнить у интервьюера»: внутреннее устройство компании не
+выдумывается.
+
+### Дополнения DevOps-трека в общих файлах
+
+* **`questions.json` → `kind`**: `scenario` | `command_output` |
+  `troubleshooting_order` | `concept`. Для `devops-platform` поле обязательно,
+  доли не ниже 30% / 20% / 10%. Вывод команды в тексте вопроса — с новой строки
+  или в блоке ```` ``` ````: экран покажет его моноширинным.
+* **`lessons.json`** для DevOps: `mental_model`, `under_the_hood`,
+  `dutyops_relevance`, `commands` (`[{"cmd", "what"}]`), `failure_modes`,
+  `troubleshooting_sequence`, `related_lab_ids`.
+* **`cases.json` → `incident`**: `impact`, `triage`, `hypotheses`, `evidence`,
+  `containment`, `recovery`, `root_cause`, `prevention`, `communication`.
+* **`library.json` → `source_origin`**: `official` | `milanm-devops-roadmap` |
+  `secondary`; для записей из DevOps-Roadmap ещё `reference_commit`.
+* **`roadmap.json`**: `practice_items` принимают `lab:<lab_id>` и
+  `drill:<drill_id>`; ключи `completion_rule` — `lab_completed_min`,
+  `drill_completed_min`, `diagnostic_done`; поле `phase` группирует шаги.
+* **`vacancies.json`**: `source_url`, `source_title`, `source_status`
+  (`verified` | `needs_review`), `source_verified_at`, `source_snapshot_at`,
+  `source_note`; у требований — `kind` (`skill` | `experience`),
+  `source_section`, `domain_id`, `lab_ids`; у вакансии — `depth_levels`,
+  `skill_matrix`, `evidence_prompts`. Статус `unverified_experience` —
+  «заявил опыт, но доказательства нет», в покрытие идёт как 0.
 
 ### `stories.json`
 

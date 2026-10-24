@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://telegram.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Практика · Interview Trainer</title>
+<link rel="stylesheet" href="theme.css">
+<link rel="icon" href="icon.svg">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="nav.js"></script>
+<script src="generated/content_core.js"></script>
+<script src="content-loader.js"></script>
+<script src="srs.js"></script>
+<script src="progress.js"></script>
+<script src="readiness.js"></script>
+<script src="sync.js"></script>
+<script src="icons.js"></script>
+<script src="app.js"></script>
+<style>
+  .steps-ol{ list-style:none; padding:0; margin:0 }
+  .steps-ol li{ display:flex; gap:var(--sp-2); align-items:flex-start; padding:7px 0;
+    font-size:var(--fs-sm); line-height:1.55; border-bottom:1px solid var(--border) }
+  .steps-ol li:last-child{ border-bottom:0 }
+  .stepnum{ display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:50%; background:var(--muted-fill);
+    color:var(--hint); font-size:var(--fs-xs); font-weight:700; flex:0 0 auto }
+  .steps-ol li .tx{ flex:1; min-width:0; overflow-wrap:anywhere }
+  code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em;
+    background:var(--muted-fill); border:1px solid var(--border); border-radius:4px;
+    padding:0 4px; overflow-wrap:anywhere }
+  .obs{ list-style:none; padding:0; margin:var(--sp-2) 0 0 }
+  .obs li{ font-size:var(--fs-sm); padding:7px var(--sp-3); background:var(--muted-fill);
+    border:1px solid var(--border); border-radius:var(--r-sm); margin-bottom:6px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere }
+  .check{ display:flex; gap:var(--sp-3); align-items:flex-start; width:100%; text-align:left;
+    font:inherit; color:var(--text); background:var(--card); border:1px solid var(--border);
+    border-radius:var(--r-md); padding:var(--sp-3); margin-bottom:var(--sp-2); cursor:pointer }
+  .check .box{ flex:0 0 20px; height:20px; border-radius:5px; border:2px solid var(--border);
+    display:inline-flex; align-items:center; justify-content:center; margin-top:1px }
+  .check.on{ border-color:var(--ok) }
+  .check.on .box{ background:var(--ok); border-color:var(--ok); color:#fff }
+  .check .tx{ font-size:var(--fs-sm); line-height:1.5 }
+  .badge{ display:inline-block; font-size:var(--fs-xs); font-weight:700; padding:2px 8px;
+    border-radius:var(--r-pill); background:var(--muted-fill); color:var(--hint); margin-right:4px }
+  .badge.core{ color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent) }
+  .badge.warn{ color:var(--warn); background:color-mix(in srgb, var(--warn) 15%, transparent) }
+  .badge.ok{ color:var(--ok); background:color-mix(in srgb, var(--ok) 15%, transparent) }
+  .warnbox{ border:1px solid color-mix(in srgb, var(--warn) 45%, var(--border));
+    background:color-mix(in srgb, var(--warn) 8%, var(--card)) }
+  .score2{ border-color:var(--ok) !important }
+  .score1{ border-color:var(--warn) !important }
+  .score0{ border-color:var(--bad) !important }
+  .fb{ display:block; margin-top:6px; font-size:var(--fs-sm); color:var(--hint); line-height:1.45 }
+  details.hint{ margin-top:var(--sp-2); font-size:var(--fs-sm) }
+  details.hint summary{ cursor:pointer; color:var(--link) }
+  textarea.note{ min-height:96px }
+</style>
+</head>
+<body>
+
+<section id="list">
+  <div class="hero">
+    <span class="ic-tile green" data-icon="list-checks"></span>
+    <div class="body">
+      <h1>Практика</h1>
+      <div class="muted small" id="listSub"></div>
+    </div>
+  </div>
+  <div class="chip-row" id="tabs" style="margin-bottom:var(--sp-3)">
+    <button class="chip on" data-tab="labs">Лабораторные</button>
+    <button class="chip" data-tab="drills">DutyOps drills</button>
+    <button class="chip" data-tab="runbooks">Runbooks</button>
+  </div>
+  <div id="listBody"></div>
+</section>
+
+<section id="detail" class="hidden"></section>
+
+<script>
+(function () {
+  "use strict";
+
+  var elList = document.getElementById("list");
+  var elDetail = document.getElementById("detail");
+  var tab = App.param("tab") || "labs";
+  var labFilter = "all";
+  var open = null;            // { kind: "lab"|"drill", id }
+  var post = null;            // состояние post-check
+  var play = null;            // состояние drill
+
+  var ENV = {
+    "local-linux": "Linux-стенд или контейнер", "local-docker": "Docker на своей машине",
+    "local-kind": "kind или minikube", "paper": "упражнение на бумаге",
+    "cloud-optional": "облако по желанию",
+  };
+  var PRIORITY = { core: "core", important: "важная", optional: "по желанию" };
+
+  // Текст лабораторных содержит команды в обратных кавычках: экранируем всё,
+  // потом превращаем `…` в <code>. Порядок важен — иначе команда стала бы HTML.
+  function rich(s) {
+    return App.esc(s).replace(/`([^`]+)`/g, function (_, c) { return "<code>" + c + "</code>"; });
+  }
+  function ol(items) {
+    return '<ol class="steps-ol">' + (items || []).map(function (x, i) {
+      return '<li><span class="stepnum">' + (i + 1) + '</span><span class="tx">' + rich(x) + "</span></li>";
+    }).join("") + "</ol>";
+  }
+  function ul(items, tone) {
+    return '<ul class="points ' + (tone || "") + '">' + (items || []).map(function (x) {
+      return '<li><span class="b"></span><span>' + rich(x) + "</span></li>";
+    }).join("") + "</ul>";
+  }
+  function sourcesCard(ids) {
+    var srcs = (ids || []).map(App.sourceById).filter(Boolean);
+    if (!srcs.length) return "";
+    return '<div class="card"><div class="h3">Источники</div>' + srcs.map(function (s) {
+      return '<div class="small" style="margin-bottom:6px"><a href="' + App.esc(s.url) +
+        '" target="_blank" rel="noopener noreferrer">' + App.esc(s.title) + "</a> · " +
+        '<span class="muted">' + App.esc(s.publisher) + "</span></div>";
+    }).join("") + "</div>";
+  }
+
+  // ── список ──────────────────────────────────────────────────────────────
+  function renderList() {
+    Array.prototype.forEach.call(document.getElementById("tabs").children, function (c) {
+      c.classList.toggle("on", c.getAttribute("data-tab") === tab);
+    });
+    var labs = App.labs(), drills = App.dutyDrills();
+    document.getElementById("listSub").textContent =
+      labs.length + " лабораторных · " + drills.length + " DutyOps-упражнений";
+    if (!labs.length && !drills.length) {
+      document.getElementById("listBody").innerHTML =
+        '<div class="state">Для выбранного трека практических лабораторных нет</div>' +
+        '<a class="btn ghost" href="index.html">На главную</a>';
+      return;
+    }
+    if (tab === "labs") renderLabList(labs);
+    else renderDrillList(drills.filter(function (d) {
+      return tab === "runbooks" ? d.kind === "runbook" : d.kind === "drill";
+    }));
+    Icons.hydrate();
+  }
+
+  function renderLabList(labs) {
+    var r = App.readiness();
+    var lb = r.available ? r.blocks.filter(function (b) { return b.key === "labs"; })[0] : null;
+    var done = App.labsDoneCount();
+    var html = '<div class="card">' +
+      '<div class="kv"><span class="k">Выполнено</span><span class="v">' + done + " из " + labs.length + "</span></div>" +
+      (lb ? '<div class="kv"><span class="k">Core-домены закрыты</span><span class="v">' +
+        lb.detail.coreDomainsClosed + " из " + lb.detail.coreDomains.length + "</span></div>" +
+        '<div class="kv"><span class="k">Блок в готовности</span><span class="v">' +
+        Math.round(lb.score * 100) + "%</span></div>" : "") +
+      '<p class="xs muted" style="margin-top:var(--sp-2); line-height:1.5">' +
+      "Приложение не может проверить ваш стенд. Выполнение складывается из чек-листа, " +
+      "заметки и post-check вопросов; одна отметка «готово» даёт лишь часть уверенности, " +
+      "остальное — post-check и повторное прохождение.</p></div>";
+
+    html += '<div class="chip-row" id="labFilters" style="margin-bottom:var(--sp-3)">' +
+      [["all", "Все"], ["core", "Core"], ["todo", "Не выполнены"], ["done", "Выполнены"]].map(function (f) {
+        return '<button class="chip' + (labFilter === f[0] ? " on" : "") + '" data-f="' + f[0] + '">' + f[1] + "</button>";
+      }).join("") + "</div>";
+
+    var shown = labs.filter(function (l) {
+      var st = App.labState(l.id);
+      if (labFilter === "core") return l.priority === "core";
+      if (labFilter === "todo") return !st.completed;
+      if (labFilter === "done") return !!st.completed;
+      return true;
+    });
+    App.labDomains().forEach(function (d) {
+      var rows = shown.filter(function (l) { return l.lab_domain === d.id; });
+      if (!rows.length) return;
+      html += '<div class="section-title">' + App.esc(d.title) + (d.core ? " · core-домен" : "") + "</div>";
+      html += rows.map(function (l) {
+        var st = App.labState(l.id);
+        var pc = typeof st.post_check_score === "number" ? Math.round(st.post_check_score * 100) : null;
+        return '<button class="row-card" data-lab="' + App.esc(l.id) + '">' +
+          '<span class="ic-tile ' + (st.completed ? "green" : "slate") + '" data-icon="' +
+          (st.completed ? "check-circle" : "list-checks") + '"></span>' +
+          '<span class="body"><span class="t">' + App.esc(l.title) + "</span>" +
+          '<span class="d"><span class="badge' + (l.priority === "core" ? " core" : "") + '">' +
+          App.esc(PRIORITY[l.priority]) + "</span>" + App.esc(ENV[l.environment] || l.environment) +
+          " · " + l.estimated_minutes + " мин</span>" +
+          '<span class="d">' + (st.completed
+            ? "выполнено" + (st.attempts > 1 ? " ×" + st.attempts : "") +
+              (pc != null ? " · post-check " + pc + "%" : " · post-check не пройден")
+            : "не выполнено") + "</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+      }).join("");
+    });
+    if (!shown.length) html += '<div class="state">Здесь пусто</div>';
+    document.getElementById("listBody").innerHTML = html;
+  }
+
+  function renderDrillList(drills) {
+    var html = '<div class="card"><p class="small muted" style="line-height:1.55">' +
+      (tab === "runbooks"
+        ? "Соберите runbook по разделам: для каждого выберите лучшее содержание. В конце — эталонный runbook целиком."
+        : "Один инцидент и ограниченный набор наблюдений. Выбираете, что проверить первым и вторым, " +
+          "когда эскалировать и что написать в канал. Оценивается ход рассуждения, а не угаданная команда.") +
+      "</p></div>";
+    html += drills.map(function (d) {
+      var st = App.drillState(d.id);
+      return '<button class="row-card" data-drill="' + App.esc(d.id) + '">' +
+        '<span class="ic-tile ' + (st ? (st.best >= 75 ? "green" : "amber") : "violet") + '" data-icon="' +
+        (d.kind === "runbook" ? "file-text" : "alert-triangle") + '"></span>' +
+        '<span class="body"><span class="t">' + App.esc(d.title) + "</span>" +
+        '<span class="d">' + (d.topic_ids || []).map(App.topicTitle).join(", ") +
+        " · " + d.estimated_minutes + " мин</span>" +
+        '<span class="d">' + (st ? "лучший результат " + st.best + "%, попыток " + st.attempts : "не пройдено") +
+        "</span></span>" +
+        '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+    }).join("") || '<div class="state">Здесь пусто</div>';
+    document.getElementById("listBody").innerHTML = html;
+  }
+
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tab]");
+    if (!b) return;
+    tab = b.getAttribute("data-tab");
+    renderList();
+  });
+  document.getElementById("listBody").addEventListener("click", function (e) {
+    var f = e.target.closest("[data-f]");
+    if (f) { labFilter = f.getAttribute("data-f"); renderList(); return; }
+    var l = e.target.closest("[data-lab]");
+    if (l) { openLab(l.getAttribute("data-lab")); return; }
+    var d = e.target.closest("[data-drill]");
+    if (d) openDrill(d.getAttribute("data-drill"));
+  });
+
+  function showDetail() {
+    elList.classList.add("hidden");
+    elDetail.classList.remove("hidden");
+    window.scrollTo(0, 0);
+  }
+  function closeDetail() {
+    open = null; post = null; play = null;
+    if (window.setBusy) setBusy(false);
+    elDetail.classList.add("hidden");
+    elList.classList.remove("hidden");
+    renderList();
+    window.scrollTo(0, 0);
+  }
+
+  // ── лабораторная ────────────────────────────────────────────────────────
+  function openLab(id) {
+    var lab = App.byId(App.labs(), id);
+    if (!lab) return;
+    open = { kind: "lab", id: id };
+    post = null;
+    renderLab();
+    showDetail();
+  }
+
+  function renderLab() {
+    var lab = App.byId(App.labs(), open.id);
+    var st = App.labState(lab.id);
+    var checked = st.checklist || {};
+    var allChecked = (lab.success_criteria || []).every(function (_, i) { return checked[String(i)]; });
+    var pc = typeof st.post_check_score === "number" ? Math.round(st.post_check_score * 100) : null;
+    var conf = Math.round(Readiness.labConfidence(st) * 100);
+
+    var h = '<div class="hero"><span class="ic-tile green" data-icon="list-checks"></span>' +
+      '<div class="body"><h1>' + App.esc(lab.title) + "</h1>" +
+      '<div class="muted small"><span class="badge' + (lab.priority === "core" ? " core" : "") + '">' +
+      App.esc(PRIORITY[lab.priority]) + "</span>" + App.esc(ENV[lab.environment] || lab.environment) +
+      " · " + lab.estimated_minutes + " мин · сложность " + lab.difficulty + "</div></div></div>";
+
+    h += '<div class="card"><div class="h3">Цель</div><p class="small" style="line-height:1.6">' +
+      rich(lab.goal) + "</p>" +
+      '<div class="kv"><span class="k">Статус</span><span class="v">' +
+      (st.completed ? "выполнено" + (st.attempts > 1 ? " · попыток " + st.attempts : "") : "не выполнено") + "</span></div>" +
+      '<div class="kv"><span class="k">Лучший post-check</span><span class="v">' + (pc != null ? pc + "%" : "—") + "</span></div>" +
+      '<div class="kv"><span class="k">Уверенность в готовности</span><span class="v">' + conf + "%</span></div></div>";
+
+    if (lab.cost_warning) {
+      h += '<div class="card warnbox"><div class="h3">Может стоить денег</div>' +
+        '<p class="small" style="line-height:1.6">' + rich(lab.cost_warning) + "</p>" +
+        (lab.local_alternative ? '<p class="small" style="line-height:1.6"><b>Без облака:</b> ' +
+          rich(lab.local_alternative) + "</p>" : "") + "</div>";
+    }
+    h += '<div class="card warnbox"><div class="h3">Безопасность</div>' + ul(lab.safety_notes, "warn") + "</div>";
+
+    var pre = (lab.prerequisites || []).map(function (pid) { return App.byId(App.labs(), pid); }).filter(Boolean);
+    if (pre.length) {
+      h += '<div class="card"><div class="h3">Сначала</div>' + pre.map(function (p) {
+        return '<a class="chip" href="labs.html?id=' + encodeURIComponent(p.id) + '">' + App.esc(p.title) + "</a>";
+      }).join(" ") + "</div>";
+    }
+    h += '<div class="card"><div class="h3">Подготовка стенда</div>' + ol(lab.setup) + "</div>";
+    h += '<div class="card"><div class="h3">Задачи</div>' + ol(lab.tasks) +
+      ((lab.hints || []).length ? lab.hints.map(function (x, i) {
+        return '<details class="hint"><summary>Подсказка ' + (i + 1) + "</summary>" +
+          '<div style="margin-top:6px">' + rich(x) + "</div></details>";
+      }).join("") : "") + "</div>";
+    h += '<div class="card"><div class="h3">Команды</div><div class="chip-row" style="flex-wrap:wrap; overflow:visible">' +
+      (lab.commands_to_know || []).map(function (c) { return '<span class="chip"><code>' + App.esc(c) + "</code></span>"; }).join("") +
+      "</div></div>";
+
+    h += '<div class="card"><div class="h3">Критерии выполнения</div>' +
+      '<p class="xs muted" style="margin-bottom:var(--sp-2)">Отметьте только то, что видели своими глазами.</p>' +
+      (lab.success_criteria || []).map(function (c, i) {
+        var on = !!checked[String(i)];
+        return '<button class="check' + (on ? " on" : "") + '" data-check="' + i + '">' +
+          '<span class="box">' + (on ? "✓" : "") + '</span><span class="tx">' + rich(c) + "</span></button>";
+      }).join("") + "</div>";
+
+    h += '<div class="card"><div class="h3">Заметка-доказательство</div>' +
+      '<p class="xs muted" style="margin-bottom:var(--sp-2)">' + rich(lab.evidence_prompt) +
+      " Заметка хранится как есть и не оценивается автоматически.</p>" +
+      '<label class="field"><textarea class="note" id="noteBox" maxlength="1000"></textarea></label>' +
+      '<button class="btn sm ghost" id="saveNote">Сохранить заметку</button></div>';
+
+    h += '<div class="btn-row">' +
+      '<button class="btn" id="doneBtn"' + (allChecked ? "" : " disabled") + ">" +
+      (st.completed ? "Прошёл(ла) ещё раз" : "Отметить выполненной") + "</button>" +
+      ((lab.post_check_question_ids || []).length
+        ? '<button class="btn ghost" id="postBtn"' + (st.completed ? "" : " disabled") + ">Post-check</button>" : "") +
+      "</div>" +
+      (allChecked ? "" : '<p class="xs muted" style="margin-top:6px">Кнопка станет доступна, когда все критерии отмечены.</p>');
+
+    h += '<div id="postBox"></div>';
+
+    if ((lab.cleanup_steps || []).length) h += '<div class="card"><div class="h3">Уборка</div>' + ol(lab.cleanup_steps) + "</div>";
+    if (lab.interview_angle) {
+      h += '<div class="card"><div class="h3">Как рассказать на собеседовании</div>' +
+        '<p class="small" style="line-height:1.6">' + rich(lab.interview_angle) + "</p></div>";
+    }
+    var lessons = (lab.related_lesson_ids || []).map(function (id) { return App.byId(CONTENT.lessons, id); }).filter(Boolean);
+    if (lessons.length) {
+      h += '<div class="card"><div class="h3">Теория</div>' + lessons.map(function (l) {
+        return '<a class="chip" href="lesson.html?id=' + encodeURIComponent(l.id) + '">' + App.esc(l.title) + "</a>";
+      }).join(" ") + "</div>";
+    }
+    h += sourcesCard(lab.source_refs);
+    h += '<button class="btn ghost" id="backBtn">К списку</button>';
+
+    elDetail.innerHTML = h;
+    Icons.hydrate(elDetail);
+    document.getElementById("noteBox").value = st.evidence_note || "";
+
+    elDetail.querySelectorAll("[data-check]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var i = b.getAttribute("data-check");
+        App.setLabChecklist(lab.id, i, !checked[i]);
+        if (window.haptic) haptic("select");
+        renderLab();
+      });
+    });
+    document.getElementById("saveNote").addEventListener("click", function () {
+      App.saveLabNote(lab.id, document.getElementById("noteBox").value);
+      toast("Заметка сохранена");
+    });
+    document.getElementById("doneBtn").addEventListener("click", function () {
+      App.saveLabNote(lab.id, document.getElementById("noteBox").value);
+      if (App.completeLab(lab.id)) {
+        if (window.Sync) { Sync.push(); Sync.pushHistory(); }
+        if (window.haptic) haptic("success");
+        toast("Засчитано. Пройдите post-check — он поднимает уверенность");
+        renderLab();
+        if ((lab.post_check_question_ids || []).length) startPost(lab);
+      }
+    });
+    var pb = document.getElementById("postBtn");
+    if (pb) pb.addEventListener("click", function () { startPost(lab); });
+    document.getElementById("backBtn").addEventListener("click", closeDetail);
+  }
+
+  // ── post-check ──
+  function startPost(lab) {
+    var qs = (lab.post_check_question_ids || []).map(function (id) {
+      return App.byId(App.questions(), id);
+    }).filter(Boolean);
+    if (!qs.length) return;
+    post = { lab: lab, list: qs, i: 0, answers: [] };
+    if (window.setBusy) setBusy(true);
+    renderPost();
+    document.getElementById("postBox").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function renderPost() {
+    var box = document.getElementById("postBox");
+    if (!post || !box) return;
+    if (post.i >= post.list.length) return finishPost();
+    var q = post.list[post.i];
+    var order = App.shuffle([0, 1, 2, 3].slice(0, q.options.length), App.hashCode(q.id));
+    box.innerHTML = '<div class="card"><div class="h3">Post-check · ' + (post.i + 1) + " из " + post.list.length + "</div>" +
+      '<div class="small" style="font-weight:700; line-height:1.5; margin-bottom:var(--sp-3)">' +
+      App.questionHtml(q.question) + "</div>" +
+      order.map(function (o) {
+        return '<button class="opt" data-orig="' + o + '">' + App.esc(q.options[o]) + "</button>";
+      }).join("") + '<div id="postExplain"></div></div>';
+    box.querySelectorAll(".opt").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (b.disabled) return;
+        var orig = parseInt(b.getAttribute("data-orig"), 10);
+        var ok = orig === q.answer;
+        post.answers.push({ id: q.id, topic: q.topic, correct: ok });
+        box.querySelectorAll(".opt").forEach(function (el) {
+          var o = parseInt(el.getAttribute("data-orig"), 10);
+          el.disabled = true;
+          el.classList.add(o === q.answer ? "correct" : o === orig ? "wrong" : "dim");
+          if (q.why && q.why[o]) {
+            var w = document.createElement("span"); w.className = "why"; w.textContent = q.why[o]; el.appendChild(w);
+          }
+        });
+        if (window.haptic) haptic(ok ? "success" : "error");
+        document.getElementById("postExplain").innerHTML =
+          '<div class="explain"><div class="h">Разбор</div><div class="small">' + App.esc(q.explanation) + "</div></div>" +
+          '<button class="btn" id="postNext">' + (post.i + 1 < post.list.length ? "Дальше" : "Итог") + "</button>";
+        document.getElementById("postNext").addEventListener("click", function () { post.i++; renderPost(); });
+      });
+    });
+  }
+
+  function finishPost() {
+    var lab = post.lab;
+    var score = App.recordLabPostCheck(lab.id, post.answers);
+    if (window.Sync) { Sync.push(); Sync.pushHistory(); }
+    if (window.setBusy) setBusy(false);
+    var pct = Math.round(score * 100);
+    post = null;
+    renderLab();
+    document.getElementById("postBox").innerHTML = '<div class="card"><div class="h3">Post-check: ' + pct + "%</div>" +
+      '<p class="small muted">' + (pct >= 67
+        ? "Хорошо: уверенность в лабораторной выросла. Повторное прохождение через несколько дней поднимет её ещё."
+        : "Пройдите задачи лабораторной ещё раз и вернитесь к post-check: сохраняется лучший результат.") + "</p></div>";
+  }
+
+  // ── DutyOps drill / runbook ─────────────────────────────────────────────
+  function openDrill(id) {
+    var d = App.byId(App.dutyDrills(), id);
+    if (!d) return;
+    open = { kind: "drill", id: id };
+    play = { d: d, i: 0, picks: [] };
+    if (window.setBusy) setBusy(true);
+    renderDrill();
+    showDetail();
+  }
+
+  function phaseTitle(ph) {
+    return (CONTENT.dutyopsPhases || {})[ph] || ph;
+  }
+
+  function renderDrill() {
+    var d = play.d;
+    var h = '<div class="hero"><span class="ic-tile violet" data-icon="' +
+      (d.kind === "runbook" ? "file-text" : "alert-triangle") + '"></span>' +
+      '<div class="body"><h1>' + App.esc(d.title) + "</h1>" +
+      '<div class="muted small">' + (d.kind === "runbook" ? "Runbook" : "DutyOps drill") +
+      " · шаг " + Math.min(play.i + 1, d.steps.length) + " из " + d.steps.length + "</div></div></div>";
+    h += '<div class="card"><div class="h3">Ситуация</div><p class="small" style="line-height:1.6">' +
+      rich(d.scenario) + "</p>" +
+      '<div class="h3" style="margin-top:var(--sp-3)">Что видно</div><ul class="obs">' +
+      (d.observations || []).map(function (o) { return "<li>" + App.esc(o) + "</li>"; }).join("") + "</ul>" +
+      ((d.unknowns || []).length ? '<div class="h3" style="margin-top:var(--sp-3)">Неизвестно</div>' + ul(d.unknowns, "warn") : "") +
+      "</div>";
+
+    if (play.i < d.steps.length) {
+      var st = d.steps[play.i];
+      var picked = play.picks[play.i];
+      var order = App.shuffle(st.options.map(function (_, i) { return i; }), App.hashCode(d.id + st.id));
+      h += '<div class="card"><div class="h3">' + App.esc(phaseTitle(st.phase)) + "</div>" +
+        '<div class="small" style="font-weight:700; line-height:1.5; margin-bottom:var(--sp-3)">' + rich(st.prompt) + "</div>" +
+        order.map(function (oi) {
+          var o = st.options[oi];
+          var cls = "opt";
+          if (picked != null) cls += oi === picked ? " score" + o.score : (o.score === 2 ? " score2" : " dim");
+          return '<button class="' + cls + '" data-opt="' + oi + '"' + (picked != null ? " disabled" : "") + ">" +
+            rich(o.text) + (picked != null && (oi === picked || o.score === 2)
+              ? '<span class="fb">' + (o.score === 2 ? "Лучший вариант. " : o.score === 1 ? "Допустимо. " : "Плохой ход. ") +
+                App.esc(o.feedback) + "</span>" : "") + "</button>";
+        }).join("") +
+        (picked != null ? '<button class="btn" id="drillNext">' + (play.i + 1 < d.steps.length ? "Дальше" : "Итог") + "</button>" : "") +
+        "</div>";
+    } else {
+      h += renderDrillResult(d);
+    }
+    h += '<button class="btn ghost" id="backBtn">К списку</button>';
+    elDetail.innerHTML = h;
+    Icons.hydrate(elDetail);
+
+    elDetail.querySelectorAll("[data-opt]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (b.disabled) return;
+        var oi = parseInt(b.getAttribute("data-opt"), 10);
+        play.picks[play.i] = oi;
+        var sc = d.steps[play.i].options[oi].score;
+        if (window.haptic) haptic(sc === 2 ? "success" : sc === 1 ? "warning" : "error");
+        renderDrill();
+      });
+    });
+    var nx = document.getElementById("drillNext");
+    if (nx) nx.addEventListener("click", function () {
+      play.i++;
+      if (play.i >= d.steps.length) recordDrillResult(d);
+      renderDrill();
+      window.scrollTo(0, 0);
+    });
+    document.getElementById("backBtn").addEventListener("click", closeDetail);
+  }
+
+  function drillScore(d) {
+    var got = 0;
+    d.steps.forEach(function (st, i) { got += st.options[play.picks[i]].score; });
+    return Math.round(got / (2 * d.steps.length) * 100);
+  }
+
+  function recordDrillResult(d) {
+    var details = d.steps.map(function (st, i) {
+      return { id: st.id, phase: st.phase, score: st.options[play.picks[i]].score };
+    });
+    App.recordDrill(d.id, drillScore(d), details);
+    if (window.Sync) { Sync.push(); Sync.pushHistory(); }
+    if (window.setBusy) setBusy(false);
+  }
+
+  function renderDrillResult(d) {
+    var pct = drillScore(d);
+    var h = '<div class="card"><div class="h3">Итог: ' + pct + "%</div>" +
+      d.steps.map(function (st, i) {
+        var o = st.options[play.picks[i]];
+        return '<div class="kv"><span class="k">' + App.esc(phaseTitle(st.phase)) + "</span>" +
+          '<span class="v" style="color:' + (o.score === 2 ? "var(--ok)" : o.score === 1 ? "var(--warn)" : "var(--bad)") + '">' +
+          o.score + "/2</span></div>";
+      }).join("") + "</div>";
+    h += '<div class="card"><div class="h3">Эталонная последовательность</div>' + ol(d.reference_sequence) + "</div>";
+    h += '<div class="card"><div class="h3">Граница полномочий</div><p class="small" style="line-height:1.6">' +
+      rich(d.escalation_boundary) + "</p></div>";
+    h += '<div class="card"><div class="h3">Сообщение в канал</div><ul class="obs"><li style="white-space:pre-wrap">' +
+      App.esc(d.communication_example) + "</li></ul></div>";
+    if (d.kind === "runbook" && d.runbook) {
+      h += '<div class="card"><div class="h3">Эталонный runbook</div>' + d.steps.map(function (st) {
+        return '<div style="margin-bottom:var(--sp-2)"><div class="xs muted">' + App.esc(phaseTitle(st.phase)) + "</div>" +
+          '<div class="small" style="line-height:1.55">' + rich(d.runbook[st.phase] || "") + "</div></div>";
+      }).join("") + "</div>";
+    }
+    var labs = (d.related_lab_ids || []).map(function (id) { return App.byId(App.labs(), id); }).filter(Boolean);
+    if (labs.length) {
+      h += '<div class="card"><div class="h3">Отработать руками</div>' + labs.map(function (l) {
+        return '<a class="chip" href="labs.html?id=' + encodeURIComponent(l.id) + '">' + App.esc(l.title) + "</a>";
+      }).join(" ") + "</div>";
+    }
+    h += sourcesCard(d.source_refs);
+    return h;
+  }
+
+  window.__navBack = function () {
+    if (open) { closeDetail(); return true; }
+    return false;
+  };
+
+  renderList();
+  Icons.hydrate();
+  var qid = App.param("id");
+  if (qid) {
+    if (App.byId(App.labs(), qid)) openLab(qid);
+    else if (App.byId(App.dutyDrills(), qid)) openDrill(qid);
+  }
+})();
+</script>
+</body>
+</html>

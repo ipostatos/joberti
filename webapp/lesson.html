@@ -62,8 +62,35 @@
 
   html += '<div class="card"><p class="lead">' + App.esc(l.summary) + "</p></div>";
 
+  // Операционные разделы есть у уроков DevOps-трека; у остальных их нет,
+  // и карточки просто не рисуются.
+  function para(title, text) {
+    return text ? '<div class="card"><div class="h3">' + title + '</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(text) + "</p></div>" : "";
+  }
+  html += para("Простая модель", l.mental_model);
+  html += para("Что происходит под капотом", l.under_the_hood);
+
   html += '<div class="card"><div class="h3">Зачем это на работе</div>' +
     '<p class="small" style="line-height:1.65">' + App.esc(l.why_it_matters) + "</p></div>";
+  html += para("Зачем это дежурному (DutyOps)", l.dutyops_relevance);
+
+  if ((l.commands || []).length) {
+    html += '<div class="card"><div class="h3">Команды и что они показывают</div>' +
+      l.commands.map(function (c) {
+        return '<div style="margin-bottom:var(--sp-2)"><pre class="out" style="margin:0 0 4px">' +
+          App.esc(c.cmd) + '</pre><div class="small muted" style="line-height:1.5">' +
+          App.esc(c.what) + "</div></div>";
+      }).join("") + "</div>";
+  }
+  if ((l.failure_modes || []).length) {
+    html += '<div class="card"><div class="h3">Типовые сбои</div>' + li(l.failure_modes, "warn") + "</div>";
+  }
+  if ((l.troubleshooting_sequence || []).length) {
+    html += '<div class="card"><div class="h3">Порядок диагностики</div><ol class="small" style="line-height:1.6; padding-left:20px; margin:0">' +
+      l.troubleshooting_sequence.map(function (x) { return "<li>" + App.esc(x) + "</li>"; }).join("") +
+      "</ol></div>";
+  }
 
   html += '<div class="card"><div class="h3">Ключевые мысли</div>' + li(l.key_points, "ok") + "</div>";
 
@@ -92,6 +119,20 @@
 
   html += '<div class="card"><div class="h3">Практическое задание</div>' +
     '<p class="small" style="line-height:1.65">' + App.esc(l.practice_task) + "</p></div>";
+
+  // Связанные лабораторные — практика к уроку.
+  var labs = (l.related_lab_ids || []).map(function (id) {
+    return App.byId(CONTENT.labs || [], id);
+  }).filter(Boolean);
+  if (labs.length) {
+    html += '<div class="card"><div class="h3">Отработать руками</div>' + labs.map(function (x) {
+      var st = App.labState(x.id);
+      return '<a class="row-card" href="labs.html?id=' + encodeURIComponent(x.id) + '" style="margin-bottom:6px">' +
+        '<span class="body"><span class="t">' + App.esc(x.title) + "</span>" +
+        '<span class="d">' + x.estimated_minutes + " мин · " + (st.completed ? "выполнена" : "не выполнена") +
+        "</span></span>" + '<span class="chev emi plain" data-icon="chevron-right"></span></a>';
+    }).join("") + "</div>";
+  }
 
   // Связанные термины
   var terms = (l.related_term_ids || []).map(function (tid) {
