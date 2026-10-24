@@ -84,6 +84,7 @@
     <button class="chip" data-tab="words">Слова</button>
     <button class="chip" data-tab="drills">Тренажёр</button>
     <button class="chip" data-tab="writing">Письмо</button>
+    <button class="chip" data-tab="slang">Сленг</button>
     <button class="chip" data-tab="resources">Ресурсы</button>
   </div>
 
@@ -143,6 +144,7 @@
     words: { title: "Слова", empty: "Слов пока нет" },
     drills: { title: "Тренажёр", empty: "Заданий пока нет" },
     writing: { title: "Письмо", empty: "Материалов пока нет" },
+    slang: { title: "Сленг", empty: "Выражений пока нет" },
     resources: { title: "Ресурсы", empty: "Ресурсов пока нет" },
   };
 
@@ -151,6 +153,7 @@
     words: App.words(),
     drills: App.drills(),
     writing: App.writings(),
+    slang: App.slang(),
     resources: App.engResources(),
   };
   var cats = {
@@ -158,6 +161,7 @@
     words: CONTENT.englishVocabCategories || [],
     drills: CONTENT.englishDrillCategories || [],
     writing: CONTENT.englishWritingCategories || [],
+    slang: CONTENT.englishSlangCategories || [],
     resources: CONTENT.englishResourceCategories || [],
   };
 
@@ -175,6 +179,15 @@
   // разных коробках повторения и переключаются явно.
   var DIR_RECALL = "recall", DIR_PRODUCE = "produce";
   var dir = DIR_RECALL;
+  // У сленга направления те же, но без коробок повторения: это справочник,
+  // и «вспоминать» здесь значит только спрятать английский до нажатия. Своя
+  // переменная — чтобы переключение во вкладке «Сленг» не меняло, в какую
+  // коробку идут оценки слов.
+  var slangDir = DIR_RECALL;
+  var REGISTERS = CONTENT.englishSlangRegisters || {};
+  // В списке помечаются только исключения: нейтральных выражений большинство,
+  // и метка на каждой строке съедала бы место у значения.
+  var REGISTER_SHORT = { ok: "", team: "в команде", avoid: "не стоит" };
 
   var elList = document.getElementById("list");
   var elDetail = document.getElementById("detail");
@@ -227,18 +240,20 @@
     var st = App.englishStats();
     document.getElementById("sub").textContent =
       st.phrases + " фраз · " + st.words + " слов · " + st.drills + " заданий вслух · " +
-      st.writingTasks + " заданий на письмо · " + data.resources.length + " ресурсов";
+      st.writingTasks + " заданий на письмо · " + data.slang.length + " выражений сленга · " +
+      data.resources.length + " ресурсов";
 
-    // Переключатель направления есть только у слов: у остальных разделов одна
-    // сторона практики, и пустая строка чипов сбивала бы с толку.
+    // Переключатель направления есть только у слов и сленга: у остальных
+    // разделов одна сторона практики, и пустая строка чипов сбивала бы с толку.
     var dirs = document.getElementById("dirs");
-    if (tab === "words") {
+    if (tab === "words" || tab === "slang") {
+      var cur = tab === "slang" ? slangDir : dir;
       dirs.classList.remove("hidden");
       dirs.innerHTML = [
         [DIR_RECALL, "Узнавать EN → RU"],
         [DIR_PRODUCE, "Вспоминать RU → EN"],
       ].map(function (o) {
-        return '<button class="chip' + (dir === o[0] ? " on" : "") +
+        return '<button class="chip' + (cur === o[0] ? " on" : "") +
           '" data-dir="' + o[0] + '">' + App.esc(o[1]) + "</button>";
       }).join("");
     } else {
@@ -259,6 +274,12 @@
     } else if (tab === "writing") {
       opts = [["all", "Все"], ["todo", "Не пройдены"], ["done", "Пройдены"],
         ["template", "С заданием"], ["pattern", "Конструкции"]];
+    } else if (tab === "slang") {
+      // Фильтр по уместности: главный вопрос к сленгу — можно ли так сказать
+      // на собеседовании.
+      opts = [["all", "Все"]].concat(["ok", "team", "avoid"].map(function (r) {
+        return [r, REGISTERS[r] || r];
+      }));
     } else {
       // Ресурсы — внешние ссылки без состояния, фильтровать нечего.
       opts = [["all", "Все"]];
@@ -291,7 +312,8 @@
     var hay = Search.norm([
       x.en, x.ru, x.when, x.note, x.term, x.meaning, x.ru_hint, x.wrong,
       x.example_en, x.example_ru, x.prompt_en, x.prompt_ru, x.hint, x.title,
-      x.why, x.how, x.publisher,
+      x.why, x.how, x.publisher, x.expansion,
+      (x.ru_slang || []).join(" "), (x.also_en || []).join(" "),
       // Условие письменного задания — тоже текст, по которому его ищут.
       x.task ? x.task.brief_ru : "", x.task ? x.task.model_en : "",
       (x.variants || []).join(" "), (x.keywords || []).join(" "),
@@ -332,6 +354,8 @@
       else if (filter === "done") list = list.filter(function (x) {
         return x.task && writingState(x).passed;
       });
+    } else if (tab === "slang") {
+      if (filter !== "all") list = list.filter(function (x) { return x.register === filter; });
     }
     return list;
   }
@@ -363,6 +387,19 @@
       sub = ws.hasTask ? x.task.brief_ru : x.ru;
       mark = !ws.hasTask ? "конструкция" : ws.passed ? "пройдено"
         : ws.attempts ? "попыток " + ws.attempts : "задание";
+    } else if (tab === "slang") {
+      // В режиме «вспоминать» английский из списка убран, как у слов: иначе
+      // он стоит прямо перед глазами и вспоминать нечего.
+      var ru = x.ru_slang || [];
+      if (slangDir === DIR_PRODUCE) {
+        titleHtml = App.esc(ru.length ? ru.slice(0, 3).join(", ") : x.meaning);
+        sub = ru.length ? x.meaning : "";
+      } else {
+        titleHtml = App.esc(x.term) + (x.expansion
+          ? ' <span class="muted small" style="font-weight:400">' + App.esc(x.expansion) + "</span>" : "");
+        sub = x.meaning;
+      }
+      mark = REGISTER_SHORT[x.register] || "";
     } else {
       titleHtml = App.esc(x.title); sub = x.why;
       mark = "уровень " + x.level;
@@ -418,6 +455,7 @@
     else if (tab === "words") parts = wordCard(x);
     else if (tab === "drills") parts = drillCard(x);
     else if (tab === "resources") parts = resourceCard(x);
+    else if (tab === "slang") parts = slangCard(x);
     else parts = writingCard(x);
 
     parts.push('<button class="btn ghost" id="dBack" style="margin-top:var(--sp-3)">Назад к списку</button>');
@@ -556,6 +594,67 @@
     }
     parts.push('<a class="btn" style="margin-top:var(--sp-2)" href="' + App.esc(x.url) +
       '" target="_blank" rel="noopener noreferrer">Открыть ресурс</a>');
+    return parts;
+  }
+
+  // Карточка сленга — справочная, состояния нет. В режиме «вспоминать» всё
+  // английское (термин, расшифровка, варианты, пример) прячется в один блок
+  // за кнопкой: подсмотреть ответ по частям значило бы его угадать.
+  function slangCard(x) {
+    var hide = slangDir === DIR_PRODUCE;
+    var ru = x.ru_slang || [];
+    var parts = [];
+    parts.push('<div class="hero"><span class="ic-tile ' +
+      (x.register === "avoid" ? "amber" : x.register === "team" ? "blue" : "green") +
+      '" data-icon="message-square"></span><div class="body"><h1>' +
+      App.esc(hide ? (ru[0] || x.meaning) : x.term) + "</h1>" +
+      '<div class="muted small">' + App.esc(x.category) + " · " +
+      App.esc(REGISTERS[x.register] || "") + "</div></div></div>");
+    if (ru.length) {
+      parts.push('<div class="card"><div class="h3">Так говорят по-русски</div>' +
+        '<p class="small" style="line-height:1.65">' + App.esc(ru.join(", ")) + "</p></div>");
+    }
+    parts.push('<div class="card"><div class="h3">Значение</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(x.meaning) + "</p></div>");
+    var en = '<div class="card"><div class="h3">По-английски</div>' +
+      '<div class="en-line">' + App.esc(x.term) + "</div>" +
+      (x.expansion ? '<div class="ru-line">' + App.esc(x.expansion) + "</div>" : "") +
+      ((x.also_en || []).length ? '<div class="ru-line">Ещё говорят: ' +
+        App.esc(x.also_en.join(", ")) + "</div>" : "") + "</div>" +
+      '<div class="card"><div class="h3">Пример</div>' +
+      '<div class="en-line">' + App.esc(x.example_en) + "</div>" +
+      '<div class="ru-line">' + App.esc(x.example_ru) + "</div></div>";
+    // Пояснение почти всегда называет английский вариант, поэтому в режиме
+    // «вспоминать» оно открывается вместе с ответом, а не до него.
+    if (x.note) {
+      en += '<div class="explain"><div class="h">На что обратить внимание</div>' +
+        '<div class="small">' + App.esc(x.note) + "</div></div>";
+    }
+    if (hide) {
+      parts.push('<div class="card" id="slRevealBox"><p class="small muted" style="line-height:1.6">' +
+        "Скажите вслух, как это будет по-английски, и только потом откройте ответ.</p>" +
+        '<button class="btn" id="slReveal">Показать английский</button></div>' +
+        '<div id="slAnswer" class="hidden">' + en + "</div>");
+    } else {
+      parts.push(en);
+    }
+    // Ссылка на слово показывается, только если оно видно на этом треке:
+    // часть слов во вкладке «Слова» трековая.
+    var w = x.vocab_ref ? App.byId(data.words, x.vocab_ref) : null;
+    if (w) {
+      parts.push('<button class="btn ghost" id="slWord" data-word="' + App.esc(w.id) + '">' +
+        "Произношение: " + App.esc(w.term) + " " + App.esc(w.ipa) + "</button>");
+    }
+    var src = (x.source_refs || []).map(function (id) {
+      return App.byId(CONTENT.sources || [], id);
+    }).filter(Boolean);
+    if (src.length) {
+      parts.push('<p class="xs muted" style="margin-top:var(--sp-3); line-height:1.6">Где встречается: ' +
+        src.map(function (s) {
+          return '<a href="' + App.esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+            App.esc(s.publisher) + "</a>";
+        }).join(", ") + "</p>");
+    }
     return parts;
   }
 
@@ -702,6 +801,21 @@
 
   function bindDetail(x) {
     if (tab === "resources") return;
+    if (tab === "slang") {
+      var rv = document.getElementById("slReveal");
+      if (rv) rv.addEventListener("click", function () {
+        document.getElementById("slRevealBox").classList.add("hidden");
+        document.getElementById("slAnswer").classList.remove("hidden");
+      });
+      var sw = document.getElementById("slWord");
+      if (sw) sw.addEventListener("click", function () {
+        var wid = sw.getAttribute("data-word");
+        tab = "words";
+        syncTabChips();
+        open(wid);
+      });
+      return;
+    }
     if (tab === "phrases") {
       document.getElementById("pLearn").addEventListener("click", function () {
         var on = App.togglePhraseLearned(x.id);
@@ -982,7 +1096,8 @@
   document.getElementById("dirs").addEventListener("click", function (e) {
     var b = e.target.closest("[data-dir]");
     if (!b) return;
-    dir = b.getAttribute("data-dir");
+    if (tab === "slang") slangDir = b.getAttribute("data-dir");
+    else dir = b.getAttribute("data-dir");
     // Фильтры «не изучены», «к повтору» и «освоено» считаются по коробке
     // ВЫБРАННОГО направления, поэтому список пересобирается целиком.
     renderList();

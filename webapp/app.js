@@ -187,6 +187,7 @@
   function drills() { return englishOf("englishDrills"); }
   function writings() { return englishOf("englishWriting"); }
   function engResources() { return englishOf("englishResources"); }
+  function slang() { return englishOf("englishSlang"); }
 
   // ── идентификаторы SRS ───────────────────────────────────────────────────
 
@@ -1219,7 +1220,7 @@
     readinessProfile: readinessProfile, requirementCoverage: requirementCoverage,
     skillMatrix: skillMatrix, todayPlan: todayPlan,
     phrases: phrases, words: words, drills: drills, writings: writings,
-    engResources: engResources,
+    engResources: engResources, slang: slang,
     qid: qid, tid: tid, ewid: ewid, ewrid: ewrid, edid: edid, ephid: ephid,
     recordWordCheck: recordWordCheck, toggleWordFavorite: toggleWordFavorite,
     togglePhraseLearned: togglePhraseLearned, recordPhraseCheck: recordPhraseCheck,

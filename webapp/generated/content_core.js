@@ -283,7 +283,8 @@
   "dutyops_drills":15,
   "english_drills":34,
   "english_phrases":76,
-  "english_resources":9,
+  "english_resources":15,
+  "english_slang":118,
   "english_vocab":93,
   "english_writing":41,
   "glossary_terms":370,
@@ -294,7 +295,7 @@
   "projects":4,
   "questions":693,
   "roadmap_steps":109,
-  "sources":324,
+  "sources":331,
   "story_templates":37,
   "topics":96,
   "tracks":4,
@@ -340,9 +341,22 @@
   "Речь и рассказ о работе",
   "Чтение и практика",
   "Произношение",
-  "Письмо"
+  "Письмо",
+  "Сленг и жаргон"
  ],
  "englishResources":[],
+ "englishSlang":[],
+ "englishSlangCategories":[
+  "Рунглиш в команде",
+  "Код-ревью",
+  "Чаты и созвоны",
+  "Жаргон разработчиков"
+ ],
+ "englishSlangRegisters":{
+  "avoid":"Лучше не говорить",
+  "ok":"Можно и на собеседовании",
+  "team":"В команде и чатах"
+ },
  "englishVocab":[],
  "englishVocabCategories":[
   "Базовая лексика",
@@ -9304,6 +9318,69 @@
    "url":"https://support.google.com/webmasters/answer/2648487",
    "verified":true,
    "verified_at":"2026-08-17"
+  },
+  {
+   "id":"hexlet-it-slang",
+   "publisher":"Хекслет",
+   "title":"Понимаем сленг программистов: мини-словарь для начинающих разработчиков",
+   "type":"article",
+   "url":"https://ru.hexlet.io/blog/posts/ponimaem-sleng-programmistov-mini-slovar-dlya-nachinayuschih-razrabotchikov",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"habr-it-jargon",
+   "publisher":"Хабр",
+   "title":"Словарь программистского жаргона без англицизмов",
+   "type":"article",
+   "url":"https://habr.com/ru/articles/858218/",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"evercode-it-slang",
+   "publisher":"Evercode Lab",
+   "title":"IT словарь: сленг айтишников понятными словами",
+   "type":"article",
+   "url":"https://blog.evercodelab.ru/it-slovar-sleng-ajtishnikov-ponyatnymi-slovami/",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"conventional-comments",
+   "publisher":"conventionalcomments.org",
+   "title":"Conventional Comments",
+   "type":"guide",
+   "url":"https://conventionalcomments.org/",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"google-review-comments",
+   "publisher":"Google Engineering Practices",
+   "title":"How to write code review comments",
+   "type":"guide",
+   "url":"https://google.github.io/eng-practices/review/reviewer/comments.html",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"codinghorror-new-jargon",
+   "publisher":"Coding Horror",
+   "title":"New Programming Jargon",
+   "type":"article",
+   "url":"https://blog.codinghorror.com/new-programming-jargon/",
+   "verified":true,
+   "verified_at":"2026-10-24"
+  },
+  {
+   "id":"epam-business-abbreviations",
+   "publisher":"EPAM Campus",
+   "title":"Abbreviations in business communication",
+   "type":"article",
+   "url":"https://campus.epam.com/en/blog/482",
+   "verified":true,
+   "verified_at":"2026-10-24"
   }
  ],
  "stories":[],

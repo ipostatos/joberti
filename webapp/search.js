@@ -27,6 +27,7 @@
     eword: { title: "Слово", icon: "globe", href: "english.html?tab=words&id=" },
     edrill: { title: "Ответ вслух", icon: "mic", href: "english.html?tab=drills&id=" },
     ewriting: { title: "Письмо", icon: "file-text", href: "english.html?tab=writing&id=" },
+    eslang: { title: "Сленг", icon: "message-square", href: "english.html?tab=slang&id=" },
   };
 
   // Нормализация: регистр, ё→е (пользователи печатают и так, и так),
@@ -143,6 +144,14 @@
     (content.englishWriting || []).filter(inEnglish).forEach(function (s) {
       add("ewriting", s.id, s.title, s.category, [s.title],
         [s.en, s.ru, s.note].join(" "));
+    });
+
+    // У сленга ищут и по-русски: человек слышит «костыль» и хочет узнать,
+    // как это сказать, поэтому русские формы — тоже ключи, а не только текст.
+    (content.englishSlang || []).filter(inEnglish).forEach(function (x) {
+      add("eslang", x.id, x.term, x.meaning,
+        [x.term, x.expansion].concat(x.also_en || [], x.ru_slang || []),
+        [x.meaning, x.note, x.example_en, x.example_ru, x.category].join(" "));
     });
 
     return idx;

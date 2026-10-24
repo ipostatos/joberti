@@ -36,6 +36,7 @@ MIN_COUNTS = {
     "english_vocab": 50,
     "english_drills": 12,
     "english_writing": 25,
+    "english_slang": 80,
 }
 
 # Минимумы на КАЖДЫЙ активный трек. Глобальные MIN_COUNTS суммируют банк
@@ -1326,6 +1327,8 @@ def validate_english(rep: Report, c) -> None:
         if src and src.get("url") != x.get("url"):
             rep.err(f"{where}: url не совпадает с source '{x.get('source_ref')}'")
 
+    validate_english_slang(rep, c, track_ids)
+
     # ── что видит каждый активный трек ──
     # Раздел сквозной, поэтому общего количества мало: у нового трека может не
     # оказаться ни одной своей записи, и человек увидит английский без единого
@@ -1346,6 +1349,78 @@ def validate_english(rep: Report, c) -> None:
             if len(own) < minimum:
                 rep.warn(f"track '{t['id']}': своих записей в '{key}' — {len(own)} "
                          f"при желаемых {minimum}: раздел наполнен только сквозными")
+
+
+def _slang_key(term: str) -> str:
+    # Для сравнения со словарём выбрасываем всё, кроме букв и цифр: иначе
+    # «roll back» и «rollback» прошли бы как разные слова.
+    return re.sub(r"[^a-z0-9]", "", str(term).lower())
+
+
+def validate_english_slang(rep: Report, c, track_ids: set) -> None:
+    """Сленг и жаргон: справочник без состояния.
+
+    Главная опасность раздела — дубли. Источников несколько, и одно и то же
+    слово приходит из каждого под своим написанием. Поэтому дубли ловятся
+    в трёх местах: английский термин внутри раздела, русская форма между
+    записями и пересечение со вкладкой «Слова». Слово, которое там уже есть,
+    не переписывается заново, а ссылается на него через vocab_ref.
+    """
+    check_unique_ids(rep, c.english_slang, "english_slang")
+    raw = c.raw["english_slang"]
+    cats = set(raw.get("categories", []))
+    registers = set((raw.get("registers") or {}).keys())
+    rep.check(registers == {"ok", "team", "avoid"},
+              "english_slang: registers должен описывать ровно ok, team, avoid")
+    vocab_by_key = {_slang_key(w.get("term", "")): w for w in c.english_vocab}
+    vocab_ids = {w["id"] for w in c.english_vocab}
+    seen_term: dict[str, str] = {}
+    seen_ru: dict[str, str] = {}
+    for x in c.english_slang:
+        where = f"slang '{x.get('id')}'"
+        require_fields(rep, x, [
+            "id", "category", "register", "term", "meaning", "example_en", "example_ru",
+        ], where)
+        _check_english_common(rep, x, where, cats, track_ids)
+        rep.check(x.get("register") in registers,
+                  f"{where}: register '{x.get('register')}' не объявлен в registers")
+        _check_english_text(rep, x.get("term"), where, "term")
+        _check_english_text(rep, x.get("example_en"), where, "example_en")
+        if x.get("expansion") is not None:
+            _check_english_text(rep, x.get("expansion"), where, "expansion")
+        for v in x.get("also_en") or []:
+            _check_english_text(rep, v, where, "also_en[]")
+        for field in ("meaning", "example_ru"):
+            rep.check(bool(CYRILLIC & set(str(x.get(field) or ""))),
+                      f"{where}: поле '{field}' должно быть на русском")
+        ru_forms = x.get("ru_slang")
+        if ru_forms is not None and not isinstance(ru_forms, list):
+            rep.err(f"{where}: ru_slang должен быть списком")
+            ru_forms = []
+        for r in ru_forms or []:
+            rep.check(bool(CYRILLIC & set(str(r))),
+                      f"{where}: ru_slang '{r}' должен быть по-русски")
+            k = normalize_text(r)
+            if k in seen_ru:
+                rep.err(f"{where}: русская форма «{r}» уже есть в '{seen_ru[k]}'")
+            seen_ru[k] = x.get("id")
+        if x.get("category") == "Рунглиш в команде":
+            rep.check(bool(ru_forms),
+                      f"{where}: у рунглиша нужен ru_slang — без него не с чем сопоставлять")
+        check_refs(rep, x.get("source_refs") or [], set(c.sources_by_id), where, "source_refs")
+
+        key = _slang_key(x.get("term", ""))
+        if key in seen_term:
+            rep.err(f"{where}: термин дублирует '{seen_term[key]}'")
+        seen_term[key] = x.get("id")
+
+        ref = x.get("vocab_ref")
+        if ref is not None:
+            rep.check(ref in vocab_ids, f"{where}: vocab_ref '{ref}' не найден в english_vocab")
+        twin = vocab_by_key.get(key)
+        if twin and ref != twin["id"]:
+            rep.err(f"{where}: слово '{x.get('term')}' уже есть во вкладке «Слова» "
+                    f"('{twin['id']}') — сошлитесь на него через vocab_ref, а не дублируйте")
 
 
 def validate_counts(rep: Report, c) -> None:

@@ -6,7 +6,8 @@
     "Речь и рассказ о работе",
     "Чтение и практика",
     "Произношение",
-    "Письмо"
+    "Письмо",
+    "Сленг и жаргон"
   ],
   "resources": [
     {
@@ -116,6 +117,78 @@
       "level": 1,
       "why": "Бесплатный сервис Cambridge: пишете текст — сразу получаете оценку уровня CEFR и подсказки, что исправить. Единственный способ тренировать письмо с обратной связью без преподавателя.",
       "how": "Пишите краткие описания своих проектов: один текст в неделю, 100–150 слов. Переписывайте, пока оценка не вырастет, — эти же описания станут ответом на «tell me about your project».",
+      "track_ids": []
+    },
+    {
+      "id": "eres-evercode-slang",
+      "category": "Сленг и жаргон",
+      "title": "IT словарь: сленг айтишников понятными словами",
+      "publisher": "Evercode Lab",
+      "url": "https://blog.evercodelab.ru/it-slovar-sleng-ajtishnikov-ponyatnymi-slovami/",
+      "source_ref": "evercode-it-slang",
+      "level": 1,
+      "why": "Свежий (2026) словарь рабочего сленга: апдейт, аппрув, дейли, блокер, скоуп, ETA, роллбэк, стейдж. Каждое слово объяснено на примере из рабочего чата, есть раздел о похожих терминах, которые путают.",
+      "how": "Читайте как словарь-переводчик: встретили слово в чате — найдите его во вкладке «Сленг» и запомните английский оригинал вместе с примером. Русская калька в англоязычной команде не поможет, оригинал — да.",
+      "track_ids": []
+    },
+    {
+      "id": "eres-habr-jargon",
+      "category": "Сленг и жаргон",
+      "title": "Словарь программистского жаргона без англицизмов",
+      "publisher": "Хабр",
+      "url": "https://habr.com/ru/articles/858218/",
+      "source_ref": "habr-it-jargon",
+      "level": 2,
+      "why": "Противоположный подход: 275 исконно русских жаргонных слов (костыль, грабли, на коленке, уронить прод, танцы с бубном) без англицизмов. Как раз те слова, для которых английский эквивалент сам не вспоминается.",
+      "how": "Пробегите список и отметьте слова, которые говорите сами. Для каждого сначала скажите английский вариант вслух, потом сверьтесь с разделом «Рунглиш в команде» во вкладке «Сленг». Учтите, что английские эквиваленты в самой статье не даны.",
+      "track_ids": []
+    },
+    {
+      "id": "eres-google-review-comments",
+      "category": "Сленг и жаргон",
+      "title": "How to write code review comments",
+      "publisher": "Google Engineering Practices",
+      "url": "https://google.github.io/eng-practices/review/reviewer/comments.html",
+      "source_ref": "google-review-comments",
+      "level": 2,
+      "why": "Официальное руководство Google о том, как писать комментарии в код-ревью: вежливо, по делу, с пометками серьёзности Nit, Optional и FYI.",
+      "how": "Прочитайте страницу целиком (она короткая) и выпишите 5–7 формулировок, которые подойдут вам. На собеседовании вопрос «как вы делаете ревью» — частый, и ответ с этими пометками звучит профессионально.",
+      "track_ids": []
+    },
+    {
+      "id": "eres-conventional-comments",
+      "category": "Сленг и жаргон",
+      "title": "Conventional Comments",
+      "publisher": "conventionalcomments.org",
+      "url": "https://conventionalcomments.org/",
+      "source_ref": "conventional-comments",
+      "level": 2,
+      "why": "Короткий стандарт меток для комментариев ревью: praise, nitpick, suggestion, issue, question плюс пометки blocking и non-blocking. Снимает главный риск ревью на неродном языке: замечание звучит резче, чем вы хотели.",
+      "how": "Начните подписывать свои комментарии метками хотя бы в учебных проектах. Метка делает английский проще: «suggestion (non-blocking): …» понятно без сложных вежливых оборотов.",
+      "track_ids": []
+    },
+    {
+      "id": "eres-epam-abbreviations",
+      "category": "Сленг и жаргон",
+      "title": "Abbreviations in business communication",
+      "publisher": "EPAM Campus",
+      "url": "https://campus.epam.com/en/blog/482",
+      "source_ref": "epam-business-abbreviations",
+      "level": 1,
+      "why": "Короткая шпаргалка EPAM Campus по сокращениям деловой переписки: FYI, ASAP, EOD, EOW, TBD, OOO, WFH, BTW — с примерами предложений.",
+      "how": "Хватит одного прочтения. Затем откройте раздел «Чаты и созвоны» во вкладке «Сленг»: там те же сокращения плюс IT-специфичные (LGTM, PTAL, WIP) и пометка, где их уместно писать.",
+      "track_ids": []
+    },
+    {
+      "id": "eres-codinghorror-jargon",
+      "category": "Сленг и жаргон",
+      "title": "New Programming Jargon",
+      "publisher": "Coding Horror",
+      "url": "https://blog.codinghorror.com/new-programming-jargon/",
+      "source_ref": "codinghorror-new-jargon",
+      "level": 3,
+      "why": "Классическая подборка Джеффа Этвуда — 30 жаргонных слов, придуманных разработчиками на Stack Overflow: heisenbug, rubber ducking, Pokémon exception handling, protoduction и другие.",
+      "how": "Читать для удовольствия и узнавания, а не для заучивания: большинство слов шуточные. В речи реально встречаются rubber ducking и heisenbug — они есть во вкладке «Сленг».",
       "track_ids": []
     }
   ]

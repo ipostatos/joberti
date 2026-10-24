@@ -2916,6 +2916,69 @@
       "type": "official_documentation",
       "verified": true,
       "verified_at": "2026-08-17"
+    },
+    {
+      "id": "hexlet-it-slang",
+      "title": "Понимаем сленг программистов: мини-словарь для начинающих разработчиков",
+      "publisher": "Хекслет",
+      "url": "https://ru.hexlet.io/blog/posts/ponimaem-sleng-programmistov-mini-slovar-dlya-nachinayuschih-razrabotchikov",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "habr-it-jargon",
+      "title": "Словарь программистского жаргона без англицизмов",
+      "publisher": "Хабр",
+      "url": "https://habr.com/ru/articles/858218/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "evercode-it-slang",
+      "title": "IT словарь: сленг айтишников понятными словами",
+      "publisher": "Evercode Lab",
+      "url": "https://blog.evercodelab.ru/it-slovar-sleng-ajtishnikov-ponyatnymi-slovami/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "conventional-comments",
+      "title": "Conventional Comments",
+      "publisher": "conventionalcomments.org",
+      "url": "https://conventionalcomments.org/",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "google-review-comments",
+      "title": "How to write code review comments",
+      "publisher": "Google Engineering Practices",
+      "url": "https://google.github.io/eng-practices/review/reviewer/comments.html",
+      "type": "guide",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "codinghorror-new-jargon",
+      "title": "New Programming Jargon",
+      "publisher": "Coding Horror",
+      "url": "https://blog.codinghorror.com/new-programming-jargon/",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-24"
+    },
+    {
+      "id": "epam-business-abbreviations",
+      "title": "Abbreviations in business communication",
+      "publisher": "EPAM Campus",
+      "url": "https://campus.epam.com/en/blog/482",
+      "type": "article",
+      "verified": true,
+      "verified_at": "2026-10-24"
     }
   ]
 }
