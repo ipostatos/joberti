@@ -8,19 +8,20 @@
 |---|---:|
 | tracks | 4 |
 | active_tracks | 4 |
-| topics | 82 |
+| topics | 84 |
 | vacancies | 4 |
 | sources | 236 |
-| lessons | 93 |
-| glossary_terms | 277 |
+| lessons | 95 |
+| glossary_terms | 282 |
 | library_resources | 224 |
-| questions | 493 |
-| mock_questions | 139 |
-| cases | 37 |
-| roadmap_steps | 93 |
+| questions | 541 |
+| mock_questions | 142 |
+| cases | 42 |
+| roadmap_steps | 95 |
+| projects | 4 |
 | story_templates | 31 |
 | achievements | 24 |
-| english_phrases | 64 |
+| english_phrases | 68 |
 | english_vocab | 81 |
 | english_drills | 26 |
 | english_writing | 41 |
@@ -32,59 +33,65 @@
 
 | Тема | Крит. | Обяз. | Тесты | Уроки | Термины | Материалы | Mock | Кейсы |
 |---|:-:|:-:|---:|---:|---:|---:|---:|---:|
-| Как работает поиск `search-basics` | да | да | 12 | 2 | 5 | 8 | 3 | 0 |
-| Поисковый интент `search-intent` | да | да | 10 | 1 | 6 | 1 | 2 | 0 |
-| On-page SEO `on-page` | да | да | 18 | 3 | 15 | 11 | 2 | 2 |
-| HTML и HTTP `html-http` |  | да | 12 | 2 | 9 | 10 | 1 | 1 |
-| Технический SEO `technical-seo` | да | да | 24 | 3 | 24 | 24 | 10 | 6 |
-| Индексация и Search Console `indexing-gsc` | да | да | 10 | 2 | 9 | 9 | 3 | 2 |
-| Сбор семантики `keyword-research` | да | да | 12 | 1 | 4 | 4 | 1 | 1 |
+| Как работает поиск `search-basics` | да | да | 11 | 2 | 5 | 8 | 3 | 1 |
+| Поисковый интент `search-intent` | да | да | 11 | 1 | 6 | 1 | 2 | 1 |
+| On-page SEO `on-page` | да | да | 18 | 3 | 15 | 11 | 2 | 3 |
+| HTML и HTTP `html-http` | да | да | 13 | 2 | 9 | 10 | 1 | 1 |
+| Технический SEO `technical-seo` | да | да | 26 | 3 | 25 | 24 | 11 | 8 |
+| Индексация и Search Console `indexing-gsc` | да | да | 12 | 2 | 9 | 9 | 3 | 3 |
+| Сбор семантики `keyword-research` | да | да | 13 | 1 | 4 | 4 | 1 | 1 |
 | Кластеризация и mapping `clustering-mapping` |  | да | 0 | 1 | 3 | 1 | 1 | 2 |
-| Аналитика и GA4 `analytics-ga4` |  | да | 8 | 1 | 9 | 6 | 1 | 1 |
-| Инструменты SEO `seo-tools` |  | да | 8 | 2 | 6 | 6 | 2 | 0 |
+| Аналитика и GA4 `analytics-ga4` |  | да | 9 | 1 | 9 | 6 | 1 | 1 |
+| Инструменты SEO `seo-tools` | да | да | 9 | 2 | 6 | 6 | 2 | 1 |
 | Скорость и Core Web Vitals `performance-cwv` |  | да | 0 | 1 | 6 | 10 | 1 | 1 |
-| Внутренняя перелинковка `internal-linking` |  | да | 0 | 1 | 6 | 3 | 2 | 0 |
+| Внутренняя перелинковка `internal-linking` | да | да | 8 | 1 | 7 | 3 | 3 | 1 |
 | Международное SEO `international-seo` |  |  | 0 | 1 | 3 | 2 | 1 | 1 |
-| Контентные ТЗ `content-briefs` |  | да | 0 | 1 | 4 | 2 | 1 | 1 |
+| Контентные ТЗ `content-briefs` |  | да | 3 | 1 | 4 | 2 | 1 | 2 |
 | Конкурентный анализ `competitor-analysis` |  | да | 0 | 1 | 7 | 2 | 2 | 1 |
-| Google Sheets для SEO `sheets` |  | да | 0 | 1 | 4 | 1 | 1 | 0 |
-| Отчётность `reporting` |  | да | 6 | 1 | 11 | 6 | 6 | 2 |
-| Работа с разработчиками `dev-communication` |  | да | 0 | 1 | 4 | 4 | 3 | 3 |
-| Вопросы SEO-интервью `interview-seo` |  | да | 0 | 1 | 5 | 2 | 14 | 0 |
+| Google Sheets для SEO `sheets` |  | да | 6 | 1 | 4 | 1 | 1 | 0 |
+| Отчётность `reporting` |  | да | 6 | 1 | 13 | 6 | 7 | 3 |
+| Работа с разработчиками `dev-communication` |  | да | 3 | 1 | 4 | 4 | 4 | 3 |
+| Вопросы SEO-интервью `interview-seo` |  | да | 4 | 1 | 5 | 2 | 14 | 0 |
 | Behavioral interview `behavioral` |  | да | 0 | 1 | 3 | 3 | 3 | 0 |
 | Off-page SEO и ссылки `off-page-seo` |  | да | 12 | 2 | 11 | 4 | 2 | 1 |
 | Контекст iGaming `igaming-context` |  | да | 0 | 1 | 4 | 0 | 2 | 0 |
+| Архитектура сайта `site-architecture` | да | да | 8 | 1 | 7 | 0 | 1 | 2 |
+| SEO-аудит `seo-audit` |  | да | 8 | 1 | 3 | 0 | 1 | 1 |
 
 ### Распределение вопросов по темам
 
 ```
-search-basics          ############............  12
-search-intent          ##########..............  10
-on-page                ##################......  18
-html-http              ############............  12
-technical-seo          ########################  24
-indexing-gsc           ##########..............  10
-keyword-research       ############............  12
+search-basics          ##########..............  11
+search-intent          ##########..............  11
+on-page                #################.......  18
+html-http              ############............  13
+technical-seo          ########################  26
+indexing-gsc           ###########.............  12
+keyword-research       ############............  13
 clustering-mapping     ........................   0
-analytics-ga4          ########................   8
-seo-tools              ########................   8
+analytics-ga4          ########................   9
+seo-tools              ########................   9
 performance-cwv        ........................   0
-internal-linking       ........................   0
+internal-linking       #######.................   8
 international-seo      ........................   0
-content-briefs         ........................   0
+content-briefs         ###.....................   3
 competitor-analysis    ........................   0
-sheets                 ........................   0
+sheets                 ######..................   6
 reporting              ######..................   6
-dev-communication      ........................   0
-interview-seo          ........................   0
+dev-communication      ###.....................   3
+interview-seo          ####....................   4
 behavioral             ........................   0
-off-page-seo           ############............  12
+off-page-seo           ###########.............  12
 igaming-context        ........................   0
+site-architecture      #######.................   8
+seo-audit              #######.................   8
 ```
 
 ### Пробелы
 
 - тема `igaming-context` без материалов библиотеки
+- тема `site-architecture` без материалов библиотеки
+- тема `seo-audit` без материалов библиотеки
 
 ## Трек: QA Engineer — платежи (`qa-payments`) — статус `active`
 
@@ -258,7 +265,7 @@ behavioral-devops      #####...................   3
 
 | Трек | Фразы | Слова | Задания | Письмо | Своих записей |
 |---|---:|---:|---:|---:|---:|
-| Junior SEO Specialist `redcore-junior-seo` | 64 | 51 | 16 | 39 | 23 |
+| Junior SEO Specialist `redcore-junior-seo` | 68 | 51 | 16 | 39 | 27 |
 | QA Engineer — платежи `qa-payments` | 64 | 49 | 13 | 38 | 17 |
 | Technical Engineer `technical-engineer` | 64 | 47 | 14 | 37 | 15 |
 | DevOps / Platform Engineer `devops-platform` | 64 | 46 | 13 | 38 | 14 |
@@ -267,10 +274,10 @@ behavioral-devops      #####...................   3
 
 | Коллекция | 1 | 2 | 3 |
 |---|---:|---:|---:|
-| Вопросы | 120 | 297 | 76 |
-| Термины | 93 | 153 | 31 |
-| Mock | 22 | 85 | 32 |
-| Кейсы | 0 | 23 | 14 |
+| Вопросы | 125 | 317 | 99 |
+| Термины | 94 | 157 | 31 |
+| Mock | 22 | 87 | 33 |
+| Кейсы | 0 | 26 | 16 |
 | Материалы | 64 | 126 | 34 |
 
 ## Источники
@@ -288,20 +295,20 @@ behavioral-devops      #####...................   3
 | Источник | Ссылок |
 |---|---:|
 | `istqb-glossary` — ISTQB Glossary | 50 |
+| `gsc-performance-report` — Performance report (Search results): Overview and basic setup | 34 |
 | `adyen-online-payments` — Online payments | 29 |
 | `ahrefs-keyword-research` — Keyword Research: The Beginner's Guide | 28 |
+| `google-seo-starter-guide` — SEO Starter Guide | 26 |
+| `google-helpful-content` — Creating helpful, reliable, people-first content | 24 |
 | `stripe-payment-intents` — PaymentIntent lifecycle | 24 |
-| `google-seo-starter-guide` — SEO Starter Guide | 23 |
 | `google-spam-policies` — Spam policies for Google web search | 22 |
-| `gsc-performance-report` — Performance report (Search results): Overview and basic setup | 21 |
-| `google-helpful-content` — Creating helpful, reliable, people-first content | 20 |
 | `stripe-webhooks` — Webhooks | 18 |
-| `mdn-http-status` — HTTP response status codes | 17 |
+| `google-crawl-budget` — Large site owner's guide to managing your crawl budget | 17 |
 
 ## Записи без источника
 
-- вопросов без `source_refs`: 136
-- терминов без `source_refs`: 56
+- вопросов без `source_refs`: 143
+- терминов без `source_refs`: 58
 
 Часть записей без источника — норма: вопросы про поведение на собеседовании и коммуникацию не опираются на документацию.
 
@@ -311,16 +318,16 @@ behavioral-devops      #####...................   3
 
 - высоковолатильные темы: `analytics-ga4`, `igaming-context`, `indexing-gsc`, `seo-tools`
 - среднего уровня: `off-page-seo`, `performance-cwv`, `technical-seo`
-- записей под наблюдением: 71, без даты сверки: 0
+- записей под наблюдением: 77, без даты сверки: 0
 
 | Дата сверки | Записей |
 |---|---:|
-| 2026-08-17 | 71 |
+| 2026-08-17 | 77 |
 
 Вакансии под наблюдением: `redcore-junior-seo` — 2026-08-17
 
 ## План подготовки
 
-- шагов всего: 93, обязательных: 90
-- суммарная оценка времени: 5355 мин (~89.2 ч), из них обязательных 5225 мин (~87.1 ч)
+- шагов всего: 95, обязательных: 92
+- суммарная оценка времени: 5490 мин (~91.5 ч), из них обязательных 5360 мин (~89.3 ч)
 

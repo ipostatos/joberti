@@ -279,21 +279,22 @@
  "counts":{
   "achievements":24,
   "active_tracks":4,
-  "cases":37,
+  "cases":42,
   "english_drills":26,
-  "english_phrases":64,
+  "english_phrases":68,
   "english_resources":9,
   "english_vocab":81,
   "english_writing":41,
-  "glossary_terms":277,
-  "lessons":93,
+  "glossary_terms":282,
+  "lessons":95,
   "library_resources":224,
-  "mock_questions":139,
-  "questions":493,
-  "roadmap_steps":93,
+  "mock_questions":142,
+  "projects":4,
+  "questions":541,
+  "roadmap_steps":95,
   "sources":236,
   "story_templates":31,
-  "topics":82,
+  "topics":84,
   "tracks":4,
   "vacancies":4
  },
@@ -4574,6 +4575,61 @@
   "behavioral",
   "candidate_questions"
  ],
+ "mockSessionModes":[
+  {
+   "flow":[
+    "intro",
+    "motivation",
+    "portfolio"
+   ],
+   "hint":"Первый разговор: о себе, мотивация, ожидания",
+   "id":"recruiter",
+   "minutes":15,
+   "per_category":2,
+   "title":"Рекрутер"
+  },
+  {
+   "flow":[
+    "fundamentals",
+    "tools",
+    "practical",
+    "english"
+   ],
+   "hint":"Профильный блок: основы, инструменты, практика, английский",
+   "id":"junior",
+   "minutes":25,
+   "per_category":2,
+   "title":"Junior SEO"
+  },
+  {
+   "flow":[
+    "technical"
+   ],
+   "hint":"Технический блок без пощады: HTTP, robots, canonical, индексация",
+   "id":"technical",
+   "minutes":25,
+   "per_category":5,
+   "title":"Technical SEO"
+  },
+  {
+   "closing":"mock-practical-006",
+   "flow":[
+    "intro",
+    "motivation",
+    "fundamentals",
+    "technical",
+    "tools",
+    "practical",
+    "behavioral"
+   ],
+   "hint":"Все блоки по порядку, как на настоящем собеседовании",
+   "id":"full",
+   "minutes":45,
+   "per_category":1,
+   "title":"Финальная сессия"
+  }
+ ],
+ "projects":[],
  "questions":[],
  "questionsByTopic":{},
  "roadmap":[],
@@ -6753,7 +6809,11 @@
     "on-page",
     "technical-seo",
     "indexing-gsc",
-    "keyword-research"
+    "keyword-research",
+    "html-http",
+    "seo-tools",
+    "site-architecture",
+    "internal-linking"
    ],
    "id":"redcore-junior-seo",
    "language":"ru",

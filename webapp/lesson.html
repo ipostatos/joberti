@@ -72,6 +72,20 @@
   html += '<div class="card"><div class="h3">Пример</div>' +
     '<p class="small" style="line-height:1.65">' + App.esc(l.example) + "</p></div>";
 
+  // Блок «проверить руками» стоит ДО вопроса на собеседовании намеренно:
+  // ответ, за которым стоит собственная проверка, звучит иначе, чем
+  // пересказанный урок.
+  if (l.how_to_check) {
+    html += '<div class="card"><div class="h3">Как проверить руками</div>' +
+      '<p class="small" style="line-height:1.65">' + App.esc(l.how_to_check) + "</p>" +
+      ((l.tools || []).length
+        ? '<div class="chip-row" style="flex-wrap:wrap; overflow:visible; margin-top:var(--sp-3)">' +
+          l.tools.map(function (t) {
+            return '<span class="chip">' + App.esc(t) + "</span>";
+          }).join("") + "</div>"
+        : "") + "</div>";
+  }
+
   html += '<div class="card"><div class="h3">Могут спросить на собеседовании</div>' +
     '<div class="qa"><div class="q">' + App.esc(l.interview_question) + "</div>" +
     '<div class="small" style="line-height:1.6">' + App.esc(l.short_answer) + "</div></div></div>";

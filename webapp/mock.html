@@ -51,13 +51,10 @@
 
   <div class="card" id="statCard"></div>
 
-  <div class="section-title">Режимы</div>
-  <button class="row-card" data-mode="full">
-    <span class="ic-tile red" data-icon="list-checks"></span>
-    <span class="body"><span class="t">Полная сессия</span>
-      <span class="d">30-40 минут, все блоки по порядку</span></span>
-    <span class="chev emi plain" data-icon="chevron-right"></span>
-  </button>
+  <div class="section-title">Режимы собеседования</div>
+  <div id="modeList"></div>
+
+  <div class="section-title">Тренировка</div>
   <button class="row-card" data-mode="due">
     <span class="ic-tile violet" data-icon="refresh-cw"></span>
     <span class="body"><span class="t">Повторить слабые ответы</span>
@@ -119,6 +116,20 @@
         <p class="small" id="full" style="margin-top:var(--sp-2)"></p>
       </details>
       <div class="linkrow" id="srcLinks" style="display:flex; gap:var(--sp-2); flex-wrap:wrap; margin-top:var(--sp-3)"></div>
+    </div>
+
+    <div class="card hidden" id="depthCard">
+      <div class="h3">Тот же ответ на 30, 60 и 120 секунд</div>
+      <p class="small muted">В потоке разговора нужен короткий ответ, на уточнение —
+        ответ с примером, на «расскажите подробнее» — с порядком действий.</p>
+      <div id="depths"></div>
+    </div>
+
+    <div class="card hidden" id="followCard">
+      <div class="h3">Что спросят следом</div>
+      <p class="small muted">Настоящий интервьюер не идёт списком, а копает вглубь
+        по вашему же ответу. Проговорите эти вопросы вслух до собеседования.</p>
+      <div id="follows"></div>
     </div>
 
     <div class="card">
@@ -197,6 +208,26 @@
       (sessions === 0 ? '<div class="small" style="color:var(--warn); margin-top:var(--sp-2)">' +
         "Без единой полной сессии готовность не поднимется выше 74%.</div>" : "");
 
+    // Режимы приходят из данных: настоящее собеседование редко бывает одним
+    // разговором, и состав блоков — это контент, а не разметка страницы.
+    var ICONS = { recruiter: "user", junior: "book-open", technical: "wrench",
+                  full: "list-checks" };
+    var TILES = { recruiter: "blue", junior: "green", technical: "violet",
+                  full: "red" };
+    document.getElementById("modeList").innerHTML =
+      (CONTENT.mockSessionModes || []).map(function (def) {
+        var n = buildSession(def).length;
+        if (!n) return "";              // на этом треке блоков режима нет
+        return '<button class="row-card" data-mode="' + App.esc(def.id) + '">' +
+          '<span class="ic-tile ' + (TILES[def.id] || "blue") + '" data-icon="' +
+          (ICONS[def.id] || "play") + '"></span>' +
+          '<span class="body"><span class="t">' + App.esc(def.title) + "</span>" +
+          '<span class="d">' + App.esc(def.hint) + " · " + n + " " +
+          App.plural(n, "вопрос", "вопроса", "вопросов") +
+          (def.minutes ? ", ~" + def.minutes + " мин" : "") + "</span></span>" +
+          '<span class="chev emi plain" data-icon="chevron-right"></span></button>';
+      }).join("");
+
     var byCat = {};
     mocks.forEach(function (m) { (byCat[m.category] = byCat[m.category] || []).push(m); });
     document.getElementById("catList").innerHTML = CONTENT.mockCategories
@@ -216,32 +247,42 @@
   }
 
   // ── подбор ──
-  function buildFull() {
-    // Полная сессия идёт по блокам в порядке настоящего собеседования.
-    var flow = CONTENT.mockSessionFlow.filter(function (c) { return c !== "candidate_questions"; });
+  function modeById(id) {
+    return (CONTENT.mockSessionModes || []).filter(function (m) {
+      return m.id === id;
+    })[0] || null;
+  }
+
+  // Сессия режима идёт по его блокам в порядке настоящего собеседования.
+  // Внутри блока берём наименее отработанные вопросы: сессия не должна
+  // повторять одно и то же из раза в раз. Сортировка детерминирована —
+  // при равном числе заходов порядок задаёт идентификатор.
+  function buildSession(def) {
+    if (!def) return [];
+    var p = Progress.profile();
     var out = [];
-    flow.forEach(function (cat) {
+    (def.flow || []).forEach(function (cat) {
       var list = mocks.filter(function (m) { return m.category === cat; });
       if (!list.length) return;
-      // Берём наименее отработанный вопрос категории: сессия не повторяет
-      // один и тот же вопрос из раза в раз.
-      var p = Progress.profile();
-      list.sort(function (a, b) {
-        var ea = (p.mock || {})[a.id] || { count: 0 };
-        var eb = (p.mock || {})[b.id] || { count: 0 };
-        return (ea.count || 0) - (eb.count || 0);
+      list = list.slice().sort(function (a, b) {
+        var ca = ((p.mock || {})[a.id] || {}).count || 0;
+        var cb = ((p.mock || {})[b.id] || {}).count || 0;
+        return ca - cb || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
       });
-      out.push(list[0]);
+      out = out.concat(list.slice(0, def.per_category || 1));
     });
     // Завершающий блок — вопросы кандидата работодателю.
-    var cq = mocks.filter(function (m) { return m.id === "mock-practical-006"; });
-    if (cq.length && out.indexOf(cq[0]) === -1) out.push(cq[0]);
+    if (def.closing) {
+      var cq = mocks.filter(function (m) { return m.id === def.closing; });
+      if (cq.length && out.indexOf(cq[0]) === -1) out.push(cq[0]);
+    }
     return out;
   }
 
   function start(mode, arg) {
     var list;
-    if (mode === "full") list = buildFull();
+    var def = modeById(mode);
+    if (def) list = buildSession(def);
     else if (mode === "cat") list = mocks.filter(function (m) { return m.category === arg; });
     else if (mode === "one") list = mocks.filter(function (m) { return m.id === arg; });
     else if (mode === "due") {
@@ -272,9 +313,13 @@
     document.getElementById("progBar").style.width =
       Math.round(session.i / session.list.length * 100) + "%";
     document.getElementById("phase").textContent =
-      (session.mode === "full" ? "Блок " + (session.i + 1) + ": " : "") + catTitle(q.category);
+      (modeById(session.mode) ? "Блок " + (session.i + 1) + ": " : "") + catTitle(q.category);
     document.getElementById("qText").textContent = q.question;
-    document.getElementById("qIntent").textContent = "Что проверяют: " + q.intent;
+    // Задание «объясни простыми словами»: адресат меняет требования к ответу,
+    // поэтому он показан ДО того, как человек начнёт отвечать.
+    document.getElementById("qIntent").textContent = q.explain_to
+      ? "Объясняете кому: " + q.explain_to + ". Без терминов."
+      : "Что проверяют: " + q.intent;
     document.getElementById("noteBox").value = "";
 
     document.getElementById("beforeCard").classList.remove("hidden");
@@ -304,6 +349,33 @@
     note.classList.toggle("hidden", !personal || !q.personal_evidence_prompt);
     document.getElementById("short").textContent = q.model_answer_short;
     document.getElementById("full").textContent = q.model_answer_full;
+
+    // Три глубины одного ответа: 30 секунд в потоке, 60 на уточнение,
+    // 120 когда просят разобрать подробно.
+    var d = q.answer_depths;
+    var depthCard = document.getElementById("depthCard");
+    depthCard.classList.toggle("hidden", !d);
+    if (d) {
+      document.getElementById("depths").innerHTML = ["30", "60", "120"]
+        .filter(function (k) { return d[k]; })
+        .map(function (k) {
+          return '<div class="qa" style="margin-top:var(--sp-2)">' +
+            '<div class="q">' + k + " секунд</div>" +
+            '<div class="small" style="line-height:1.6">' + App.esc(d[k]) + "</div></div>";
+        }).join("");
+    }
+
+    var ups = q.follow_ups || [];
+    var followCard = document.getElementById("followCard");
+    followCard.classList.toggle("hidden", !ups.length);
+    if (ups.length) {
+      document.getElementById("follows").innerHTML = ups.map(function (u, i) {
+        return '<div class="qa" style="margin-top:var(--sp-2)">' +
+          '<div class="q">' + (i + 1) + ". " + App.esc(u.question) + "</div>" +
+          '<div class="small muted" style="line-height:1.6">Чего ждут: ' +
+          App.esc(u.expect) + "</div></div>";
+      }).join("");
+    }
 
     document.getElementById("srcLinks").innerHTML = (q.source_refs || []).map(function (id) {
       var s = App.sourceById(id);
@@ -348,7 +420,10 @@
 
     Progress.addAttempt({
       kind: "mock",
-      mode: session.mode === "full" ? "full" : (session.mode + (session.arg ? ":" + session.arg : "")),
+      // Полная сессия записывается как "full": по ней считаются полные сессии
+      // в готовности и в достижениях, и переименование режима сломало бы счёт.
+      mode: modeById(session.mode) ? session.mode
+        : (session.mode + (session.arg ? ":" + session.arg : "")),
       total: session.results.length,
       correct: session.results.filter(function (r) { return r.rating >= 3; }).length,
       pct: Math.round(avg / 4 * 100),
@@ -362,7 +437,7 @@
     elResult.classList.remove("hidden");
 
     document.getElementById("resTitle").textContent =
-      session.mode === "full" ? "Полная сессия пройдена" : "Сессия завершена";
+      (modeById(session.mode) || {}).title || "Сессия завершена";
     document.getElementById("resSub").textContent =
       session.results.length + " " +
       App.plural(session.results.length, "вопрос", "вопроса", "вопросов") +

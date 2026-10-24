@@ -202,7 +202,8 @@
       ],
       "topic_ids": [
         "internal-linking",
-        "technical-seo"
+        "technical-seo",
+        "site-architecture"
       ],
       "category": "Crawling and indexing",
       "term": "Orphan page",
@@ -609,7 +610,8 @@
       ],
       "topic_ids": [
         "technical-seo",
-        "reporting"
+        "reporting",
+        "seo-audit"
       ],
       "category": "Technical SEO",
       "term": "SEO audit",
@@ -1070,7 +1072,8 @@
       ],
       "topic_ids": [
         "on-page",
-        "internal-linking"
+        "internal-linking",
+        "site-architecture"
       ],
       "category": "On-page SEO",
       "term": "Breadcrumbs",
@@ -1575,7 +1578,8 @@
         "redcore-junior-seo"
       ],
       "topic_ids": [
-        "internal-linking"
+        "internal-linking",
+        "site-architecture"
       ],
       "category": "Links",
       "term": "Internal link",
@@ -1678,7 +1682,8 @@
         "redcore-junior-seo"
       ],
       "topic_ids": [
-        "internal-linking"
+        "internal-linking",
+        "site-architecture"
       ],
       "category": "Links",
       "term": "Click depth",
@@ -7247,6 +7252,137 @@
       ],
       "difficulty": 3,
       "content_reviewed_at": "2026-08-17"
+    },
+    {
+      "id": "t-site-architecture",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "topic_ids": [
+        "site-architecture"
+      ],
+      "category": "Technical SEO",
+      "term": "Архитектура сайта",
+      "aliases": [
+        "site architecture",
+        "структура сайта",
+        "иерархия разделов"
+      ],
+      "definition_simple": "Как разделы и страницы сайта связаны между собой.",
+      "definition_interview": "Иерархия разделов и система внутренних ссылок между ними. Определяет, за сколько кликов от главной робот и человек добираются до страницы и какие страницы вообще будут найдены.",
+      "example": "Главная → категория → подкатегория → карточка товара, и на каждом уровне ссылки вверх и вбок, а не только вниз.",
+      "common_confusion": "Считают архитектурой структуру папок в URL. Робот ходит по ссылкам, а не по адресам.",
+      "question": "Что определяет архитектура сайта с точки зрения SEO?",
+      "answer": "Какие страницы робот найдёт и как часто будет к ним возвращаться. Плохая архитектура прячет важные страницы на глубине, а мусорные держит на виду.",
+      "source_refs": [
+        "google-url-structure",
+        "google-links-crawlable"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-hub-page",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "topic_ids": [
+        "site-architecture",
+        "internal-linking"
+      ],
+      "category": "Links",
+      "term": "Хаб-страница",
+      "aliases": [
+        "hub page",
+        "pillar page",
+        "пиллар",
+        "опорная страница"
+      ],
+      "definition_simple": "Страница-сборник, которая связывает материалы одной темы.",
+      "definition_interview": "Опорная страница кластера: раскрывает тему в целом и ссылается на страницы её подтем, а те ссылаются обратно. Сокращает глубину клика и собирает тематическую связность в одном месте.",
+      "example": "Страница «Технический аудит» со ссылками на разборы robots.txt, canonical, редиректов и скорости.",
+      "common_confusion": "Делают хаб пустым оглавлением из одних ссылок. Такая страница сама ничего не закрывает и в выдаче не держится.",
+      "question": "Зачем нужна хаб-страница?",
+      "answer": "Чтобы связать материалы одной темы между собой и сократить путь до них от главной. Она должна отвечать на общий запрос сама, а не быть списком ссылок.",
+      "source_refs": [
+        "google-links-crawlable"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-url-hierarchy",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "topic_ids": [
+        "site-architecture",
+        "technical-seo"
+      ],
+      "category": "Technical SEO",
+      "term": "Иерархия URL",
+      "aliases": [
+        "url hierarchy",
+        "вложенность адреса",
+        "структура адресов"
+      ],
+      "definition_simple": "Как устроен адрес: сколько в нём уровней и что они означают.",
+      "definition_interview": "Отражение структуры разделов в адресе страницы. Помогает человеку понять, где он находится, и упрощает работу с сегментами в отчётах. На обход влияет не сама вложенность, а количество кликов по ссылкам.",
+      "example": "/catalog/noutbuki/igrovye/model-x — по адресу видно раздел, подраздел и товар.",
+      "common_confusion": "Считают, что три сегмента в адресе означают глубину три. Страница с длинным адресом может быть в одном клике от главной.",
+      "question": "Влияет ли вложенность URL на индексацию?",
+      "answer": "Напрямую нет: робот ходит по ссылкам. Влияет глубина клика. Иерархия адреса нужна людям и удобна для анализа по сегментам в отчётах.",
+      "source_refs": [
+        "google-url-structure"
+      ],
+      "difficulty": 2
+    },
+    {
+      "id": "t-issue-priority",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "topic_ids": [
+        "seo-audit",
+        "reporting"
+      ],
+      "category": "Reporting",
+      "term": "Приоритет находки",
+      "aliases": [
+        "issue priority",
+        "приоритизация находок",
+        "impact scale confidence"
+      ],
+      "definition_simple": "Насколько срочно чинить найденную проблему.",
+      "definition_interview": "Оценка находки по трём осям: влияние на результат, масштаб распространения и уверенность в диагнозе. Трудоёмкость исправления учитывается при планировании, но важность не задаёт.",
+      "example": "Пять тысяч товарных страниц с noindex — критично. Семнадцать длинных заголовков — низкий приоритет, хотя чинятся быстрее.",
+      "common_confusion": "Приоритизируют по числу предупреждений в краулере: тысяча однотипных мелочей выглядит важнее одной серьёзной проблемы.",
+      "question": "Как расставить приоритет находкам аудита?",
+      "answer": "По влиянию, масштабу и уверенности в диагнозе вместе. Быстрота исправления на важность не влияет, а неуверенный диагноз сначала проверяют, потому что правка стоит чужого рабочего времени.",
+      "source_refs": [],
+      "difficulty": 2
+    },
+    {
+      "id": "t-executive-summary",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "topic_ids": [
+        "seo-audit",
+        "reporting"
+      ],
+      "category": "Reporting",
+      "term": "Краткая сводка",
+      "aliases": [
+        "executive summary",
+        "резюме отчёта"
+      ],
+      "definition_simple": "Первая страница отчёта: главное и что делать дальше.",
+      "definition_interview": "Часть аудита для того, кто принимает решение: два-три главных вывода, оценка последствий и первоочередные действия. Таблицы и полные списки уходят в приложение.",
+      "example": "«Каталог закрыт от индексации на 5 000 страниц. Это отсутствующие в поиске товары. Первое действие — снять noindex и проверить выборкой через неделю».",
+      "common_confusion": "Начинают отчёт с методики и настроек краула. До выводов читатель не доходит.",
+      "question": "Для кого пишется краткая сводка?",
+      "answer": "Для того, кто принимает решение и не будет читать таблицы. Поэтому в ней выводы и действия, а не перечень проверок.",
+      "source_refs": [],
+      "difficulty": 1
     }
   ]
 }

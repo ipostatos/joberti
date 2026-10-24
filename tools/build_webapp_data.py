@@ -53,6 +53,7 @@ TRACK_SECTIONS = {
     "mockQuestions": "track_id",
     "cases": "track_id",
     "roadmap": "track_id",
+    "projects": "track_id",
     "stories": "track_id",
     # Английский сквозной: пустой track_ids значит «во всех треках», поэтому он
     # режется тем же правилом, что и глоссарий, и общая часть попадает в каждый
@@ -69,7 +70,8 @@ TRACK_SECTIONS = {
 # ссылаются source_refs обоих треков. Библиотека и ачивки сквозные по смыслу.
 CORE_SECTIONS = (
     "tracks", "sources", "library", "achievements",
-    "glossaryCategories", "mockCategories", "mockSessionFlow", "storyFramework",
+    "glossaryCategories", "mockCategories", "mockSessionFlow", "mockSessionModes",
+    "storyFramework",
     "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
     "englishWritingCategories", "englishResourceCategories",
     "counts",
@@ -130,8 +132,10 @@ def build_sections(c) -> dict:
         "mockQuestions": c.mock_questions,
         "mockCategories": c.raw["mock_questions"].get("categories", []),
         "mockSessionFlow": c.raw["mock_questions"].get("session_flow", []),
+        "mockSessionModes": c.raw["mock_questions"].get("session_modes", []),
         "cases": c.cases,
         "roadmap": c.roadmap,
+        "projects": c.projects,
         "stories": c.stories,
         "storyFramework": c.raw["stories"].get("framework", {}),
         "achievements": c.achievements,

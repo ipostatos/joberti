@@ -164,6 +164,27 @@ ok(weakCrit.percent <= R.CAPS.weakCriticalTopic,
 ok(weakCrit.caps.some((c) => c.key === "weakCriticalTopic"),
   "ограничитель по критической теме присутствует в списке");
 
+// Порог слабой критической темы поднят с 0.40 до 0.50, поэтому проверяем
+// именно границу: состояние «ровно 40% освоенности» при старом пороге проходило
+// мимо ограничителя, при новом обязано его включать.
+eq(R.WEAK_CRITICAL, 0.5, "порог слабой критической темы");
+const s3b = strongState();
+const srs3b = Object.assign({}, s3b.srs);
+CONTENT.questions.filter((q) => q.topic === critTopic).forEach((q) => {
+  srs3b["q:" + q.id] = { box: 2, due: NOW + 1e9 };     // ровно 40% освоенности
+});
+s3b.srs = srs3b;
+const borderCrit = R.compute(s3b);
+ok(borderCrit.caps.some((c) => c.key === "weakCriticalTopic"),
+  "критическая тема на 40% обязана включать ограничитель при пороге 50%");
+
+// Состав критических тем задаётся треком и должен совпадать с темами,
+// помеченными critical: проверка ловит расхождение двух списков.
+const critFromTopics = CONTENT.topics
+  .filter((t) => t.track_id === TRACK && t.critical).map((t) => t.id).sort();
+eq(track.critical_topic_ids.slice().sort(), critFromTopics,
+  "critical_topic_ids трека и темы с critical: true должны совпадать");
+
 // cap: низкое покрытие обязательных тем
 const s4 = strongState();
 const srs4 = {};
@@ -298,6 +319,26 @@ const vDraft = R.computeVacancy(vacancyState({
 }));
 ok(!vDraft.available, "неактивный трек не получает готовности к вакансии");
 
+// ── практика руками ──
+// Проекты приходят снаружи как список {required, done}: readiness.js не знает,
+// откуда взялась отметка, и это позволяет проверить сам ограничитель.
+const PROJECTS = (CONTENT.projects || []).filter((p) => p.track_id === TRACK);
+ok(PROJECTS.length >= 3, `у трека описано ${PROJECTS.length} практических проектов`);
+ok(PROJECTS.every((p) => p.requirement_id),
+  "каждый проект обязан ссылаться на требование вакансии, иначе его нечем закрыть");
+
+const noProjects = R.computeVacancy(vacancyState({
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: false })),
+}));
+ok(noProjects.caps.some((c) => c.key === "projectsNotDone"),
+  "несданная обязательная практика обязана срабатывать ограничителем");
+
+const withProjects = R.computeVacancy(vacancyState({
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: true })),
+}));
+ok(!withProjects.caps.some((c) => c.key === "projectsNotDone"),
+  "сданная практика снимает ограничитель");
+
 // ── всё закрыто, кроме английского ──
 function closedAll(evidence) {
   return REQS.map((r) => ({
@@ -312,6 +353,7 @@ const strongVacancy = vacancyState(Object.assign({}, strongState(), {
   storiesFilled: 6,
   english: { drills: 10, drillsDone: 10, writingTasks: 10, writingPassed: 10,
              words: 50, wordsProdLearned: 50 },
+  projects: PROJECTS.map((p) => ({ id: p.id, required: !!p.required, done: true })),
 }));
 const vStrong = R.computeVacancy(strongVacancy);
 ok(vStrong.percent >= 90,

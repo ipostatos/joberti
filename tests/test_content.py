@@ -65,10 +65,12 @@ class TestCounts(unittest.TestCase):
         проверка начала измерять не то, что задумано.
         """
         expected = {
-            "search-basics": 12, "search-intent": 10, "on-page": 18,
-            "technical-seo": 24, "html-http": 12, "keyword-research": 12,
-            "indexing-gsc": 10, "analytics-ga4": 8, "seo-tools": 8, "reporting": 6,
-            "off-page-seo": 12,
+            "search-basics": 11, "search-intent": 11, "on-page": 18,
+            "technical-seo": 26, "html-http": 13, "keyword-research": 13,
+            "indexing-gsc": 12, "analytics-ga4": 9, "seo-tools": 9, "reporting": 6,
+            "off-page-seo": 12, "site-architecture": 8, "seo-audit": 8,
+            "internal-linking": 8, "sheets": 6, "interview-seo": 4,
+            "content-briefs": 3, "dev-communication": 3,
         }
         actual = {}
         seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
@@ -267,6 +269,25 @@ class TestQuestionQuality(unittest.TestCase):
                 self.assertTrue(any(q["level"] == "L4" for q in levelled),
                                 f"тема {topic} размечена по уровням, но без диагностики")
 
+    def test_seo_bank_is_fully_levelled(self):
+        """Трек под вакансию размечен целиком и каждая тема доходит до L4.
+
+        Диагностика — целевой уровень трека: на собеседовании дают данные и
+        спрашивают, что проверять первым. До этой разметки в банке не было ни
+        одного вопроса уровня L4 ни в одной теме.
+        """
+        seo = [q for q in self.c.questions if q["track_id"] == "redcore-junior-seo"]
+        by_topic = {}
+        for q in seo:
+            with self.subTest(q=q["id"]):
+                self.assertIn(q.get("level"), validate_content.QUESTION_LEVELS,
+                              "вопрос трека без уровня")
+            by_topic.setdefault(q["topic"], []).append(q)
+        for topic, pool in by_topic.items():
+            with self.subTest(topic=topic):
+                self.assertTrue(any(q["level"] == "L4" for q in pool),
+                                "тема без диагностического вопроса")
+
     def test_options_are_distinct(self):
         for q in self.c.questions:
             with self.subTest(q=q["id"]):
@@ -339,6 +360,66 @@ class TestReferences(unittest.TestCase):
                 if topic.get("required"):
                     with self.subTest(topic=topic["id"]):
                         self.assertIn(topic["id"], covered)
+
+    def test_seo_lessons_say_how_to_check(self):
+        """Урок трека под вакансию обязан отвечать «как проверить это руками».
+
+        Без этого блока урок остаётся чтением: человек узнаёт правило и не
+        умеет применить его к живому сайту. Поля идут парой — проверка без
+        инструмента и инструмент без проверки одинаково бесполезны.
+        """
+        for l in self.c.lessons:
+            if l["track_id"] != "redcore-junior-seo":
+                continue
+            with self.subTest(lesson=l["id"]):
+                self.assertTrue((l.get("how_to_check") or "").strip(),
+                                "урок без блока «как проверить руками»")
+                self.assertTrue(l.get("tools"), "урок без списка инструментов")
+
+    def test_seo_track_has_required_practice(self):
+        """Практика руками не заменяется тестами и моком.
+
+        У проекта намеренно нет собственного состояния: сделанным он считается
+        через доказательство у требования вакансии. Поэтому проект без живой
+        ссылки на требование закрыть нечем, а ограничитель готовности остался
+        бы включённым навсегда.
+        """
+        track_id = "redcore-junior-seo"
+        projects = [p for p in self.c.projects if p["track_id"] == track_id]
+        self.assertGreaterEqual(len(projects), 3, "обязательной практики слишком мало")
+        self.assertTrue(any(p["required"] for p in projects))
+        t = next(x for x in self.c.tracks if x["id"] == track_id)
+        vac = next(v for v in self.c.vacancies if v["id"] == t["vacancy_id"])
+        req_ids = {r["id"] for r in vac["requirements"]}
+        for p in projects:
+            with self.subTest(project=p["id"]):
+                self.assertIn(p["requirement_id"], req_ids)
+
+    def test_seo_critical_topics_have_a_case(self):
+        """У критической темы должен быть способ снять потолок практикой.
+
+        Правило введено при переработке SEO-трека, поэтому проверяется на нём:
+        на остальных треках пробел ещё открыт и виден предупреждением
+        валидатора, а не падением чужого CI.
+        """
+        track_id = "redcore-junior-seo"
+        t = next(x for x in self.c.tracks if x["id"] == track_id)
+        covered = set()
+        for case in self.c.cases:
+            if case["track_id"] == track_id:
+                covered.update(case.get("topic_ids") or [])
+        for tid in t["critical_topic_ids"]:
+            with self.subTest(topic=tid):
+                self.assertIn(tid, covered, "критическая тема без единого кейса")
+
+    def test_critical_lists_agree(self):
+        """Трек объявляет критические темы, тема помечает себя сама."""
+        for t in self.c.active_tracks():
+            declared = set(t.get("critical_topic_ids") or [])
+            marked = {x["id"] for x in self.c.topics
+                      if x["track_id"] == t["id"] and x.get("critical")}
+            with self.subTest(track=t["id"]):
+                self.assertEqual(declared, marked)
 
     def test_critical_topics_have_enough_questions(self):
         for t in self.c.active_tracks():

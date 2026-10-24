@@ -18,7 +18,7 @@
 // Ограничители (caps) не дают набрать высокий процент в обход слабых мест:
 //   нет ни одной полной сессии mock  → максимум 74
 //   меньше трёх завершённых кейсов   → максимум 79
-//   критическая тема ниже 40%        → максимум 69
+//   критическая тема ниже 50%        → максимум 69
 //   охвачено меньше 60% обязательных тем → максимум 64
 //
 // Модуль чистый: не читает localStorage сам, всё получает во входном объекте.
@@ -43,7 +43,10 @@
   };
 
   var MIN_CASES = 3;                 // ниже этого числа действует cap fewCases
-  var WEAK_CRITICAL = 0.40;          // критическая тема ниже — cap
+  // Порог поднят с 0.40 до 0.50 вместе с расширением списка критических тем:
+  // сорок процентов по критической теме — это «примерно половину не знаю»,
+  // и пропускать такое состояние выше 69% было слишком мягко.
+  var WEAK_CRITICAL = 0.50;          // критическая тема ниже — cap
   var TOPIC_COVERED = 0.30;          // тема считается охваченной начиная отсюда
   var MIN_TOPIC_COVERAGE = 0.60;     // доля охваченных обязательных тем
   var MAX_BOX = 5;
@@ -482,6 +485,7 @@
   var VACANCY_CAPS = {
     requiredNotStarted: 80,   // хотя бы одно обязательное требование не начато
     noFullMock: 79,           // нет ни одной полной сессии mock interview
+    projectsNotDone: 79,      // обязательная практика не сдана
     englishNotMet: 74,        // обязательное языковое требование не закрыто
   };
 
@@ -624,6 +628,19 @@
         reason: "Нет ни одной полной сессии mock interview",
         action: "Пройти полное mock interview" });
     }
+    // Практика руками не заменяется ни тестами, ни моком: «я читал про
+    // Screaming Frog» и «я краулил сайт и делал аудит» — разные ответы, и
+    // разницу на собеседовании слышно сразу.
+    var requiredProjects = (input.projects || []).filter(function (p) {
+      return p.required;
+    });
+    var projectsLeft = requiredProjects.filter(function (p) { return !p.done; });
+    if (requiredProjects.length && projectsLeft.length) {
+      caps.push({ key: "projectsNotDone", max: VACANCY_CAPS.projectsNotDone,
+        reason: "Обязательная практика не сдана: " + projectsLeft.length +
+          " из " + requiredProjects.length,
+        action: "Сделать проект и описать доказательство" });
+    }
     if (mandatoryLang.length && !langMet) {
       caps.push({ key: "englishNotMet", max: VACANCY_CAPS.englishNotMet,
         reason: "Обязательное требование по английскому не закрыто",
@@ -660,6 +677,8 @@
       capMax: capMax,
       requiredTotal: required.length,
       requiredClosed: required.filter(closed).length,
+      projectsTotal: requiredProjects.length,
+      projectsDone: requiredProjects.length - projectsLeft.length,
       evidenceShare: evidenceShare,
       englishRequired: mandatoryLang.length > 0,
       englishMet: langMet,

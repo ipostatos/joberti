@@ -21,7 +21,9 @@
       "ru": "Спасибо, что нашли время поговорить со мной сегодня.",
       "when": "Первая фраза после приветствия — нейтральная и уместная в любой компании.",
       "note": "Не начинайте с извинений за свой английский: это первое, что запомнит интервьюер.",
-      "variants": ["Thank you for the invitation, I'm glad to be here."]
+      "variants": [
+        "Thank you for the invitation, I'm glad to be here."
+      ]
     },
     {
       "id": "ph-open-002",
@@ -32,7 +34,9 @@
       "ru": "Меня хорошо слышно? Скажите, если связь пропадёт.",
       "when": "Начало созвона. Заранее договориться о сбоях связи спокойнее, чем объясняться потом.",
       "note": "",
-      "variants": ["My connection is a bit unstable today, I might freeze for a second."]
+      "variants": [
+        "My connection is a bit unstable today, I might freeze for a second."
+      ]
     },
     {
       "id": "ph-open-003",
@@ -43,7 +47,9 @@
       "ru": "Прежде чем начнём, расскажете, как устроено собеседование?",
       "when": "Полезно узнать заранее: будет ли живое кодирование, сколько частей, кто ещё присоединится.",
       "note": "Вопрос показывает, что вы планируете время, а не просто плывёте по разговору.",
-      "variants": ["How much time do we have today?"]
+      "variants": [
+        "How much time do we have today?"
+      ]
     },
     {
       "id": "ph-open-004",
@@ -54,7 +60,9 @@
       "ru": "Мой английский на среднем уровне, так что я могу попросить повторить — надеюсь, это нормально.",
       "when": "Один раз в начале, спокойным тоном. Дальше к теме языка не возвращайтесь.",
       "note": "Формулировка «I might ask you to repeat» звучит как рабочая договорённость, а не как оправдание.",
-      "variants": ["I'm still improving my English, so I'll speak a bit slowly."]
+      "variants": [
+        "I'm still improving my English, so I'll speak a bit slowly."
+      ]
     },
     {
       "id": "ph-open-005",
@@ -65,7 +73,9 @@
       "ru": "Уточню: мы говорим о позиции …, верно?",
       "when": "Когда компания ведёт несколько вакансий сразу и вы не уверены, о какой речь.",
       "note": "",
-      "variants": ["Am I right that this role is mostly about …?"]
+      "variants": [
+        "Am I right that this role is mostly about …?"
+      ]
     },
     {
       "id": "ph-open-006",
@@ -76,7 +86,9 @@
       "ru": "Начать с рассказа о себе или сразу перейти к технической части?",
       "when": "Если интервьюер молчит и ждёт от вас инициативы.",
       "note": "",
-      "variants": ["Where would you like me to start?"]
+      "variants": [
+        "Where would you like me to start?"
+      ]
     },
     {
       "id": "ph-open-007",
@@ -87,7 +99,9 @@
       "ru": "Извините, я не расслышал(а) имя — продиктуете по буквам?",
       "when": "Лучше переспросить в первую минуту, чем весь разговор избегать обращения.",
       "note": "",
-      "variants": ["How do you pronounce your name correctly?"]
+      "variants": [
+        "How do you pronounce your name correctly?"
+      ]
     },
     {
       "id": "ph-open-008",
@@ -109,7 +123,9 @@
       "ru": "Я работаю с … около двух лет, в основном над …",
       "when": "Первое предложение ответа на «Tell me about yourself»: сфера, срок, чем именно занимались.",
       "note": "Present Perfect Continuous здесь уместен: занятие началось в прошлом и продолжается.",
-      "variants": ["I have around two years of hands-on experience in …"]
+      "variants": [
+        "I have around two years of hands-on experience in …"
+      ]
     },
     {
       "id": "ph-self-002",
@@ -120,7 +136,9 @@
       "ru": "Мой бэкграунд — …, и я перешёл(перешла) в …, потому что …",
       "when": "Смена профессии. Причина перехода закрывает первый же вопрос интервьюера.",
       "note": "Причина должна быть про интерес к работе, а не про недостатки прошлого места.",
-      "variants": ["I started in … and gradually moved towards …"]
+      "variants": [
+        "I started in … and gradually moved towards …"
+      ]
     },
     {
       "id": "ph-self-003",
@@ -131,7 +149,9 @@
       "ru": "Сейчас я сосредоточен(а) на …, и именно это привлекло меня в этой вакансии.",
       "when": "Финал рассказа о себе: связывает ваш текущий фокус с вакансией.",
       "note": "Сильный ответ всегда заканчивается мостиком к этой конкретной работе.",
-      "variants": ["That's the part of the job I enjoy most, and I saw it in your job description."]
+      "variants": [
+        "That's the part of the job I enjoy most, and I saw it in your job description."
+      ]
     },
     {
       "id": "ph-self-004",
@@ -142,7 +162,10 @@
       "ru": "На текущем месте я отвечаю за …",
       "when": "Описание зоны ответственности одним предложением.",
       "note": "«Responsible for» + существительное или -ing: responsible for testing, not responsible to test.",
-      "variants": ["My main responsibility is …", "I take care of …"]
+      "variants": [
+        "My main responsibility is …",
+        "I take care of …"
+      ]
     },
     {
       "id": "ph-self-005",
@@ -153,7 +176,9 @@
       "ru": "Сильная сторона у меня — …, а над … я сейчас активно работаю.",
       "when": "Вопрос про сильные и слабые стороны. Вторая часть обязана звучать как план, а не как жалоба.",
       "note": "Не называйте слабостью то, что критично для вакансии.",
-      "variants": ["Something I want to get better at is …"]
+      "variants": [
+        "Something I want to get better at is …"
+      ]
     },
     {
       "id": "ph-self-006",
@@ -164,7 +189,9 @@
       "ru": "Я ищу работу, где смогу …",
       "when": "Ответ на «What are you looking for?» — про содержание работы, а не про условия.",
       "note": "",
-      "variants": ["What matters to me is working on …"]
+      "variants": [
+        "What matters to me is working on …"
+      ]
     },
     {
       "id": "ph-self-007",
@@ -175,7 +202,9 @@
       "ru": "Я учусь на практике, поэтому обычно делаю маленький проект, чтобы попробовать новый инструмент.",
       "when": "Вопрос «How do you learn new things?» — частый для джуниоров.",
       "note": "Дальше сразу назовите конкретный пример проекта, иначе это останется общими словами.",
-      "variants": ["I keep a list of things to learn and go through it every week."]
+      "variants": [
+        "I keep a list of things to learn and go through it every week."
+      ]
     },
     {
       "id": "ph-self-008",
@@ -186,7 +215,9 @@
       "ru": "Итого: два года в …, силён(сильна) в …, хочу вырасти в …",
       "when": "Короткое резюме в конце длинного ответа. Помогает, когда вы почувствовали, что говорите слишком долго.",
       "note": "",
-      "variants": ["In short, …"]
+      "variants": [
+        "In short, …"
+      ]
     },
     {
       "id": "ph-exp-001",
@@ -197,7 +228,9 @@
       "ru": "Проект, которым я больше всего горжусь, — …",
       "when": "Начало рассказа о проекте. Дальше — задача, ваши действия, результат.",
       "note": "Держите схему STAR: situation, task, action, result.",
-      "variants": ["A good example would be …"]
+      "variants": [
+        "A good example would be …"
+      ]
     },
     {
       "id": "ph-exp-002",
@@ -208,7 +241,9 @@
       "ru": "Моя роль была в том, чтобы …, а остальная команда занималась …",
       "when": "Отделяет ваш вклад от командного. Интервьюер спрашивает именно про ваш.",
       "note": "Говорите «I», а не «we», когда речь о ваших действиях. «We» в рассказе о себе — самая частая претензия.",
-      "variants": ["I personally was responsible for …"]
+      "variants": [
+        "I personally was responsible for …"
+      ]
     },
     {
       "id": "ph-exp-003",
@@ -219,7 +254,9 @@
       "ru": "В результате мы снизили … примерно на 30% за два месяца.",
       "when": "Итог рассказа. Цифра и срок делают историю проверяемой.",
       "note": "Если точной цифры нет, скажите «roughly» или «around» — выдуманная точность легко ломается уточняющим вопросом.",
-      "variants": ["That saved the team around five hours a week."]
+      "variants": [
+        "That saved the team around five hours a week."
+      ]
     },
     {
       "id": "ph-exp-004",
@@ -230,7 +267,9 @@
       "ru": "Сначала не получилось, и вот что я поменял(а) …",
       "when": "Вопрос про провал или ошибку. Честное признание плюс вывод — сильнее «у меня не было провалов».",
       "note": "",
-      "variants": ["Looking back, I would do … differently."]
+      "variants": [
+        "Looking back, I would do … differently."
+      ]
     },
     {
       "id": "ph-exp-005",
@@ -241,7 +280,9 @@
       "ru": "Мы разошлись во мнениях о …, и я предложил(а) посмотреть на данные до решения.",
       "when": "Вопрос про конфликт в команде. Показывает способ решать спор, а не сам спор.",
       "note": "Не переходите на личности собеседников — интервьюер услышит это как сигнал.",
-      "variants": ["Instead of arguing, we ran a quick experiment."]
+      "variants": [
+        "Instead of arguing, we ran a quick experiment."
+      ]
     },
     {
       "id": "ph-exp-006",
@@ -252,7 +293,9 @@
       "ru": "Я плотно работал(а) с разработчиками, поэтому умею объяснять … на их языке.",
       "when": "Когда важна кросс-командная коммуникация.",
       "note": "",
-      "variants": ["I'm used to working with people outside my team."]
+      "variants": [
+        "I'm used to working with people outside my team."
+      ]
     },
     {
       "id": "ph-exp-007",
@@ -263,7 +306,9 @@
       "ru": "Был компромисс между скоростью и надёжностью, и мы выбрали …, потому что …",
       "when": "Когда просят объяснить принятое решение. Названный компромисс показывает инженерное мышление.",
       "note": "",
-      "variants": ["We knew the downside was …, and we accepted it because …"]
+      "variants": [
+        "We knew the downside was …, and we accepted it because …"
+      ]
     },
     {
       "id": "ph-exp-008",
@@ -274,7 +319,9 @@
       "ru": "Коммерческого опыта с этим у меня пока нет, но я использовал(а) это в своём проекте.",
       "when": "Требование вакансии, которое вы закрываете не работой, а практикой.",
       "note": "Честная граница между «работал в проде» и «пробовал сам» — то, что проверяют на второй минуте.",
-      "variants": ["Only in a test environment so far, not in production."]
+      "variants": [
+        "Only in a test environment so far, not in production."
+      ]
     },
     {
       "id": "ph-tech-001",
@@ -285,7 +332,9 @@
       "ru": "Давайте я пройду по шагам.",
       "when": "Начало объяснения процесса. Сразу задаёт структуру ответу.",
       "note": "После этой фразы держите обещание: «first… then… finally…».",
-      "variants": ["I'll break it down into three parts."]
+      "variants": [
+        "I'll break it down into three parts."
+      ]
     },
     {
       "id": "ph-tech-002",
@@ -296,7 +345,9 @@
       "ru": "Коротко — …; если подробнее, то …",
       "when": "Даёт интервьюеру выбор: остановить вас или услышать детали.",
       "note": "",
-      "variants": ["In one sentence: …"]
+      "variants": [
+        "In one sentence: …"
+      ]
     },
     {
       "id": "ph-tech-003",
@@ -307,7 +358,9 @@
       "ru": "Зависит от … — например, если …, то …",
       "when": "Вопрос без единственно верного ответа. Голое «it depends» звучит как уход от ответа, поэтому сразу давайте пример.",
       "note": "Никогда не оставляйте «it depends» без продолжения.",
-      "variants": ["There are two cases here: …"]
+      "variants": [
+        "There are two cases here: …"
+      ]
     },
     {
       "id": "ph-tech-004",
@@ -318,7 +371,9 @@
       "ru": "Главное различие между A и B в том, что …",
       "when": "Классический вопрос на сравнение двух понятий.",
       "note": "«Difference between A and B», не «difference of A from B».",
-      "variants": ["A and B look similar, but they solve different problems."]
+      "variants": [
+        "A and B look similar, but they solve different problems."
+      ]
     },
     {
       "id": "ph-tech-005",
@@ -329,7 +384,9 @@
       "ru": "Сначала я проверил(а) бы …, потом посмотрел(а) бы …, и только после этого что-то менял(а) бы.",
       "when": "Вопрос-диагностика: «сайт упал», «платёж не прошёл», «тест падает».",
       "note": "Интервьюер оценивает порядок действий, а не угаданную причину.",
-      "variants": ["My first step would be to reproduce it."]
+      "variants": [
+        "My first step would be to reproduce it."
+      ]
     },
     {
       "id": "ph-tech-006",
@@ -340,7 +397,9 @@
       "ru": "Приведу конкретный пример из работы: …",
       "when": "Переход от теории к практике. Сильно повышает доверие к ответу.",
       "note": "",
-      "variants": ["We had exactly this case last year."]
+      "variants": [
+        "We had exactly this case last year."
+      ]
     },
     {
       "id": "ph-tech-007",
@@ -351,7 +410,9 @@
       "ru": "Я бы лучше уточнил(а) это в документации, чем угадывал(а).",
       "when": "Когда вы помните суть, но не уверены в деталях.",
       "note": "Это не слабость: в проде угадывание дороже проверки.",
-      "variants": ["I remember the idea, but I'd verify the exact syntax."]
+      "variants": [
+        "I remember the idea, but I'd verify the exact syntax."
+      ]
     },
     {
       "id": "ph-tech-008",
@@ -362,7 +423,9 @@
       "ru": "Это отвечает на ваш вопрос или рассказать подробнее?",
       "when": "Финал длинного ответа. Возвращает управление разговором интервьюеру.",
       "note": "",
-      "variants": ["Should I go deeper into that?"]
+      "variants": [
+        "Should I go deeper into that?"
+      ]
     },
     {
       "id": "ph-clar-001",
@@ -373,7 +436,9 @@
       "ru": "Извините, можете повторить?",
       "when": "Самая нужная фраза на собеседовании на английском. Переспросить нормально.",
       "note": "Не кивайте, если не поняли: ответ невпопад хуже, чем просьба повторить.",
-      "variants": ["Sorry, I missed the last part."]
+      "variants": [
+        "Sorry, I missed the last part."
+      ]
     },
     {
       "id": "ph-clar-002",
@@ -384,7 +449,9 @@
       "ru": "Можно чуть медленнее?",
       "when": "Один раз в начале — и дальше разговор пойдёт в комфортном темпе.",
       "note": "",
-      "variants": ["Would you mind slowing down a little?"]
+      "variants": [
+        "Would you mind slowing down a little?"
+      ]
     },
     {
       "id": "ph-clar-003",
@@ -395,7 +462,9 @@
       "ru": "Чтобы убедиться, что я правильно понял(а): вы спрашиваете про …, так?",
       "when": "Длинный или размытый вопрос. Пересказ своими словами экономит минуту разговора.",
       "note": "Заодно даёт вам время подумать.",
-      "variants": ["If I got it right, you mean …"]
+      "variants": [
+        "If I got it right, you mean …"
+      ]
     },
     {
       "id": "ph-clar-004",
@@ -406,7 +475,9 @@
       "ru": "Хороший вопрос — дайте секунду подумать.",
       "when": "Легальная пауза. Тишина в две-три секунды выглядит лучше, чем «э-э-э».",
       "note": "Не растягивайте паузу дольше пяти секунд, лучше начните рассуждать вслух.",
-      "variants": ["Let me take a moment to structure my answer."]
+      "variants": [
+        "Let me take a moment to structure my answer."
+      ]
     },
     {
       "id": "ph-clar-005",
@@ -417,7 +488,9 @@
       "ru": "Как это по-английски? … Я имею в виду то, что …",
       "when": "Забыли слово. Описание через функцию работает: собеседник сам подскажет термин.",
       "note": "",
-      "variants": ["I forgot the word — it's the tool that …"]
+      "variants": [
+        "I forgot the word — it's the tool that …"
+      ]
     },
     {
       "id": "ph-clar-006",
@@ -428,7 +501,9 @@
       "ru": "Можете переформулировать вопрос?",
       "when": "Когда вы услышали слова, но не поняли смысл.",
       "note": "«Rephrase» вежливее, чем «I don't understand».",
-      "variants": ["What exactly do you mean by …?"]
+      "variants": [
+        "What exactly do you mean by …?"
+      ]
     },
     {
       "id": "ph-clar-007",
@@ -439,7 +514,9 @@
       "ru": "Может, будет проще, если я покажу в коде?",
       "when": "Когда объяснение словами буксует, а экран доступен.",
       "note": "",
-      "variants": ["Can I draw it quickly?"]
+      "variants": [
+        "Can I draw it quickly?"
+      ]
     },
     {
       "id": "ph-clar-008",
@@ -450,7 +527,9 @@
       "ru": "Извините, связь подвисла — повторите последний вопрос?",
       "when": "Честная причина, которая никого не удивляет на удалённом созвоне.",
       "note": "",
-      "variants": ["I think we lost each other for a second."]
+      "variants": [
+        "I think we lost each other for a second."
+      ]
     },
     {
       "id": "ph-idk-001",
@@ -461,7 +540,9 @@
       "ru": "С этим я не работал(а), но вот как бы я к этому подошёл(подошла).",
       "when": "Лучший ответ на незнакомую тему: честно плюс ход мысли.",
       "note": "Продолжение обязательно: без него фраза превращается в «не знаю».",
-      "variants": ["That's new to me — my first guess would be …"]
+      "variants": [
+        "That's new to me — my first guess would be …"
+      ]
     },
     {
       "id": "ph-idk-002",
@@ -472,7 +553,9 @@
       "ru": "Понятие я знаю, но в проде не использовал(а).",
       "when": "Честная граница знания. Интервьюеры проверяют её почти всегда.",
       "note": "",
-      "variants": ["I've read about it, but only tried it in a sandbox."]
+      "variants": [
+        "I've read about it, but only tried it in a sandbox."
+      ]
     },
     {
       "id": "ph-idk-003",
@@ -483,7 +566,9 @@
       "ru": "Я бы начал(а) с официальной документации и спросил(а) бы кого-то в команде.",
       "when": "Вопрос «что вы сделаете, если не знаете?».",
       "note": "Назовите конкретный источник, а не «загуглю»: это выглядит профессиональнее.",
-      "variants": ["I'd look at the docs first, then at similar cases in our codebase."]
+      "variants": [
+        "I'd look at the docs first, then at similar cases in our codebase."
+      ]
     },
     {
       "id": "ph-idk-004",
@@ -494,7 +579,9 @@
       "ru": "Можно вернуться к этому вопросу в конце?",
       "when": "Если ответ вертится на языке, но не складывается прямо сейчас.",
       "note": "Обязательно вернитесь — иначе фраза читается как уклонение.",
-      "variants": ["I might have a better answer after we discuss …"]
+      "variants": [
+        "I might have a better answer after we discuss …"
+      ]
     },
     {
       "id": "ph-idk-005",
@@ -505,7 +592,9 @@
       "ru": "Я не уверен(а) и не хочу гадать — подскажете направление?",
       "when": "Сильная фраза: признаёт незнание и продолжает диалог.",
       "note": "Интервьюер часто подсказывает и продолжает вопрос вместе с вами — это нормальная часть интервью.",
-      "variants": ["A hint would help me a lot here."]
+      "variants": [
+        "A hint would help me a lot here."
+      ]
     },
     {
       "id": "ph-idk-006",
@@ -516,7 +605,9 @@
       "ru": "Возможно, я ошибаюсь, но насколько я понимаю, …",
       "when": "Когда вы почти уверены. Оговорка защищает от резкой ошибки и не мешает ответить.",
       "note": "Не начинайте так каждый ответ: постоянные оговорки читаются как неуверенность.",
-      "variants": ["As far as I remember, …"]
+      "variants": [
+        "As far as I remember, …"
+      ]
     },
     {
       "id": "ph-idk-007",
@@ -527,7 +618,9 @@
       "ru": "Это вне моего опыта, но похоже на …, что я делал(а).",
       "when": "Перенос знакомого опыта на незнакомую задачу.",
       "note": "",
-      "variants": ["I've solved a similar problem in a different context."]
+      "variants": [
+        "I've solved a similar problem in a different context."
+      ]
     },
     {
       "id": "ph-idk-008",
@@ -538,7 +631,9 @@
       "ru": "Я разберусь после созвона и могу прислать ответ.",
       "when": "Работает только если вы действительно напишете письмо. Тогда это сильный ход.",
       "note": "",
-      "variants": ["I'd like to read up on it properly before answering."]
+      "variants": [
+        "I'd like to read up on it properly before answering."
+      ]
     },
     {
       "id": "ph-ask-001",
@@ -549,7 +644,9 @@
       "ru": "Как будут выглядеть мои первые три месяца?",
       "when": "Лучший первый вопрос: показывает, что вы думаете о работе, а не только о найме.",
       "note": "",
-      "variants": ["What does success look like in this role after six months?"]
+      "variants": [
+        "What does success look like in this role after six months?"
+      ]
     },
     {
       "id": "ph-ask-002",
@@ -560,7 +657,9 @@
       "ru": "С кем я буду работать плотнее всего?",
       "when": "Про команду и связи, а не про формальную структуру.",
       "note": "",
-      "variants": ["How is the team organised?"]
+      "variants": [
+        "How is the team organised?"
+      ]
     },
     {
       "id": "ph-ask-003",
@@ -571,7 +670,9 @@
       "ru": "Какая самая большая сложность у команды сейчас?",
       "when": "Ответ покажет реальное состояние дел лучше, чем описание вакансии.",
       "note": "",
-      "variants": ["What keeps the team busy these days?"]
+      "variants": [
+        "What keeps the team busy these days?"
+      ]
     },
     {
       "id": "ph-ask-004",
@@ -582,7 +683,9 @@
       "ru": "Как измеряется результат на этой позиции?",
       "when": "Хороший вопрос от кандидата любого уровня: вы спрашиваете про критерии, по которым вас будут оценивать.",
       "note": "",
-      "variants": ["Which metrics does the team look at?"]
+      "variants": [
+        "Which metrics does the team look at?"
+      ]
     },
     {
       "id": "ph-ask-005",
@@ -593,7 +696,9 @@
       "ru": "Как в команде устроены код-ревью и обмен знаниями?",
       "when": "Для джуниора это вопрос о том, будет ли у вас обучение на работе.",
       "note": "",
-      "variants": ["Is there someone who would mentor me at the start?"]
+      "variants": [
+        "Is there someone who would mentor me at the start?"
+      ]
     },
     {
       "id": "ph-ask-006",
@@ -604,7 +709,9 @@
       "ru": "Насколько много общения идёт на английском?",
       "when": "Практичный вопрос: письменный английский и созвоны требуют разной подготовки.",
       "note": "",
-      "variants": ["Is the documentation in English as well?"]
+      "variants": [
+        "Is the documentation in English as well?"
+      ]
     },
     {
       "id": "ph-ask-007",
@@ -615,7 +722,9 @@
       "ru": "Что происходит, когда в проде что-то ломается — как устроен процесс?",
       "when": "Ответ многое скажет о зрелости команды и о том, ищут ли в ней виноватых.",
       "note": "",
-      "variants": ["Do you run post-mortems after incidents?"]
+      "variants": [
+        "Do you run post-mortems after incidents?"
+      ]
     },
     {
       "id": "ph-ask-008",
@@ -626,7 +735,9 @@
       "ru": "Какие следующие шаги в процессе найма?",
       "when": "Последний вопрос перед прощанием. Задавайте его всегда.",
       "note": "",
-      "variants": ["When can I expect to hear back from you?"]
+      "variants": [
+        "When can I expect to hear back from you?"
+      ]
     },
     {
       "id": "ph-fin-001",
@@ -637,7 +748,9 @@
       "ru": "Какая вилка по зарплате на этой позиции?",
       "when": "Прямой и нормальный вопрос. Спрашивать про вилку не считается бестактным.",
       "note": "«Salary range», а не «how much money will I get».",
-      "variants": ["Could you share the budget you have for this role?"]
+      "variants": [
+        "Could you share the budget you have for this role?"
+      ]
     },
     {
       "id": "ph-fin-002",
@@ -648,7 +761,9 @@
       "ru": "Мои ожидания — около …, но я готов(а) обсуждать.",
       "when": "Ответ на вопрос об ожиданиях. Называйте вилку, а не одно число.",
       "note": "Не называйте сумму первым, если можете вежливо вернуть вопрос.",
-      "variants": ["I'd rather hear your range first, if that's possible."]
+      "variants": [
+        "I'd rather hear your range first, if that's possible."
+      ]
     },
     {
       "id": "ph-fin-003",
@@ -659,7 +774,9 @@
       "ru": "Позиция полностью удалённая, гибрид или из офиса?",
       "when": "Уточняйте до оффера, а не после.",
       "note": "",
-      "variants": ["How many days in the office are expected?"]
+      "variants": [
+        "How many days in the office are expected?"
+      ]
     },
     {
       "id": "ph-fin-004",
@@ -670,7 +787,9 @@
       "ru": "В каком часовом поясе работает команда и насколько гибкий график?",
       "when": "Для распределённых команд это важнее зарплаты.",
       "note": "",
-      "variants": ["Are there fixed meeting hours?"]
+      "variants": [
+        "Are there fixed meeting hours?"
+      ]
     },
     {
       "id": "ph-fin-005",
@@ -681,7 +800,9 @@
       "ru": "Можно мне пару дней подумать?",
       "when": "Ответ на оффер. Просить время — обычная практика.",
       "note": "Назовите конкретный срок, тогда пауза не выглядит как сомнение.",
-      "variants": ["I'd like to discuss it with my family and come back to you on Friday."]
+      "variants": [
+        "I'd like to discuss it with my family and come back to you on Friday."
+      ]
     },
     {
       "id": "ph-fin-006",
@@ -692,7 +813,9 @@
       "ru": "Спасибо, было приятно пообщаться.",
       "when": "Прощание. Коротко и без лишних слов.",
       "note": "",
-      "variants": ["Thanks again for your time today."]
+      "variants": [
+        "Thanks again for your time today."
+      ]
     },
     {
       "id": "ph-fin-007",
@@ -703,7 +826,9 @@
       "ru": "Я по-прежнему заинтересован(а) в позиции — есть ли новости по моей заявке?",
       "when": "Письмо-напоминание через неделю после обещанного срока.",
       "note": "Одно напоминание уместно, три — нет.",
-      "variants": ["Just following up on our conversation last week."]
+      "variants": [
+        "Just following up on our conversation last week."
+      ]
     },
     {
       "id": "ph-fin-008",
@@ -714,7 +839,73 @@
       "ru": "Спасибо, что сообщили. Подскажете, что мне стоит подтянуть?",
       "when": "Ответ на отказ. Обратная связь после отказа — самый дешёвый источник роста.",
       "note": "Отвечайте спокойно: компании возвращаются к кандидатам через полгода.",
-      "variants": ["I'd appreciate any feedback that could help me next time."]
+      "variants": [
+        "I'd appreciate any feedback that could help me next time."
+      ]
+    },
+    {
+      "id": "ph-seo-001",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "en": "It controls crawling, not indexing.",
+      "ru": "Это управляет обходом, а не индексацией.",
+      "when": "Когда объясняете robots.txt и нужно сразу снять главное заблуждение собеседника.",
+      "note": "Самая полезная конструкция всего блока: «X, not Y» коротко разводит два понятия, которые путают. То же работает с «It's a signal, not a directive» про canonical.",
+      "variants": [
+        "It's a signal, not a directive.",
+        "It affects discovery, not ranking."
+      ]
+    },
+    {
+      "id": "ph-seo-002",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "en": "The status tells us what happened, not why.",
+      "ru": "Статус говорит, что произошло, а не почему.",
+      "when": "Когда просят прокомментировать статус индексации и ждут диагноз.",
+      "note": "Фраза, за которой удобно перейти к гипотезам: «So I'd check a few things in order…». Без неё ответ звучит как готовый диагноз по одному слову.",
+      "variants": [
+        "That's a symptom, not a diagnosis.",
+        "I'd treat that as a hypothesis to verify."
+      ]
+    },
+    {
+      "id": "ph-seo-003",
+      "category": "Технические объяснения",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "en": "I'd check that in Search Console before I promise anything.",
+      "ru": "Я бы проверил это в Search Console, прежде чем что-то обещать.",
+      "when": "Когда просят оценить сроки или гарантировать результат.",
+      "note": "Сильный ответ на давление: вы не отказываетесь, а называете, чем проверите. Обещание позиций и сроков на собеседовании читается как тревожный сигнал.",
+      "variants": [
+        "I can give you a range, but not a guarantee.",
+        "Let me look at the data first."
+      ]
+    },
+    {
+      "id": "ph-seo-004",
+      "category": "Опыт и проекты",
+      "track_ids": [
+        "redcore-junior-seo"
+      ],
+      "level": 2,
+      "en": "I ran a crawl on a small site and put together a short audit.",
+      "ru": "Я прокраулил небольшой сайт и собрал короткий аудит.",
+      "when": "Когда спрашивают про практический опыт с инструментами.",
+      "note": "Конструкция «I ran… and put together…» описывает сделанное действие и результат. Подставляйте свои факты: заученная чужая фраза разваливается на уточняющем вопросе.",
+      "variants": [
+        "I collected the semantics for one service and mapped it to pages.",
+        "I looked at the indexing report and found the main gap."
+      ]
     }
   ]
 }

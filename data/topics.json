@@ -35,7 +35,7 @@
       "title": "HTML и HTTP",
       "short": "Разметка документа, коды ответа сервера, редиректы",
       "required": true,
-      "critical": false
+      "critical": true
     },
     {
       "id": "technical-seo",
@@ -92,7 +92,7 @@
       "title": "Инструменты SEO",
       "short": "Screaming Frog, Ahrefs, Semrush: что чем смотрят",
       "required": true,
-      "critical": false,
+      "critical": true,
       "volatility": "high"
     },
     {
@@ -112,7 +112,7 @@
       "title": "Внутренняя перелинковка",
       "short": "Как ссылки внутри сайта распределяют вес и помогают обходу",
       "required": true,
-      "critical": false
+      "critical": true
     },
     {
       "id": "international-seo",
@@ -745,6 +745,24 @@
       "required": true,
       "critical": false,
       "volatility": "high"
+    },
+    {
+      "id": "site-architecture",
+      "track_id": "redcore-junior-seo",
+      "order": 23,
+      "title": "Архитектура сайта",
+      "short": "Иерархия разделов, глубина клика, страницы-сироты, хлебные крошки и путь робота от главной",
+      "required": true,
+      "critical": true
+    },
+    {
+      "id": "seo-audit",
+      "track_id": "redcore-junior-seo",
+      "order": 24,
+      "title": "SEO-аудит",
+      "short": "Десять срезов, приоритет находки через влияние, масштаб и уверенность, итоговый документ",
+      "required": true,
+      "critical": false
     }
   ]
 }
