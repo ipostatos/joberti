@@ -10,7 +10,7 @@
 | active_tracks | 4 |
 | topics | 96 |
 | vacancies | 5 |
-| sources | 324 |
+| sources | 331 |
 | lessons | 113 |
 | glossary_terms | 370 |
 | library_resources | 312 |
@@ -25,7 +25,8 @@
 | english_vocab | 93 |
 | english_drills | 34 |
 | english_writing | 41 |
-| english_resources | 9 |
+| english_resources | 15 |
+| english_slang | 118 |
 | labs | 48 |
 | dutyops_drills | 15 |
 
@@ -308,13 +309,11 @@ traffic-delivery       ######..................   6
 
 ## Источники
 
-- всего: 324
-- проверено (`verified: true`): 323
+- всего: 331
+- проверено (`verified: true`): 330
 - требуют ручной проверки: 1
-- не используются нигде: 9
+- не используются нигде: 0
 - материалов библиотеки со статусом needs_review: 1
-
-Неиспользуемые источники: `cisco-english-for-it1`, `cisco-english-for-it2`, `github-english-it-professionals`, `github-english-it-unhan`, `speak-tech-english`, `mdn-home`, `github-skills`, `youglish`, `cambridge-write-improve`
 
 Непроверенные источники: `devops-with-kubernetes`
 
@@ -323,15 +322,15 @@ traffic-delivery       ######..................   6
 | Источник | Ссылок |
 |---|---:|
 | `istqb-glossary` — ISTQB Glossary | 50 |
+| `habr-it-jargon` — Словарь программистского жаргона без англицизмов | 47 |
+| `evercode-it-slang` — IT словарь: сленг айтишников понятными словами | 36 |
 | `gsc-performance-report` — Performance report (Search results): Overview and basic setup | 34 |
+| `hexlet-it-slang` — Понимаем сленг программистов: мини-словарь для начинающих разработчиков | 33 |
 | `adyen-online-payments` — Online payments | 29 |
 | `ahrefs-keyword-research` — Keyword Research: The Beginner's Guide | 28 |
 | `google-seo-starter-guide` — SEO Starter Guide | 26 |
 | `google-helpful-content` — Creating helpful, reliable, people-first content | 24 |
 | `stripe-payment-intents` — PaymentIntent lifecycle | 24 |
-| `linux-man-pages` — Linux man-pages | 22 |
-| `google-spam-policies` — Spam policies for Google web search | 22 |
-| `stripe-webhooks` — Webhooks | 18 |
 
 ## Записи без источника
 

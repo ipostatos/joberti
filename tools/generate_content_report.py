@@ -145,11 +145,13 @@ def build(track_id: str | None = None) -> str:
 
     # ── источники ──
     usage: Counter = Counter()
-    for coll in (c.lessons, c.questions, c.glossary):
+    # Тот же состав, что у tools/audit_sources.py: ресурсы английского и сленг
+    # тоже ссылаются на источники, и без них отчёт называл их «неиспользуемыми».
+    for coll in (c.lessons, c.questions, c.glossary, c.english_slang):
         for x in coll:
             for r in x.get("source_refs") or []:
                 usage[r] += 1
-    for r in c.library:
+    for r in c.library + c.english_resources:
         usage[r["source_ref"]] += 1
 
     unused = [s["id"] for s in c.sources if s["id"] not in usage]

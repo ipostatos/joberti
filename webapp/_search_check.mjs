@@ -27,7 +27,7 @@ const index = Search.buildIndex(CONTENT, "redcore-junior-seo");
 ok(index.length > 200, `индекс должен покрывать весь контент (получено ${index.length})`);
 
 const KINDS = ["lesson", "term", "library", "question", "mock", "case", "step",
-  "phrase", "eword", "edrill", "ewriting"];
+  "phrase", "eword", "edrill", "ewriting", "eslang"];
 
 const types = new Set(index.map((e) => e.type));
 KINDS.forEach((t) => {

@@ -1702,6 +1702,2345 @@
    "track_ids":[],
    "url":"https://writeandimprove.com/",
    "why":"Бесплатный сервис Cambridge: пишете текст — сразу получаете оценку уровня CEFR и подсказки, что исправить. Единственный способ тренировать письмо с обратной связью без преподавателя."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Читайте как словарь-переводчик: встретили слово в чате — найдите его во вкладке «Сленг» и запомните английский оригинал вместе с примером. Русская калька в англоязычной команде не поможет, оригинал — да.",
+   "id":"eres-evercode-slang",
+   "level":1,
+   "publisher":"Evercode Lab",
+   "source_ref":"evercode-it-slang",
+   "title":"IT словарь: сленг айтишников понятными словами",
+   "track_ids":[],
+   "url":"https://blog.evercodelab.ru/it-slovar-sleng-ajtishnikov-ponyatnymi-slovami/",
+   "why":"Свежий (2026) словарь рабочего сленга: апдейт, аппрув, дейли, блокер, скоуп, ETA, роллбэк, стейдж. Каждое слово объяснено на примере из рабочего чата, есть раздел о похожих терминах, которые путают."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Пробегите список и отметьте слова, которые говорите сами. Для каждого сначала скажите английский вариант вслух, потом сверьтесь с разделом «Рунглиш в команде» во вкладке «Сленг». Учтите, что английские эквиваленты в самой статье не даны.",
+   "id":"eres-habr-jargon",
+   "level":2,
+   "publisher":"Хабр",
+   "source_ref":"habr-it-jargon",
+   "title":"Словарь программистского жаргона без англицизмов",
+   "track_ids":[],
+   "url":"https://habr.com/ru/articles/858218/",
+   "why":"Противоположный подход: 275 исконно русских жаргонных слов (костыль, грабли, на коленке, уронить прод, танцы с бубном) без англицизмов. Как раз те слова, для которых английский эквивалент сам не вспоминается."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Прочитайте страницу целиком (она короткая) и выпишите 5–7 формулировок, которые подойдут вам. На собеседовании вопрос «как вы делаете ревью» — частый, и ответ с этими пометками звучит профессионально.",
+   "id":"eres-google-review-comments",
+   "level":2,
+   "publisher":"Google Engineering Practices",
+   "source_ref":"google-review-comments",
+   "title":"How to write code review comments",
+   "track_ids":[],
+   "url":"https://google.github.io/eng-practices/review/reviewer/comments.html",
+   "why":"Официальное руководство Google о том, как писать комментарии в код-ревью: вежливо, по делу, с пометками серьёзности Nit, Optional и FYI."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Начните подписывать свои комментарии метками хотя бы в учебных проектах. Метка делает английский проще: «suggestion (non-blocking): …» понятно без сложных вежливых оборотов.",
+   "id":"eres-conventional-comments",
+   "level":2,
+   "publisher":"conventionalcomments.org",
+   "source_ref":"conventional-comments",
+   "title":"Conventional Comments",
+   "track_ids":[],
+   "url":"https://conventionalcomments.org/",
+   "why":"Короткий стандарт меток для комментариев ревью: praise, nitpick, suggestion, issue, question плюс пометки blocking и non-blocking. Снимает главный риск ревью на неродном языке: замечание звучит резче, чем вы хотели."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Хватит одного прочтения. Затем откройте раздел «Чаты и созвоны» во вкладке «Сленг»: там те же сокращения плюс IT-специфичные (LGTM, PTAL, WIP) и пометка, где их уместно писать.",
+   "id":"eres-epam-abbreviations",
+   "level":1,
+   "publisher":"EPAM Campus",
+   "source_ref":"epam-business-abbreviations",
+   "title":"Abbreviations in business communication",
+   "track_ids":[],
+   "url":"https://campus.epam.com/en/blog/482",
+   "why":"Короткая шпаргалка EPAM Campus по сокращениям деловой переписки: FYI, ASAP, EOD, EOW, TBD, OOO, WFH, BTW — с примерами предложений."
+  },
+  {
+   "category":"Сленг и жаргон",
+   "how":"Читать для удовольствия и узнавания, а не для заучивания: большинство слов шуточные. В речи реально встречаются rubber ducking и heisenbug — они есть во вкладке «Сленг».",
+   "id":"eres-codinghorror-jargon",
+   "level":3,
+   "publisher":"Coding Horror",
+   "source_ref":"codinghorror-new-jargon",
+   "title":"New Programming Jargon",
+   "track_ids":[],
+   "url":"https://blog.codinghorror.com/new-programming-jargon/",
+   "why":"Классическая подборка Джеффа Этвуда — 30 жаргонных слов, придуманных разработчиками на Stack Overflow: heisenbug, rubber ducking, Pokémon exception handling, protoduction и другие."
+  }
+ ],
+ "englishSlang":[
+  {
+   "also_en":[
+    "ship",
+    "roll out"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"We deploy on Tuesdays and Thursdays.",
+   "example_ru":"Мы выкатываемся по вторникам и четвергам.",
+   "id":"esl-deploy",
+   "level":1,
+   "meaning":"выкатить версию на серверы",
+   "note":"deploy — техническое действие с сервером; ship — «выпустить для пользователей» в целом; roll out — выкатывать постепенно, на часть пользователей или серверов. Отдельного слова для «накатить» нет.",
+   "register":"ok",
+   "ru_slang":[
+    "задеплоить",
+    "выкатить",
+    "накатить",
+    "раскатать"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"deploy",
+   "track_ids":[],
+   "vocab_ref":"ev-deploy"
+  },
+  {
+   "also_en":[
+    "rollback",
+    "revert"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The release broke checkout, so we rolled back within five minutes.",
+   "example_ru":"Релиз сломал оплату, и мы откатились за пять минут.",
+   "id":"esl-roll-back",
+   "level":1,
+   "meaning":"вернуть предыдущую рабочую версию",
+   "note":"Глагол пишется раздельно (roll back), существительное слитно (a rollback). revert — другое действие: коммит в git, который отменяет изменения. Сервис откатывают, коммит ревертят.",
+   "register":"ok",
+   "ru_slang":[
+    "откатить",
+    "откат",
+    "роллбэкнуть"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"roll back",
+   "track_ids":[],
+   "vocab_ref":"ew-devops-rc-04"
+  },
+  {
+   "also_en":[
+    "hack",
+    "quick fix"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"It's a workaround for now; the proper fix is in the next sprint.",
+   "example_ru":"Пока это костыль, нормальное исправление будет в следующем спринте.",
+   "id":"esl-workaround",
+   "level":1,
+   "meaning":"временное обходное решение, причина при этом не устранена",
+   "note":"Дословное crutch никто не поймёт. В команде говорят hack или quick fix; на собеседовании нейтральнее temporary workaround.",
+   "register":"ok",
+   "ru_slang":[
+    "костыль",
+    "закостылить",
+    "подпорка"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"workaround",
+   "track_ids":[],
+   "vocab_ref":"ev-workaround"
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"The timeout was hardcoded, so I moved it to the config.",
+   "example_ru":"Таймаут был захардкожен, я вынес его в конфиг.",
+   "id":"esl-hardcode",
+   "level":1,
+   "meaning":"записать значение прямо в коде вместо настройки или вычисления",
+   "register":"ok",
+   "ru_slang":[
+    "захардкодить",
+    "зашить в код"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"hardcode",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"I'll merge it once the CI is green.",
+   "example_ru":"Смёржу, как только CI станет зелёным.",
+   "id":"esl-merge",
+   "level":1,
+   "meaning":"влить изменения одной ветки в другую",
+   "note":"Русское «слить» значит и merge, и leak (утечка данных) — по-английски это совсем разные слова.",
+   "register":"ok",
+   "ru_slang":[
+    "смёржить",
+    "мёржить",
+    "влить ветку"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"merge",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"I pushed the fix to my branch, could you take a look?",
+   "example_ru":"Я запушил исправление в свою ветку, посмотришь?",
+   "id":"esl-push",
+   "level":1,
+   "meaning":"отправить свои коммиты в удалённый репозиторий",
+   "note":"«Залить» по-русски — это и push в git, и upload файла на сервер, и миграция данных в базу. По-английски это три разных глагола: push, upload, migrate.",
+   "register":"ok",
+   "ru_slang":[
+    "запушить",
+    "пушить",
+    "залить"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"push",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "fetch"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Pull the latest main before you rebase.",
+   "example_ru":"Подтяни свежий main перед ребейзом.",
+   "id":"esl-pull",
+   "level":1,
+   "meaning":"забрать свежие изменения из удалённого репозитория",
+   "note":"git fetch только скачивает изменения, git pull скачивает и сразу вливает их в текущую ветку.",
+   "register":"ok",
+   "ru_slang":[
+    "подтянуть",
+    "спуллить",
+    "стянуть"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"pull",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"I committed the change but haven't pushed it yet.",
+   "example_ru":"Я закоммитил изменение, но ещё не запушил.",
+   "id":"esl-commit",
+   "level":1,
+   "meaning":"зафиксировать изменения в истории репозитория",
+   "register":"ok",
+   "ru_slang":[
+    "закоммитить",
+    "коммитнуть"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"commit",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "patch"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I'll fix it today and ping you when it's merged.",
+   "example_ru":"Пофикшу сегодня и напишу, когда смёржу.",
+   "id":"esl-fix",
+   "level":1,
+   "meaning":"исправить ошибку",
+   "note":"patch — небольшое точечное исправление, часто уязвимости; «залатать», «заплатка».",
+   "register":"ok",
+   "ru_slang":[
+    "пофиксить",
+    "фиксить",
+    "починить"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"fix",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"We shipped a hotfix an hour after the incident.",
+   "example_ru":"Через час после инцидента мы выкатили хотфикс.",
+   "id":"esl-hotfix",
+   "level":1,
+   "meaning":"срочное исправление в проде вне обычного цикла релизов",
+   "register":"ok",
+   "ru_slang":[
+    "хотфикс"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"hotfix",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "glitch",
+    "buggy"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I can reproduce the bug on staging, but not locally.",
+   "example_ru":"Баг воспроизводится на стейдже, но не локально.",
+   "id":"esl-bug",
+   "level":1,
+   "meaning":"ошибка в программе",
+   "note":"glitch — кратковременный сбой, чаще в интерфейсе; buggy — «глючный». «Завести баг» — file a bug, «воспроизвести» — reproduce.",
+   "register":"ok",
+   "ru_slang":[
+    "баг",
+    "бага",
+    "глюк"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"bug",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"I spent the morning debugging a race condition.",
+   "example_ru":"Всё утро отлаживал гонку.",
+   "id":"esl-debug",
+   "level":1,
+   "meaning":"искать и устранять причину ошибки",
+   "note":"«Курить логи» — go through the logs / dig into the logs.",
+   "register":"ok",
+   "ru_slang":[
+    "дебажить",
+    "отлаживать",
+    "курить логи"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"debug",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "go down",
+    "be down"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The app crashes when the file is empty.",
+   "example_ru":"Приложение падает, если файл пустой.",
+   "id":"esl-crash",
+   "level":1,
+   "meaning":"аварийно завершиться",
+   "note":"Программа crashes — аварийно завершилась; сервис goes down — стал недоступен. «Сайт лежит» — The site is down.",
+   "register":"ok",
+   "ru_slang":[
+    "упасть",
+    "упало",
+    "слетело",
+    "лежит"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"crash",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "break prod"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"A missing index took down production for ten minutes.",
+   "example_ru":"Из-за отсутствующего индекса прод лежал десять минут.",
+   "id":"esl-take-down-prod",
+   "level":2,
+   "meaning":"сломать рабочую среду так, что пользователи это заметили",
+   "note":"На собеседовании про свой инцидент лучше сказать нейтрально: I caused an outage, and here's what we changed afterwards.",
+   "register":"team",
+   "ru_slang":[
+    "уронить прод"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"take down production",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "prod"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Never test migrations directly on production.",
+   "example_ru":"Никогда не проверяйте миграции прямо на проде.",
+   "id":"esl-production",
+   "level":1,
+   "meaning":"рабочая среда, где работают реальные пользователи",
+   "note":"prod в устной речи — нормально; в письме заказчику пишите production.",
+   "register":"ok",
+   "ru_slang":[
+    "прод",
+    "продакшн",
+    "продакшен"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"production",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "staging environment"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"It works on staging, so the difference must be in the config.",
+   "example_ru":"На стейдже работает, значит, разница в конфиге.",
+   "id":"esl-staging",
+   "level":1,
+   "meaning":"среда, максимально похожая на прод, для проверки перед выкаткой",
+   "note":"«Стенд» дословно (stand) не переводится: говорят environment или называют саму среду — staging, dev, QA.",
+   "register":"ok",
+   "ru_slang":[
+    "стейдж",
+    "стейджинг",
+    "тестовый стенд"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"staging",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Most of my work was refactoring legacy code without breaking it.",
+   "example_ru":"Большая часть моей работы — рефакторинг легаси так, чтобы ничего не сломать.",
+   "id":"esl-legacy",
+   "level":1,
+   "meaning":"старый код, который работает и используется, но его трудно менять",
+   "register":"ok",
+   "ru_slang":[
+    "легаси"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"legacy code",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "tech debt"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"We set aside part of each sprint to pay down tech debt.",
+   "example_ru":"Часть каждого спринта мы оставляем на закрытие техдолга.",
+   "id":"esl-tech-debt",
+   "level":1,
+   "meaning":"накопленные упрощения в коде, за которые позже придётся платить временем",
+   "note":"Долг «гасят»: pay down / pay off tech debt.",
+   "register":"ok",
+   "ru_slang":[
+    "техдолг",
+    "технический долг"
+   ],
+   "source_refs":[
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"technical debt",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "messy code"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The old module was spaghetti code, so every fix broke something else.",
+   "example_ru":"Старый модуль был лапшой: любое исправление ломало что-то ещё.",
+   "id":"esl-spaghetti",
+   "level":2,
+   "meaning":"запутанный код, в котором трудно проследить логику",
+   "note":"Русские слова грубые или некорректные, на собеседовании их английские «аналоги» не нужны. Нейтрально: The code was hard to maintain, so I refactored it step by step.",
+   "register":"team",
+   "ru_slang":[
+    "говнокод",
+    "лапша",
+    "индусский код"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"spaghetti code",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Let's not reinvent the wheel: there's a well-tested library for that.",
+   "example_ru":"Не будем писать велосипед: для этого есть проверенная библиотека.",
+   "id":"esl-reinvent",
+   "level":1,
+   "meaning":"писать своё решение там, где есть готовое",
+   "register":"ok",
+   "ru_slang":[
+    "велосипед",
+    "писать велосипед"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"reinvent the wheel",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "pitfall"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"One gotcha: the API returns dates in local time, not UTC.",
+   "example_ru":"Есть грабли: API отдаёт даты в локальном времени, а не в UTC.",
+   "id":"esl-gotcha",
+   "level":2,
+   "meaning":"неочевидная ловушка, на которую легко наступить",
+   "note":"pitfall — нейтральное слово, подходит и для письма; gotcha — разговорное.",
+   "register":"team",
+   "ru_slang":[
+    "грабли",
+    "наступить на грабли"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"gotcha",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"The generator creates all the boilerplate for a new service.",
+   "example_ru":"Генератор создаёт всю шаблонную обвязку нового сервиса.",
+   "id":"esl-boilerplate",
+   "level":2,
+   "meaning":"типовой шаблонный код, который повторяется из проекта в проект",
+   "register":"ok",
+   "ru_slang":[
+    "болванка",
+    "бойлерплейт",
+    "шаблонный код"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"boilerplate",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "mock",
+    "placeholder"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"For now the payment service is a stub that always returns success.",
+   "example_ru":"Пока платёжный сервис — заглушка, которая всегда отвечает «успех».",
+   "id":"esl-stub",
+   "level":2,
+   "meaning":"временная заглушка вместо настоящей части системы",
+   "note":"stub просто возвращает готовый ответ; mock ещё и проверяет, как его вызвали. Заглушка в интерфейсе (серый блок, текст-рыба) — placeholder.",
+   "register":"ok",
+   "ru_slang":[
+    "заглушка",
+    "затычка",
+    "мок"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"stub",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Logging works out of the box; metrics need a bit of setup.",
+   "example_ru":"Логи работают из коробки, метрики нужно немного настроить.",
+   "id":"esl-out-of-box",
+   "level":1,
+   "meaning":"работает сразу, без настройки",
+   "register":"ok",
+   "ru_slang":[
+    "из коробки"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"out of the box",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Under the hood, it's just a cron job and a shell script.",
+   "example_ru":"Под капотом это просто задача в cron и shell-скрипт.",
+   "id":"esl-under-hood",
+   "level":1,
+   "meaning":"внутреннее устройство, скрытое от пользователя",
+   "register":"ok",
+   "ru_slang":[
+    "под капотом"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"under the hood",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "bring up",
+    "set up"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I spun up a test cluster to reproduce the issue.",
+   "example_ru":"Я поднял тестовый кластер, чтобы воспроизвести проблему.",
+   "id":"esl-spin-up",
+   "level":2,
+   "meaning":"быстро запустить сервер, контейнер или окружение",
+   "note":"«Положить» сервер (выключить) — shut down или take down.",
+   "register":"ok",
+   "ru_slang":[
+    "поднять",
+    "поднять сервер",
+    "развернуть"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"spin up",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Kill the process and restart the service.",
+   "example_ru":"Убей процесс и перезапусти сервис.",
+   "id":"esl-kill",
+   "level":1,
+   "meaning":"принудительно завершить процесс",
+   "note":"В IT kill — нейтральный технический глагол, его спокойно говорят и на собеседовании. «Грохнуть» в значении «удалить» — delete или, в шутку, nuke.",
+   "register":"ok",
+   "ru_slang":[
+    "убить",
+    "вырубить",
+    "прибить"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"kill",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "freeze",
+    "get stuck"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The script hangs on the database call.",
+   "example_ru":"Скрипт виснет на запросе к базе.",
+   "id":"esl-hang",
+   "level":1,
+   "meaning":"перестать отвечать, не завершаясь",
+   "note":"Про процесс чаще hang (It hangs), про экран и интерфейс — freeze.",
+   "register":"ok",
+   "ru_slang":[
+    "зависнуть",
+    "повиснуть",
+    "виснет"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"hang",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"There's a memory leak somewhere: RAM grows until the pod restarts.",
+   "example_ru":"Где-то утечка памяти: потребление растёт, пока под не перезапустится.",
+   "id":"esl-memory-leak",
+   "level":2,
+   "meaning":"память занимается и не освобождается, процесс постепенно раздувается",
+   "register":"ok",
+   "ru_slang":[
+    "утечка памяти",
+    "течёт память"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"memory leak",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"It's a flaky test, it passes on retry.",
+   "example_ru":"Это моргающий тест, со второго раза проходит.",
+   "id":"esl-flaky",
+   "level":2,
+   "meaning":"тест, который то проходит, то падает без изменений в коде",
+   "note":"Перезапускать флакающий тест до зелёного — плохая практика; на собеседовании ценят ответ «изолировать, найти причину, починить».",
+   "register":"team",
+   "ru_slang":[
+    "моргающий тест",
+    "флакающий тест",
+    "нестабильный тест"
+   ],
+   "term":"flaky test",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"The database was the bottleneck, not the application servers.",
+   "example_ru":"Узким местом была база, а не серверы приложения.",
+   "id":"esl-bottleneck",
+   "level":2,
+   "meaning":"узкое место, которое ограничивает скорость всей системы",
+   "register":"ok",
+   "ru_slang":[
+    "узкое место",
+    "бутылочное горлышко"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"bottleneck",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "review"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Every change goes through code review before it's merged.",
+   "example_ru":"Каждое изменение проходит ревью перед мёржем.",
+   "id":"esl-code-review",
+   "level":1,
+   "meaning":"проверка изменений коллегами перед вливанием",
+   "note":"«Заревьюить пулл-реквест» — review the PR.",
+   "register":"ok",
+   "ru_slang":[
+    "ревью",
+    "код-ревью",
+    "заревьюить"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"code review",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "approval",
+    "sign off"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I need one more approval before I can merge.",
+   "example_ru":"Для мёржа нужен ещё один апрув.",
+   "id":"esl-approve",
+   "level":1,
+   "meaning":"одобрить изменения или решение",
+   "note":"Существительное — approval. «Получить аппрув у руководителя» — get sign-off.",
+   "register":"ok",
+   "ru_slang":[
+    "апрув",
+    "апрувнуть",
+    "заапрувить",
+    "аппрув"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"approve",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "PR",
+    "merge request",
+    "MR"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I opened a pull request with the fix and a test.",
+   "example_ru":"Я открыл пулл-реквест с исправлением и тестом.",
+   "id":"esl-pull-request",
+   "level":1,
+   "meaning":"запрос на вливание изменений из своей ветки",
+   "note":"На GitHub — pull request, на GitLab — merge request. Сокращение читают по буквам: «пи-ар», «эм-ар».",
+   "register":"ok",
+   "ru_slang":[
+    "пулл-реквест",
+    "пиар",
+    "ПР",
+    "мерж-реквест",
+    "эмэр"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"pull request",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "task",
+    "issue"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Can you create a ticket so we don't lose it?",
+   "example_ru":"Заведёшь тикет, чтобы не потерялось?",
+   "id":"esl-ticket",
+   "level":1,
+   "meaning":"задача, заведённая в трекере",
+   "note":"task — задача вообще, ticket — запись в трекере (Jira, YouTrack), issue — так задачи называет GitHub.",
+   "register":"ok",
+   "ru_slang":[
+    "таска",
+    "тикет",
+    "задачка"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"ticket",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"It's not urgent, let's put it in the backlog.",
+   "example_ru":"Не срочно, давай положим в бэклог.",
+   "id":"esl-backlog",
+   "level":1,
+   "meaning":"упорядоченный по приоритету список задач на будущее",
+   "register":"ok",
+   "ru_slang":[
+    "бэклог"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"backlog",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "grooming"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"We'll discuss the details at Thursday's refinement.",
+   "example_ru":"Детали обсудим на четверговом груминге.",
+   "id":"esl-refinement",
+   "level":2,
+   "meaning":"встреча, на которой задачи уточняют, дробят и оценивают",
+   "note":"Слово grooming в англоязычных командах всё чаще не используют из-за другого, неприятного значения; надёжнее говорить refinement.",
+   "register":"ok",
+   "ru_slang":[
+    "груминг",
+    "рефайнмент"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"backlog refinement",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "ballpark"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"My rough estimate is three days, including tests.",
+   "example_ru":"Моя грубая оценка — три дня вместе с тестами.",
+   "id":"esl-estimate",
+   "level":1,
+   "meaning":"оценка объёма работы или срока",
+   "note":"Глагол и существительное звучат по-разному: to estimate /ˈestɪmeɪt/, an estimate /ˈestɪmət/.",
+   "register":"ok",
+   "ru_slang":[
+    "эстимейт",
+    "оценка",
+    "заэстимейтить"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"estimate",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "hop on a call",
+    "sync"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Can we hop on a quick call? It's faster than typing.",
+   "example_ru":"Созвонимся на минутку? Так быстрее, чем переписываться.",
+   "id":"esl-call",
+   "level":1,
+   "meaning":"созвон, короткая онлайн-встреча",
+   "register":"team",
+   "ru_slang":[
+    "колл",
+    "созвон",
+    "созвониться"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"call",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "meetup"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I have back-to-back meetings until two.",
+   "example_ru":"У меня встречи подряд до двух.",
+   "id":"esl-meeting",
+   "level":1,
+   "meaning":"рабочая встреча",
+   "note":"Ложный друг: русский «митинг» — ещё и уличная акция. meetup — открытое мероприятие сообщества, а не рабочая встреча команды.",
+   "register":"ok",
+   "ru_slang":[
+    "митинг",
+    "митап",
+    "встреча"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"meeting",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "daily"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I'll bring it up at tomorrow's stand-up.",
+   "example_ru":"Подниму вопрос на завтрашнем дейли.",
+   "id":"esl-standup",
+   "level":1,
+   "meaning":"короткая ежедневная встреча команды: что сделал, что дальше, что мешает",
+   "register":"ok",
+   "ru_slang":[
+    "дейли",
+    "стендап",
+    "планёрка"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"stand-up",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Thanks for the feedback, I'll update the PR.",
+   "example_ru":"Спасибо за фидбек, обновлю пулл-реквест.",
+   "id":"esl-feedback",
+   "level":1,
+   "meaning":"обратная связь",
+   "note":"Неисчисляемое: some feedback, a piece of feedback. «A feedback» и «feedbacks» — частая ошибка русскоговорящих.",
+   "register":"ok",
+   "ru_slang":[
+    "фидбек",
+    "фидбэк",
+    "обратная связь"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"feedback",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "build",
+    "implement",
+    "feature flag"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"We built the feature behind a flag and enabled it gradually.",
+   "example_ru":"Мы запилили фичу под флагом и включали её постепенно.",
+   "id":"esl-feature",
+   "level":1,
+   "meaning":"функция, возможность продукта",
+   "note":"«Запилить» — build или implement. «Это не баг, а фича» по-английски так же: It's not a bug, it's a feature.",
+   "register":"ok",
+   "ru_slang":[
+    "фича",
+    "запилить фичу",
+    "пилить"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"feature",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "follow-up"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I'll follow up with the details by email.",
+   "example_ru":"Детали пришлю письмом после встречи.",
+   "id":"esl-follow-up",
+   "level":1,
+   "meaning":"вернуться к вопросу позже, дописать после встречи",
+   "note":"Глагол раздельно (follow up), существительное через дефис (a follow-up).",
+   "register":"ok",
+   "ru_slang":[
+    "фоллоу-ап",
+    "вернуться к вопросу"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"follow up",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"If it's not fixed in an hour, escalate it to the on-call lead.",
+   "example_ru":"Если за час не починят, эскалируй дежурному лиду.",
+   "id":"esl-escalate",
+   "level":2,
+   "meaning":"передать проблему выше по согласованному пути",
+   "register":"ok",
+   "ru_slang":[
+    "эскалировать",
+    "эскалация"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"escalate",
+   "track_ids":[],
+   "vocab_ref":"ev-escalate"
+  },
+  {
+   "also_en":[
+    "blocked"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"No blockers on my side, just waiting for the review.",
+   "example_ru":"Блокеров нет, жду только ревью.",
+   "id":"esl-blocker",
+   "level":1,
+   "meaning":"то, что не даёт продолжать работу",
+   "note":"«Меня блочит задача X» — I'm blocked by X / X is blocking me.",
+   "register":"ok",
+   "ru_slang":[
+    "блокер",
+    "блочит"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"blocker",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "scope creep"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"That's out of scope for this release.",
+   "example_ru":"Это не входит в скоуп этого релиза.",
+   "id":"esl-scope",
+   "level":2,
+   "meaning":"объём и границы задачи",
+   "note":"scope creep — когда объём задачи незаметно разрастается по ходу работы.",
+   "register":"ok",
+   "ru_slang":[
+    "скоуп"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"scope",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "library",
+    "package"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I updated the dependencies and the build is green again.",
+   "example_ru":"Подтянул зависимости, билд снова зелёный.",
+   "id":"esl-dependency",
+   "level":1,
+   "meaning":"библиотека или сервис, от которого зависит код",
+   "note":"«Подтянуть зависимости» — install или update dependencies.",
+   "register":"ok",
+   "ru_slang":[
+    "либа",
+    "зависимость",
+    "подтянуть зависимости"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon",
+    "evercode-it-slang"
+   ],
+   "term":"dependency",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "repo"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The config lives in a separate repo.",
+   "example_ru":"Конфиг лежит в отдельной репе.",
+   "id":"esl-repo",
+   "level":1,
+   "meaning":"репозиторий с кодом",
+   "register":"ok",
+   "ru_slang":[
+    "репа",
+    "репозиторий"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"repository",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "the build is red"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Sorry, my last commit broke the build, fixing it now.",
+   "example_ru":"Извините, мой последний коммит уронил сборку, уже чиню.",
+   "id":"esl-break-build",
+   "level":2,
+   "meaning":"внести изменение, после которого сборка или тесты падают",
+   "note":"Цвета те же, что по-русски: the build is green / red.",
+   "register":"team",
+   "ru_slang":[
+    "уронить тесты",
+    "покраснели тесты",
+    "сломать билд"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"break the build",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "configuration"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Add the new endpoint to the config and restart.",
+   "example_ru":"Пропиши новый адрес в конфиге и перезапусти.",
+   "id":"esl-config",
+   "level":1,
+   "meaning":"файл или набор настроек",
+   "note":"«Прописать» — set, add или specify in the config. Дословного аналога у «прописать» нет.",
+   "register":"ok",
+   "ru_slang":[
+    "конфиг",
+    "прописать в конфиге"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"config",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Pick the region from the dropdown.",
+   "example_ru":"Выберите регион в выпадашке.",
+   "id":"esl-dropdown",
+   "level":1,
+   "meaning":"выпадающий список в интерфейсе",
+   "register":"ok",
+   "ru_slang":[
+    "выпадашка",
+    "дропдаун"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"dropdown",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "footer"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The contact link is in the footer, not the header.",
+   "example_ru":"Ссылка на контакты в подвале, а не в шапке.",
+   "id":"esl-header",
+   "level":1,
+   "meaning":"верхняя часть страницы с логотипом и меню",
+   "register":"ok",
+   "ru_slang":[
+    "шапка",
+    "хедер",
+    "подвал",
+    "футер"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"header",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "tick"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Tick the checkbox to accept the terms.",
+   "example_ru":"Поставьте галочку, чтобы принять условия.",
+   "id":"esl-checkbox",
+   "level":1,
+   "meaning":"поле-флажок, которое можно отметить",
+   "note":"«Поставить галочку» — tick (британский) или check (американский) the box.",
+   "register":"ok",
+   "ru_slang":[
+    "крыжик",
+    "чекбокс",
+    "галочка"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"checkbox",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Try the payment flow in the sandbox first.",
+   "example_ru":"Сначала проверь оплату в песочнице.",
+   "id":"esl-sandbox",
+   "level":1,
+   "meaning":"изолированная среда для безопасных экспериментов",
+   "register":"ok",
+   "ru_slang":[
+    "песочница"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"sandbox",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "tidy up",
+    "clean up"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The feature works; I just need a day to polish the UI.",
+   "example_ru":"Фича работает, нужен день, чтобы причесать интерфейс.",
+   "id":"esl-polish",
+   "level":2,
+   "meaning":"довести до аккуратного состояния, доработать мелочи",
+   "register":"ok",
+   "ru_slang":[
+    "причесать",
+    "вылизать",
+    "отшлифовать",
+    "допилить"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"polish",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "hack together"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"It's a quick and dirty script, don't run it in production.",
+   "example_ru":"Это скрипт на коленке, на проде не запускай.",
+   "id":"esl-quick-dirty",
+   "level":2,
+   "meaning":"сделано быстро, без заботы о качестве",
+   "register":"team",
+   "ru_slang":[
+    "на коленке",
+    "слепить на коленке"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"quick and dirty",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "voodoo"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"We fixed it by trial and error, so I want to understand why it works.",
+   "example_ru":"Починили методом тыка, поэтому хочу понять, почему это работает.",
+   "id":"esl-trial-error",
+   "level":2,
+   "meaning":"поиск решения перебором, без понимания причины",
+   "note":"voodoo — ироничное «шаманство»: работает, но непонятно почему. На собеседовании лучше trial and error плюс честное «и вот как я потом нашёл причину».",
+   "register":"team",
+   "ru_slang":[
+    "танцы с бубном",
+    "шаманство",
+    "методом тыка"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"trial and error",
+   "track_ids":[]
+  },
+  {
+   "category":"Рунглиш в команде",
+   "example_en":"Disabling the tests to ship faster is a great way to shoot yourself in the foot.",
+   "example_ru":"Отключить тесты ради скорости — отличный способ выстрелить себе в ногу.",
+   "id":"esl-shoot-foot",
+   "level":2,
+   "meaning":"навредить себе собственным решением",
+   "note":"Идиома совпадает дословно. Отсюда же footgun — см. раздел «Жаргон разработчиков».",
+   "register":"team",
+   "ru_slang":[
+    "выстрелить себе в ногу"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"shoot yourself in the foot",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "sweatshop"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I'd rather work on a product team than at a body shop.",
+   "example_ru":"Я бы предпочёл продуктовую команду, а не галеру.",
+   "id":"esl-body-shop",
+   "level":3,
+   "meaning":"компания, которая сдаёт разработчиков в аренду на чужие проекты и мало о них заботится",
+   "note":"Слово пренебрежительное: о бывшем работодателе на собеседовании так не говорят. Нейтрально: an outsourcing company, a service company. Источники расходятся в трактовке «галеры»: в одном это компания с низкими зарплатами, в другом — заказная разработка с потоком параллельных проектов.",
+   "register":"avoid",
+   "ru_slang":[
+    "галера"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"body shop",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "junior",
+    "senior"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"I'm applying for a mid-level backend role.",
+   "example_ru":"Я подаюсь на позицию мидл-бэкендера.",
+   "id":"esl-mid-level",
+   "level":1,
+   "meaning":"разработчик среднего уровня между junior и senior",
+   "note":"Middle как название уровня в англоязычных вакансиях встречается редко: пишут mid-level или нумеруют грейды (Software Engineer II).",
+   "register":"ok",
+   "ru_slang":[
+    "мидл",
+    "джун",
+    "сеньор",
+    "джуниор"
+   ],
+   "source_refs":[
+    "hexlet-it-slang"
+   ],
+   "term":"mid-level",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "screening call",
+    "take-home assignment",
+    "technical interview"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The first step is a screening call, then a take-home assignment.",
+   "example_ru":"Сначала короткий звонок с рекрутером, потом тестовое.",
+   "id":"esl-interview",
+   "level":1,
+   "meaning":"собеседование",
+   "note":"«Тестовое задание» — take-home assignment (или test task); «скрининг» — первый короткий звонок с рекрутером, screening call.",
+   "register":"ok",
+   "ru_slang":[
+    "собес",
+    "тестовое",
+    "скрининг"
+   ],
+   "source_refs":[
+    "hexlet-it-slang"
+   ],
+   "term":"interview",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "complain",
+    "warning"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"The linter complains about unused imports.",
+   "example_ru":"Линтер ругается на неиспользуемые импорты.",
+   "id":"esl-throw-error",
+   "level":1,
+   "meaning":"выдать ошибку или предупреждение",
+   "note":"Совпадение с русским: про линтер и компилятор по-английски тоже говорят complains.",
+   "register":"ok",
+   "ru_slang":[
+    "ругается",
+    "валится с ошибкой",
+    "ворнинг"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"throw an error",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "run the linter"
+   ],
+   "category":"Рунглиш в команде",
+   "example_en":"Run the tests locally before you push.",
+   "example_ru":"Прогони тесты локально перед пушем.",
+   "id":"esl-run-tests",
+   "level":1,
+   "meaning":"запустить тесты или проверки",
+   "register":"ok",
+   "ru_slang":[
+    "прогнать тесты",
+    "натравить линтер"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"run the tests",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"LGTM, just one nit about naming.",
+   "example_ru":"Выглядит хорошо, одно мелкое замечание по названию.",
+   "expansion":"Looks good to me",
+   "id":"esl-lgtm",
+   "level":1,
+   "meaning":"одобряю, можно вливать",
+   "note":"Обычный текст одобрения в ревью. Голосом не произносят — вслух говорят Looks good to me.",
+   "register":"team",
+   "source_refs":[
+    "conventional-comments"
+   ],
+   "term":"LGTM",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"Addressed all comments, PTAL.",
+   "example_ru":"Поправил все замечания, посмотри ещё раз.",
+   "expansion":"Please take a (another) look",
+   "id":"esl-ptal",
+   "level":2,
+   "meaning":"посмотри, пожалуйста (ещё раз) после правок",
+   "register":"team",
+   "term":"PTAL",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"Nit: this variable name could be clearer.",
+   "example_ru":"Мелочь: название переменной можно сделать понятнее.",
+   "expansion":"nitpick",
+   "id":"esl-nit",
+   "level":1,
+   "meaning":"мелкое необязательное замечание: стиль, название, опечатка",
+   "note":"Пометка снимает напряжение: автор понимает, что из-за этого ревью не заблокировано. Google в своём руководстве советует так и подписывать незначительные замечания.",
+   "register":"team",
+   "source_refs":[
+    "google-review-comments",
+    "conventional-comments"
+   ],
+   "term":"nit",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "Consider"
+   ],
+   "category":"Код-ревью",
+   "example_en":"FYI: there's a helper for this in utils, no need to change it now.",
+   "example_ru":"К сведению: для этого есть функция в utils, сейчас менять не нужно.",
+   "id":"esl-optional-fyi",
+   "level":2,
+   "meaning":"пометки серьёзности в ревью: «можно не делать» и «просто к сведению»",
+   "note":"Google рекомендует явно размечать серьёзность: Nit — мелочь, Optional или Consider — идея на ваше усмотрение, FYI — на будущее, в этом изменении не требуется.",
+   "register":"team",
+   "source_refs":[
+    "google-review-comments"
+   ],
+   "term":"Optional / FYI",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "non-blocking"
+   ],
+   "category":"Код-ревью",
+   "example_en":"This is blocking: the query isn't parameterized.",
+   "example_ru":"Это блокирующее: запрос не параметризован.",
+   "id":"esl-blocking",
+   "level":2,
+   "meaning":"замечание, без исправления которого вливать нельзя",
+   "note":"Обратное — non-blocking: можно влить и поправить потом. В Conventional Comments это пишут прямо в метке: issue (blocking).",
+   "register":"ok",
+   "source_refs":[
+    "conventional-comments"
+   ],
+   "term":"blocking",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "draft PR"
+   ],
+   "category":"Код-ревью",
+   "example_en":"It's still WIP, but I'd love early feedback on the approach.",
+   "example_ru":"Ещё в процессе, но хочу ранний фидбек по подходу.",
+   "expansion":"Work in progress",
+   "id":"esl-wip",
+   "level":1,
+   "meaning":"работа ещё не закончена, но можно взглянуть заранее",
+   "note":"На GitHub для этого есть draft pull request — его нельзя случайно влить.",
+   "register":"team",
+   "term":"WIP",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"I've addressed your comments and added a test.",
+   "example_ru":"Я поправил всё по замечаниям и добавил тест.",
+   "id":"esl-address",
+   "level":2,
+   "meaning":"внести правки по замечаниям ревьюера",
+   "note":"Частая ошибка — fix the comments: комментарии не чинят, на них отвечают правками.",
+   "register":"ok",
+   "term":"address the comments",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"SGTM, go ahead and open the PR.",
+   "example_ru":"Звучит разумно, открывай пулл-реквест.",
+   "expansion":"Sounds good to me",
+   "id":"esl-sgtm",
+   "level":2,
+   "meaning":"согласен с идеей (но это ещё не одобрение кода)",
+   "note":"SGTM говорят о плане или предложении, LGTM — о готовом коде.",
+   "register":"team",
+   "term":"SGTM",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"Please don't just rubber-stamp it; the migration is risky.",
+   "example_ru":"Не апрувь, пожалуйста, не глядя: миграция рискованная.",
+   "id":"esl-rubber-stamp",
+   "level":2,
+   "meaning":"одобрить не глядя, формально",
+   "note":"Признаваться на собеседовании, что вы так делали, не стоит. А вот объяснить, почему это плохо, — хороший ответ про культуру ревью.",
+   "register":"team",
+   "term":"rubber-stamp",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"Tests are green, the demo looks great. Ship it!",
+   "example_ru":"Тесты зелёные, демо отличное. Выкатываем!",
+   "id":"esl-ship-it",
+   "level":1,
+   "meaning":"можно выпускать; одобрение с энтузиазмом",
+   "note":"Часто ставят эмодзи-корабль. В более широком смысле ship — выпустить что-то для пользователей.",
+   "register":"team",
+   "term":"Ship it",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "praise",
+    "suggestion",
+    "issue",
+    "question"
+   ],
+   "category":"Код-ревью",
+   "example_en":"suggestion (non-blocking): extract this into a helper to avoid duplication.",
+   "example_ru":"Предложение (не блокирует): вынести это в функцию, чтобы не дублировать.",
+   "id":"esl-conventional",
+   "level":3,
+   "meaning":"соглашение подписывать комментарии ревью метками: praise, nitpick, suggestion, issue, question",
+   "note":"Метка сразу говорит автору, чего от него ждут. Хорошая тема для рассказа о том, как вы делаете ревью вежливым и понятным.",
+   "register":"ok",
+   "source_refs":[
+    "conventional-comments"
+   ],
+   "term":"Conventional Comments",
+   "track_ids":[]
+  },
+  {
+   "category":"Код-ревью",
+   "example_en":"Let's revert the PR and investigate on a branch.",
+   "example_ru":"Давай ревертнём пулл-реквест и разберёмся в отдельной ветке.",
+   "id":"esl-revert",
+   "level":2,
+   "meaning":"отменить изменения новым коммитом, не переписывая историю",
+   "note":"Это не то же самое, что roll back: откатывают версию сервиса, ревертят коммит.",
+   "register":"ok",
+   "ru_slang":[
+    "ревертнуть",
+    "откатить коммит"
+   ],
+   "term":"revert",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"Could you review this ASAP? It's blocking the release.",
+   "example_ru":"Посмотришь как можно скорее? Это блокирует релиз.",
+   "expansion":"As soon as possible",
+   "id":"esl-asap",
+   "level":1,
+   "meaning":"как можно скорее",
+   "note":"Для каждого ASAP значит своё: для одного — час, для другого — неделя. Лучше назвать срок: by 3 pm today.",
+   "register":"team",
+   "ru_slang":[
+    "асап"
+   ],
+   "source_refs":[
+    "evercode-it-slang",
+    "epam-business-abbreviations"
+   ],
+   "term":"ASAP",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "EOW",
+    "COB"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"I'll send the report by EOD.",
+   "example_ru":"Пришлю отчёт до конца дня.",
+   "expansion":"End of day",
+   "id":"esl-eod",
+   "level":1,
+   "meaning":"до конца рабочего дня",
+   "note":"EOW — end of week; COB — close of business, то же, что EOD. При разных часовых поясах уточняйте, чей конец дня.",
+   "register":"team",
+   "source_refs":[
+    "epam-business-abbreviations"
+   ],
+   "term":"EOD",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "PTO",
+    "WFH"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"I'm OOO next week, Anna will cover for me.",
+   "example_ru":"Меня не будет на следующей неделе, заменит Анна.",
+   "expansion":"Out of office",
+   "id":"esl-ooo",
+   "level":1,
+   "meaning":"нет на работе: отпуск, больничный",
+   "note":"PTO — paid time off, оплачиваемый отпуск; WFH — work from home, работаю из дома.",
+   "register":"team",
+   "source_refs":[
+    "epam-business-abbreviations"
+   ],
+   "term":"OOO",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"FYI, the staging database will be reset tonight.",
+   "example_ru":"К сведению: сегодня ночью базу на стейдже сбросят.",
+   "expansion":"For your information",
+   "id":"esl-fyi",
+   "level":1,
+   "meaning":"для сведения, действий не требуется",
+   "register":"ok",
+   "ru_slang":[
+    "фуи",
+    "фьюай"
+   ],
+   "source_refs":[
+    "evercode-it-slang",
+    "epam-business-abbreviations"
+   ],
+   "term":"FYI",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"BTW, the new docs are live.",
+   "example_ru":"Кстати, новая документация уже опубликована.",
+   "expansion":"By the way",
+   "id":"esl-btw",
+   "level":1,
+   "meaning":"кстати",
+   "register":"team",
+   "source_refs":[
+    "epam-business-abbreviations"
+   ],
+   "term":"BTW",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "TBA"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"The release date is TBD.",
+   "example_ru":"Дата релиза пока не определена.",
+   "expansion":"To be determined",
+   "id":"esl-tbd",
+   "level":1,
+   "meaning":"ещё не решено, определим позже",
+   "note":"TBA — to be announced, «объявим позже».",
+   "register":"ok",
+   "source_refs":[
+    "epam-business-abbreviations"
+   ],
+   "term":"TBD",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"What's the ETA for the fix?",
+   "example_ru":"Когда ожидать исправление?",
+   "expansion":"Estimated time of arrival",
+   "id":"esl-eta",
+   "level":1,
+   "meaning":"ожидаемое время готовности",
+   "note":"Пришло из логистики, в IT означает «когда будет готово». Отвечайте конкретно: ETA is about two hours.",
+   "register":"ok",
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"ETA",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"LMK if you need access to the logs.",
+   "example_ru":"Напиши, если нужен доступ к логам.",
+   "expansion":"Let me know",
+   "id":"esl-lmk",
+   "level":1,
+   "meaning":"дай знать",
+   "register":"team",
+   "term":"LMK",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "IMHO"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"IMO we should split this PR into two.",
+   "example_ru":"По-моему, этот пулл-реквест стоит разбить на два.",
+   "expansion":"In my opinion",
+   "id":"esl-imo",
+   "level":1,
+   "meaning":"по-моему",
+   "note":"IMHO — in my humble opinion; иногда звучит иронично. В ревью IMO смягчает замечание.",
+   "register":"team",
+   "term":"IMO",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "AFAICT"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"AFAIK the old endpoint is already deprecated.",
+   "example_ru":"Насколько я знаю, старый эндпоинт уже объявлен устаревшим.",
+   "expansion":"As far as I know",
+   "id":"esl-afaik",
+   "level":2,
+   "meaning":"насколько я знаю",
+   "note":"AFAICT — as far as I can tell, «насколько я могу судить».",
+   "register":"team",
+   "term":"AFAIK",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"TL;DR: the outage was caused by an expired certificate.",
+   "example_ru":"Коротко: сбой случился из-за просроченного сертификата.",
+   "expansion":"Too long; didn't read",
+   "id":"esl-tldr",
+   "level":1,
+   "meaning":"короткая суть длинного текста",
+   "note":"Ставят в начале длинного сообщения или письма как итог в одну строку. Вслух — «ти-эл-ди-ар».",
+   "register":"team",
+   "term":"TL;DR",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"TBH I'm not sure this is worth the complexity.",
+   "example_ru":"Честно говоря, не уверен, что это оправдывает сложность.",
+   "expansion":"To be honest",
+   "id":"esl-tbh",
+   "level":2,
+   "meaning":"честно говоря",
+   "register":"team",
+   "term":"TBH",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "mention",
+    "tag"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"Ping me when the build is green.",
+   "example_ru":"Пингани, когда билд позеленеет.",
+   "id":"esl-ping",
+   "level":1,
+   "meaning":"написать или напомнить коротким сообщением",
+   "note":"«Тегнуть» или «меншнуть» в чате — mention или tag someone.",
+   "register":"team",
+   "ru_slang":[
+    "пингануть",
+    "пинг",
+    "тегнуть",
+    "меншнуть"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "evercode-it-slang"
+   ],
+   "term":"ping",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"Just a heads-up: the API will be read-only on Saturday.",
+   "example_ru":"Предупреждаю заранее: в субботу API будет только на чтение.",
+   "id":"esl-heads-up",
+   "level":1,
+   "meaning":"предупреждение заранее",
+   "register":"ok",
+   "ru_slang":[
+    "предупредить заранее",
+    "дать знать заранее"
+   ],
+   "term":"heads-up",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "catch up",
+    "touch base"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"Let's do a quick sync after lunch.",
+   "example_ru":"Давай коротко сверимся после обеда.",
+   "id":"esl-sync",
+   "level":1,
+   "meaning":"короткая встреча, чтобы сверить статус",
+   "note":"touch base — «коротко связаться», звучит более офисно.",
+   "register":"team",
+   "ru_slang":[
+    "синк",
+    "синкануться"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"sync",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"Let's circle back to this once we have the numbers.",
+   "example_ru":"Вернёмся к этому, когда будут цифры.",
+   "id":"esl-circle-back",
+   "level":2,
+   "meaning":"вернуться к вопросу позже",
+   "note":"Офисное слово; иногда шутят, что это вежливое «никогда». Если обещали вернуться — вернитесь.",
+   "register":"team",
+   "term":"circle back",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"This is getting detailed, let's take it offline.",
+   "example_ru":"Уходим в детали, давайте обсудим это отдельно.",
+   "id":"esl-offline",
+   "level":2,
+   "meaning":"обсудить отдельно, не на общей встрече",
+   "note":"Не значит «без интернета»: это вежливый способ вернуть общую встречу к повестке.",
+   "register":"team",
+   "term":"take it offline",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "rough estimate"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"Can you give me a ballpark figure? Days or weeks?",
+   "example_ru":"Можешь прикинуть порядок? Дни или недели?",
+   "id":"esl-ballpark",
+   "level":2,
+   "meaning":"приблизительная оценка",
+   "register":"ok",
+   "term":"ballpark",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "capacity"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"I don't have the bandwidth this week, but I can pick it up on Monday.",
+   "example_ru":"На этой неделе у меня нет ресурса, но в понедельник могу взять.",
+   "id":"esl-bandwidth",
+   "level":2,
+   "meaning":"свободное время и силы взять ещё задачу",
+   "note":"Перенос из сетей: «пропускная способность» человека.",
+   "register":"team",
+   "term":"bandwidth",
+   "track_ids":[]
+  },
+  {
+   "category":"Чаты и созвоны",
+   "example_en":"I have a lot on my plate right now, can it wait until Thursday?",
+   "example_ru":"У меня сейчас много задач, может подождать до четверга?",
+   "id":"esl-on-plate",
+   "level":2,
+   "meaning":"мои текущие задачи",
+   "register":"ok",
+   "term":"on my plate",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "keep in the loop"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"Let me loop in Maria, she owns the billing service.",
+   "example_ru":"Подключу Марию, она отвечает за биллинг.",
+   "id":"esl-loop-in",
+   "level":2,
+   "meaning":"подключить человека к обсуждению",
+   "note":"keep someone in the loop — держать в курсе.",
+   "register":"ok",
+   "term":"loop in",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "+1"
+   ],
+   "category":"Чаты и созвоны",
+   "example_en":"Ack, I'll look into it after lunch.",
+   "example_ru":"Принял, посмотрю после обеда.",
+   "expansion":"acknowledge",
+   "id":"esl-ack",
+   "level":2,
+   "meaning":"принял, увидел",
+   "note":"В дежурствах «ackнуть алерт» — значит подтвердить, что вы его взяли. +1 в чате — «согласен» или «у меня так же».",
+   "register":"team",
+   "term":"ack",
+   "track_ids":[],
+   "vocab_ref":"ev-acknowledge"
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"We spent an hour bikeshedding over the button color.",
+   "example_ru":"Мы час спорили о цвете кнопки.",
+   "id":"esl-bikeshedding",
+   "level":2,
+   "meaning":"долгий спор о мелочи, пока важное остаётся без внимания",
+   "note":"Пример из истории: комитет быстро утверждает атомную станцию, но долго спорит о навесе для велосипедов — в нём разбирается каждый.",
+   "register":"team",
+   "term":"bikeshedding",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"I wanted to fix one test, and three hours later I was yak shaving the CI config.",
+   "example_ru":"Хотел починить один тест, а через три часа уже ковырял настройки CI.",
+   "id":"esl-yak-shaving",
+   "level":2,
+   "meaning":"цепочка подготовительных задач, которые уводят от исходной цели",
+   "note":"Отличие от bikeshedding: здесь каждая задача действительно нужна, просто их слишком много подряд.",
+   "register":"team",
+   "term":"yak shaving",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "rubber ducking"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"I found the bug halfway through explaining it — classic rubber duck debugging.",
+   "example_ru":"Нашёл ошибку, пока объяснял её вслух, — классическая отладка с уточкой.",
+   "id":"esl-rubber-duck",
+   "level":1,
+   "meaning":"найти ошибку, объясняя код вслух, хоть резиновой уточке",
+   "note":"Подходит и для собеседования: хороший пример того, как вы ищете причину проблемы.",
+   "register":"ok",
+   "source_refs":[
+    "codinghorror-new-jargon"
+   ],
+   "term":"rubber duck debugging",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"Force-pushing to a shared branch is a real footgun.",
+   "example_ru":"Принудительный пуш в общую ветку — это верный выстрел себе в ногу.",
+   "id":"esl-footgun",
+   "level":3,
+   "meaning":"возможность, которой слишком легко навредить себе",
+   "note":"Образовано от shoot yourself in the foot: работает как задумано, но провоцирует ошибку.",
+   "register":"team",
+   "term":"footgun",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"Adding a log line made it disappear — it's a heisenbug.",
+   "example_ru":"Добавил строку в лог, и всё пропало — это гейзенбаг.",
+   "id":"esl-heisenbug",
+   "level":3,
+   "meaning":"ошибка, которая пропадает, как только начинаешь её отлаживать",
+   "note":"Часто признак гонки или зависимости от времени.",
+   "register":"team",
+   "source_refs":[
+    "codinghorror-new-jargon"
+   ],
+   "term":"heisenbug",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "sad path"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"The tests only cover the happy path; there's nothing for invalid input.",
+   "example_ru":"Тесты покрывают только позитивный сценарий, проверок на кривой ввод нет.",
+   "id":"esl-happy-path",
+   "level":1,
+   "meaning":"сценарий, где всё идёт по плану, без ошибок",
+   "register":"ok",
+   "term":"happy path",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "corner case"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"What happens with an empty list? That's an edge case we missed.",
+   "example_ru":"Что будет с пустым списком? Этот пограничный случай мы пропустили.",
+   "id":"esl-edge-case",
+   "level":1,
+   "meaning":"редкий или пограничный случай",
+   "note":"corner case — совпадение нескольких пограничных условий сразу.",
+   "register":"ok",
+   "term":"edge case",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "eat your own dog food"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"We've been dogfooding the new dashboard for a month before the launch.",
+   "example_ru":"Месяц перед запуском мы сами пользовались новым дашбордом.",
+   "id":"esl-dogfooding",
+   "level":2,
+   "meaning":"пользоваться собственным продуктом внутри команды",
+   "register":"ok",
+   "term":"dogfooding",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"Only one person knows the deploy process, so our bus factor is one.",
+   "example_ru":"Процесс выкатки знает один человек — бас-фактор равен единице.",
+   "id":"esl-bus-factor",
+   "level":2,
+   "meaning":"сколько людей должно выпасть из команды, чтобы проект встал",
+   "note":"Хороший аргумент на собеседовании, почему вы пишете документацию и runbook.",
+   "register":"ok",
+   "term":"bus factor",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"A function with ten parameters is a code smell.",
+   "example_ru":"Функция с десятью параметрами — тревожный признак.",
+   "id":"esl-code-smell",
+   "level":2,
+   "meaning":"признак того, что с кодом что-то не так, хотя он работает",
+   "register":"ok",
+   "ru_slang":[
+    "запах кода",
+    "код с душком"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"code smell",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"\"It works on my machine\" is exactly why we run tests in containers.",
+   "example_ru":"«У меня работает» — ровно поэтому мы гоняем тесты в контейнерах.",
+   "id":"esl-works-on-my-machine",
+   "level":1,
+   "meaning":"у меня локально работает — классическая отговорка",
+   "note":"Говорят с иронией. На собеседовании лучше сразу перейти к тому, как вы находите разницу окружений.",
+   "register":"team",
+   "ru_slang":[
+    "у меня работает"
+   ],
+   "term":"it works on my machine",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"I bumped the version to 2.1.0. Also bumping this thread — any updates?",
+   "example_ru":"Поднял версию до 2.1.0. И напоминаю про эту ветку — есть новости?",
+   "id":"esl-bump",
+   "level":2,
+   "meaning":"поднять версию или напомнить о забытом сообщении",
+   "note":"bump a dependency — обновить зависимость до новой версии; bump the thread — поднять обсуждение наверх.",
+   "register":"team",
+   "term":"bump",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"After each deploy we run a smoke test against the main pages.",
+   "example_ru":"После каждой выкатки прогоняем быстрый смоук по основным страницам.",
+   "id":"esl-smoke-test",
+   "level":1,
+   "meaning":"быстрая проверка, что основное вообще работает",
+   "register":"ok",
+   "ru_slang":[
+    "смоук",
+    "смоук-тест"
+   ],
+   "source_refs":[
+    "evercode-it-slang"
+   ],
+   "term":"smoke test",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "quick win"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"Compressing images is low-hanging fruit: one hour, half the page weight.",
+   "example_ru":"Сжать картинки — лёгкая победа: час работы, вес страницы вдвое меньше.",
+   "id":"esl-low-hanging",
+   "level":2,
+   "meaning":"лёгкие улучшения с быстрым эффектом",
+   "register":"ok",
+   "term":"low-hanging fruit",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"I removed about two hundred lines of dead code.",
+   "example_ru":"Я удалил около двухсот строк мёртвого кода.",
+   "id":"esl-dead-code",
+   "level":1,
+   "meaning":"код, который больше нигде не вызывается",
+   "register":"ok",
+   "ru_slang":[
+    "мёртвый код",
+    "выпилить"
+   ],
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"dead code",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"This was meant to be a demo, and now it's protoduction.",
+   "example_ru":"Это было демо, а теперь работает в проде.",
+   "id":"esl-protoduction",
+   "level":3,
+   "meaning":"прототип, который так и уехал в прод",
+   "note":"Шуточное слово из подборки Coding Horror, в речи встречается редко — узнавать полезно, использовать необязательно.",
+   "register":"team",
+   "source_refs":[
+    "codinghorror-new-jargon"
+   ],
+   "term":"protoduction",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"Catching every exception here is Pokémon exception handling; we'll hide real bugs.",
+   "example_ru":"Ловить здесь все исключения подряд — так мы спрячем настоящие ошибки.",
+   "id":"esl-pokemon",
+   "level":3,
+   "meaning":"ловить все исключения подряд одним catch",
+   "note":"От слогана Gotta catch 'em all.",
+   "register":"team",
+   "source_refs":[
+    "codinghorror-new-jargon"
+   ],
+   "term":"Pokémon exception handling",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"Nobody knows why this retry is here; it looks like cargo cult programming.",
+   "example_ru":"Никто не знает, зачем здесь повтор, — похоже на карго-культ.",
+   "id":"esl-cargo-cult",
+   "level":3,
+   "meaning":"копировать приёмы, не понимая, зачем они нужны",
+   "register":"team",
+   "ru_slang":[
+    "карго-культ"
+   ],
+   "term":"cargo cult programming",
+   "track_ids":[]
+  },
+  {
+   "category":"Жаргон разработчиков",
+   "example_en":"The setup steps are in the README: here's the link.",
+   "example_ru":"Шаги настройки есть в README — вот ссылка.",
+   "expansion":"Read the f***ing manual",
+   "id":"esl-rtfm",
+   "level":2,
+   "meaning":"грубое «прочитай документацию»",
+   "note":"Грубо, в рабочей переписке не используют. Вежливо — дать ссылку на нужный раздел, как в примере.",
+   "register":"avoid",
+   "source_refs":[
+    "habr-it-jargon"
+   ],
+   "term":"RTFM",
+   "track_ids":[]
+  },
+  {
+   "also_en":[
+    "wipe"
+   ],
+   "category":"Жаргон разработчиков",
+   "example_en":"If the cache is corrupted, just nuke it and rebuild.",
+   "example_ru":"Если кэш битый, просто снеси его и пересобери.",
+   "id":"esl-nuke",
+   "level":2,
+   "meaning":"снести всё под ноль",
+   "register":"team",
+   "ru_slang":[
+    "снести",
+    "грохнуть",
+    "сносить"
+   ],
+   "source_refs":[
+    "hexlet-it-slang",
+    "habr-it-jargon"
+   ],
+   "term":"nuke",
+   "track_ids":[]
   }
  ],
  "englishVocab":[

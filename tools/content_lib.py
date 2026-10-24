@@ -40,6 +40,8 @@ FILES = {
     "english_drills": "english_drills.json",
     "english_writing": "english_writing.json",
     "english_resources": "english_resources.json",
+    # Сленг и жаргон: справочник без состояния, как ресурсы.
+    "english_slang": "english_slang.json",
     # Практика DevOps: лабораторные и DutyOps-упражнения. Записи привязаны к
     # треку через track_id, как вопросы и кейсы.
     "labs": "labs.json",
@@ -67,6 +69,7 @@ LIST_KEY = {
     "english_drills": "drills",
     "english_writing": "snippets",
     "english_resources": "resources",
+    "english_slang": "terms",
     "labs": "labs",
     "dutyops": "drills",
 }
@@ -100,6 +103,7 @@ class Content:
     english_drills: list = field(default_factory=list)
     english_writing: list = field(default_factory=list)
     english_resources: list = field(default_factory=list)
+    english_slang: list = field(default_factory=list)
     labs: list = field(default_factory=list)
     dutyops: list = field(default_factory=list)
 
@@ -195,6 +199,7 @@ class Content:
             "english_drills": len(self.english_drills),
             "english_writing": len(self.english_writing),
             "english_resources": len(self.english_resources),
+            "english_slang": len(self.english_slang),
             "labs": len(self.labs),
             "dutyops_drills": len(self.dutyops),
         }

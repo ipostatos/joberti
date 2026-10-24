@@ -64,6 +64,7 @@ TRACK_SECTIONS = {
     "englishDrills": "track_ids",
     "englishWriting": "track_ids",
     "englishResources": "track_ids",
+    "englishSlang": "track_ids",
     # Практика DevOps: лабораторные и DutyOps-упражнения есть не у каждого
     # трека — у остальных разделы просто пустые.
     "labs": "track_id",
@@ -78,6 +79,7 @@ CORE_SECTIONS = (
     "storyFramework",
     "englishPhraseCategories", "englishVocabCategories", "englishDrillCategories",
     "englishWritingCategories", "englishResourceCategories",
+    "englishSlangCategories", "englishSlangRegisters",
     "dutyopsPhases",
     "counts",
 )
@@ -154,6 +156,9 @@ def build_sections(c) -> dict:
         "englishWritingCategories": c.raw["english_writing"].get("categories", []),
         "englishResources": c.english_resources,
         "englishResourceCategories": c.raw["english_resources"].get("categories", []),
+        "englishSlang": c.english_slang,
+        "englishSlangCategories": c.raw["english_slang"].get("categories", []),
+        "englishSlangRegisters": c.raw["english_slang"].get("registers", {}),
         "labs": c.labs,
         "dutyopsDrills": c.dutyops,
         "dutyopsPhases": c.raw["dutyops"].get("phases", {}),

@@ -171,6 +171,32 @@ class TestEnglish(unittest.TestCase):
                             f"{x['id']}: в поле {f} есть кириллица",
                         )
 
+    def test_slang_does_not_duplicate_vocab(self):
+        """Слово из вкладки «Слова» в сленге не переписывается, а связывается.
+
+        Иначе у одного слова появятся два разных объяснения, и правка одного
+        тихо разведёт их.
+        """
+        vocab = {validate_content._slang_key(w["term"]): w["id"]
+                 for w in self.c.english_vocab}
+        for x in self.c.english_slang:
+            twin = vocab.get(validate_content._slang_key(x["term"]))
+            if twin:
+                with self.subTest(item=x["id"]):
+                    self.assertEqual(x.get("vocab_ref"), twin)
+
+    def test_slang_entries_are_unique(self):
+        terms = [validate_content._slang_key(x["term"]) for x in self.c.english_slang]
+        self.assertEqual(len(terms), len(set(terms)), "термин сленга встречается дважды")
+        ru = [r.lower() for x in self.c.english_slang for r in x.get("ru_slang") or []]
+        self.assertEqual(len(ru), len(set(ru)), "русская форма сленга встречается дважды")
+
+    def test_slang_english_fields_have_no_cyrillic(self):
+        for x in self.c.english_slang:
+            for f in ("term", "example_en", "expansion"):
+                with self.subTest(item=x["id"], field=f):
+                    self.assertFalse(validate_content.CYRILLIC & set(x.get(f) or ""))
+
     def test_drill_rubrics_are_complete(self):
         for d in self.c.english_drills:
             with self.subTest(drill=d["id"]):
